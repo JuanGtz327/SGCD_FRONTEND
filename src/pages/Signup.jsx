@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
+  CardHeader,
   Input,
   Checkbox,
   Button,
@@ -31,7 +32,7 @@ const SignUp = () => {
             <BiSolidErrorAlt />
           )
         }
-        className={`fixed top-10 w-3/4 sm:left-3/4 sm:w-1/5 z-50 ${
+        className={`fixed top-10 right-10 z-50 w-[300px] sm:w-[350px] md:w-[400px] ${
           alertConfig.type === "success" ? "bg-green-500" : "bg-red-500"
         }`}
         open={open}
@@ -41,11 +42,17 @@ const SignUp = () => {
       </Alert>
       <Card
         shadow={true}
-        className="mt-16 mx-3 w-fit px-5 py-2 lg:w-50 lg:mt-52 sm:mx-auto"
+        className="mt-16 mx-auto w-[90%] px-5 py-2 xs:mx-auto sm:w-fit sm:mt-20 md:mt-24 lg:mt-28"
       >
-        <Typography variant="h4" color="blue-gray">
-          Sign Up
-        </Typography>
+        <CardHeader
+          variant="gradient"
+          color="gray"
+          className="mb-4 grid h-28 place-items-center"
+        >
+          <Typography variant="h4" color="white">
+            Sign Up
+          </Typography>
+        </CardHeader>
         <Typography color="gray" className="mt-1 font-normal">
           Ingresa tus datos para registrarte
         </Typography>

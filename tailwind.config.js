@@ -8,7 +8,13 @@ export default withMT({
   theme: {
     extend: {
       screens: {
-        'xs': '320px',
+        'xs': '375px',
+        'sm': '440px',
+        'md': '768px',
+        'lg': '1024px',
+        'lg-max': { max: "1024px" },
+        'xl': '1280px',
+        '2xl': '1536px',
       },
       fontFamily: {
         sans: ['Rubik', 'sans-serif'],
