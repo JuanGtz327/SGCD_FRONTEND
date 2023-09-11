@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
@@ -6,73 +6,59 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Checkbox,
   Input,
   Button,
   Typography,
-  Alert,
   Spinner,
 } from "@material-tailwind/react";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { BiSolidErrorAlt } from "react-icons/bi";
 import { loginRequest } from "../api/api";
+import AlertCustom from "../common/AlertCustom.jsx";
 
 const LogIn = () => {
-  const [open, setOpen] = useState(false);
   const [alertConfig, setAlertConfig] = useState({});
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const navigate = useNavigate();
+
+  const onSubmit = handleSubmit(async (values) => {
+    setLoading(true);
+    try {
+      await loginRequest(values);
+      setAlertConfig({
+        msg: "Inicio de sesion exitoso",
+        type: "success",
+        isopen: true,
+      });
+      navigate("/main");
+    } catch (error) {
+      setAlertConfig({
+        msg: error.response.data.message,
+        type: "error",
+        isopen: true,
+      });
+    }
+    setLoading(false);
+  });
+
+  useEffect(() => {
+    setAlertConfig({ ...alertConfig, isopen: false });
+  }, [loading]);
 
   return (
     <>
-      <Alert
-        icon={
-          alertConfig.type === "success" ? (
-            <AiFillCheckCircle />
-          ) : (
-            <BiSolidErrorAlt />
-          )
-        }
-        className={`fixed top-10 w-3/4 sm:left-3/4 sm:w-1/5 z-50 ${
-          alertConfig.type === "success" ? "bg-green-500" : "bg-red-500"
-        }`}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <>{alertConfig.children}</>
-      </Alert>
+      <AlertCustom
+        msg={alertConfig.msg}
+        type={alertConfig.type}
+        isopen={alertConfig.isopen}
+      />
 
       <Card className="w-[90%] mx-[5%] sm:w-96 sm:mx-auto sm:mt-28 md:mt-36">
-        <form
-          onSubmit={handleSubmit(async (values) => {
-            setLoading(true);
-            try {
-              const res = await loginRequest(values);
-              if (res.status === 200) {
-                setAlertConfig({
-                  children: "Inicio de sesion exitoso",
-                  type: "success",
-                });
-                setOpen(true);
-                setTimeout(() => {
-                  setOpen(false);
-                  navigate("/main");
-                }, 1000);
-              }
-            } catch (error) {
-              setAlertConfig({
-                children: error.response.data.message,
-                type: "error",
-              });
-              setOpen(true);
-              setTimeout(() => {
-                setOpen(false);
-              }, 3000);
-              setLoading(false);
-            }
-          })}
-        >
+        <form onSubmit={onSubmit}>
           <CardHeader
             variant="gradient"
             color="gray"
@@ -88,12 +74,14 @@ const LogIn = () => {
               label="Email"
               size="lg"
               {...register("Correo", { required: true })}
+              error={errors.Correo ? true : false}
             />
             <Input
               type="password"
               label="Contraseña"
               size="lg"
               {...register("Password", { required: true })}
+              error={errors.Password ? true : false}
             />
           </CardBody>
           <CardFooter className="pt-0 mt-3">
