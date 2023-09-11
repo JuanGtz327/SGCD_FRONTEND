@@ -11,8 +11,8 @@ import {
   Typography,
   Spinner,
 } from "@material-tailwind/react";
-import { loginRequest } from "../api/api";
 import AlertCustom from "../common/AlertCustom.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const LogIn = () => {
   const [alertConfig, setAlertConfig] = useState({});
@@ -22,13 +22,19 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const { signin, isAthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAthenticated) {
+      navigate("/main");
+    }
+  }, [isAthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);
     try {
-      await loginRequest(values);
+      await signin(values);
       setAlertConfig({
         msg: "Inicio de sesion exitoso",
         type: "success",
@@ -37,7 +43,7 @@ const LogIn = () => {
       navigate("/main");
     } catch (error) {
       setAlertConfig({
-        msg: error.response.data.message,
+        msg: error.message,
         type: "error",
         isopen: true,
       });
