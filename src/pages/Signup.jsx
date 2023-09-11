@@ -93,7 +93,7 @@ const SignUp = () => {
                 containerProps={{ className: "min-w-[72px]" }}
                 type="text"
                 {...register("ApellidoP", { required: true })}
-                error={errors.Nombre ? true : false}
+                error={errors.ApellidoP ? true : false}
               />
               <Input
                 label="Apellido Materno"
@@ -101,7 +101,7 @@ const SignUp = () => {
                 containerProps={{ className: "min-w-[72px]" }}
                 type="text"
                 {...register("ApellidoM", { required: true })}
-                error={errors.Nombre ? true : false}
+                error={errors.ApellidoM ? true : false}
               />
             </div>
             <div className="flex items-center gap-4">
@@ -111,7 +111,7 @@ const SignUp = () => {
                 containerProps={{ className: "min-w-[72px]" }}
                 type="text"
                 {...register("Especialidad", { required: true })}
-                error={errors.Nombre ? true : false}
+                error={errors.Especialidad ? true : false}
               />
               <Input
                 label="Consultorio"
@@ -119,7 +119,7 @@ const SignUp = () => {
                 containerProps={{ className: "min-w-[72px]" }}
                 type="number"
                 {...register("Consultorio", { required: true })}
-                error={errors.Nombre ? true : false}
+                error={errors.Consultorio ? true : false}
               />
             </div>
             <Input
@@ -127,14 +127,14 @@ const SignUp = () => {
               label="Correo"
               type="email"
               {...register("Correo", { required: true })}
-              error={errors.Nombre ? true : false}
+              error={errors.Correo ? true : false}
             />
             <Input
               size="lg"
               label="Contraseña"
               type="password"
               {...register("Password", { required: true })}
-              error={errors.Nombre ? true : false}
+              error={errors.Password ? true : false}
             />
             {errors.Password ? (
               <Typography variant="small" color="red" className="flex">
