@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
-  CardBody,
-  CardFooter,
   Input,
   Button,
   Typography,
@@ -63,18 +61,21 @@ const LogIn = () => {
         isopen={alertConfig.isopen}
       />
 
-      <Card className="w-[90%] mx-[5%] sm:w-96 sm:mx-auto sm:mt-28 md:mt-36">
-        <form onSubmit={onSubmit}>
-          <CardHeader
-            variant="gradient"
-            color="gray"
-            className="mb-4 grid h-28 place-items-center"
-          >
-            <Typography variant="h3" color="white">
-              Log In
-            </Typography>
-          </CardHeader>
-          <CardBody className="flex flex-col gap-4">
+      <Card className="w-[90%] mx-[5%] mt-16 px-5 py-2 sm:w-[24rem] sm:mx-auto sm:mt-28 md:mt-24 lg:mt-28">
+        <CardHeader
+          variant="gradient"
+          color="gray"
+          className="mb-4 grid h-28 place-items-center"
+        >
+          <Typography variant="h4" color="white">
+            Log In
+          </Typography>
+        </CardHeader>
+        <Typography color="gray" className="mt-1 font-normal">
+          Ingresa tus credenciales para acceder
+        </Typography>
+        <form onSubmit={onSubmit} className="mt-4 mb-2">
+          <div className="mb-4 flex flex-col gap-4">
             <Input
               type="email"
               label="Email"
@@ -89,28 +90,26 @@ const LogIn = () => {
               {...register("Password", { required: true })}
               error={errors.Password ? true : false}
             />
-          </CardBody>
-          <CardFooter className="pt-0 mt-3">
-            {loading ? (
-              <Spinner className="mx-auto" />
-            ) : (
-              <Button variant="gradient" fullWidth type="submit">
-                Log In
-              </Button>
-            )}
-            <Typography variant="small" className="mt-6 flex justify-center">
-              ¿No tienes una cuenta?
-              <Typography
-                as="a"
-                href="/signup"
-                variant="small"
-                color="blue-gray"
-                className="ml-1 font-bold"
-              >
-                Sign up
-              </Typography>
+          </div>
+          {loading ? (
+            <Spinner className="mx-auto" />
+          ) : (
+            <Button variant="gradient" fullWidth type="submit" className="mt-5">
+              Log In
+            </Button>
+          )}
+          <Typography variant="small" className="mt-4 flex justify-center">
+            ¿No tienes una cuenta?
+            <Typography
+              as="a"
+              href="/signup"
+              variant="small"
+              color="blue-gray"
+              className="ml-1 font-bold"
+            >
+              Sign up
             </Typography>
-          </CardFooter>
+          </Typography>
         </form>
       </Card>
     </>

@@ -61,10 +61,7 @@ const SignUp = () => {
         isopen={alertConfig.isopen}
       />
 
-      <Card
-        shadow={true}
-        className="mt-16 mx-auto w-[90%] px-5 py-2 xs:mx-auto sm:w-fit sm:mt-20 md:mt-24 lg:mt-28"
-      >
+      <Card className="mt-16 mx-auto w-[90%] px-5 py-2 xs:mx-auto sm:w-96 sm:mt-28 md:mt-24 lg:mt-28">
         <CardHeader
           variant="gradient"
           color="gray"
@@ -77,7 +74,7 @@ const SignUp = () => {
         <Typography color="gray" className="mt-1 font-normal">
           Ingresa tus datos para registrarte
         </Typography>
-        <form className="mt-4 mb-2 w-100 max-w-screen-lg" onSubmit={onSubmit}>
+        <form className="mt-4 mb-2" onSubmit={onSubmit}>
           <div className="mb-4 flex flex-col gap-4">
             <Input
               size="lg"
