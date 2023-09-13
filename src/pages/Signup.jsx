@@ -22,13 +22,13 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { signup, isAthenticated } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (isAthenticated) {
-      navigate("/main");
+    if (isAuthenticated) {
+      return navigate("/main");
     }
-  }, [isAthenticated]);
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);

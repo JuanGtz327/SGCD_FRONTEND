@@ -20,14 +20,14 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signin, isAthenticated } = useAuth();
+  const { signin, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAthenticated) {
-      navigate("/main");
+    if (isAuthenticated) {
+      return navigate("/main");
     }
-  }, [isAthenticated]);
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);

@@ -1,11 +1,17 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+import axios from "./axios.js";
 
 export const signupRequest = (user) => {
-  return axios.post(`${API_URL}/signup`, user);
+  return axios.post(`/signup`, user);
 };
 
 export const loginRequest = (user) => {
-  return axios.post(`${API_URL}/login`, user);
+  return axios.post(`/login`, user);
+};
+
+export const logoutRequest = () => {
+  return axios.post(`/logout`);
+};
+
+export const veryfyTokenRequest = () => {
+  return axios.get("/verify-token");
 };
