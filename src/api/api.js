@@ -12,6 +12,6 @@ export const logoutRequest = () => {
   return axios.post(`/logout`);
 };
 
-export const veryfyTokenRequest = () => {
-  return axios.get("/verify-token");
+export const veryfyTokenRequest = (token) => {
+  return axios.post("/verify-token",token);
 };

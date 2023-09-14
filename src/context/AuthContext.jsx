@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { signupRequest, loginRequest, veryfyTokenRequest, logoutRequest } from "../api/api";
-import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -22,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       const res = await signupRequest(user);
       setUser(res.data);
       setIsAuthenticated(true);
+      localStorage.setItem('token', JSON.stringify(res.data.token));
     } catch (error) {
       throw new Error(error.response.data.message);
     }
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user);
       setUser(res.data);
       setIsAuthenticated(true);
+      localStorage.setItem('token', JSON.stringify(res.data.token));
     } catch (error) {
       throw new Error(error.response.data.message);
     }
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       await logoutRequest();
       setUser(null);
       setIsAuthenticated(false);
+      localStorage.removeItem('token');
     } catch (error) {
       throw new Error(error.response.data.message);
     }
@@ -49,10 +51,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const cookie = Cookies.get();
-      if (cookie.token) {
+      const token = {token: JSON.parse(localStorage.getItem('token'))}
+      if (token.token!=null) {
         try {
-          const res = await veryfyTokenRequest(cookie.token);
+          const res = await veryfyTokenRequest(token);
           if (res.status === 200) {
             setUser(res.data);
             setIsAuthenticated(true);
