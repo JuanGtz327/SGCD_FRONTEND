@@ -25,3 +25,6 @@ dist-ssr
 
 #ENTORNO
 .env
+
+##Excluir archivos
+presets.jsx

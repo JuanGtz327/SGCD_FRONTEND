@@ -3,7 +3,8 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
-import PanelDoctor from "./components/doctor/PanelDoctor.jsx";
+import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
+import AddPatient from "./components/doctor/AddPatient.jsx";
 
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
@@ -16,7 +17,8 @@ const App = () => {
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/main" element={<PanelDoctor />} />
+            <Route path="/main" element={<DoctorPanel />} />
+            <Route path="/addPatient" element={<AddPatient />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 
-const PanelDoctor = () => {
+const DoctorPanel = () => {
   const { user,logout } = useAuth();
 
   const handleLogOut = async () => {
@@ -16,4 +16,4 @@ const PanelDoctor = () => {
   );
 };
 
-export default PanelDoctor;
+export default DoctorPanel;

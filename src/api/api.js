@@ -15,3 +15,9 @@ export const logoutRequest = () => {
 export const veryfyTokenRequest = (token) => {
   return axios.post("/verify-token",token);
 };
+
+//PARA Pacientes
+
+export const createPatientRequest = (patient) => {
+  return axios.post(`/admin/addPatient`, patient);
+}
