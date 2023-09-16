@@ -7,6 +7,7 @@ import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
 import AddPatient from "./components/doctor/AddPatient.jsx";
 
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import Layout from "./common/Layout.jsx";
 
 const App = () => {
   return (
@@ -17,9 +18,24 @@ const App = () => {
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/main" element={<DoctorPanel />} />
-            <Route path="/addPatient" element={<AddPatient />} />
+            <Route
+              path="/main"
+              element={
+                <Layout>
+                  <DoctorPanel />
+                </Layout>
+              }
+            />
+            <Route
+              path="/addPatient"
+              element={
+                <Layout>
+                  <AddPatient />
+                </Layout>
+              }
+            />
           </Route>
+          <Route path="*" element={ <h1>No se encotnro</h1> } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

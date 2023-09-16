@@ -4,14 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 const DoctorPanel = () => {
   const { user,logout } = useAuth();
 
-  const handleLogOut = async () => {
-    await logout();
-  };
-
   return (
     <div>
-      <h1 className="text-cyan-50">Bienvenido doctor {user.name}</h1>
-      <button onClick={handleLogOut}>Log Out</button>
+      <p className="text-2xl">Este sera el panel del doctor</p>
     </div>
   );
 };
