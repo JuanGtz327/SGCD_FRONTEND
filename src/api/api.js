@@ -18,6 +18,22 @@ export const veryfyTokenRequest = (token) => {
 
 //PARA Pacientes
 
-export const createPatientRequest = (patient) => {
-  return axios.post(`/admin/addPatient`, patient);
+export const createPatientRequest = (data,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.post(`/admin/addPatient`, data,{headers});
+}
+
+export const getPatientsRequest = (token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.get(`/admin/getPatients`,{headers});
+}
+
+export const deletePatientRequest = (id,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.delete(`/admin/deletePatient/${id}`,{headers});
+}
+
+export const editPatientRequest = (id,data,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.put(`/admin/editPatient/${id}`,data,{headers});
 }

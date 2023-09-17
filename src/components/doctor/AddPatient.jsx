@@ -13,6 +13,7 @@ import {
 import { createPatientRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
 import AlertCustom from "../../common/AlertCustom.jsx";
+import { useNavigate } from "react-router-dom";
 
 const AddPatient = () => {
   const [alertConfig, setAlertConfig] = useState({});
@@ -24,16 +25,18 @@ const AddPatient = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);
     try {
-      await createPatientRequest({ Patient: values, User: user });
+      await createPatientRequest({ Patient: values},user.token);
       setAlertConfig({
         msg: "Registro completo",
         type: "success",
         isopen: true,
       });
+      navigate("/listPatients");
     } catch (error) {
       setAlertConfig({
         msg: error.message,
@@ -55,7 +58,7 @@ const AddPatient = () => {
         type={alertConfig.type}
         isopen={alertConfig.isopen}
       />
-      <Card shadow={false} className="w-96 px-5 py-5">
+      <Card shadow={false} className="w-96 px-5 py-5 mx-auto mt-[5%]">
         <Typography variant="h4" color="blue-gray">
           Nuevo paciente
         </Typography>

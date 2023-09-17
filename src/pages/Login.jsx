@@ -65,7 +65,7 @@ const LogIn = () => {
       } else {
         clearInterval(typingInterval);
       }
-    }, 100); // Velocidad de escritura (en milisegundos)
+    }, 100);
 
     return () => clearInterval(typingInterval);
   }, []);
