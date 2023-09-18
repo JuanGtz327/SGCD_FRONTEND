@@ -6,6 +6,7 @@ import LogIn from "./pages/Login.jsx";
 import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
 import AddPatient from "./components/doctor/AddPatient.jsx";
 import Patients from "./components/doctor/Patients.jsx";
+import Appointments from "./components/doctor/Appointments.jsx";
 
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./common/Layout.jsx";
@@ -40,6 +41,14 @@ const App = () => {
               element={
                 <Layout>
                   <Patients />
+                </Layout>
+              }
+            />
+            <Route
+              path="/appointments"
+              element={
+                <Layout>
+                  <Appointments />
                 </Layout>
               }
             />

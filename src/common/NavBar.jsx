@@ -22,6 +22,11 @@ import {
   InboxIcon,
   PowerIcon,
   ComputerDesktopIcon,
+  CalendarIcon,
+  ClipboardDocumentListIcon,
+  FaceSmileIcon,
+  PlusIcon,
+  QueueListIcon
 } from "@heroicons/react/24/solid";
 import {
   ChevronRightIcon,
@@ -59,7 +64,7 @@ const NavBar = () => {
         <Link to="/main">
           <ListItem>
             <ListItemPrefix>
-              <ComputerDesktopIcon className="h-5 w-5" />
+              <ClipboardDocumentListIcon className="h-5 w-5" />
             </ListItemPrefix>
             Inicio
           </ListItem>
@@ -81,7 +86,7 @@ const NavBar = () => {
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <PresentationChartBarIcon className="h-5 w-5" />
+                <FaceSmileIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 Pacientes
@@ -93,7 +98,7 @@ const NavBar = () => {
               <Link to="/addPatient">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon className="h-5 w-5" />
+                    <PlusIcon className="h-5 w-5" />
                   </ListItemPrefix>
                   Nuevo Paciente
                 </ListItem>
@@ -101,7 +106,7 @@ const NavBar = () => {
               <Link to="/listPatients">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon className="h-5 w-5" />
+                    <QueueListIcon className="h-5 w-5" />
                   </ListItemPrefix>
                   Mis Pacientes
                 </ListItem>
@@ -109,47 +114,16 @@ const NavBar = () => {
             </List>
           </AccordionBody>
         </Accordion>
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
-              }`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
-            >
-              <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Citas
-              </Typography>
-            </AccordionHeader>
+        <Link to="/appointments">
+          <ListItem>
+            <ListItemPrefix>
+              <CalendarIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            <Typography color="blue-gray" className="mr-auto font-normal">
+              Citas
+            </Typography>
           </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Nueva Cita
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Mis Citas
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
+        </Link>
         <hr className="my-2 border-blue-gray-50" />
         <ListItem>
           <ListItemPrefix>

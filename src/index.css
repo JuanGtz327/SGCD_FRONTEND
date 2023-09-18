@@ -3,15 +3,5 @@
 @tailwind utilities;
 
 body{
-    background: #ffffff;
-}
-
-.BGcolor {
-    background: linear-gradient(to bottom, #2196F3, #64B5F6);
-}
-
-@media (max-width: 767px) {
-    .BGcolor {
-        background: linear-gradient(to right, #2196F3, #64B5F6);
-    }
+    background: #f5f5f5;
 }

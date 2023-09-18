@@ -161,8 +161,8 @@ const AddPatient = () => {
           {loading ? (
             <Spinner className="mx-auto" />
           ) : (
-            <Button className="mt-6" fullWidth type="submit">
-              Sign Up
+            <Button color="blue" className="mt-6" fullWidth type="submit">
+              Añadir paciente
             </Button>
           )}
         </form>
