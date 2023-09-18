@@ -37,3 +37,15 @@ export const editPatientRequest = (id,data,token) => {
   const headers = {"Authorization": `Bearer ${token}`};
   return axios.put(`/admin/editPatient/${id}`,data,{headers});
 }
+
+//PARA Citas
+
+export const createAppointmentRequest = (data,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.post(`/admin/addCita`, data,{headers});
+}
+
+export const getAppointmentsRequest = (token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.get(`/admin/getCitas`,{headers});
+}

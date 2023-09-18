@@ -261,10 +261,7 @@ const Patients = () => {
                   <Typography variant="h4" color="blue-gray">
                     Editar paciente
                   </Typography>
-                  <Typography color="gray" className="mt-1 font-normal">
-                    Ingrese los nuevos datos de su paciente
-                  </Typography>
-                  <div className="mb-4 flex flex-col gap-6">
+                  <div className="mt-4 mb-4 flex flex-col gap-6">
                     <Input
                       size="lg"
                       label="Nombre"
