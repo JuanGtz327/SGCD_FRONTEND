@@ -36,6 +36,12 @@ const SignUp = () => {
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);
     try {
+      const { Password, CPassword } = values;
+      if (Password !== CPassword) {
+        throw new Error("Las contraseñas no coinciden");
+      }
+      delete values.CPassword;
+      delete values.Checked;
       await signup(values);
       setAlertConfig({
         msg: "Registro completo",
@@ -91,7 +97,7 @@ const SignUp = () => {
         </div>
         <div className='w-full lg:w-1/3 my-auto'>
           <Card
-            className="mx-auto w-[90%] px-5 py-2 sm:w-fit"
+            className="mx-auto w-[90%] px-5 py-2 sm:w-3/4"
             color="transparent"
             shadow={false}
           >
@@ -111,49 +117,6 @@ const SignUp = () => {
               <div className="mb-4 flex flex-col gap-4">
                 <Input
                   size="lg"
-                  label="Nombre"
-                  type="text"
-                  {...register("Nombre", { required: true })}
-                  error={errors.Nombre ? true : false}
-                />
-                <div className="flex items-center gap-4">
-                  <Input
-                    label="Apellido Paterno"
-                    maxLength={15}
-                    containerProps={{ className: "min-w-[72px]" }}
-                    type="text"
-                    {...register("ApellidoP", { required: true })}
-                    error={errors.ApellidoP ? true : false}
-                  />
-                  <Input
-                    label="Apellido Materno"
-                    maxLength={15}
-                    containerProps={{ className: "min-w-[72px]" }}
-                    type="text"
-                    {...register("ApellidoM", { required: true })}
-                    error={errors.ApellidoM ? true : false}
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Input
-                    label="Especialidad"
-                    maxLength={20}
-                    containerProps={{ className: "min-w-[72px]" }}
-                    type="text"
-                    {...register("Especialidad", { required: true })}
-                    error={errors.Especialidad ? true : false}
-                  />
-                  <Input
-                    label="Consultorio"
-                    maxLength={4}
-                    containerProps={{ className: "min-w-[72px]" }}
-                    type="number"
-                    {...register("Consultorio", { required: true })}
-                    error={errors.Consultorio ? true : false}
-                  />
-                </div>
-                <Input
-                  size="lg"
                   label="Correo"
                   type="email"
                   {...register("Correo", { required: true })}
@@ -164,6 +127,13 @@ const SignUp = () => {
                   label="Contraseña"
                   type="password"
                   {...register("Password", { required: true })}
+                  error={errors.Password ? true : false}
+                />
+                <Input
+                  size="lg"
+                  label="Confirmar contraseña"
+                  type="password"
+                  {...register("CPassword", { required: true })}
                   error={errors.Password ? true : false}
                 />
                 {errors.Password ? (
@@ -188,6 +158,7 @@ const SignUp = () => {
               </div>
 
               <Checkbox
+                color="blue"
                 label={
                   <Typography
                     variant="small"

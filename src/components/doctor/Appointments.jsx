@@ -143,7 +143,7 @@ const Appointments = () => {
   }, [loading]);
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
-    values.Fecha = selectDate.toISOString().split("T")[0] + "T" + values.Hora;
+    values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     delete values.Hora;
     console.log(values);
     try {
