@@ -8,7 +8,7 @@ const DoctorPanel = () => {
 
   return (
     <div>
-      <p className="text-2xl">Este sera el panel del doctor</p>
+      <p className="text-2xl">Este sera el panel principal</p>
     </div>
   );
 };

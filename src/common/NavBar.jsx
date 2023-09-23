@@ -15,43 +15,40 @@ import {
   Input,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
   UserCircleIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-  ComputerDesktopIcon,
   CalendarIcon,
   ClipboardDocumentListIcon,
   FaceSmileIcon,
   PlusIcon,
-  QueueListIcon
+  QueueListIcon,
 } from "@heroicons/react/24/solid";
 import {
-  ChevronRightIcon,
   ChevronDownIcon,
   CubeTransparentIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { FaUserDoctor } from "react-icons/fa6";
 
 import { useAuth } from "../context/AuthContext.jsx";
 
 const NavBar = () => {
   const [open, setOpen] = React.useState(0);
+  const [open2, setOpen2] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
 
   const { user, logout } = useAuth();
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const handleOpen2 = (value) => setOpen2(open2 === value ? 0 : value);
 
   return (
     <Card className="hidden md:flex h-[calc(100vh)] w-full lg:w-[30%] max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-none">
       <div className="mb-2 flex items-center gap-4 p-4">
         <Typography variant="h5" color="blue-gray">
-          Bienvenido {user.name}
+          Bienvenido {user.email}
         </Typography>
       </div>
       <div className="p-2">
@@ -69,6 +66,53 @@ const NavBar = () => {
             Inicio
           </ListItem>
         </Link>
+        {user.is_admin && (
+          <Accordion
+            open={open2 === 1}
+            icon={
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`mx-auto h-4 w-4 transition-transform ${
+                  open2 === 1 ? "rotate-180" : ""
+                }`}
+              />
+            }
+          >
+            <ListItem className="p-0" selected={open2 === 1}>
+              <AccordionHeader
+                onClick={() => handleOpen2(1)}
+                className="border-b-0 p-3"
+              >
+                <ListItemPrefix>
+                  <FaUserDoctor className="h-5 w-5" />
+                </ListItemPrefix>
+                <Typography color="blue-gray" className="mr-auto font-normal">
+                  Doctores
+                </Typography>
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody className="py-1">
+              <List className="p-0">
+                <Link to="/addDoctor">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <PlusIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Nuevo Doctor
+                  </ListItem>
+                </Link>
+                <Link to="/listDoctors">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <QueueListIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Mis Doctores
+                  </ListItem>
+                </Link>
+              </List>
+            </AccordionBody>
+          </Accordion>
+        )}
         <Accordion
           open={open === 1}
           icon={
@@ -152,7 +196,6 @@ const NavBar = () => {
           </ListItemPrefix>
           Configuracion
         </ListItem>
-
         <button
           onClick={async () => {
             await logout();

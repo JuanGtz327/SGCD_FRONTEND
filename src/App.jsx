@@ -4,6 +4,8 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
 import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
+import Doctors from "./components/doctor/Doctors.jsx";
+import AddDoctor from "./components/doctor/AddDoctor.jsx";
 import AddPatient from "./components/doctor/AddPatient.jsx";
 import Patients from "./components/doctor/Patients.jsx";
 import Appointments from "./components/doctor/Appointments.jsx";
@@ -25,6 +27,22 @@ const App = () => {
               element={
                 <Layout>
                   <DoctorPanel />
+                </Layout>
+              }
+            />
+            <Route
+              path="/addDoctor"
+              element={
+                <Layout>
+                  <AddDoctor />
+                </Layout>
+              }
+            />
+            <Route
+              path="/listDoctors"
+              element={
+                <Layout>
+                  <Doctors />
                 </Layout>
               }
             />

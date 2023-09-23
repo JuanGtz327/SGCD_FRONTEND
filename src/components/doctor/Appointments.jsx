@@ -132,7 +132,6 @@ const Appointments = () => {
   }, []);
 
   useEffect(() => {
-    console.log('jajaj mamaste');
     (async () => {
       const response = await getPatientsRequest(user.token);
       const response2 = await getAppointmentsRequest(user.token);

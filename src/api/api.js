@@ -1,5 +1,7 @@
 import axios from "./axios.js";
 
+//API para el login y registro de usuarios
+
 export const signupRequest = (user) => {
   return axios.post(`/signup`, user);
 };
@@ -15,6 +17,28 @@ export const logoutRequest = () => {
 export const veryfyTokenRequest = (token) => {
   return axios.post("/verify-token",token);
 };
+
+//API para el CRUD de los doctores
+
+export const createDoctorRequest = (data,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.post(`/admin/addDoctor`, data,{headers});
+}
+
+export const getDoctorsRequest = (token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.get(`/admin/getDoctors`,{headers});
+}
+
+export const editDoctorRequest = (id,data,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.put(`/admin/editDoctor/${id}`,data,{headers});
+}
+
+export const deleteDoctorRequest = (id,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.delete(`/admin/deleteDoctor/${id}`,{headers});
+}
 
 //PARA Pacientes
 
