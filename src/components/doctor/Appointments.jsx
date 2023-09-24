@@ -144,7 +144,6 @@ const Appointments = () => {
   const onAppointmentSubmit = handleSubmit(async (values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     delete values.Hora;
-    console.log(values);
     try {
       await createAppointmentRequest(values, user.token);
       setAlertConfig({

@@ -30,7 +30,7 @@ const AddPatient = () => {
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);
     try {
-      await createPatientRequest({ Patient: values},user.token);
+      await createPatientRequest(values, user.token);
       setAlertConfig({
         msg: "Registro completo",
         type: "success",

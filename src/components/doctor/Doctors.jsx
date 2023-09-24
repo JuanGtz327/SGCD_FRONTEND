@@ -97,7 +97,7 @@ const Doctors = () => {
       if (editingEmail === false) {
         delete values.Correo;
       }
-      const res = await editDoctorRequest(editingDoctor.id, values, user.token);
+      const res = await editDoctorRequest(editingDoctor.idUser, values, user.token);
       if (res.status == 200) {
         setOpenEdit(false);
         setAlertConfig({
@@ -124,20 +124,12 @@ const Doctors = () => {
   });
 
   const handleInputChange = (event) => {
-    if (event.target.name === "Correo") {
-      setEditingEmail(true);
-      setEditingDoctor({
-        ...editingDoctor,
-        User: {
-          [event.target.name]: event.target.value,
-        },
-      });
-    }else{
-      setEditingDoctor({
-        ...editingDoctor,
-        [event.target.name]: event.target.value,
-      });
-    }
+    if (event.target.name === "Correo") setEditingEmail(true);
+
+    setEditingDoctor({
+      ...editingDoctor,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -152,7 +144,7 @@ const Doctors = () => {
             isopen={alertConfig.isopen}
           />
           <div className="flex flex-wrap gap-y-10">
-            {doctorsToDisplay.map((doctor, key) => (
+            {doctorsToDisplay.map(({ Correo, Doctor }, key) => (
               <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">
                 <CardHeader
                   color="transparent"
@@ -169,17 +161,17 @@ const Doctors = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <Typography variant="h5" color="blue-gray">
-                          {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
+                          {Doctor.Nombre} {Doctor.ApellidoP} {Doctor.ApellidoM}
                         </Typography>
                         <Typography color="blue-gray">
-                          Cedula {doctor.Cedula}
+                          Cedula {Doctor.Cedula}
                         </Typography>
                       </div>
                       <div className="flex flex-col gap-y-3">
                         <IconButton
                           onClick={() => {
                             setOpenEdit(true);
-                            setEditingDoctor(doctor);
+                            setEditingDoctor({ ...Doctor, Correo });
                           }}
                         >
                           <AiFillEdit className="w-6 h-6" />
@@ -189,7 +181,7 @@ const Doctors = () => {
                           onClick={async () => {
                             setLoading(true);
                             try {
-                              await deleteDoctorRequest(doctor.id, user.token);
+                              await deleteDoctorRequest(Doctor.idUser, user.token);
                               setAlertConfig({
                                 msg: "Doctor eliminado",
                                 type: "success",
@@ -208,7 +200,8 @@ const Doctors = () => {
                   </div>
                 </CardHeader>
                 <CardBody className="mb-6 p-0">
-                  <Typography>Especialidad en {doctor.Especialidad}</Typography>
+                  <Typography>Especialidad en {Doctor.Especialidad}</Typography>
+                  <Typography>{Correo}</Typography>
                 </CardBody>
               </Card>
             ))}
@@ -315,7 +308,7 @@ const Doctors = () => {
                       label="Correo"
                       type="email"
                       {...register("Correo", { required: true })}
-                      value={editingDoctor?.User?.Correo}
+                      value={editingDoctor.Correo}
                       onChange={handleInputChange}
                     />
                     <Input
