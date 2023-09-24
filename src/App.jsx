@@ -3,12 +3,15 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
+
 import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
 import Doctors from "./components/doctor/Doctors.jsx";
 import AddDoctor from "./components/doctor/AddDoctor.jsx";
-import AddPatient from "./components/doctor/AddPatient.jsx";
-import Patients from "./components/doctor/Patients.jsx";
-import Appointments from "./components/doctor/Appointments.jsx";
+
+import Patients from "./components/paciente/Patients.jsx";
+import AddPatient from "./components/paciente/AddPatient.jsx";
+
+import Appointments from "./components/citas/Appointments.jsx";
 
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./common/Layout.jsx";

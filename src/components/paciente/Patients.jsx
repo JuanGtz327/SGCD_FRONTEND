@@ -11,35 +11,36 @@ import {
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import AlertCustom from "../../common/AlertCustom";
 
-import { deleteDoctorRequest } from "../../api/api";
-import { useDoctors } from "../../hooks/useDoctors";
+import { deletePatientRequest } from "../../api/api";
+import { usePatients } from "../../hooks/usePatients";
 import Pagination from "../../common/Pagination";
-import EditDoctorDialog from "./custom/EditDoctorDialog";
+import EditPacienteDialog from "./custom/EditPacienteDialog";
 import { useAuth } from "../../context/AuthContext";
 
-const Doctors = () => {
+const Patients = () => {
   const { user } = useAuth();
+
   const {
-    doctorsToDisplay,
-    pageCount,
-    currentPage,
+    pacientesToDisplay,
     loading,
     setLoading,
-    getItemProps,
     next,
     prev,
-  } = useDoctors();
+    currentPage,
+    pageCount,
+    getItemProps,
+  } = usePatients();
 
   const [alertConfig, setAlertConfig] = useState({});
   const [openEdit, setOpenEdit] = useState(false);
-  const [editingDoctor, setEditingDoctor] = useState({});
+  const [editingPatient, setEditingPatient] = useState({});
 
-  const onDeleteDoctor = async (idUser) => {
+  const onDeletePatient = async (idUser) => {
     setLoading(true);
     try {
-      await deleteDoctorRequest(idUser, user.token);
+      await deletePatientRequest(idUser, user.token);
       setAlertConfig({
-        msg: "Doctor eliminado",
+        msg: "Paciente eliminado",
         type: "success",
         isopen: true,
       });
@@ -60,7 +61,7 @@ const Doctors = () => {
             isopen={alertConfig.isopen}
           />
           <div className="flex flex-wrap gap-y-10">
-            {doctorsToDisplay.map(({ Correo, Doctor }, key) => (
+            {pacientesToDisplay.map(({ Correo, Paciente }, key) => (
               <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">
                 <CardHeader
                   color="transparent"
@@ -77,24 +78,25 @@ const Doctors = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <Typography variant="h5" color="blue-gray">
-                          {Doctor.Nombre} {Doctor.ApellidoP} {Doctor.ApellidoM}
+                          {Paciente.Nombre} {Paciente.ApellidoP}{" "}
+                          {Paciente.ApellidoM}
                         </Typography>
                         <Typography color="blue-gray">
-                          Cedula {Doctor.Cedula}
+                          {Paciente.Edad} años {Paciente.Correo}
                         </Typography>
                       </div>
                       <div className="flex flex-col gap-y-3">
                         <IconButton
                           onClick={() => {
                             setOpenEdit(true);
-                            setEditingDoctor({ ...Doctor, Correo });
+                            setEditingPatient({ ...Paciente, Correo });
                           }}
                         >
                           <AiFillEdit className="w-6 h-6" />
                         </IconButton>
                         <IconButton
                           color="red"
-                          onClick={() => onDeleteDoctor(Doctor.idUser)}
+                          onClick={() => onDeletePatient(Paciente.idUser)}
                         >
                           <AiFillDelete className="w-6 h-6" />
                         </IconButton>
@@ -103,8 +105,7 @@ const Doctors = () => {
                   </div>
                 </CardHeader>
                 <CardBody className="mb-6 p-0">
-                  <Typography>Especialidad en {Doctor.Especialidad}</Typography>
-                  <Typography>{Correo}</Typography>
+                  <Typography>{Paciente.Domicilio}</Typography>
                 </CardBody>
               </Card>
             ))}
@@ -118,11 +119,11 @@ const Doctors = () => {
             getItemProps={getItemProps}
           />
 
-          <EditDoctorDialog
+          <EditPacienteDialog
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
-            editingDoctor={editingDoctor}
-            setEditingDoctor={setEditingDoctor}
+            editingPatient={editingPatient}
+            setEditingPatient={setEditingPatient}
             setAlertConfig={setAlertConfig}
             setLoading={setLoading}
           />
@@ -132,4 +133,4 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+export default Patients;

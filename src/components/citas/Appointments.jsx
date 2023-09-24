@@ -292,22 +292,22 @@ const Appointments = () => {
                       error={errors.Hora ? true : false}
                     />
                     <Controller
-                      name="Id_Paciente"
+                      name="id"
                       control={control}
                       render={({ field }) => (
                         <Select
                           {...field}
                           label="Paciente"
                           containerProps={{ className: "min-w-[72px]" }}
-                          error={errors.Id_Paciente ? true : false}
+                          error={errors.id ? true : false}
                         >
-                          {pacientes.map((paciente) => (
+                          {pacientes.map(({ Correo, Paciente }) => (
                             <Option
-                              key={paciente.Id_Paciente}
-                              value={paciente.Id_Paciente.toString()}
+                              key={Paciente.id}
+                              value={Paciente.id.toString()}
                             >
                               {" "}
-                              {paciente.Nombre} {paciente.Apellido}{" "}
+                              {Paciente.Nombre} {Paciente.Apellido}{" "}
                             </Option>
                           ))}
                         </Select>
