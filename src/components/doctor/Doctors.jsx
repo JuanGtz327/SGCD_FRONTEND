@@ -97,7 +97,7 @@ const Doctors = () => {
       if (editingEmail === false) {
         delete values.Correo;
       }
-      const res = await editDoctorRequest(editingDoctor.idUser, values, user.token);
+      const res = await editDoctorRequest(editingDoctor.id, values, user.token);
       if (res.status == 200) {
         setOpenEdit(false);
         setAlertConfig({
@@ -105,6 +105,7 @@ const Doctors = () => {
           type: "success",
           isopen: true,
         });
+        setEditingEmail(false);
       } else {
         setAlertConfig({
           msg: "No se pudo actualizar",
