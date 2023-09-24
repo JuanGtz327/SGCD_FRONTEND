@@ -105,12 +105,11 @@ const Patients = () => {
         delete values.Correo;
       }
       const res = await editPatientRequest(
-        editingPatient.Id_Paciente,
-        { Patient: values },
+        editingPatient.id,
+        values,
         user.token
       );
       if (res.status == 200) {
-        setOpenEdit(false);
         setAlertConfig({
           msg: "Paciente actualizado",
           type: "success",
@@ -125,11 +124,13 @@ const Patients = () => {
       }
     } catch (error) {
       setAlertConfig({
-        msg: error.message,
+        msg: error.response.data.message,
         type: "error",
         isopen: true,
       });
     }
+    setEditingEmail(false);
+    setOpenEdit(false);
     setLoading(false);
   });
 
@@ -153,7 +154,7 @@ const Patients = () => {
             isopen={alertConfig.isopen}
           />
           <div className="flex flex-wrap gap-y-10">
-            {pacientesToDisplay.map((paciente, key) => (
+            {pacientesToDisplay.map(({Correo,Paciente}, key) => (
               <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">
                 <CardHeader
                   color="transparent"
@@ -170,18 +171,18 @@ const Patients = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <Typography variant="h5" color="blue-gray">
-                          {paciente.Nombre} {paciente.ApellidoP}{" "}
-                          {paciente.ApellidoM}
+                          {Paciente.Nombre} {Paciente.ApellidoP}{" "}
+                          {Paciente.ApellidoM}
                         </Typography>
                         <Typography color="blue-gray">
-                          {paciente.Edad} años {paciente.Correo}
+                          {Paciente.Edad} años {Paciente.Correo}
                         </Typography>
                       </div>
                       <div className="flex flex-col gap-y-3">
                         <IconButton
                           onClick={() => {
                             setOpenEdit(true);
-                            setEditingPatient(paciente);
+                            setEditingPatient({...Paciente,Correo});
                           }}
                         >
                           <AiFillEdit className="w-6 h-6" />
@@ -192,7 +193,7 @@ const Patients = () => {
                             setLoading(true);
                             try {
                               await deletePatientRequest(
-                                paciente.Id_Paciente,
+                                Paciente.idUser,
                                 user.token
                               );
                               setAlertConfig({
@@ -213,7 +214,7 @@ const Patients = () => {
                   </div>
                 </CardHeader>
                 <CardBody className="mb-6 p-0">
-                  <Typography>{paciente.Domicilio}</Typography>
+                  <Typography>{Paciente.Domicilio}</Typography>
                 </CardBody>
               </Card>
             ))}
