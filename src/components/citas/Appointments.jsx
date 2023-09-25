@@ -18,12 +18,10 @@ import {
 import AlertCustom from "../../common/AlertCustom";
 import { useForm, Controller, set } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
-import {
-  getPatientsRequest,
-  createAppointmentRequest,
-  getAppointmentsRequest,
-} from "../../api/api";
+import { createAppointmentRequest } from "../../api/api";
 import AppointmentsAccordion from "./custom/AppointmentsAccordion";
+import { usePatients } from "../../hooks/usePatients";
+import { useAppointments } from "../../hooks/useAppointments";
 
 const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
   const firstDateOfMonth = dayjs().year(year).month(month).startOf("month");
@@ -100,18 +98,17 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const Appointments = () => {
-  const [loading, setLoading] = useState(false);
-  const [alertConfig, setAlertConfig] = useState({});
-  const [pacientes, setPacientes] = useState([]);
-  const [appointments, setAppointments] = useState([]);
-  const { user } = useAuth();
+  const { pacientes } = usePatients();
+  const { appointments, loading, setLoading } = useAppointments();
 
+  const [alertConfig, setAlertConfig] = useState({});
+  const { user } = useAuth();
   const days = ["S", "M", "T", "W", "T", "F", "S"];
 
   const currentDate = dayjs().tz("America/Mexico_City");
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
   const {
@@ -120,26 +117,6 @@ const Appointments = () => {
     control,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    (async () => {
-      const response = await getPatientsRequest(user.token);
-      const response2 = await getAppointmentsRequest(user.token);
-      setPacientes(response.data);
-      setAppointments(response2.data);
-      setLoading(false);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const response = await getPatientsRequest(user.token);
-      const response2 = await getAppointmentsRequest(user.token);
-      setPacientes(response.data);
-      setAppointments(response2.data);
-      setLoading(false);
-    })();
-  }, [loading]);
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
@@ -162,10 +139,29 @@ const Appointments = () => {
     }
   });
 
-  const filterAppointmens = () =>
-    appointments.filter(
-      (cita) => cita.Fecha.split(" ")[0] === selectDate.format().split("T")[0]
-    );
+  const filterAppointmens = () => {
+    const filteredAppointments = [];
+    let total = 0;
+    appointments.map((appointment) => {
+      let { DocPac } = appointment;
+      let { Cita } = DocPac;
+      Cita = Cita.filter((cita) => {
+        if(cita.Fecha.split(" ")[0] === selectDate.format().split("T")[0])
+          total++;
+        return cita.Fecha.split(" ")[0] === selectDate.format().split("T")[0];
+      });
+      if (Cita.length > 0)
+        filteredAppointments.push({
+          ...appointment,
+          DocPac: { ...DocPac, Cita },
+        });
+    });
+
+    return {
+      data: filteredAppointments,
+      total,
+    };
+  };
 
   return (
     <>
@@ -260,9 +256,9 @@ const Appointments = () => {
               </h1>
               <div className="text-gray-400 grid grid-cols-2">
                 <h6 className="flex my-auto">
-                  {filterAppointmens().length == 0
+                  {filterAppointmens().total == 0
                     ? "No hay"
-                    : filterAppointmens().length}{" "}
+                    : filterAppointmens().total}{" "}
                   citas agendadas
                 </h6>
                 <Button color="blue" variant="gradient" onClick={handleOpen}>
@@ -271,7 +267,7 @@ const Appointments = () => {
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
-                <AppointmentsAccordion appointments={filterAppointmens()} />
+                <AppointmentsAccordion appointments={filterAppointmens().data} />
               </div>
             </div>
 
@@ -292,7 +288,7 @@ const Appointments = () => {
                       error={errors.Hora ? true : false}
                     />
                     <Controller
-                      name="id"
+                      name="idDocPac"
                       control={control}
                       render={({ field }) => (
                         <Select
@@ -304,7 +300,7 @@ const Appointments = () => {
                           {pacientes.map(({ Correo, Paciente }) => (
                             <Option
                               key={Paciente.id}
-                              value={Paciente.id.toString()}
+                              value={Paciente.DocPac.id.toString()}
                             >
                               {" "}
                               {Paciente.Nombre} {Paciente.Apellido}{" "}

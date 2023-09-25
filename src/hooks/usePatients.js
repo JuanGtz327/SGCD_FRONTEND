@@ -54,6 +54,7 @@ export const usePatients = () => {
   const pacientesToDisplay = pacientes.slice(startIndex, endIndex + 1);
 
   return {
+    pacientes,
     pacientesToDisplay,
     loading,
     setLoading,
