@@ -30,7 +30,7 @@ const AppointmentsAccordion = ({ appointments }) => {
             key={id}
           >
             <AccordionHeader
-              onClick={() => handleOpen(id)}
+              onClick={() => handleOpen(index)}
               className={`border-b-0 transition-colors ${
                 open === index ? "text-blue-500 hover:!text-blue-700" : ""
               }`}
