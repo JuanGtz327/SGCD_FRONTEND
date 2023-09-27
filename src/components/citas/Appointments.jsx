@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import {
   Dialog,
@@ -16,7 +16,7 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import AlertCustom from "../../common/AlertCustom";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { createAppointmentRequest } from "../../api/api";
 import AppointmentsAccordion from "./custom/AppointmentsAccordion";
@@ -94,8 +94,11 @@ function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const days = ["S", "M", "T", "W", "T", "F", "S"];
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
+const currentDate = dayjs().tz("America/Mexico_City");
 
 const Appointments = () => {
   const { pacientes } = usePatients();
@@ -103,11 +106,10 @@ const Appointments = () => {
 
   const [alertConfig, setAlertConfig] = useState({});
   const { user } = useAuth();
-  const days = ["S", "M", "T", "W", "T", "F", "S"];
 
-  const currentDate = dayjs().tz("America/Mexico_City");
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -140,27 +142,13 @@ const Appointments = () => {
   });
 
   const filterAppointmens = () => {
-    const filteredAppointments = [];
-    let total = 0;
-    appointments.map((appointment) => {
-      let { DocPac } = appointment;
-      let { Cita } = DocPac;
-      Cita = Cita.filter((cita) => {
-        if(cita.Fecha.split(" ")[0] === selectDate.format().split("T")[0])
-          total++;
-        return cita.Fecha.split(" ")[0] === selectDate.format().split("T")[0];
-      });
-      if (Cita.length > 0)
-        filteredAppointments.push({
-          ...appointment,
-          DocPac: { ...DocPac, Cita },
-        });
-    });
+    const appointmensPerDay = appointments.filter(
+      ({ Fecha }) => Fecha.split(" ")[0] === selectDate.format().split("T")[0]
+    );
 
-    return {
-      data: filteredAppointments,
-      total,
-    };
+    return appointmensPerDay.sort(
+      (a, b) => dayjs(a["Fecha"]) - dayjs(b["Fecha"])
+    );
   };
 
   return (
@@ -230,12 +218,12 @@ const Appointments = () => {
                         <h1
                           className={cn(
                             currentMonth ? "" : "text-gray-400",
-                            today ? "bg-blue-600 text-white" : "",
+                            today ? "bg-indigo-400 text-white" : "",
                             selectDate.toDate().toDateString() ===
                               date.toDate().toDateString()
-                              ? "bg-blue-gray-400 text-white"
+                              ? "bg-light-blue-500 text-white"
                               : "",
-                            "h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+                            "h-10 w-10 rounded-full grid place-content-center hover:bg-cyan-400 hover:text-white transition-all cursor-pointer select-none"
                           )}
                           onClick={() => {
                             setSelectDate(date);
@@ -256,9 +244,9 @@ const Appointments = () => {
               </h1>
               <div className="text-gray-400 grid grid-cols-2">
                 <h6 className="flex my-auto">
-                  {filterAppointmens().total == 0
+                  {filterAppointmens().length == 0
                     ? "No hay"
-                    : filterAppointmens().total}{" "}
+                    : filterAppointmens().length}{" "}
                   citas agendadas
                 </h6>
                 <Button color="blue" variant="gradient" onClick={handleOpen}>
@@ -267,7 +255,7 @@ const Appointments = () => {
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
-                <AppointmentsAccordion appointments={filterAppointmens().data} />
+                <AppointmentsAccordion appointments={filterAppointmens()} />
               </div>
             </div>
 
