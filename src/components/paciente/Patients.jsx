@@ -16,20 +16,14 @@ import { usePatients } from "../../hooks/usePatients";
 import Pagination from "../../common/Pagination";
 import EditPacienteDialog from "./custom/EditPacienteDialog";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigationC } from "../../hooks/useNavigationC";
 
 const Patients = () => {
   const { user } = useAuth();
 
-  const {
-    pacientesToDisplay,
-    loading,
-    setLoading,
-    next,
-    prev,
-    currentPage,
-    pageCount,
-    getItemProps,
-  } = usePatients();
+  const { pacientes, loading, setLoading } = usePatients();
+
+  const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } = useNavigationC(pacientes);
 
   const [alertConfig, setAlertConfig] = useState({});
   const [openEdit, setOpenEdit] = useState(false);
@@ -61,7 +55,7 @@ const Patients = () => {
             isopen={alertConfig.isopen}
           />
           <div className="flex flex-wrap gap-y-10">
-            {pacientesToDisplay.map(({ Correo, Paciente }, key) => (
+            {infoToDisplay.map(({ Correo, Paciente }, key) => (
               <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">
                 <CardHeader
                   color="transparent"

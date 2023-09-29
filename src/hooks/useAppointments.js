@@ -13,14 +13,6 @@ export const useAppointments = () => {
       setAppointments(res.data);
       setLoading(false);
     })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const res = await getAppointmentsRequest(user.token);
-      setAppointments(res.data);
-      setLoading(false);
-    })();
   }, [loading]);
 
   return {
