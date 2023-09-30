@@ -13,6 +13,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import DatosPersonales from "./historial_clinico/DatosPersonales";
+import ExamenFisico from "./historial_clinico/ExamenFisico";
 
 const AddPatient = () => {
   const [loading, setLoading] = useState(false);
@@ -84,8 +85,14 @@ const AddPatient = () => {
                   Controller={Controller}
                 />
               </div>
-              <div className={`${step != 1 && "hidden"}`}></div>
-              <div className={`${step != 2 && "hidden"}`}></div>
+              <div className={`${step != 2 && "hidden"}`}>
+              <ExamenFisico
+                  register={register}
+                  errors={errors}
+                  control={control}
+                  Controller={Controller}
+                />
+              </div>
               <div className={`${step != 3 && "hidden"}`}></div>
               <div className={`${step != 4 && "hidden"}`}></div>
               <div className={`${step != 5 && "hidden"}`}></div>

@@ -19,14 +19,16 @@ const StepperC = ({steps,onStepChange}) => {
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
+        activeLineClassName="bg-cyan-200"
+        lineClassName="bg-gray-400"
       >
         {steps.map(({Details,Icon},index) => (
-          <Step onClick={() => setActiveStep(index)} key={index}>
-            <Icon className="h-5 w-5" />
+          <Step activeClassName="bg-blue-700" completedClassName="bg-cyan-700" className="bg-gray-400" onClick={() => setActiveStep(index)} key={index}>
+            <Icon className="h-5 w-5 text-white" />
             <div className="absolute -bottom-[2.5rem] w-max text-center">
               <Typography
                 variant="h6"
-                color={activeStep === index ? "blue-gray" : "gray"}
+                color={activeStep === index ? "cyan" : "gray"}
               >
                 {Details}
               </Typography>
@@ -35,10 +37,10 @@ const StepperC = ({steps,onStepChange}) => {
         ))}
       </Stepper>
       <div className="mt-14 flex justify-between">
-        <Button onClick={handlePrev} disabled={isFirstStep}>
+        <Button onClick={handlePrev} disabled={isFirstStep} className="bg-light-blue-600" variant="filled">
           Anterior
         </Button>
-        <Button onClick={handleNext} type="submit" disabled={isLastStep}>
+        <Button onClick={handleNext} className="bg-light-blue-600" type="submit" disabled={isLastStep}>
           Siguiente
         </Button>
       </div>
