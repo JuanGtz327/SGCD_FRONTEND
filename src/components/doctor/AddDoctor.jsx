@@ -9,11 +9,10 @@ import {
 } from "@material-tailwind/react";
 import { createDoctorRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
-import AlertCustom from "../../common/AlertCustom.jsx";
+import { useAlert } from "../../context/AlertContext";
 import { useNavigate } from "react-router-dom";
 
 const AddDoctor = () => {
-  const [alertConfig, setAlertConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -21,40 +20,31 @@ const AddDoctor = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
+  const { setAlertConfig } = useAlert();
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
     setLoading(true);
     try {
+      throw new Error("Error de prueba");
       await createDoctorRequest(values, user.token);
       setAlertConfig({
         msg: "Registro completo",
         type: "success",
-        isopen: true,
       });
       navigate("/listDoctors");
     } catch (error) {
       console.log(error);
       setAlertConfig({
-        msg: error.response.data.message,
+        msg: "error.response.data.message",
         type: "error",
-        isopen: true,
       });
     }
     setLoading(false);
   });
 
-  useEffect(() => {
-    setAlertConfig({ ...alertConfig, isopen: false });
-  }, [loading]);
-
   return (
     <>
-      <AlertCustom
-        msg={alertConfig.msg}
-        type={alertConfig.type}
-        isopen={alertConfig.isopen}
-      />
       <Card shadow={false} className="w-96 px-5 py-5 mx-auto mt-[5%]">
         <Typography variant="h4" color="blue-gray">
           Nuevo doctor

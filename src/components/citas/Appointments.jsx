@@ -15,13 +15,13 @@ import {
   Option,
   Spinner,
 } from "@material-tailwind/react";
-import AlertCustom from "../../common/AlertCustom";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { createAppointmentRequest } from "../../api/api";
 import AppointmentsAccordion from "./custom/AppointmentsAccordion";
 import { usePatients } from "../../hooks/usePatients";
 import { useAppointments } from "../../hooks/useAppointments";
+import { useAlert } from "../../context/AlertContext";
 
 const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
   const firstDateOfMonth = dayjs().year(year).month(month).startOf("month");
@@ -104,8 +104,8 @@ const Appointments = () => {
   const { pacientes } = usePatients();
   const { appointments, loading, setLoading } = useAppointments();
 
-  const [alertConfig, setAlertConfig] = useState({});
   const { user } = useAuth();
+  const { setAlertConfig } = useAlert();
 
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
@@ -135,8 +135,8 @@ const Appointments = () => {
     } catch (error) {
       setAlertConfig({
         isopen: true,
-        type: "success",
-        msg: "Cita agendada",
+        type: "error",
+        msg: error.response.data.message,
       });
     }
   });
@@ -157,11 +157,6 @@ const Appointments = () => {
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
         <>
-          <AlertCustom
-            msg={alertConfig.msg}
-            type={alertConfig.type}
-            isopen={alertConfig.isopen}
-          />
           <div className="rounded-3xl p-10 flex gap-10 sm:divide-x justify-center 2xl:w-[90%] lg:h-[100%] mx-auto items-center sm:flex-row flex-col">
             <div className="h-fit 2xl:w-[35%] rounded-3xl shadow-2xl bg-white shadow-black/50 p-12">
               <div className="flex justify-between items-center">

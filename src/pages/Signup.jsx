@@ -11,11 +11,10 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
-import AlertCustom from "../common/AlertCustom.jsx";
 import logo from "../assets/principal.jpg";
+import { useAlert } from "../context/AlertContext.jsx";
 
 const SignUp = () => {
-  const [alertConfig, setAlertConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const fullText = "Sistema de Gestion Clinica para Doctores";
@@ -26,6 +25,7 @@ const SignUp = () => {
   } = useForm();
   const navigate = useNavigate();
   const { signup, isAuthenticated } = useAuth();
+  const { setAlertConfig } = useAlert();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -46,21 +46,15 @@ const SignUp = () => {
       setAlertConfig({
         msg: "Registro completo",
         type: "success",
-        isopen: true,
       });
     } catch (error) {
       setAlertConfig({
         msg: error.message,
         type: "error",
-        isopen: true,
       });
       setLoading(false);
     }
   });
-
-  useEffect(() => {
-    setAlertConfig({ ...alertConfig, isopen: false });
-  }, [loading]);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -78,12 +72,6 @@ const SignUp = () => {
 
   return (
     <>
-      <AlertCustom
-        msg={alertConfig.msg}
-        type={alertConfig.type}
-        isopen={alertConfig.isopen}
-      />
-
       <div className="flex h-[calc(100vh)]">
         <div className="hidden lg:block lg:w-2/3 h-full px-5 py-5">
           <img
@@ -95,7 +83,7 @@ const SignUp = () => {
             {text}
           </div>
         </div>
-        <div className='w-full lg:w-1/3 my-auto'>
+        <div className="w-full lg:w-1/3 my-auto">
           <Card
             className="mx-auto w-[90%] px-5 py-2 sm:w-3/4"
             color="transparent"

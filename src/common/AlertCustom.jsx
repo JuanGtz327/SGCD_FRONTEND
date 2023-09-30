@@ -3,17 +3,17 @@ import { Alert } from "@material-tailwind/react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { BiSolidErrorAlt } from "react-icons/bi";
 
-const AlertCustom = ({ msg, type, isopen }) => {
+const AlertCustom = ({ msg, type }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (isopen) {
+    if (msg && type) {
       setVisible(true);
       setTimeout(() => {
         setVisible(false);
       }, 3000);
     }
-  }, [isopen]);
+  }, [msg, type]);
 
   return (
     <>

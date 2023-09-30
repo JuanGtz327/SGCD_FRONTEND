@@ -46,21 +46,18 @@ const EditDoctorDialog = ({
         setAlertConfig({
           msg: "Doctor actualizado",
           type: "success",
-          isopen: true,
         });
         setEditingEmail(false);
       } else {
         setAlertConfig({
           msg: "No se pudo actualizar",
           type: "error",
-          isopen: true,
         });
       }
     } catch (error) {
       setAlertConfig({
         msg: error.response.data.message,
         type: "error",
-        isopen: true,
       });
     }
     setOpenEdit(false);

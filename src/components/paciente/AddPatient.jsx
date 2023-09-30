@@ -12,11 +12,10 @@ import {
 } from "@material-tailwind/react";
 import { createPatientRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
-import AlertCustom from "../../common/AlertCustom.jsx";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "../../context/AlertContext";
 
 const AddPatient = () => {
-  const [alertConfig, setAlertConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -25,6 +24,7 @@ const AddPatient = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
+  const { setAlertConfig } = useAlert();
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
@@ -34,30 +34,19 @@ const AddPatient = () => {
       setAlertConfig({
         msg: "Registro completo",
         type: "success",
-        isopen: true,
       });
       navigate("/listPatients");
     } catch (error) {
       setAlertConfig({
         msg: error.message,
         type: "error",
-        isopen: true,
       });
     }
     setLoading(false);
   });
 
-  useEffect(() => {
-    setAlertConfig({ ...alertConfig, isopen: false });
-  }, [loading]);
-
   return (
     <>
-      <AlertCustom
-        msg={alertConfig.msg}
-        type={alertConfig.type}
-        isopen={alertConfig.isopen}
-      />
       <Card shadow={false} className="w-96 px-5 py-5 mx-auto mt-[5%]">
         <Typography variant="h4" color="blue-gray">
           Nuevo paciente

@@ -57,13 +57,11 @@ const EditPacienteDialog = ({
         setAlertConfig({
           msg: "Paciente actualizado",
           type: "success",
-          isopen: true,
         });
       } else {
         setAlertConfig({
           msg: "No se pudo actualizar",
           type: "error",
-          isopen: true,
         });
       }
     } catch (error) {
@@ -71,7 +69,6 @@ const EditPacienteDialog = ({
       setAlertConfig({
         msg: error.response.data.message,
         type: "error",
-        isopen: true,
       });
     }
     setEditingEmail(false);

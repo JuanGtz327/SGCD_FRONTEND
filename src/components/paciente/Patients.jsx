@@ -9,23 +9,22 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import AlertCustom from "../../common/AlertCustom";
-
 import { deletePatientRequest } from "../../api/api";
 import { usePatients } from "../../hooks/usePatients";
 import Pagination from "../../common/Pagination";
 import EditPacienteDialog from "./custom/EditPacienteDialog";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigationC } from "../../hooks/useNavigationC";
+import { useAlert } from "../../context/AlertContext";
 
 const Patients = () => {
   const { user } = useAuth();
+  const { setAlertConfig } = useAlert();
 
   const { pacientes, loading, setLoading } = usePatients();
 
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } = useNavigationC(pacientes);
 
-  const [alertConfig, setAlertConfig] = useState({});
   const [openEdit, setOpenEdit] = useState(false);
   const [editingPatient, setEditingPatient] = useState({});
 
@@ -36,7 +35,6 @@ const Patients = () => {
       setAlertConfig({
         msg: "Paciente eliminado",
         type: "success",
-        isopen: true,
       });
     } catch (error) {
       console.log(error);
@@ -49,11 +47,6 @@ const Patients = () => {
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
         <>
-          <AlertCustom
-            msg={alertConfig.msg}
-            type={alertConfig.type}
-            isopen={alertConfig.isopen}
-          />
           <div className="flex flex-wrap gap-y-10">
             {infoToDisplay.map(({ Correo, Paciente }, key) => (
               <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { AlertProvider } from "./context/AlertContext.jsx";
 
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
@@ -19,64 +20,66 @@ import Layout from "./common/Layout.jsx";
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<h1>Home Page</h1>} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/main"
-              element={
-                <Layout>
-                  <DoctorPanel />
-                </Layout>
-              }
-            />
-            <Route
-              path="/addDoctor"
-              element={
-                <Layout>
-                  <AddDoctor />
-                </Layout>
-              }
-            />
-            <Route
-              path="/listDoctors"
-              element={
-                <Layout>
-                  <Doctors />
-                </Layout>
-              }
-            />
-            <Route
-              path="/addPatient"
-              element={
-                <Layout>
-                  <AddPatient />
-                </Layout>
-              }
-            />
-            <Route
-              path="/listPatients"
-              element={
-                <Layout>
-                  <Patients />
-                </Layout>
-              }
-            />
-            <Route
-              path="/appointments"
-              element={
-                <Layout>
-                  <Appointments />
-                </Layout>
-              }
-            />
-          </Route>
-          <Route path="*" element={ <h1>No se encotnro</h1> } />
-        </Routes>
-      </BrowserRouter>
+      <AlertProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<h1>Home Page</h1>} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route element={<ProtectedRoute />}>
+              <Route
+                path="/main"
+                element={
+                  <Layout>
+                    <DoctorPanel />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/addDoctor"
+                element={
+                  <Layout>
+                    <AddDoctor />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/listDoctors"
+                element={
+                  <Layout>
+                    <Doctors />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/addPatient"
+                element={
+                  <Layout>
+                    <AddPatient />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/listPatients"
+                element={
+                  <Layout>
+                    <Patients />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/appointments"
+                element={
+                  <Layout>
+                    <Appointments />
+                  </Layout>
+                }
+              />
+            </Route>
+            <Route path="*" element={<h1>No se encontro</h1>} />
+          </Routes>
+        </BrowserRouter>
+      </AlertProvider>
     </AuthProvider>
   );
 };

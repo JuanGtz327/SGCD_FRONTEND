@@ -9,12 +9,11 @@ import {
   Typography,
   Spinner,
 } from "@material-tailwind/react";
-import AlertCustom from "../common/AlertCustom.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import logo from "../assets/principal.jpg";
+import { useAlert } from "../context/AlertContext.jsx";
 
 const LogIn = () => {
-  const [alertConfig, setAlertConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const fullText = "Sistema de Gestion Clinica para Doctores";
@@ -24,6 +23,7 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
   const { signin, isAuthenticated } = useAuth();
+  const { setAlertConfig } = useAlert();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,22 +39,16 @@ const LogIn = () => {
       setAlertConfig({
         msg: "Inicio de sesion exitoso",
         type: "success",
-        isopen: true,
       });
       navigate("/main");
     } catch (error) {
       setAlertConfig({
         msg: error.message,
         type: "error",
-        isopen: true,
       });
     }
     setLoading(false);
   });
-
-  useEffect(() => {
-    setAlertConfig({ ...alertConfig, isopen: false });
-  }, [loading]);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -72,12 +66,6 @@ const LogIn = () => {
 
   return (
     <>
-      <AlertCustom
-        msg={alertConfig.msg}
-        type={alertConfig.type}
-        isopen={alertConfig.isopen}
-      />
-
       <div className="flex h-[calc(100vh)]">
         <div className="hidden lg:block w-2/3 h-full px-5 py-5">
           <img
