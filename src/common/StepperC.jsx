@@ -14,7 +14,7 @@ const StepperC = ({steps,onStepChange}) => {
   }, [activeStep]);
 
   return (
-    <div className={`mt-10 mx-auto ${steps.length<=3?'w-1/2':'w-[65%]'} px-24 py-4`}>
+    <div className={`mx-auto mt-auto ${steps.length<=3?'w-1/2':'w-[85%]'} px-24 py-0`}>
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
@@ -23,16 +23,10 @@ const StepperC = ({steps,onStepChange}) => {
         {steps.map(({Details,Icon},index) => (
           <Step onClick={() => setActiveStep(index)} key={index}>
             <Icon className="h-5 w-5" />
-            <div className="absolute -bottom-[4.5rem] w-max text-center">
+            <div className="absolute -bottom-[2.5rem] w-max text-center">
               <Typography
                 variant="h6"
                 color={activeStep === index ? "blue-gray" : "gray"}
-              >
-                Paso {index+1}
-              </Typography>
-              <Typography
-                color={activeStep === index ? "blue-gray" : "gray"}
-                className="font-normal"
               >
                 {Details}
               </Typography>
@@ -40,7 +34,7 @@ const StepperC = ({steps,onStepChange}) => {
           </Step>
         ))}
       </Stepper>
-      <div className="mt-24 flex justify-between">
+      <div className="mt-14 flex justify-between">
         <Button onClick={handlePrev} disabled={isFirstStep}>
           Anterior
         </Button>
