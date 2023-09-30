@@ -1,9 +1,167 @@
-import { Card, Input, Select, Option } from "@material-tailwind/react";
+import {
+  Card,
+  Input,
+  Select,
+  Option,
+  Textarea,
+  ListItemPrefix,
+  ListItem,
+  List,
+  Checkbox,
+  Typography,
+  Switch,
+} from "@material-tailwind/react";
 import React from "react";
 
-const HistoriaMedica = () => {
+const HistoriaMedica = ({ register, Controller, control, errors }) => {
   return (
-    <></>
+    <>
+      <h2 className="text-base font-semibold leading-7 text-gray-900">
+        Historia Medica
+      </h2>
+      <p className="mt-1 text-sm leading-6 text-gray-600">
+        En este apartado debe incluir la informacion medica por la que su
+        paciente ha pasado.
+      </p>
+
+      <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-6">
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <Textarea
+              variant="standard"
+              label="Enfermedades Hereditarias"
+              {...register("Enfermedades_hereditarias", { required: true })}
+              error={errors.Enfermedades_hereditarias ? true : false}
+            />
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <Textarea
+              variant="standard"
+              label="Enfermedades Previas"
+              {...register("Enfermedades_previas", { required: true })}
+              error={errors.Enfermedades_previas ? true : false}
+            />
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <Textarea
+              variant="standard"
+              label="Cirugias"
+              {...register("Cirugias", { required: true })}
+              error={errors.Cirugias ? true : false}
+            />
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <Textarea
+              variant="standard"
+              label="Alergias"
+              {...register("Alergias", { required: true })}
+              error={errors.Alergias ? true : false}
+            />
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <Textarea
+              variant="standard"
+              label="Traumatismos"
+              {...register("Traumatismos", { required: true })}
+              error={errors.Traumatismos ? true : false}
+            />
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <div className="mt-2">
+            <div className="w-fit mx-auto mt-8">
+              <Switch
+                label={
+                  <div>
+                    <Typography color="blue-gray" className="font-medium">
+                      Vacunas
+                    </Typography>
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="font-normal"
+                    >
+                      El paciente cuenta con las vacunas escenciales.
+                    </Typography>
+                  </div>
+                }
+                color="blue"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            Habitos Negativos
+          </h2>
+          <div className="mt-2 grid grid-cols-2 gap-x-6">
+            <div className="flex">
+              <Checkbox color="blue" />
+              <Typography color="gray" className="self-center">
+                Tabaquismo
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="blue" />
+              <Typography color="gray" className="self-center">
+                Consume Alcohol
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="blue" />
+              <Typography color="gray" className="self-center">
+                Consume Drogas
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="blue" />
+              <Typography color="gray" className="self-center">
+                Estres Cronico
+              </Typography>
+            </div>
+          </div>
+        </div>
+        <div className="xl:col-span-3">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            Habitos Positivos
+          </h2>
+          <div className="mt-2 grid grid-cols-2 gap-x-6">
+            <div className="flex">
+              <Checkbox color="indigo" />
+              <Typography color="gray" className="self-center">
+                Dieta Equilibrada
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="indigo" />
+              <Typography color="gray" className="self-center">
+                Ejercicio Regular
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="indigo" />
+              <Typography color="gray" className="self-center">
+                Mantener un Peso Saludable
+              </Typography>
+            </div>
+            <div className="flex">
+              <Checkbox color="indigo" />
+              <Typography color="gray" className="self-center">
+                Higiene Personal
+              </Typography>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

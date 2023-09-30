@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import {
-  Card,
-  Button,
-  Typography,
-  Spinner,
-} from "@material-tailwind/react";
+import { Card, Button, Typography, Spinner } from "@material-tailwind/react";
 import HistoriaMedica from "./historial_clinico/HistoriaMedica";
 import { createPatientRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -81,7 +76,14 @@ const AddPatient = () => {
                   Controller={Controller}
                 />
               </div>
-              <div className={`${step != 1 && "hidden"}`}></div>
+              <div className={`${step != 1 && "hidden"}`}>
+                <HistoriaMedica
+                  register={register}
+                  errors={errors}
+                  control={control}
+                  Controller={Controller}
+                />
+              </div>
               <div className={`${step != 1 && "hidden"}`}></div>
               <div className={`${step != 2 && "hidden"}`}></div>
               <div className={`${step != 3 && "hidden"}`}></div>
