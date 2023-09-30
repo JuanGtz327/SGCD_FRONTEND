@@ -4,8 +4,8 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const Pagination = ({ prev, currentPage, pageCount, next, getItemProps }) => {
   return (
-    <div className="absolute bottom-10 left-[48.5%]">
-      <div className="flex items-center gap-4 mt-10">
+    <div className="mt-auto mx-auto w-1/2">
+      <div className="flex items-center justify-center gap-4 mt-10">
         <Button
           className="flex items-center gap-2"
           onClick={prev}

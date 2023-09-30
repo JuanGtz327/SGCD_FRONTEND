@@ -73,3 +73,10 @@ export const getAppointmentsRequest = (token) => {
   const headers = {"Authorization": `Bearer ${token}`};
   return axios.get(`/admin/getCitas`,{headers});
 }
+
+//PARA Especialidades
+
+export const getEspecialidadesRequest = (token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.get(`/admin/getEspecialidades`,{headers});
+}
