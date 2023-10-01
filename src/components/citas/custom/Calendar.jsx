@@ -6,7 +6,7 @@ function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Calendar = ({ selectDate, onDayChange, onSetToday }) => {
+const Calendar = ({ selectDate, onDayChange, onSetToday, customClassName="" }) => {
   const {
     calendar,
     getCalendarHeader,
@@ -16,7 +16,7 @@ const Calendar = ({ selectDate, onDayChange, onSetToday }) => {
   } = useCalendar();
 
   return (
-    <div className="h-fit 2xl:w-[35%] rounded-3xl shadow-2xl bg-white shadow-black/50 p-12">
+    <div className={`${customClassName} h-fit rounded-3xl bg-white p-12`}>
       <div className="flex justify-between items-center">
         <h1 className="select-none font-semibold">{getCalendarHeader()}</h1>
         <div className="flex gap-10 items-center ">

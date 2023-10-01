@@ -32,6 +32,7 @@ const AddPatient = () => {
   const [loading, setLoading] = useState(false);
   const [habitosNegativos, setHabitosNegativos] = useState([]);
   const [habitosPositivos, setHabitosPositivos] = useState([]);
+  const [preAppointments, setPreAppointments] = useState([]);
   const [step, setStep] = useState(0);
   const {
     register,
@@ -104,6 +105,7 @@ const AddPatient = () => {
           historiaMedicaPayload,
           examenFisicoPayload,
           historiaClinicaActualPayload,
+          preAppointments,
           Correo: values.Correo,
           Password: values.Password,
           PasswordDoctor: values.PasswordDoctor,
@@ -117,7 +119,7 @@ const AddPatient = () => {
       navigate("/listPatients");
     } catch (error) {
       setAlertConfig({
-        msg: error.message,
+        msg: error.response.data.message,
         type: "error",
       });
     }
@@ -152,6 +154,16 @@ const AddPatient = () => {
       return;
     }
   };
+
+  const onAppointments = (values,adding) => {
+    if (adding) {
+      setPreAppointments((prev) => [...prev, values]);
+      return;
+    } else {
+      setPreAppointments((prev) => prev.filter((_, i) => i !== values));
+      return;
+    }
+  }
 
   return (
     <>
@@ -190,12 +202,7 @@ const AddPatient = () => {
                 <HistoriaClinicaActual register={register} errors={errors} />
               </div>
               <div className={`${step != 4 && "hidden"}`}>
-                <CitasHistorial
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
-                />
+                <CitasHistorial preAppointments={preAppointments} onAppointments={onAppointments}/>
               </div>
               <div className={`${step != 5 && "hidden"}`}>
                 <NotasHistorial

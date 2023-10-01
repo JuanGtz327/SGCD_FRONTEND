@@ -51,7 +51,6 @@ const Appointments = () => {
     values.id = ids[1];
     delete values.Hora;
     try {
-      console.log(values);
       await createAppointmentRequest(values, user.token);
       setAlertConfig({
         isopen: true,
