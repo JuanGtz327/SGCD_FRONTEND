@@ -1,19 +1,7 @@
-import {
-  Card,
-  Input,
-  Select,
-  Option,
-  Textarea,
-  ListItemPrefix,
-  ListItem,
-  List,
-  Checkbox,
-  Typography,
-  Switch,
-} from "@material-tailwind/react";
+import { Input, Textarea, Typography } from "@material-tailwind/react";
 import React from "react";
 
-const ExamenFisico = ({ register, Controller, control, errors }) => {
+const ExamenFisico = ({ register, errors }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -169,7 +157,8 @@ const ExamenFisico = ({ register, Controller, control, errors }) => {
           Detalles del examen fisico
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          En este apartado puede incluir mas detalles del examen medico de su paciente.
+          En este apartado puede incluir mas detalles del examen medico de su
+          paciente.
         </p>
         <div className="mt-6">
           <Textarea

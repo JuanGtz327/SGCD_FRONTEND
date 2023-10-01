@@ -1,27 +1,12 @@
 import {
-  Card,
-  Input,
-  Select,
-  Option,
   Textarea,
-  ListItemPrefix,
-  ListItem,
-  List,
   Checkbox,
   Typography,
   Switch,
-  Radio,
 } from "@material-tailwind/react";
 import React from "react";
 
-const HistoriaMedica = ({
-  register,
-  Controller,
-  control,
-  errors,
-  onNewHN,
-  onNewHP,
-}) => {
+const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -101,7 +86,7 @@ const HistoriaMedica = ({
                     </Typography>
                   </div>
                 }
-                {...register("Vacunas", { required: true })}
+                {...register("Vacunas")}
                 color="blue"
               />
             </div>

@@ -14,9 +14,13 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "../../context/AlertContext";
 import StepperC from "../../common/StepperC";
 import {
-  BuildingLibraryIcon,
-  CogIcon,
   UserIcon,
+  FingerPrintIcon,
+  ClipboardDocumentListIcon,
+  ClipboardDocumentIcon,
+  PaintBrushIcon,
+  Square3Stack3DIcon,
+  CalendarIcon,
 } from "@heroicons/react/24/outline";
 import DatosPersonales from "./historial_clinico/DatosPersonales";
 import ExamenFisico from "./historial_clinico/ExamenFisico";
@@ -40,12 +44,10 @@ const AddPatient = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
-    let habitos_salud = [...habitosPositivos, ...habitosNegativos]
+    let habitos_salud = [...habitosPositivos, ...habitosNegativos];
     if (habitos_salud.length === 0) {
       habitos_salud = ["Ninguno"];
     }
-    console.log(values);
-
     const pacientePayload = {
       Nombre: values.Nombre,
       ApellidoP: values.ApellidoP,
@@ -64,7 +66,7 @@ const AddPatient = () => {
       Colonia: values.Colonia,
       CP: values.CP,
       Telefono: values.Telefono,
-    }
+    };
 
     const historiaMedicaPayload = {
       Enfermedades_hereditarias: values.Enfermedades_hereditarias,
@@ -93,26 +95,23 @@ const AddPatient = () => {
       Fecha_inicio_sintomas: values.Fecha_inicio_sintomas,
       Plan_tratamiento: values.Plan_tratamiento,
     };
-
-    console.log(pacientePayload);
-    console.log(domicilioPayload);
-    console.log(historiaMedicaPayload);
-    console.log(examenFisicoPayload);
-    console.log(historiaClinicaActualPayload);
     setLoading(true);
     try {
-      await createPatientRequest({
-        pacientePayload,
-        domicilioPayload,
-        historiaMedicaPayload,
-        examenFisicoPayload,
-        historiaClinicaActualPayload,
-        Correo: values.Correo,
-        Password: values.Password,
-        PasswordDoctor: values.PasswordDoctor,
-      }, user.token);
+      await createPatientRequest(
+        {
+          pacientePayload,
+          domicilioPayload,
+          historiaMedicaPayload,
+          examenFisicoPayload,
+          historiaClinicaActualPayload,
+          Correo: values.Correo,
+          Password: values.Password,
+          PasswordDoctor: values.PasswordDoctor,
+        },
+        user.token
+      );
       setAlertConfig({
-        msg: "Registro completo",
+        msg: "Paciente creado exitosamente",
         type: "success",
       });
       navigate("/listPatients");
@@ -134,21 +133,21 @@ const AddPatient = () => {
     }
   }, [errors]);
 
-  const onNewHN = (newHN,adding) => {
-    if(adding){
+  const onNewHN = (newHN, adding) => {
+    if (adding) {
       setHabitosNegativos([...habitosNegativos, newHN]);
       return;
-    }else{
+    } else {
       setHabitosNegativos(habitosNegativos.filter((item) => item !== newHN));
       return;
     }
   };
 
-  const onNewHP = (newHN,adding) => {
-    if(adding){
+  const onNewHP = (newHN, adding) => {
+    if (adding) {
       setHabitosPositivos([...habitosPositivos, newHN]);
       return;
-    }else{
+    } else {
       setHabitosPositivos(habitosPositivos.filter((item) => item !== newHN));
       return;
     }
@@ -180,27 +179,15 @@ const AddPatient = () => {
                 <HistoriaMedica
                   register={register}
                   errors={errors}
-                  control={control}
-                  Controller={Controller}
                   onNewHN={onNewHN}
                   onNewHP={onNewHP}
                 />
               </div>
               <div className={`${step != 2 && "hidden"}`}>
-                <ExamenFisico
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
-                />
+                <ExamenFisico register={register} errors={errors} />
               </div>
               <div className={`${step != 3 && "hidden"}`}>
-                <HistoriaClinicaActual
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
-                />
+                <HistoriaClinicaActual register={register} errors={errors} />
               </div>
               <div className={`${step != 4 && "hidden"}`}>
                 <CitasHistorial
@@ -263,27 +250,27 @@ const AddPatient = () => {
             },
             {
               Details: "Historia Medica",
-              Icon: BuildingLibraryIcon,
+              Icon: ClipboardDocumentListIcon,
             },
             {
               Details: "Examen Fisico",
-              Icon: CogIcon,
+              Icon: FingerPrintIcon,
             },
             {
               Details: "Historia Clinica Actual",
-              Icon: CogIcon,
+              Icon: ClipboardDocumentIcon,
             },
             {
               Details: "Citas",
-              Icon: CogIcon,
+              Icon: CalendarIcon,
             },
             {
               Details: "Notas",
-              Icon: CogIcon,
+              Icon: Square3Stack3DIcon,
             },
             {
               Details: "Firmar Historial Clinico",
-              Icon: CogIcon,
+              Icon: PaintBrushIcon,
             },
           ]}
           onStepChange={(step) => setStep(step)}

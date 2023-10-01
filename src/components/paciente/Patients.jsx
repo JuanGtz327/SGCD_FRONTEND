@@ -23,7 +23,8 @@ const Patients = () => {
 
   const { pacientes, loading, setLoading } = usePatients();
 
-  const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } = useNavigationC(pacientes);
+  const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
+    useNavigationC(pacientes);
 
   const [openEdit, setOpenEdit] = useState(false);
   const [editingPatient, setEditingPatient] = useState({});
@@ -47,64 +48,69 @@ const Patients = () => {
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
         <>
-          <div className="flex flex-wrap gap-y-10">
-            {infoToDisplay.map(({ Correo, Paciente }, key) => (
-              <Card key={key} className="w-full max-w-[45%] mx-auto px-10 py-5">
-                <CardHeader
-                  color="transparent"
-                  floated={false}
-                  shadow={false}
-                  className="mx-0 flex items-center gap-4 pt-0 pb-8"
+          <div className="flex flex-col h-full">
+            <div className="flex flex-wrap gap-y-10">
+              {infoToDisplay.map(({ Correo, Paciente }, key) => (
+                <Card
+                  key={key}
+                  className="w-full max-w-[45%] mx-auto px-10 py-5"
                 >
-                  <Avatar
-                    size="xxl"
-                    variant="rounded"
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                  />
-                  <div className="flex w-full flex-col gap-0.5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Typography variant="h5" color="blue-gray">
-                          {Paciente.Nombre} {Paciente.ApellidoP}{" "}
-                          {Paciente.ApellidoM}
-                        </Typography>
-                        <Typography color="blue-gray">
-                          {Paciente.Edad} años {Paciente.Correo}
-                        </Typography>
-                      </div>
-                      <div className="flex flex-col gap-y-3">
-                        <IconButton
-                          onClick={() => {
-                            setOpenEdit(true);
-                            setEditingPatient({ ...Paciente, Correo });
-                          }}
-                        >
-                          <AiFillEdit className="w-6 h-6" />
-                        </IconButton>
-                        <IconButton
-                          color="red"
-                          onClick={() => onDeletePatient(Paciente.idUser)}
-                        >
-                          <AiFillDelete className="w-6 h-6" />
-                        </IconButton>
+                  <CardHeader
+                    color="transparent"
+                    floated={false}
+                    shadow={false}
+                    className="mx-0 flex items-center gap-4 pt-0 pb-8"
+                  >
+                    <Avatar
+                      size="xxl"
+                      variant="rounded"
+                      src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                    />
+                    <div className="flex w-full flex-col gap-0.5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Typography variant="h5" color="blue-gray">
+                            {Paciente.Nombre} {Paciente.ApellidoP}{" "}
+                            {Paciente.ApellidoM}
+                          </Typography>
+                          <Typography color="blue-gray">
+                            {Paciente.Edad} años {Paciente.Correo}
+                          </Typography>
+                        </div>
+                        <div className="flex flex-col gap-y-3">
+                          <IconButton
+                            onClick={() => {
+                              setOpenEdit(true);
+                              setEditingPatient({ ...Paciente, Correo });
+                            }}
+                          >
+                            <AiFillEdit className="w-6 h-6" />
+                          </IconButton>
+                          <IconButton
+                            color="red"
+                            onClick={() => onDeletePatient(Paciente.idUser)}
+                          >
+                            <AiFillDelete className="w-6 h-6" />
+                          </IconButton>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardBody className="mb-6 p-0">
-                  <Typography>{Paciente.Domicilio}</Typography>
-                </CardBody>
-              </Card>
-            ))}
-          </div>
+                  </CardHeader>
+                  <CardBody className="mb-6 p-0">
+                    <Typography>{Paciente.Domicilio}</Typography>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
 
-          <Pagination
-            prev={prev}
-            currentPage={currentPage}
-            pageCount={pageCount}
-            next={next}
-            getItemProps={getItemProps}
-          />
+            <Pagination
+              prev={prev}
+              currentPage={currentPage}
+              pageCount={pageCount}
+              next={next}
+              getItemProps={getItemProps}
+            />
+          </div>
 
           <EditPacienteDialog
             openEdit={openEdit}

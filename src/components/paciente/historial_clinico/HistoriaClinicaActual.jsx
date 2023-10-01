@@ -1,19 +1,7 @@
-import {
-  Card,
-  Input,
-  Select,
-  Option,
-  Textarea,
-  ListItemPrefix,
-  ListItem,
-  List,
-  Checkbox,
-  Typography,
-  Switch,
-} from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 import React from "react";
 
-const HistoriaClinicaActual = ({ register, Controller, control, errors }) => {
+const HistoriaClinicaActual = ({ register, errors }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -37,7 +25,7 @@ const HistoriaClinicaActual = ({ register, Controller, control, errors }) => {
         </div>
         <div className="lg:col-span-4">
           <div className="mt-2">
-          <Input
+            <Input
               size="lg"
               label="Fecha inicio de sintomas"
               type="date"
