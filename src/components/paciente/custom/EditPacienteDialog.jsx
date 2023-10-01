@@ -99,7 +99,7 @@ const EditPacienteDialog = ({
         <DialogBody divider>
           <Card shadow={false} className="w-96 px-5 py-5 mx-auto">
             <Typography variant="h4" color="blue-gray">
-              Editar paciente
+              Editar paciente {editingPatient.User?.Correo}
             </Typography>
             <div className="mt-4 mb-4 flex flex-col gap-6">
               <Input
