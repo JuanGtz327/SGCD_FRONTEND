@@ -10,10 +10,18 @@ import {
   Checkbox,
   Typography,
   Switch,
+  Radio,
 } from "@material-tailwind/react";
 import React from "react";
 
-const HistoriaMedica = ({ register, Controller, control, errors }) => {
+const HistoriaMedica = ({
+  register,
+  Controller,
+  control,
+  errors,
+  onNewHN,
+  onNewHP,
+}) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -86,13 +94,14 @@ const HistoriaMedica = ({ register, Controller, control, errors }) => {
                     </Typography>
                     <Typography
                       variant="small"
-                      color="gray"
+                      color={errors.Vacunas ? "red" : "gray"}
                       className="font-normal"
                     >
                       El paciente cuenta con las vacunas escenciales.
                     </Typography>
                   </div>
                 }
+                {...register("Vacunas", { required: true })}
                 color="blue"
               />
             </div>
@@ -104,27 +113,51 @@ const HistoriaMedica = ({ register, Controller, control, errors }) => {
           </h2>
           <div className="mt-2 grid grid-cols-2 gap-x-6">
             <div className="flex">
-              <Checkbox color="blue" />
+              <Checkbox
+                color="blue"
+                value="Tabaquismo"
+                onChange={(e) => {
+                  onNewHN(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
                 Tabaquismo
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="blue" />
+              <Checkbox
+                color="blue"
+                value="Alcohol"
+                onChange={(e) => {
+                  onNewHN(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
                 Consume Alcohol
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="blue" />
+              <Checkbox
+                color="blue"
+                value="Drogas"
+                onChange={(e) => {
+                  onNewHN(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
                 Consume Drogas
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="blue" />
+              <Checkbox
+                color="blue"
+                value="No_dormir"
+                onChange={(e) => {
+                  onNewHN(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
-                Estres Cronico
+                No dormir
               </Typography>
             </div>
           </div>
@@ -135,27 +168,51 @@ const HistoriaMedica = ({ register, Controller, control, errors }) => {
           </h2>
           <div className="mt-2 grid grid-cols-2 gap-x-6">
             <div className="flex">
-              <Checkbox color="indigo" />
+              <Checkbox
+                color="indigo"
+                value="Dieta"
+                onChange={(e) => {
+                  onNewHP(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
                 Dieta Equilibrada
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="indigo" />
+              <Checkbox
+                color="indigo"
+                value="Ejercicio"
+                onChange={(e) => {
+                  onNewHP(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
                 Ejercicio Regular
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="indigo" />
+              <Checkbox
+                color="indigo"
+                value="Higiene"
+                onChange={(e) => {
+                  onNewHP(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
-                Mantener un Peso Saludable
+                Higiene Personal
               </Typography>
             </div>
             <div className="flex">
-              <Checkbox color="indigo" />
+              <Checkbox
+                color="indigo"
+                value="Autocuidado"
+                onChange={(e) => {
+                  onNewHP(e.target.value, e.target.checked);
+                }}
+              />
               <Typography color="gray" className="self-center">
-                Higiene Personal
+                Autocuidado
               </Typography>
             </div>
           </div>

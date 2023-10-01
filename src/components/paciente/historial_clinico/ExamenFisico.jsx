@@ -157,7 +157,7 @@ const ExamenFisico = ({ register, Controller, control, errors }) => {
               label="Grupo Sanquineo"
               type="text"
               variant="standard"
-              {...register("Grupo_sanguinieo", { required: true })}
+              {...register("Grupo_sanguineo", { required: true })}
               error={errors.Grupo_sanguinieo ? true : false}
             />
           </div>

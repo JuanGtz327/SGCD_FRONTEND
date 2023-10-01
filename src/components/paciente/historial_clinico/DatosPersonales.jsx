@@ -169,7 +169,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               size="lg"
               label="Numero Telefonico"
               variant="standard"
-              type="password"
+              type="number"
               {...register("Telefono", { required: true })}
               error={errors.Telefono ? true : false}
             />
