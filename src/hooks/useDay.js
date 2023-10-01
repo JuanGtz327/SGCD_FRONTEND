@@ -7,33 +7,43 @@ dayjs.extend(timezone);
 const currentDate = dayjs().tz("America/Mexico_City");
 
 export const useDay = () => {
+  const isToday = (Fecha) => {
+    if (
+      Fecha.year() === currentDate.year() &&
+      Fecha.month() === currentDate.month() &&
+      Fecha.date() === currentDate.date()
+    ) {
+      return true;
+    }
+    return false;
+  };
 
-  const isAfter = (Fecha)=>{
+  const isAfter = (Fecha) => {
     return currentDate.isAfter(Fecha);
-  }
+  };
 
-  const isBefore = (Fecha)=>{
+  const isBefore = (Fecha) => {
     return currentDate.isBefore(Fecha);
-  }
+  };
 
-  const inProgress = (Fecha)=>{
+  const inProgress = (Fecha) => {
     return currentDate.isBetween(Fecha, Fecha.add(30, "minute"));
-  }
+  };
 
-  const findNext = (Appointments) => {  
+  const findNext = (Appointments) => {
     const horaActual = dayjs();
-  
+
     const citasOrdenadas = Appointments.slice();
-  
+
     citasOrdenadas.sort((a, b) => {
       const horaCitaA = dayjs(a.hora);
       const horaCitaB = dayjs(b.hora);
       return horaCitaA - horaCitaB;
     });
-  
+
     let indiceCitaMasCercana = -1;
     let tiempoMinimoHastaCita = Infinity;
-  
+
     for (let i = 0; i < citasOrdenadas.length; i++) {
       const cita = citasOrdenadas[i];
       const horaCita = dayjs(cita.Fecha);
@@ -43,14 +53,15 @@ export const useDay = () => {
         tiempoMinimoHastaCita = tiempoHastaCita;
       }
     }
-  
+
     return indiceCitaMasCercana;
-  }
+  };
 
   return {
+    isToday,
     isBefore,
     isAfter,
     inProgress,
-    findNext
+    findNext,
   };
 };
