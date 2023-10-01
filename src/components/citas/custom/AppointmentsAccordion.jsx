@@ -23,7 +23,7 @@ const AppointmentsAccordion = ({ appointments }) => {
   return (
     <>
       {appointments.map(
-        ({ id, Fecha, Hora, Descripcion, DocPac: { Paciente } },index) => (
+        ({ id, Fecha, Hora, Diagnostico, DocPac: { Paciente } },index) => (
           <Accordion
             open={open === index}
             className="mb-2 rounded-lg border border-blue-gray-100 px-4"
@@ -50,7 +50,7 @@ const AppointmentsAccordion = ({ appointments }) => {
               </div>
             </AccordionHeader>
             <AccordionBody className="pt-0 text-base font-normal">
-              {Descripcion}
+              {Diagnostico}
             </AccordionBody>
           </Accordion>
         )

@@ -46,8 +46,12 @@ const Appointments = () => {
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
+    const ids = values.idDocPac.split(",");
+    values.idDocPac = ids[0];
+    values.id = ids[1];
     delete values.Hora;
     try {
+      console.log(values);
       await createAppointmentRequest(values, user.token);
       setAlertConfig({
         isopen: true,
@@ -58,7 +62,6 @@ const Appointments = () => {
       setOpen(false);
     } catch (error) {
       setAlertConfig({
-        isopen: true,
         type: "error",
         msg: error.response.data.message,
       });
@@ -138,6 +141,7 @@ const Appointments = () => {
                     <Input
                       label="Hora"
                       type="time"
+                      variant="standard"
                       {...register("Hora", { required: true })}
                       error={errors.Hora ? true : false}
                     />
@@ -150,10 +154,11 @@ const Appointments = () => {
                           label="Paciente"
                           containerProps={{ className: "min-w-[72px]" }}
                           error={errors.id ? true : false}
+                          variant="standard"
                         >
                           {pacientes.map(
                             ({ id, DocPac, Nombre, ApellidoP }) => (
-                              <Option key={id} value={DocPac.id.toString()}>
+                              <Option key={id} value={`${DocPac.id.toString()},${id}`}>
                                 {Nombre} {ApellidoP}
                               </Option>
                             )
@@ -162,9 +167,10 @@ const Appointments = () => {
                       )}
                     />
                     <Textarea
-                      label="Descripcion"
-                      {...register("Descripcion", { required: true })}
-                      error={errors.Descripcion ? true : false}
+                      label="Diagnostico"
+                      {...register("Diagnostico", { required: true })}
+                      error={errors.Diagnostico ? true : false}
+                      variant="standard"
                     />
                   </div>
                 </DialogBody>
