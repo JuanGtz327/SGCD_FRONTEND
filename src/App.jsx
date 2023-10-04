@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { AlertProvider } from "./context/AlertContext.jsx";
 
+import PaginaInicio from "./components/inicio/PaginaInicio.jsx";
+
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
 
@@ -23,7 +25,7 @@ const App = () => {
       <AlertProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<h1>Home Page</h1>} />
+            <Route path="/" element={<PaginaInicio />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route element={<ProtectedRoute />}>
