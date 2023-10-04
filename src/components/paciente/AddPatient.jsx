@@ -33,6 +33,7 @@ const AddPatient = () => {
   const [habitosNegativos, setHabitosNegativos] = useState([]);
   const [habitosPositivos, setHabitosPositivos] = useState([]);
   const [preAppointments, setPreAppointments] = useState([]);
+  const [notas, setNotas] = useState([]);
   const [step, setStep] = useState(0);
   const {
     register,
@@ -106,6 +107,7 @@ const AddPatient = () => {
           examenFisicoPayload,
           historiaClinicaActualPayload,
           preAppointments,
+          notas,
           Correo: values.Correo,
           Password: values.Password,
           PasswordDoctor: values.PasswordDoctor,
@@ -165,6 +167,16 @@ const AddPatient = () => {
     }
   }
 
+  const onNotas = (values,adding) => {
+    if (adding) {
+      setNotas((prev) => [...prev, values]);
+      return;
+    } else {
+      setNotas((prev) => prev.filter((_, i) => i !== values));
+      return;
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col h-full">
@@ -206,10 +218,7 @@ const AddPatient = () => {
               </div>
               <div className={`${step != 5 && "hidden"}`}>
                 <NotasHistorial
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
+                  onNotas={onNotas}
                 />
               </div>
               <div className={`${step != 6 && "hidden"}`}>
