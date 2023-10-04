@@ -111,5 +111,6 @@ export const useCalendar = () => {
     getCalendarHeader,
     onNextMonth,
     onPrevMonth,
+    dayjs
   };
 };

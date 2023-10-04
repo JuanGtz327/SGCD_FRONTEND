@@ -29,13 +29,15 @@ const Appointments = () => {
   const { user } = useAuth();
   const { setAlertConfig } = useAlert();
 
-  const { currentDate, getDia, getMes } = useCalendar();
+  const { currentDate, getDia, getMes,dayjs } = useCalendar();
   const { isToday, isBefore } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+
+  console.log(appointments);
 
   const {
     register,
