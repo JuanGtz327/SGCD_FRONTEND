@@ -4,7 +4,6 @@ import {
   Typography,
   Switch,
 } from "@material-tailwind/react";
-import React from "react";
 
 const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
   return (

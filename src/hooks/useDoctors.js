@@ -13,7 +13,7 @@ export const useDoctors = () => {
       setDoctors(response.data);
       setLoading(false);
     })();
-  }, [loading]);
+  }, [loading, user.token]);
 
   return {
     doctors,

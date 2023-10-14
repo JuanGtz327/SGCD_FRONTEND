@@ -13,7 +13,7 @@ export const useEspecialidades = () => {
       setEspecialidades(res.data);
       setLoading(false);
     })();
-  }, [loading]);
+  }, [loading, user.token]);
 
   return {
     especialidades,

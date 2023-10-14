@@ -13,7 +13,7 @@ export const useAppointments = () => {
       setAppointments(res.data);
       setLoading(false);
     })();
-  }, [loading]);
+  }, [loading, user.token]);
 
   return {
     appointments,

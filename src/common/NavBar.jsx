@@ -45,201 +45,208 @@ const NavBar = () => {
   const handleOpen2 = (value) => setOpen2(open2 === value ? 0 : value);
 
   return (
-    <Card className="hidden md:flex h-[calc(100vh)] w-full lg:w-[30%] max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-none">
-      <div className="mb-2 flex items-center gap-4 p-4">
-        <Typography variant="h5" color="blue-gray">
-          Bienvenido {user.email}
-        </Typography>
-      </div>
-      <div className="p-2">
-        <Input
-          icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-          label="Buscar"
-        />
-      </div>
-      <List>
-        <Link to="/main">
-          <ListItem>
-            <ListItemPrefix>
-              <ClipboardDocumentListIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Inicio
-          </ListItem>
-        </Link>
-        {user.is_admin && (
-          <Accordion
-            open={open2 === 1}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${
-                  open2 === 1 ? "rotate-180" : ""
-                }`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open2 === 1}>
-              <AccordionHeader
-                onClick={() => handleOpen2(1)}
-                className="border-b-0 p-3"
-              >
-                <ListItemPrefix>
-                  <FaUserDoctor className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  Doctores
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <Link to="/addDoctor">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <PlusIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Nuevo Doctor
-                  </ListItem>
-                </Link>
-                <Link to="/listDoctors">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <QueueListIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Mis Doctores
-                  </ListItem>
-                </Link>
-              </List>
-            </AccordionBody>
-          </Accordion>
-        )}
-        {user.is_doctor && (
-          <Accordion
-            open={open === 1}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${
-                  open === 1 ? "rotate-180" : ""
-                }`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open === 1}>
-              <AccordionHeader
-                onClick={() => handleOpen(1)}
-                className="border-b-0 p-3"
-              >
-                <ListItemPrefix>
-                  <FaceSmileIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  Pacientes
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <Link to="/addPatient">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <PlusIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Nuevo Paciente
-                  </ListItem>
-                </Link>
-                <Link to="/listPatients">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <QueueListIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Mis Pacientes
-                  </ListItem>
-                </Link>
-              </List>
-            </AccordionBody>
-          </Accordion>
-        )}
-        <Link to="/appointments">
-          <ListItem>
-            <ListItemPrefix>
-              <CalendarIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            <Typography color="blue-gray" className="mr-auto font-normal">
-              Citas
-            </Typography>
-          </ListItem>
-        </Link>
-        <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Mensajes
-          <ListItemSuffix>
-            <Chip
-              value="14"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Perfil
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Configuracion
-        </ListItem>
-        <button
-          onClick={async () => {
-            await logout();
-          }}
-        >
-          <ListItem>
-            <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Cerrar Sesion
-          </ListItem>
-        </button>
-      </List>
-      <Alert
-        open={openAlert}
-        className="mt-auto hidden"
-        onClose={() => setOpenAlert(false)}
-      >
-        <CubeTransparentIcon className="mb-4 h-12 w-12" />
-        <Typography variant="h6" className="mb-1">
-          Upgrade to PRO
-        </Typography>
-        <Typography variant="small" className="font-normal opacity-80">
-          Upgrade to Material Tailwind PRO and get even more components,
-          plugins, advanced features and premium.
-        </Typography>
-        <div className="mt-4 flex gap-3">
-          <Typography
-            as="a"
-            href="#"
-            variant="small"
-            className="font-medium opacity-80"
-            onClick={() => setOpenAlert(false)}
-          >
-            Dismiss
-          </Typography>
-          <Typography as="a" href="#" variant="small" className="font-medium">
-            Upgrade Now
+    <>
+      <Card className="md:flex h-[calc(100vh)] w-fit p-4 shadow-xl rounded-none sidebarStyles">
+        <div className="mb-2 flex items-center gap-4 p-4">
+          <Typography variant="h6" className="mx-auto">
+            Bienvenido {user.email}
           </Typography>
         </div>
-      </Alert>
-    </Card>
+        <div className="p-2">
+          <Input
+            icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+            label="Buscar"
+            color="blue"
+            className="bg-white ring-0"
+          />
+        </div>
+        <List>
+          <Link to="/main">
+            <ListItem className="text-white">
+              <ListItemPrefix>
+                <ClipboardDocumentListIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Inicio
+            </ListItem>
+          </Link>
+          {user.is_admin && (
+            <Accordion
+              open={open2 === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open2 === 1 ? "rotate-180" : ""
+                  }`}
+                  color="white"
+                />
+              }
+            >
+              <ListItem className="p-0 text-white" selected={open2 === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen2(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <FaUserDoctor className="h-5 w-5" color={`${open2===1?'black':'white'}`} />
+                  </ListItemPrefix>
+                  <Typography className={`${open2===1?'text-black':'text-white'} mr-auto font-normal`}>
+                    Doctores
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <Link to="/addDoctor">
+                    <ListItem className="text-white">
+                      <ListItemPrefix>
+                        <PlusIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Nuevo Doctor
+                    </ListItem>
+                  </Link>
+                  <Link to="/listDoctors">
+                    <ListItem className="text-white">
+                      <ListItemPrefix>
+                        <QueueListIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Mis Doctores
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+          )}
+          {user.is_doctor && (
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? "rotate-180" : ""
+                  }`}
+                  color="white"
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <FaceSmileIcon className="h-5 w-5" color={`${open===1?'black':'white'}`} />
+                  </ListItemPrefix>
+                  <Typography className={`${open===1?'text-black':'text-white'} mr-auto font-normal`}>
+                    Pacientes
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <Link to="/addPatient">
+                    <ListItem className="text-white">
+                      <ListItemPrefix>
+                        <PlusIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Nuevo Paciente
+                    </ListItem>
+                  </Link>
+                  <Link to="/listPatients">
+                    <ListItem className="text-white">
+                      <ListItemPrefix>
+                        <QueueListIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Mis Pacientes
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+          )}
+          <Link to="/appointments">
+            <ListItem className="text-white">
+              <ListItemPrefix>
+                <CalendarIcon className="h-5 w-5"/>
+              </ListItemPrefix>
+              <Typography className="mr-auto font-normal">
+                Citas
+              </Typography>
+            </ListItem>
+          </Link>
+          <hr className="my-2 border-blue-gray-50" />
+          <ListItem className="text-white">
+            <ListItemPrefix>
+              <InboxIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Mensajes
+            <ListItemSuffix>
+              <Chip
+                value="14"
+                size="sm"
+                variant="ghost"
+                color="white"
+                className="rounded-full"
+              />
+            </ListItemSuffix>
+          </ListItem>
+          <ListItem className="text-white">
+            <ListItemPrefix>
+              <UserCircleIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Perfil
+          </ListItem>
+          <ListItem className="text-white">
+            <ListItemPrefix>
+              <Cog6ToothIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Configuracion
+          </ListItem>
+          <button
+            onClick={async () => {
+              await logout();
+            }}
+          >
+            <ListItem className="text-white">
+              <ListItemPrefix>
+                <PowerIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Cerrar Sesion
+            </ListItem>
+          </button>
+        </List>
+        <Alert
+          open={openAlert}
+          className="mt-auto hidden"
+          onClose={() => setOpenAlert(false)}
+          color="blue"
+        >
+          <CubeTransparentIcon className="mb-4 h-12 w-12" />
+          <Typography variant="h6" className="mb-1">
+            Upgrade to PRO
+          </Typography>
+          <Typography variant="small" className="font-normal opacity-80">
+            Upgrade to Material Tailwind PRO and get even more components,
+            plugins, advanced features and premium.
+          </Typography>
+          <div className="mt-4 flex gap-3">
+            <Typography
+              as="a"
+              href="#"
+              variant="small"
+              className="font-medium opacity-80"
+              onClick={() => setOpenAlert(false)}
+            >
+              Dismiss
+            </Typography>
+            <Typography as="a" href="#" variant="small" className="font-medium">
+              Upgrade Now
+            </Typography>
+          </div>
+        </Alert>
+      </Card>
+    </>
   );
 };
 

@@ -29,7 +29,7 @@ export const useNavigationC = (data) => {
     setTotalItems(data.length);
     setPageCount(Math.ceil(data.length / itemsPerPage));
     setInfoToDisplay(data.slice(startIndex, endIndex + 1));
-  }, [data,currentPage]);
+  }, [data,currentPage,startIndex,endIndex]);
 
   return {
     infoToDisplay,

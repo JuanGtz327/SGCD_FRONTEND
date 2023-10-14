@@ -1,4 +1,3 @@
-import React from "react";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { useCalendar } from "../../../hooks/useCalendar";
 

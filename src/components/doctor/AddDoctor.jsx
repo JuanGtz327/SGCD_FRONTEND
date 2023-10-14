@@ -55,57 +55,59 @@ const AddDoctor = () => {
         type: "error",
       });
     }
-  }, [errors]);
+  }, [errors, setAlertConfig]);
 
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className="h-4/5">
-          <Card shadow={false} className="w-4/5 px-16 py-5 mx-auto h-full">
-            <Typography
-              variant="h3"
-              color="blue-gray"
-              className="text-center mb-5"
-            >
-              Nuevo doctor
-            </Typography>
-            <hr />
-            <form className="mt-4 mb-2 w-[100%]" onSubmit={onSubmit}>
-              <div className={`${step != 0 && "hidden"}`}>
-                <DatosDoctor
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
-                />
-              </div>
-              <div className={`${step != 1 && "hidden"}`}>
-                <h2 className="text-base font-semibold leading-7 text-gray-900">
-                  Configuraciones
-                </h2>
-                <p className="mt-1 mb-10 text-sm leading-6 text-gray-600">
-                  En este apartado puede establecer las configuraciones del
-                  doctor.
-                </p>
-                <Textarea
-                  variant="standard"
-                  label="Configuraciones"
-                  {...register("Configuraciones")}
-                />
-                <hr className="mt-6"/>
-                {loading ? (
-                  <Spinner className="mx-auto mt-6" />
-                ) : (
-                  <div className="flex">
-                    <Button color="blue" className="mt-6 mx-auto w-1/4" type="submit">
-                      Agregar Doctor
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </form>
-          </Card>
-        </div>
+        <Card shadow={false} className="w-full max-w-6xl px-5 lg:px-16 py-5 mx-auto">
+          <Typography
+            variant="h3"
+            color="blue-gray"
+            className="text-center mb-5"
+          >
+            Nuevo doctor
+          </Typography>
+          <hr />
+          <form className="mt-4 mb-2 w-[100%]" onSubmit={onSubmit}>
+            <div className={`${step != 0 && "hidden"}`}>
+              <DatosDoctor
+                register={register}
+                errors={errors}
+                control={control}
+                Controller={Controller}
+              />
+            </div>
+            <div className={`${step != 1 && "hidden"}`}>
+              <h2 className="text-base font-semibold leading-7 text-gray-900">
+                Configuraciones
+              </h2>
+              <p className="mt-1 mb-10 text-sm leading-6 text-gray-600">
+                En este apartado puede establecer las configuraciones del
+                doctor.
+              </p>
+              <Textarea
+                variant="standard"
+                label="Configuraciones"
+                {...register("Configuraciones")}
+              />
+              <hr className="mt-6" />
+              {loading ? (
+                <Spinner className="mx-auto mt-6" />
+              ) : (
+                <div className="flex">
+                  <Button
+                    color="blue"
+                    className="mt-6 mx-auto w-full max-w-[10rem]"
+                    type="submit"
+                  >
+                    Agregar Doctor
+                  </Button>
+                </div>
+              )}
+            </div>
+          </form>
+        </Card>
         <StepperC
           steps={[
             {

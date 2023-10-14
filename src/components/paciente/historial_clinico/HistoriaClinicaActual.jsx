@@ -1,5 +1,4 @@
 import { Input, Textarea } from "@material-tailwind/react";
-import React from "react";
 
 const HistoriaClinicaActual = ({ register, errors }) => {
   return (

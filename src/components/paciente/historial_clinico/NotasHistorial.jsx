@@ -8,7 +8,7 @@ import {
   TimelineBody,
   Button,
 } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import NotaDialog from "../custom/NotaDialog";
 import { useAlert } from "../../../context/AlertContext";
 

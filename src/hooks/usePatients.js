@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getPatientsRequest } from "../api/api";
-import { useNavigationC } from "./useNavigationC";
 
 export const usePatients = () => {
   const { user } = useAuth();
@@ -14,7 +13,7 @@ export const usePatients = () => {
       setPacientes(response.data);
       setLoading(false);
     })();
-  }, [loading]);
+  }, [loading, user.token]);
 
   return {
     pacientes,

@@ -7,7 +7,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import Calendar from "../../citas/custom/Calendar";
 import { useCalendar } from "../../../hooks/useCalendar";
 import { useDay } from "../../../hooks/useDay";

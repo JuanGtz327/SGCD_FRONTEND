@@ -1,5 +1,4 @@
 import { Input, Textarea, Typography } from "@material-tailwind/react";
-import React from "react";
 
 const ExamenFisico = ({ register, errors }) => {
   return (

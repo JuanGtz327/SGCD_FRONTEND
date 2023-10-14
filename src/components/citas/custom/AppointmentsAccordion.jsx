@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -10,20 +10,20 @@ import dayjs from "dayjs";
 import { useDay } from "../../../hooks/useDay";
 
 const AppointmentsAccordion = ({ appointments }) => {
-  const { isAfter, isBefore, findNext } = useDay();
+  const { isAfter, findNext } = useDay();
   const nextAppointment = findNext(appointments);
   const [open, setOpen] = useState(nextAppointment);
 
   useEffect(() => {
     setOpen(findNext(appointments));
-  }, [appointments])
+  }, [appointments,findNext])
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <>
       {appointments.map(
-        ({ id, Fecha, Hora, Diagnostico, DocPac: { Paciente } },index) => (
+        ({ id, Fecha, Diagnostico, DocPac: { Paciente } },index) => (
           <Accordion
             open={open === index}
             className="mb-2 rounded-lg border border-blue-gray-100 px-4"

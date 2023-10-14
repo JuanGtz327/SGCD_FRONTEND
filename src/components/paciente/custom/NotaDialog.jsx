@@ -1,11 +1,9 @@
-import React, { useState } from "react";
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
   Textarea,
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";

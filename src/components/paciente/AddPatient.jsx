@@ -135,7 +135,7 @@ const AddPatient = () => {
         type: "error",
       });
     }
-  }, [errors]);
+  }, [errors, setAlertConfig]);
 
   const onNewHN = (newHN, adding) => {
     if (adding) {
@@ -157,7 +157,7 @@ const AddPatient = () => {
     }
   };
 
-  const onAppointments = (values,adding) => {
+  const onAppointments = (values, adding) => {
     if (adding) {
       setPreAppointments((prev) => [...prev, values]);
       return;
@@ -165,9 +165,9 @@ const AddPatient = () => {
       setPreAppointments((prev) => prev.filter((_, i) => i !== values));
       return;
     }
-  }
+  };
 
-  const onNotas = (values,adding) => {
+  const onNotas = (values, adding) => {
     if (adding) {
       setNotas((prev) => [...prev, values]);
       return;
@@ -175,89 +175,89 @@ const AddPatient = () => {
       setNotas((prev) => prev.filter((_, i) => i !== values));
       return;
     }
-  }
+  };
 
   return (
     <>
-      <div className="flex flex-col h-full">
-        <div className="h-4/5">
-          <Card shadow={false} className="w-4/5 px-16 py-5 mx-auto h-full">
-            <Typography
-              variant="h3"
-              color="blue-gray"
-              className="text-center mb-5"
-            >
-              Nuevo paciente
-            </Typography>
-            <hr />
-            <form className="mt-4 mb-2 w-[100%]" onSubmit={onSubmit}>
-              <div className={`${step != 0 && "hidden"}`}>
-                <DatosPersonales
-                  register={register}
-                  errors={errors}
-                  control={control}
-                  Controller={Controller}
-                />
-              </div>
-              <div className={`${step != 1 && "hidden"}`}>
-                <HistoriaMedica
-                  register={register}
-                  errors={errors}
-                  onNewHN={onNewHN}
-                  onNewHP={onNewHP}
-                />
-              </div>
-              <div className={`${step != 2 && "hidden"}`}>
-                <ExamenFisico register={register} errors={errors} />
-              </div>
-              <div className={`${step != 3 && "hidden"}`}>
-                <HistoriaClinicaActual register={register} errors={errors} />
-              </div>
-              <div className={`${step != 4 && "hidden"}`}>
-                <CitasHistorial preAppointments={preAppointments} onAppointments={onAppointments}/>
-              </div>
-              <div className={`${step != 5 && "hidden"}`}>
-                <NotasHistorial
-                  onNotas={onNotas}
-                />
-              </div>
-              <div className={`${step != 6 && "hidden"}`}>
-                <h2 className="text-base font-semibold leading-7 text-gray-900">
-                  Firmar Historial Clinico
-                </h2>
-                <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Finalmente ingrese su contraseña para crear el historial
-                  clinico del paciente.
-                </p>
-                <div className="flex justify-center items-center h-[calc(50vh)]">
-                  <div className="w-2/3">
-                    <Input
-                      size="lg"
-                      label="Ingrese su contraseña de doctor"
-                      type="password"
-                      variant="standard"
-                      {...register("PasswordDoctor", { required: true })}
-                      error={errors.PasswordDoctor ? true : false}
-                    />
-                    {loading ? (
-                      <Spinner className="mx-auto mt-6" />
-                    ) : (
-                      <div className="flex">
-                        <Button
-                          color="blue"
-                          className="mt-6 mx-auto"
-                          type="submit"
-                        >
-                          Firmar Historial Clinico
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+      <div className="flex flex-col">
+        <Card shadow={false} className="w-full max-w-6xl px-5 lg:px-16 py-5 mx-auto">
+          <Typography
+            variant="h3"
+            color="blue-gray"
+            className="text-center mb-5"
+          >
+            Nuevo paciente
+          </Typography>
+          <hr />
+          <form className="mt-4 mb-2 w-[100%]" onSubmit={onSubmit}>
+            <div className={`${step != 0 && "hidden"}`}>
+              <DatosPersonales
+                register={register}
+                errors={errors}
+                control={control}
+                Controller={Controller}
+              />
+            </div>
+            <div className={`${step != 1 && "hidden"}`}>
+              <HistoriaMedica
+                register={register}
+                errors={errors}
+                onNewHN={onNewHN}
+                onNewHP={onNewHP}
+              />
+            </div>
+            <div className={`${step != 2 && "hidden"}`}>
+              <ExamenFisico register={register} errors={errors} />
+            </div>
+            <div className={`${step != 3 && "hidden"}`}>
+              <HistoriaClinicaActual register={register} errors={errors} />
+            </div>
+            <div className={`${step != 4 && "hidden"}`}>
+              <CitasHistorial
+                preAppointments={preAppointments}
+                onAppointments={onAppointments}
+              />
+            </div>
+            <div className={`${step != 5 && "hidden"}`}>
+              <NotasHistorial onNotas={onNotas} />
+            </div>
+            <div className={`${step != 6 && "hidden"}`}>
+              <h2 className="text-base font-semibold leading-7 text-gray-900">
+                Firmar Historial Clinico
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                Finalmente ingrese su contraseña para crear el historial clinico
+                del paciente.
+              </p>
+              <div className="flex justify-center items-center h-[calc(50vh)]">
+                <div className="w-2/3">
+                  <Input
+                    size="lg"
+                    label="Ingrese su contraseña de doctor"
+                    type="password"
+                    variant="standard"
+                    {...register("PasswordDoctor", { required: true })}
+                    error={errors.PasswordDoctor ? true : false}
+                  />
+                  {loading ? (
+                    <Spinner className="mx-auto mt-6" />
+                  ) : (
+                    <div className="flex">
+                      <Button
+                        color="blue"
+                        className="mt-6 mx-auto"
+                        type="submit"
+                      >
+                        Firmar Historial Clinico
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
-            </form>
-          </Card>
-        </div>
+            </div>
+          </form>
+        </Card>
+
         <StepperC
           steps={[
             {

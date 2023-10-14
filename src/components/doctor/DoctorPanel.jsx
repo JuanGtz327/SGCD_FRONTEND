@@ -1,8 +1,7 @@
-import React from "react";
 import { useAuth } from "../../context/AuthContext";
 
 const DoctorPanel = () => {
-  const { user,logout } = useAuth();
+  const { user } = useAuth();
 
   console.log(user);
 

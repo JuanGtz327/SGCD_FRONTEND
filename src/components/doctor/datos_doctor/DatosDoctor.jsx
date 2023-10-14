@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, Select, Option, Typography } from "@material-tailwind/react";
 
 const DatosPersonales = ({ register, Controller, control, errors }) => {
