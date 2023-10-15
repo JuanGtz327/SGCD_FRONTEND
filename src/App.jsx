@@ -70,6 +70,14 @@ const App = () => {
                 }
               />
               <Route
+                path="/listPatients/:clinicID"
+                element={
+                  <Layout>
+                    <Patients />
+                  </Layout>
+                }
+              />
+              <Route
                 path="/appointments"
                 element={
                   <Layout>

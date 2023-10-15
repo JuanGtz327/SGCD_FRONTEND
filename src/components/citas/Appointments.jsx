@@ -29,7 +29,7 @@ const Appointments = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
 
-  const { currentDate, getDia, getMes,dayjs } = useCalendar();
+  const { currentDate, getDia, getMes, dayjs } = useCalendar();
   const { isToday, isBefore } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
@@ -88,6 +88,23 @@ const Appointments = () => {
 
   return (
     <div className="h-full">
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-6 mx-auto">
+          <div className="text-center mb-0">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
+              Citas
+            </h1>
+            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
+              En este apartado puede consultar las citas agendadas con sus pacientes.
+              Ademas puede agendar nuevas citas a traves del calendario.
+            </p>
+            <div className="flex mt-6 justify-center">
+              <div className="w-16 h-1 rounded-full bg-blue-500 inline-flex"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {loading ? (
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
@@ -153,7 +170,10 @@ const Appointments = () => {
                         >
                           {pacientes.map(
                             ({ id, DocPac, Nombre, ApellidoP }) => (
-                              <Option key={id} value={`${DocPac.id.toString()},${id}`}>
+                              <Option
+                                key={id}
+                                value={`${DocPac.id.toString()},${id}`}
+                              >
                                 {Nombre} {ApellidoP}
                               </Option>
                             )

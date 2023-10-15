@@ -153,7 +153,7 @@ const NavBar = () => {
                       Nuevo Paciente
                     </ListItem>
                   </Link>
-                  <Link to="/listPatients">
+                  <Link to={`${user.is_admin?`/listPatients/${user.idClinica}`:'/listPatients'}`}>
                     <ListItem className="text-white">
                       <ListItemPrefix>
                         <QueueListIcon className="h-5 w-5" />
