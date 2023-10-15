@@ -98,7 +98,7 @@ const AddDoctor = () => {
                 <div className="flex">
                   <Button
                     color="blue"
-                    className="mt-6 mx-auto w-full max-w-[10rem]"
+                    className="mt-6 mx-auto w-full max-w-sm"
                     type="submit"
                   >
                     Agregar Doctor

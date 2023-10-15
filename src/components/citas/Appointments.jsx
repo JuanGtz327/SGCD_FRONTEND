@@ -94,7 +94,7 @@ const Appointments = () => {
   };
 
   return (
-    <>
+    <div className="h-full">
       {loading ? (
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
@@ -189,7 +189,7 @@ const Appointments = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

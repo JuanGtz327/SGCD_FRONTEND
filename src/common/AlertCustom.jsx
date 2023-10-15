@@ -20,7 +20,7 @@ const AlertCustom = ({ msg, type }) => {
       <Alert
         icon={type === "success" ? <AiFillCheckCircle /> : <BiSolidErrorAlt />}
         className={`absolute top-10 right-11 z-[9999] w-[300px] md:w-[24%] md:right-[5%] md:top-16 ${
-          type === "success" ? "bg-green-500" : "bg-red-500"
+          type === "success" ? "bg-submarine-500" : "bg-red-500"
         }`}
         open={visible}
         onClose={() => setVisible(false)}
