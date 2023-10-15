@@ -10,11 +10,11 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import NotaDialog from "../custom/NotaDialog";
-import { useAlert } from "../../../context/AlertContext";
+import { useToast } from "../../../hooks/useToast";
 
 const NotasHistorial = ({onNotas}) => {
   const [notas, setNotas] = useState([]);
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
 
   const [open, setOpen] = useState(false);
 
@@ -22,20 +22,14 @@ const NotasHistorial = ({onNotas}) => {
 
   const onNewNota = (nota) => {
     setNotas([...notas, {Nota: nota}]);
-    setAlertConfig({
-      msg: "Nota añadida",
-      type: "success",
-    });
+    showToast("success", "Nota agregada");
     setOpen(false);
     onNotas({Nota:nota},true);
   };
 
   const onDeleteNota = (index) => {
     setNotas(notas.filter((_,i)=>i!==index));
-    setAlertConfig({
-      msg: "Nota eliminada",
-      type: "success",
-    });
+    showToast("error", "Nota eliminada", "center");
     onNotas(index,false);
   };
 

@@ -16,12 +16,12 @@ import Pagination from "../../common/Pagination";
 import EditDoctorDialog from "./custom/EditDoctorDialog";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigationC } from "../../hooks/useNavigationC";
-import { useAlert } from "../../context/AlertContext";
+import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
 
 const Doctors = () => {
   const { user } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
   const { doctors, loading, setLoading } = useDoctors();
 
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
@@ -35,10 +35,7 @@ const Doctors = () => {
     setLoading(true);
     try {
       await deleteDoctorRequest(idUser, user.token);
-      setAlertConfig({
-        msg: "Doctor eliminado",
-        type: "success",
-      });
+      showToast("success", "Doctor eliminado");
     } catch (error) {
       console.log(error);
     }
@@ -131,7 +128,6 @@ const Doctors = () => {
             setOpenEdit={setOpenEdit}
             editingDoctor={editingDoctor}
             setEditingDoctor={setEditingDoctor}
-            setAlertConfig={setAlertConfig}
             setLoading={setLoading}
           />
         </>

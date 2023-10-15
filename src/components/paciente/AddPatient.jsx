@@ -11,7 +11,7 @@ import HistoriaMedica from "./historial_clinico/HistoriaMedica";
 import { createPatientRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "../../context/AlertContext";
+import { useToast } from "../../hooks/useToast";
 import StepperC from "../../common/StepperC";
 import {
   UserIcon,
@@ -42,7 +42,7 @@ const AddPatient = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
@@ -114,28 +114,19 @@ const AddPatient = () => {
         },
         user.token
       );
-      setAlertConfig({
-        msg: "Paciente creado exitosamente",
-        type: "success",
-      });
+      showToast("success", "Paciente añadido exitosamente");
       navigate("/listPatients");
     } catch (error) {
-      setAlertConfig({
-        msg: error.response.data.message,
-        type: "error",
-      });
+      showToast("error", error.response.data.message, "center");
     }
     setLoading(false);
   });
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
-      setAlertConfig({
-        msg: "Debes llenar todos los campos",
-        type: "error",
-      });
+      showToast("error", "Debes llenar todos los campos", "center");
     }
-  }, [errors, setAlertConfig]);
+  }, [errors, showToast]);
 
   const onNewHN = (newHN, adding) => {
     if (adding) {

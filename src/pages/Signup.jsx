@@ -14,7 +14,7 @@ import {
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
 import fondo from "../assets/fondo.svg";
-import { useAlert } from "../context/AlertContext.jsx";
+import { useToast } from "../hooks/useToast";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ const SignUp = () => {
   } = useForm();
   const navigate = useNavigate();
   const { signup, isAuthenticated } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -43,15 +43,9 @@ const SignUp = () => {
       delete values.CPassword;
       delete values.Checked;
       await signup(values);
-      setAlertConfig({
-        msg: "Registro completo",
-        type: "success",
-      });
+      showToast("success", "Registro completo");
     } catch (error) {
-      setAlertConfig({
-        msg: error.message,
-        type: "error",
-      });
+      showToast("error", error.message, "center");
       setLoading(false);
     }
   });

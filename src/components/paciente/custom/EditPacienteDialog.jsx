@@ -15,18 +15,18 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { editPatientRequest } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
+import { useToast } from "../../../hooks/useToast";
 
 const EditPacienteDialog = ({
   openEdit,
   setOpenEdit,
   editingPatient,
   setEditingPatient,
-  setAlertConfig,
   setLoading,
 }) => {
   const { user } = useAuth();
   const handleOpenEdit = () => setOpenEdit(!openEdit);
-
+  const { showToast } = useToast();
   const [editingEmail, setEditingEmail] = useState(false);
 
   const {
@@ -54,22 +54,12 @@ const EditPacienteDialog = ({
         user.token
       );
       if (res.status == 200) {
-        setAlertConfig({
-          msg: "Paciente actualizado",
-          type: "success",
-        });
+        showToast("success", "Paciente actualizado");
       } else {
-        setAlertConfig({
-          msg: "No se pudo actualizar",
-          type: "error",
-        });
+        showToast("error", "No se pudo actualizar", "center");
       }
     } catch (error) {
-      console.log(error);
-      setAlertConfig({
-        msg: error.response.data.message,
-        type: "error",
-      });
+      showToast("error", error.response.data.message, "center");
     }
     setEditingEmail(false);
     setOpenEdit(false);

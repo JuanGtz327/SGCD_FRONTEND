@@ -11,7 +11,7 @@ import DatosDoctor from "./datos_doctor/DatosDoctor.jsx";
 import StepperC from "../../common/StepperC.jsx";
 import { createDoctorRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { useAlert } from "../../context/AlertContext";
+import { useToast } from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { AiOutlineSetting } from "react-icons/ai";
@@ -25,7 +25,7 @@ const AddDoctor = () => {
     control,
   } = useForm();
   const { user } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
 
@@ -33,29 +33,19 @@ const AddDoctor = () => {
     setLoading(true);
     try {
       await createDoctorRequest(values, user.token);
-      setAlertConfig({
-        msg: "Registro completo",
-        type: "success",
-      });
+      showToast("success", "Registro completo");
       navigate("/listDoctors");
     } catch (error) {
-      console.log(error);
-      setAlertConfig({
-        msg: error.message,
-        type: "error",
-      });
+      showToast("error", error.message, "center");
     }
     setLoading(false);
   });
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
-      setAlertConfig({
-        msg: "Debes llenar todos los campos",
-        type: "error",
-      });
+      showToast("error", "Debes llenar todos los campos", "center");
     }
-  }, [errors, setAlertConfig]);
+  }, [errors, showToast]);
 
   return (
     <>

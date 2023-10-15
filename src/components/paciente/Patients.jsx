@@ -16,12 +16,12 @@ import Pagination from "../../common/Pagination";
 import EditPacienteDialog from "./custom/EditPacienteDialog";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigationC } from "../../hooks/useNavigationC";
-import { useAlert } from "../../context/AlertContext";
+import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
 
 const Patients = () => {
   const { user } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
 
   const { pacientes, loading, setLoading } = usePatients();
 
@@ -37,10 +37,7 @@ const Patients = () => {
     setLoading(true);
     try {
       await deletePatientRequest(idUser, user.token);
-      setAlertConfig({
-        msg: "Paciente eliminado",
-        type: "success",
-      });
+      showToast("success", "Paciente eliminado");
     } catch (error) {
       console.log(error);
     }
@@ -145,7 +142,6 @@ const Patients = () => {
             setOpenEdit={setOpenEdit}
             editingPatient={editingPatient}
             setEditingPatient={setEditingPatient}
-            setAlertConfig={setAlertConfig}
             setLoading={setLoading}
           />
         </>

@@ -12,13 +12,13 @@ import {
 import { useForm } from "react-hook-form";
 import { editDoctorRequest } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
+import { useToast } from "../../../hooks/useToast";
 
 const EditDoctorDialog = ({
   openEdit,
   setOpenEdit,
   editingDoctor,
   setEditingDoctor,
-  setAlertConfig,
   setLoading,
 }) => {
   const { user } = useAuth();
@@ -30,6 +30,8 @@ const EditDoctorDialog = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { showToast } = useToast();
 
   const onEditSubmit = handleSubmit(async (values) => {
     try {
@@ -43,22 +45,13 @@ const EditDoctorDialog = ({
       if (res.status == 200) {
         setOpenEdit(false);
         setLoading(true);
-        setAlertConfig({
-          msg: "Doctor actualizado",
-          type: "success",
-        });
+        showToast("success", "Doctor actualizado");
         setEditingEmail(false);
       } else {
-        setAlertConfig({
-          msg: "No se pudo actualizar",
-          type: "error",
-        });
+        showToast("error", "No se pudo actualizar", "center");
       }
     } catch (error) {
-      setAlertConfig({
-        msg: error.response.data.message,
-        type: "error",
-      });
+      showToast("error", error.response.data.message, "center");
     }
     setOpenEdit(false);
   });

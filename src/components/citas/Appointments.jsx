@@ -17,7 +17,7 @@ import { createAppointmentRequest } from "../../api/api";
 import AppointmentsAccordion from "./custom/AppointmentsAccordion";
 import { usePatients } from "../../hooks/usePatients";
 import { useAppointments } from "../../hooks/useAppointments";
-import { useAlert } from "../../context/AlertContext";
+import { useToast } from "../../hooks/useToast";
 import { useCalendar } from "../../hooks/useCalendar";
 import Calendar from "./custom/Calendar";
 import { useDay } from "../../hooks/useDay";
@@ -27,7 +27,7 @@ const Appointments = () => {
   const { appointments, loading, setLoading } = useAppointments();
 
   const { user } = useAuth();
-  const { setAlertConfig } = useAlert();
+  const { showToast } = useToast();
 
   const { currentDate, getDia, getMes,dayjs } = useCalendar();
   const { isToday, isBefore } = useDay();
@@ -54,18 +54,11 @@ const Appointments = () => {
     delete values.Hora;
     try {
       await createAppointmentRequest(values, user.token);
-      setAlertConfig({
-        isopen: true,
-        type: "success",
-        msg: "Cita agendada",
-      });
+      showToast("success", "Cita agendada");
       setLoading(true);
       setOpen(false);
     } catch (error) {
-      setAlertConfig({
-        type: "error",
-        msg: error.response.data.message,
-      });
+      showToast("error", error.response.data.message, "center");
     }
   });
 

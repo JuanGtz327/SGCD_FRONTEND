@@ -12,8 +12,8 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useToast } from "../hooks/useToast.js";
 import fondo from "../assets/fondo.svg";
-import { useAlert } from "../context/AlertContext.jsx";
 
 const LogIn = () => {
   const [loading, setLoading] = useState(false);
@@ -23,8 +23,8 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
   const { signin, isAuthenticated } = useAuth();
-  const { setAlertConfig } = useAlert();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -36,16 +36,10 @@ const LogIn = () => {
     setLoading(true);
     try {
       await signin(values);
-      setAlertConfig({
-        msg: "Inicio de sesion exitoso",
-        type: "success",
-      });
+      showToast("success", "Inicio de sesión exitoso");
       navigate("/main");
     } catch (error) {
-      setAlertConfig({
-        msg: error.message,
-        type: "error",
-      });
+      showToast("error", error.message, "center");
     }
     setLoading(false);
   });
