@@ -33,8 +33,8 @@ const StepperC = ({ steps, onStepChange }) => {
       >
         {steps.map(({ Details, Icon }, index) => (
           <Step
-            activeClassName="bg-blue-700"
-            completedClassName="bg-cyan-700"
+            activeClassName="bg-blue-500"
+            completedClassName="bgClinic"
             className="bg-gray-400"
             onClick={() => setActiveStep(index)}
             key={index}
@@ -42,7 +42,7 @@ const StepperC = ({ steps, onStepChange }) => {
             <Icon className="h-5 w-5 text-white" />
             <div className="absolute -bottom-[2.5rem] w-max text-center hidden xl:block">
               <Typography
-                color={activeStep === index ? "cyan" : "gray"}
+                color={activeStep === index ? "blue" : "gray"}
                 className="font-semibold sm:text-sm 2xl:text-base"
               >
                 {Details}
@@ -53,7 +53,7 @@ const StepperC = ({ steps, onStepChange }) => {
       </Stepper>
       <div>
         <Typography
-          color="cyan"
+          color="blue"
           className="font-semibold xl:hidden sm:text-sm xl:text-base text-center mt-3"
         >
           {stepMobile.Details}
@@ -63,14 +63,14 @@ const StepperC = ({ steps, onStepChange }) => {
         <Button
           onClick={handlePrev}
           disabled={isFirstStep}
-          className="bg-light-blue-600"
+          color="blue"
           variant="filled"
         >
           Anterior
         </Button>
         <Button
           onClick={handleNext}
-          className="bg-light-blue-600"
+          color="blue"
           type="submit"
           disabled={isLastStep}
         >

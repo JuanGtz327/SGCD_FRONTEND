@@ -16,7 +16,7 @@ const AppointmentsAccordion = ({ appointments }) => {
 
   useEffect(() => {
     setOpen(findNext(appointments));
-  }, [appointments,findNext])
+  }, [appointments])
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 

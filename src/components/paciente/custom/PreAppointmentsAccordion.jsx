@@ -32,7 +32,7 @@ const PreAppointmentsAccordion = ({ appointments, onDeletePreAppointment}) => {
               </div>
               <p>
                 <BsFillTrash3Fill
-                  color="#DB4343"
+                  color="red"
                   onClick={()=>onDeletePreAppointment(index)}
                   style={{ fontSize: 31 }}
                 />

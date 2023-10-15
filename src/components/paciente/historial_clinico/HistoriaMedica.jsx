@@ -95,7 +95,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Habitos Negativos
           </h2>
-          <div className="mt-2 grid grid-cols-2 gap-x-6">
+          <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div className="flex">
               <Checkbox
                 color="blue"
@@ -150,7 +150,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Habitos Positivos
           </h2>
-          <div className="mt-2 grid grid-cols-2 gap-x-6">
+          <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div className="flex">
               <Checkbox
                 color="indigo"

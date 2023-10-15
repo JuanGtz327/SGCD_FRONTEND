@@ -230,7 +230,7 @@ const AddPatient = () => {
                 del paciente.
               </p>
               <div className="flex justify-center items-center h-[calc(50vh)]">
-                <div className="w-2/3">
+                <div className="w-full">
                   <Input
                     size="lg"
                     label="Ingrese su contraseña de doctor"

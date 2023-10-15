@@ -99,14 +99,15 @@ const Appointments = () => {
         <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
       ) : (
         <>
-          <div className="rounded-3xl p-10 flex gap-10 sm:divide-x justify-center 2xl:w-[90%] lg:h-[100%] mx-auto items-center sm:flex-row flex-col">
+          <div className="flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
             <Calendar
               selectDate={selectDate}
+              customClassName="w-full max-w-lg"
               onDayChange={onDayChange}
               onSetToday={onSetToday}
             />
-
-            <div className="h-full 2xl:w-[65%] sm:px-5 bg-white py-8 rounded-3xl">
+            <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
+            <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
                 {selectDate.toDate().toDateString()}
               </h1>

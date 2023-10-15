@@ -15,7 +15,7 @@ const Calendar = ({ selectDate, onDayChange, onSetToday, customClassName="" }) =
   } = useCalendar();
 
   return (
-    <div className={`${customClassName} h-fit rounded-3xl bg-white p-12`}>
+    <div className={`${customClassName} h-fit p-1 md:p-12`}>
       <div className="flex justify-between items-center">
         <h1 className="select-none font-semibold">{getCalendarHeader()}</h1>
         <div className="flex gap-10 items-center ">

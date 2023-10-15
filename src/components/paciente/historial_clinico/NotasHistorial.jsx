@@ -47,8 +47,7 @@ const NotasHistorial = ({onNotas}) => {
       </p>
       <div className="mt-5 w-full">
         <Button
-          color="cyan"
-          variant="outlined"
+          color="blue"
           className="mb-5"
           onClick={handleOpen}
         >

@@ -61,19 +61,18 @@ const CitasHistorial = ({preAppointments,onAppointments}) => {
         Simplemente seleccione el dia de su preferencia y la hora en la que
         desea agendar la cita.
       </p>
-      <div className="flex flex-wrap">
+      <div className="flex flex-col md:flex-row">
         <Calendar
           selectDate={selectDate}
-          customClassName="w-1/2 mt-7"
+          customClassName="md:w-1/2 mt-7"
           onDayChange={onDayChange}
           onSetToday={onSetToday}
         />
-        <div className="h-full mt-5 w-1/2 sm:px-5 bg-white py-8">
+        <div className="h-full mt-0 sm:mt-5 sm:px-5 py-2 sm:py-8 md:w-1/2">
           <div className="text-gray-400 w-full">
             {validDate() && (
               <Button
                 color="blue"
-                variant="outlined"
                 fullWidth
                 onClick={handleOpen}
               >
