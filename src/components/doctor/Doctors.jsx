@@ -116,15 +116,15 @@ const Doctors = () => {
                 ))}
               </div>
             )}
-
-            <Pagination
-              prev={prev}
-              currentPage={currentPage}
-              pageCount={pageCount}
-              next={next}
-              getItemProps={getItemProps}
-            />
           </div>
+
+          <Pagination
+            prev={prev}
+            currentPage={currentPage}
+            pageCount={pageCount}
+            next={next}
+            getItemProps={getItemProps}
+          />
 
           <EditDoctorDialog
             openEdit={openEdit}

@@ -186,7 +186,6 @@ const NavBar = () => {
                 value="14"
                 size="sm"
                 variant="ghost"
-                color="white"
                 className="rounded-full"
               />
             </ListItemSuffix>
