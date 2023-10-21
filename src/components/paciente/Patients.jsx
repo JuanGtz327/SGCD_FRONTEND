@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import userImg from "../../assets/user.png";
-import { DeleteModal } from "../generalModals/deleteModal";
+import { DeleteModal } from "../generalModals/DeleteModal";
 import { MdEmail } from "react-icons/md";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { deletePatientRequest } from "../../api/api";
