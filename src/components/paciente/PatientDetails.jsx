@@ -98,7 +98,7 @@ const PatientDetails = () => {
                       del paciente. Se podra visualizar el historial de
                       enfermedades, alergias, medicamentos, etc.
                     </p>
-                    <Link to={`${import.meta.env.FRONTEND_URL||'http://localhost:5173/'}clinicDetail/${paciente.id}`} className="mt-3 text-blue-500 inline-flex items-center">
+                    <Link to={`${import.meta.env.VITE_FRONTEND_URL||'http://localhost:5173/'}clinicDetail/${paciente.id}`} className="mt-3 text-blue-500 inline-flex items-center">
                       Consultar
                       <svg
                         fill="none"
