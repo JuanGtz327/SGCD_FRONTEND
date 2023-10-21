@@ -86,7 +86,7 @@ const LogIn = () => {
                   />
                 </div>
                 {loading ? (
-                  <Spinner className="mx-auto" />
+                  <Spinner className="mx-auto mt-5" />
                 ) : (
                   <Button fullWidth type="submit" className="mt-5" color="blue">
                     Log In

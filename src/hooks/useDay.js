@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
+import "dayjs/locale/es";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.locale("es");
 const currentDate = dayjs().tz("America/Mexico_City");
 
 export const useDay = () => {
@@ -57,11 +59,18 @@ export const useDay = () => {
     return indiceCitaMasCercana;
   };
 
+  const convertToBirthDate = (dateString) => {
+    const [datePart] = dateString.split(' ');
+    const birthDate = dayjs(datePart).add(1, 'day');
+    return birthDate.format('DD MMMM YYYY');
+  }
+
   return {
     isToday,
     isBefore,
     isAfter,
     inProgress,
     findNext,
+    convertToBirthDate
   };
 };

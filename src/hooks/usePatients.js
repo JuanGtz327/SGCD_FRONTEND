@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { getPatientsClinicRequest, getPatientsRequest } from "../api/api";
+import {
+  getPatientRequest,
+  getPatientsClinicRequest,
+  getPatientsRequest,
+} from "../api/api";
 
 export const usePatients = (clinicID) => {
   const { user } = useAuth();
@@ -37,11 +41,19 @@ export const usePatients = (clinicID) => {
     );
   };
 
+  const getPaciente = async (patientID) => {
+    setLoading(true);
+    const response = await getPatientRequest(patientID, user.token);
+    setLoading(false);
+    return response.data;
+  };
+
   return {
     pacientes,
     filtered,
     loading,
     setLoading,
     filterPatients,
+    getPaciente
   };
 };

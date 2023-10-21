@@ -18,6 +18,8 @@ import Appointments from "./components/citas/Appointments.jsx";
 
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./common/Layout.jsx";
+import PatientDetails from "./components/paciente/PatientDetails.jsx";
+import ClinicDetail from "./components/expedienteClinico/ClinicDetail.jsx";
 
 const App = () => {
   return (
@@ -78,10 +80,26 @@ const App = () => {
                 }
               />
               <Route
+                path="/patient/:patientID"
+                element={
+                  <Layout>
+                    <PatientDetails />
+                  </Layout>
+                }
+              />
+              <Route
                 path="/appointments"
                 element={
                   <Layout>
                     <Appointments />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/clinicDetail/:patientID"
+                element={
+                  <Layout>
+                    <ClinicDetail />
                   </Layout>
                 }
               />

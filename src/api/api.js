@@ -52,6 +52,11 @@ export const getPatientsRequest = (token) => {
   return axios.get(`/admin/getPatients`,{headers});
 }
 
+export const getPatientRequest = (id,token) => {
+  const headers = {"Authorization": `Bearer ${token}`};
+  return axios.get(`/admin/getPatient/${id}`,{headers});
+}
+
 export const getPatientsClinicRequest = (token,clinicID) => {
   const headers = {"Authorization": `Bearer ${token}`};
   return axios.get(`/admin/getPatientsClinic/${clinicID}`,{headers});

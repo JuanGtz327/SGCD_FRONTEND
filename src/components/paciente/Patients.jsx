@@ -96,10 +96,10 @@ const Patients = () => {
                       (
                         {
                           User: { Correo },
+                          id,
                           Nombre,
                           ApellidoP,
                           ApellidoM,
-                          Fecha_nacimiento,
                           idUser,
                           Domicilio: {
                             Calle,
@@ -132,7 +132,7 @@ const Patients = () => {
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
                             <Link
-                              to={`/patient/${idUser}`}
+                              to={`/patient/${id}`}
                               className="text-blue-500 inline-flex items-center mt-4"
                             >
                               Detalles del paciente
@@ -153,9 +153,6 @@ const Patients = () => {
                           <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                             <span className="font-semibold title-font text-gray-700">
                               {Correo}
-                            </span>
-                            <span className="mt-1 text-gray-500 text-sm">
-                              {Fecha_nacimiento}
                             </span>
                             <div className="flex gap-5 mt-5">
                             <IconButton
