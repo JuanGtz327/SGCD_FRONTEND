@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Spinner, Input, IconButton } from "@material-tailwind/react";
+import { Input, Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import userImg from "../../assets/user.png";
+import { MdEmail } from "react-icons/md";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { deletePatientRequest } from "../../api/api";
 import { usePatients } from "../../hooks/usePatients";
@@ -12,11 +13,17 @@ import { useNavigationC } from "../../hooks/useNavigationC";
 import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
 import { useParams } from "react-router-dom";
+import Loader from "../../common/Loader";
+import { DeleteModal } from "../generalModals/deleteModal";
 
 const Patients = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [patientToDelete, setPatientToDelete] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editingPatient, setEditingPatient] = useState({});
   const { clinicID } = useParams();
 
   const { pacientes, loading, setLoading, filterPatients, filtered } =
@@ -27,25 +34,24 @@ const Patients = () => {
 
   const navigate = useNavigate();
 
-  const [openEdit, setOpenEdit] = useState(false);
-  const [editingPatient, setEditingPatient] = useState({});
-
-  const onDeletePatient = async (idUser) => {
-    setLoading(true);
+  const onDeletePatient = async () => {
     try {
-      await deletePatientRequest(idUser, user.token);
+      await deletePatientRequest(patientToDelete, user.token);
       showToast("success", "Paciente eliminado");
     } catch (error) {
       console.log(error);
     }
+    setLoading(true);
+    setPatientToDelete(0);
+    setShowDeleteModal(false);
   };
 
   return (
     <>
       {loading ? (
-        <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
+        <Loader />
       ) : (
-        <>
+        <div className="flex flex-col">
           <section className="text-gray-600 body-font">
             <div className="container px-5 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">
@@ -111,7 +117,8 @@ const Patients = () => {
                             Municipio,
                           },
                         },
-                        key,Paciente
+                        key,
+                        Paciente
                       ) => (
                         <div
                           className="py-8 flex flex-wrap md:flex-nowrap"
@@ -133,7 +140,7 @@ const Patients = () => {
                             </p>
                             <Link
                               to={`/patient/${id}`}
-                              className="text-blue-500 inline-flex items-center mt-4"
+                              className="text-indigo-500 inline-flex items-center mt-4"
                             >
                               Detalles del paciente
                               <svg
@@ -150,28 +157,35 @@ const Patients = () => {
                               </svg>
                             </Link>
                           </div>
-                          <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span className="font-semibold title-font text-gray-700">
+                          <div className="md:w-fit md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                            <span className="mt-3 flex gap-2 font-semibold title-font text-gray-700">
+                              <MdEmail className="w-6 h-6" />
                               {Correo}
                             </span>
                             <div className="flex gap-5 mt-5">
-                            <IconButton
-                            color="blue"
-                              onClick={() => {
-                                setOpenEdit(true);
-                                setEditingPatient(
-                                  Paciente.find((p) => p.idUser === idUser)
-                                );
-                              }}
-                            >
-                              <AiFillEdit className="w-6 h-6" />
-                            </IconButton>
-                            <IconButton
-                              onClick={() => onDeletePatient(idUser)}
-                              className="bg-cerise-500"
-                            >
-                              <AiFillDelete className="w-6 h-6" />
-                            </IconButton>
+                              <Button
+                                size="sm"
+                                className="flex items-center"
+                                color="blue"
+                                onClick={() => {
+                                  setOpenEdit(true);
+                                  setEditingPatient(
+                                    Paciente.find((p) => p.idUser === idUser)
+                                  );
+                                }}
+                              >
+                                <AiFillEdit className="w-6 h-6" /> Credenciales
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => {
+                                  setPatientToDelete(idUser);
+                                  setShowDeleteModal(true);
+                                }}
+                                className="bg-cerise-500 flex items-center"
+                              >
+                                <AiFillDelete className="w-6 h-6" /> Eliminar
+                              </Button>
                             </div>
                           </div>
                         </div>
@@ -182,7 +196,6 @@ const Patients = () => {
               </div>
             </div>
           </section>
-
           <Pagination
             prev={prev}
             currentPage={currentPage}
@@ -190,7 +203,6 @@ const Patients = () => {
             next={next}
             getItemProps={getItemProps}
           />
-
           <EditPacienteDialog
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
@@ -198,7 +210,15 @@ const Patients = () => {
             setEditingPatient={setEditingPatient}
             setLoading={setLoading}
           />
-        </>
+          <DeleteModal
+            show={showDeleteModal}
+            onDelete={onDeletePatient}
+            onCancel={() => {
+              setPatientToDelete(0);
+              setShowDeleteModal(false);
+            }}
+          />
+        </div>
       )}
     </>
   );

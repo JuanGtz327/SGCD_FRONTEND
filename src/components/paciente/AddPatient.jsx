@@ -4,7 +4,6 @@ import {
   Card,
   Button,
   Typography,
-  Spinner,
   Input,
 } from "@material-tailwind/react";
 import HistoriaMedica from "./historial_clinico/HistoriaMedica";
@@ -27,6 +26,7 @@ import ExamenFisico from "./historial_clinico/ExamenFisico";
 import HistoriaClinicaActual from "./historial_clinico/HistoriaClinicaActual";
 import CitasHistorial from "./historial_clinico/CitasHistorial";
 import NotasHistorial from "./historial_clinico/NotasHistorial";
+import Loader from "../../common/Loader";
 
 const AddPatient = () => {
   const [loading, setLoading] = useState(false);
@@ -231,7 +231,7 @@ const AddPatient = () => {
                     error={errors.PasswordDoctor ? true : false}
                   />
                   {loading ? (
-                    <Spinner className="mx-auto mt-6" />
+                    <Loader top="mt-6"/>
                   ) : (
                     <div className="flex">
                       <Button

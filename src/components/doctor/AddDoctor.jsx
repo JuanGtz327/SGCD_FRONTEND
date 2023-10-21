@@ -4,7 +4,6 @@ import {
   Card,
   Button,
   Typography,
-  Spinner,
   Textarea,
 } from "@material-tailwind/react";
 import DatosDoctor from "./datos_doctor/DatosDoctor.jsx";
@@ -15,6 +14,7 @@ import { useToast } from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { AiOutlineSetting } from "react-icons/ai";
+import Loader from "../../common/Loader.jsx";
 
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
@@ -83,7 +83,7 @@ const AddDoctor = () => {
               />
               <hr className="mt-6" />
               {loading ? (
-                <Spinner className="mx-auto mt-6" />
+                <Loader top="mt-6"/>
               ) : (
                 <div className="flex">
                   <Button

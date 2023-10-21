@@ -219,7 +219,7 @@ const ExamenFisicoEdit = ({ data }) => {
         <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
           <Link
             to={`${
-              import.meta.env.FRONTEND_URL || "http://localhost:5173/"
+              import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
             }patient/2`}
           >
             <Button className="mt-5 w-fit bg-cerise-500" color="blue">

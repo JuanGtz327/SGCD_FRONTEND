@@ -9,7 +9,6 @@ import {
   Button,
   Select,
   Option,
-  Spinner,
 } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
@@ -21,6 +20,7 @@ import { useToast } from "../../hooks/useToast";
 import { useCalendar } from "../../hooks/useCalendar";
 import Calendar from "./custom/Calendar";
 import { useDay } from "../../hooks/useDay";
+import Loader from "../../common/Loader";
 
 const Appointments = () => {
   const { pacientes } = usePatients();
@@ -95,18 +95,19 @@ const Appointments = () => {
               Citas
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede consultar las citas agendadas con sus pacientes.
-              Ademas puede agendar nuevas citas a traves del calendario.
+              En este apartado puede consultar las citas agendadas con sus
+              pacientes. Ademas puede agendar nuevas citas a traves del
+              calendario.
             </p>
             <div className="flex mt-6 justify-center">
-              <div className="w-16 h-1 rounded-full bg-blue-500 inline-flex"></div>
+              <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
             </div>
           </div>
         </div>
       </section>
 
       {loading ? (
-        <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
+        <Loader top="mt-32"/>
       ) : (
         <>
           <div className="flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
@@ -129,8 +130,8 @@ const Appointments = () => {
                   citas agendadas
                 </h6>
                 {validDate() && (
-                  <Button color="blue" variant="gradient" onClick={handleOpen}>
-                    Agendar cita
+                  <Button color="blue" onClick={handleOpen}>
+                    AGENDAR CITA
                   </Button>
                 )}
               </div>
@@ -190,10 +191,10 @@ const Appointments = () => {
                   </div>
                 </DialogBody>
                 <DialogFooter className="space-x-2">
-                  <Button variant="text" color="red" onClick={handleOpen}>
+                  <Button className="bg-cerise-500" onClick={handleOpen}>
                     Cancelar
                   </Button>
-                  <Button variant="gradient" color="blue" type="sumbit">
+                  <Button color="blue" type="sumbit">
                     Agendar Cita
                   </Button>
                 </DialogFooter>

@@ -14,6 +14,7 @@ import HistoriaMedicaEdit from "./HistoriaMedicaEdit";
 import ExamenFisicoEdit from "./ExamenFisicoEdit";
 import { useParams } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
+import Loader from "../../common/Loader";
 
 const ClinicDetail = () => {
   const { patientID } = useParams();
@@ -64,8 +65,16 @@ const ClinicDetail = () => {
             <TabsBody>
               {data.map(({ value, id }) => (
                 <TabPanel key={value} value={value}>
-                  {id == 0 && <HistoriaMedicaEdit data={paciente.HistorialClinico.HistoriaMedica}/>}
-                  {id == 1 && <ExamenFisicoEdit data={paciente.HistorialClinico.ExamenFisico} />}
+                  {id == 0 && (
+                    <HistoriaMedicaEdit
+                      data={paciente.HistorialClinico.HistoriaMedica}
+                    />
+                  )}
+                  {id == 1 && (
+                    <ExamenFisicoEdit
+                      data={paciente.HistorialClinico.ExamenFisico}
+                    />
+                  )}
                 </TabPanel>
               ))}
             </TabsBody>
@@ -76,9 +85,9 @@ const ClinicDetail = () => {
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
               En este apartado se incluyen los datos del expediente clinico del
-              paciente. Se divide en tres secciones: Historia Medica, Examen
-              Fisico y Historia Clinica Actual. Para editar la informacion de
-              cada seccion da click en la pestaña correspondiente.
+              paciente. Se divide en dos secciones Historia Medica y Examen
+              Fisico. Para editar la informacion de cada seccion da click en la
+              pestaña correspondiente.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -86,7 +95,7 @@ const ClinicDetail = () => {
           </div>
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <Loader top="mt-32"/>
       )}
     </>
   );

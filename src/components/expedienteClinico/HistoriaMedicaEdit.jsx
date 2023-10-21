@@ -157,7 +157,7 @@ const HistoriaMedicaEdit = ({ data }) => {
                     </div>
                   }
                   {...register("Vacunas")}
-                  color="blue"
+                  color="indigo"
                 />
               </div>
             </div>
@@ -170,7 +170,7 @@ const HistoriaMedicaEdit = ({ data }) => {
               <div className="flex">
                 <Checkbox
                   checked={habitosNegativos.includes("Tabaquismo")}
-                  color="blue"
+                  color="indigo"
                   value="Tabaquismo"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -184,7 +184,7 @@ const HistoriaMedicaEdit = ({ data }) => {
               <div className="flex">
                 <Checkbox
                   checked={habitosNegativos.includes("Alcohol")}
-                  color="blue"
+                  color="indigo"
                   value="Alcohol"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -198,7 +198,7 @@ const HistoriaMedicaEdit = ({ data }) => {
               <div className="flex">
                 <Checkbox
                   checked={habitosNegativos.includes("Drogas")}
-                  color="blue"
+                  color="indigo"
                   value="Drogas"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -212,7 +212,7 @@ const HistoriaMedicaEdit = ({ data }) => {
               <div className="flex">
                 <Checkbox
                   checked={habitosNegativos.includes("No_dormir")}
-                  color="blue"
+                  color="indigo"
                   value="No_dormir"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -293,7 +293,7 @@ const HistoriaMedicaEdit = ({ data }) => {
         <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
           <Link
             to={`${
-              import.meta.env.FRONTEND_URL || "http://localhost:5173/"
+              import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
             }patient/2`}
           >
             <Button className="mt-5 w-fit bg-cerise-500" color="blue">

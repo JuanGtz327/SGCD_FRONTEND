@@ -86,7 +86,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                   </div>
                 }
                 {...register("Vacunas")}
-                color="blue"
+                color="indigo"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div className="flex">
               <Checkbox
-                color="blue"
+                color="indigo"
                 value="Tabaquismo"
                 onChange={(e) => {
                   onNewHN(e.target.value, e.target.checked);
@@ -110,7 +110,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             </div>
             <div className="flex">
               <Checkbox
-                color="blue"
+                color="indigo"
                 value="Alcohol"
                 onChange={(e) => {
                   onNewHN(e.target.value, e.target.checked);
@@ -122,7 +122,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             </div>
             <div className="flex">
               <Checkbox
-                color="blue"
+                color="indigo"
                 value="Drogas"
                 onChange={(e) => {
                   onNewHN(e.target.value, e.target.checked);
@@ -134,7 +134,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             </div>
             <div className="flex">
               <Checkbox
-                color="blue"
+                color="indigo"
                 value="No_dormir"
                 onChange={(e) => {
                   onNewHN(e.target.value, e.target.checked);

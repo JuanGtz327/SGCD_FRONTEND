@@ -8,13 +8,13 @@ import {
   Checkbox,
   Button,
   Typography,
-  Spinner,
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
 import fondo from "../assets/fondo.svg";
 import { useToast } from "../hooks/useToast";
+import Loader from "../common/Loader.jsx";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -144,7 +144,7 @@ const SignUp = () => {
                   className={`${errors.Checked ? "border-red-800" : ""}`}
                 />
                 {loading ? (
-                  <Spinner className="mx-auto" />
+                  <Loader top="mt-5"/>
                 ) : (
                   <Button color="blue" className="mt-6" fullWidth type="submit">
                     Sign Up

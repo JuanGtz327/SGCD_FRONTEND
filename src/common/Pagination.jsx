@@ -6,7 +6,7 @@ const Pagination = ({ prev, currentPage, pageCount, next, getItemProps }) => {
     <>
       {pageCount > 1 && (
         <div className="flex justify-center items-center h-full">
-          <div className="lg:absolute lg:bottom-10 w-fit">
+          <div className="2xl:absolute 2xl:bottom-10 w-full max-w-7xl px-0 lg:px-24 py-0">
             <div className="flex items-center justify-center gap-4 mt-10">
               <Button
                 className="flex items-center gap-2"

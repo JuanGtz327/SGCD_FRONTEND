@@ -7,13 +7,13 @@ import {
   Input,
   Button,
   Typography,
-  Spinner,
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../hooks/useToast.js";
 import fondo from "../assets/fondo.svg";
+import Loader from "../common/Loader.jsx";
 
 const LogIn = () => {
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ const LogIn = () => {
                   />
                 </div>
                 {loading ? (
-                  <Spinner className="mx-auto mt-5" />
+                  <Loader top="mt-5"/>
                 ) : (
                   <Button fullWidth type="submit" className="mt-5" color="blue">
                     Log In

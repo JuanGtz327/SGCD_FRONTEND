@@ -8,11 +8,8 @@ import {
   DialogBody,
   DialogFooter,
   Input,
-  Textarea,
-  Select,
-  Option,
 } from "@material-tailwind/react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { editPatientRequest } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
@@ -32,16 +29,12 @@ const EditPacienteDialog = ({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onEditSubmit = handleSubmit(async (values) => {
-    setLoading(true);
     try {
-      if (values.Genero === undefined) {
-        delete values.Genero;
-      }
       if (values.Password === "") {
         delete values.Password;
       }
@@ -63,15 +56,22 @@ const EditPacienteDialog = ({
     }
     setEditingEmail(false);
     setOpenEdit(false);
-    setLoading(false);
+    setLoading(true);
   });
 
   const handleInputChange = (event) => {
-    if (event.target.name === "Correo") setEditingEmail(true);
-    setEditingPatient({
-      ...editingPatient,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.name === "Correo") {
+      setEditingEmail(true);
+      setEditingPatient({
+        ...editingPatient,
+        User: { ...editingPatient.User, Correo: event.target.value },
+      });
+    } else {
+      setEditingPatient({
+        ...editingPatient,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   return (
@@ -83,80 +83,25 @@ const EditPacienteDialog = ({
         mount: { scale: 1, y: 0 },
         unmount: { scale: 0.9, y: -100 },
       }}
+      dismiss={{
+        enabled: false,
+      }}
     >
       <DialogHeader>Paciente: {editingPatient.Nombre}</DialogHeader>
-      <form className="mt-4 mb-2 w-[100%]" onSubmit={onEditSubmit}>
+      <form onSubmit={onEditSubmit}>
         <DialogBody divider>
-          <Card shadow={false} className="w-96 px-5 py-5 mx-auto">
-            <Typography variant="h4" color="blue-gray">
-              Editar paciente {editingPatient.User?.Correo}
+          <Card shadow={false} className="w-fit py-5 mx-auto">
+            <Typography color="blue-gray">
+              Ingrese los nuevos datos de autenticacion del paciente.
             </Typography>
             <div className="mt-4 mb-4 flex flex-col gap-6">
-              <Input
-                size="lg"
-                label="Nombre"
-                type="text"
-                {...register("Nombre", { required: true })}
-                error={errors.Nombre ? true : false}
-                value={editingPatient.Nombre}
-                onChange={handleInputChange}
-              />
-              <div className="flex items-center gap-4">
-                <Input
-                  label="Apellido Paterno"
-                  maxLength={15}
-                  containerProps={{ className: "min-w-[72px]" }}
-                  type="text"
-                  {...register("ApellidoP", { required: true })}
-                  error={errors.ApellidoP ? true : false}
-                  value={editingPatient.ApellidoP}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  label="Apellido Materno"
-                  maxLength={15}
-                  containerProps={{ className: "min-w-[72px]" }}
-                  type="text"
-                  {...register("ApellidoM", { required: true })}
-                  error={errors.ApellidoM ? true : false}
-                  value={editingPatient.ApellidoM}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="flex items-center gap-4">
-                <Input
-                  label="Edad"
-                  maxLength={20}
-                  containerProps={{ className: "min-w-[72px]" }}
-                  type="number"
-                  {...register("Edad", { required: true })}
-                  error={errors.Edad ? true : false}
-                  value={editingPatient.Edad}
-                  onChange={handleInputChange}
-                />
-                <Controller
-                  name="Genero"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      label="Genero"
-                      containerProps={{ className: "min-w-[72px]" }}
-                      error={errors.Genero ? true : false}
-                    >
-                      <Option value="M">Masculino</Option>
-                      <Option value="F">Femenino</Option>
-                    </Select>
-                  )}
-                />
-              </div>
               <Input
                 size="lg"
                 label="Correo"
                 type="email"
                 {...register("Correo", { required: true })}
                 error={errors.Correo ? true : false}
-                value={editingPatient.Correo}
+                value={editingPatient.User?.Correo}
                 onChange={handleInputChange}
               />
               <Input
@@ -185,30 +130,21 @@ const EditPacienteDialog = ({
               ) : (
                 <></>
               )}
-              <Textarea
-                variant="standard"
-                label="Domicilio"
-                {...register("Domicilio", { required: true })}
-                error={errors.Domicilio ? true : false}
-                value={editingPatient.Domicilio}
-                onChange={handleInputChange}
-              />
             </div>
           </Card>
         </DialogBody>
         <DialogFooter>
           <Button
-            variant="text"
-            color="red"
             onClick={() => {
               setOpenEdit(false);
               setEditingPatient({});
+              reset();
             }}
-            className="mr-1"
+            className="mr-1 bg-cerise-500"
           >
             <span>Cancelar</span>
           </Button>
-          <Button variant="gradient" color="blue" type="sumbit">
+          <Button color="blue" type="sumbit">
             <span>Confirmar</span>
           </Button>
         </DialogFooter>

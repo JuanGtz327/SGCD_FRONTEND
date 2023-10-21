@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, Spinner, Input } from "@material-tailwind/react";
+import { IconButton, Input } from "@material-tailwind/react";
 import userImg from "../../assets/user.png";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigationC } from "../../hooks/useNavigationC";
 import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
+import Loader from "../../common/Loader";
 
 const Doctors = () => {
   const { user } = useAuth();
@@ -41,7 +42,7 @@ const Doctors = () => {
   return (
     <>
       {loading ? (
-        <Spinner className="h-8 w-8 mx-auto mt-[25%]" />
+        <Loader/>
       ) : (
         <>
           <section className="text-gray-600 body-font">

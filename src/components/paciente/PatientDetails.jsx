@@ -4,6 +4,7 @@ import { usePatients } from "../../hooks/usePatients";
 import { Link, useParams } from "react-router-dom";
 import { useDay } from "../../hooks/useDay";
 import { MdOutlineSick } from "react-icons/md";
+import Loader from "../../common/Loader";
 
 const PatientDetails = () => {
   const { convertToBirthDate } = useDay();
@@ -12,7 +13,7 @@ const PatientDetails = () => {
   const { getPaciente, loading } = usePatients(null, patientID);
 
   useEffect(() => {
-    (async ()=>{
+    (async () => {
       setPaciente(await getPaciente(patientID));
     })();
   }, [patientID]);
@@ -34,7 +35,7 @@ const PatientDetails = () => {
                         {paciente.Nombre} {paciente.ApellidoP}{" "}
                         {paciente.ApellidoM}
                       </h2>
-                      <div className="w-12 h-1 bg-blue-500 rounded mt-2 mb-4"></div>
+                      <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
                       <p className="text-base">Paciente No# {paciente.id}</p>
                     </div>
                   </div>
@@ -53,11 +54,12 @@ const PatientDetails = () => {
                       </p>
                       <p className="leading-relaxed mb-4">
                         <b>Fecha Nacimiento:</b>{" "}
-                        {
-                          convertToBirthDate(paciente.Fecha_nacimiento)
-                        }
+                        {convertToBirthDate(paciente.Fecha_nacimiento)}
                       </p>
-                      <p className="leading-relaxed mb-4"><b>Genero:</b> {paciente.Genero=='M'?'Masculino':'Femenino'}</p>
+                      <p className="leading-relaxed mb-4">
+                        <b>Genero:</b>{" "}
+                        {paciente.Genero == "M" ? "Masculino" : "Femenino"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -65,7 +67,7 @@ const PatientDetails = () => {
             </div>
           </section>
 
-          <div className="w-[50%] h-1 bg-blue-500 rounded mt-2 mb-2 mx-auto"></div>
+          <div className="w-[50%] h-1 bg-indigo-500 rounded mt-2 mb-2 mx-auto"></div>
 
           <section className="text-gray-600 body-font">
             <div className="container px-5 py-5 mx-auto">
@@ -76,7 +78,7 @@ const PatientDetails = () => {
               </h1>
               <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
                 <div className="p-4 md:w-1/3 flex">
-                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0">
+                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -98,7 +100,13 @@ const PatientDetails = () => {
                       del paciente. Se podra visualizar el historial de
                       enfermedades, alergias, medicamentos, etc.
                     </p>
-                    <Link to={`${import.meta.env.VITE_FRONTEND_URL||'http://localhost:5173/'}clinicDetail/${paciente.id}`} className="mt-3 text-blue-500 inline-flex items-center">
+                    <Link
+                      to={`${
+                        import.meta.env.VITE_FRONTEND_URL ||
+                        "http://localhost:5173/"
+                      }clinicDetail/${paciente.id}`}
+                      className="mt-3 text-indigo-500 inline-flex items-center"
+                    >
                       Consultar
                       <svg
                         fill="none"
@@ -115,7 +123,7 @@ const PatientDetails = () => {
                   </div>
                 </div>
                 <div className="p-4 md:w-1/3 flex">
-                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0">
+                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
                     <MdOutlineSick className="w-6 h-6" />
                   </div>
                   <div className="flex-grow pl-6">
@@ -126,7 +134,10 @@ const PatientDetails = () => {
                       En esta seccion se podra agregar nuevos padecimientos al
                       paciente, en relacion al avance medico del paciente.
                     </p>
-                    <Link to={`medicalRecord/${paciente.id}`} className="mt-3 text-blue-500 inline-flex items-center">
+                    <Link
+                      to={`medicalRecord/${paciente.id}`}
+                      className="mt-3 text-indigo-500 inline-flex items-center"
+                    >
                       Agregar Padecimiento
                       <svg
                         fill="none"
@@ -143,7 +154,7 @@ const PatientDetails = () => {
                   </div>
                 </div>
                 <div className="p-4 md:w-1/3 flex">
-                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0">
+                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -166,7 +177,10 @@ const PatientDetails = () => {
                       paciente, como la informacion de contacto, proximas citas,
                       y gestion de recetas medicas.
                     </p>
-                    <Link to={`clinicalManagment/${paciente.id}`} className="mt-3 text-blue-500 inline-flex items-center">
+                    <Link
+                      to={`clinicalManagment/${paciente.id}`}
+                      className="mt-3 text-indigo-500 inline-flex items-center"
+                    >
                       Consultar
                       <svg
                         fill="none"
@@ -187,7 +201,7 @@ const PatientDetails = () => {
           </section>
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loader/>
       )}
     </>
   );
