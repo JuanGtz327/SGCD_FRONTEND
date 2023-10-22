@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import { useToast } from "../../hooks/useToast";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { editExamenFisicoRequest } from "../../api/api";
+import { useAuth } from "../../context/AuthContext";
 
 const ExamenFisicoEdit = ({ data }) => {
+  const { user } = useAuth();
   const { showToast } = useToast();
   const [editingData, setEditingData] = useState(data);
   const {
@@ -27,7 +30,13 @@ const ExamenFisicoEdit = ({ data }) => {
     });
   };
 
-  const onEditSubmit = handleSubmit((values) => {
+  const onEditSubmit = handleSubmit(async (values) => {
+    console.log(values);
+    const res = await editExamenFisicoRequest(data.id, values, user.token);
+    if (res.status !== 200) {
+      showToast("error", "Ocurrio un error al actualizar el examen fisico");
+      return;
+    }
     showToast("success", "Examen Fisico actualizado");
   });
 
@@ -210,8 +219,8 @@ const ExamenFisicoEdit = ({ data }) => {
               variant="standard"
               label="Detalle de examen fisico"
               rows={9}
-              {...register("Detalles", { required: true })}
-              error={errors.Detalles ? true : false}
+              {...register("Exploracion_detallada", { required: true })}
+              error={errors.Exploracion_detallada ? true : false}
               onChange={handleInputChange}
             />
           </div>

@@ -7,10 +7,13 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
+import { editHistoriaMedicaRequest } from "../../api/api";
 
 const HistoriaMedicaEdit = ({ data }) => {
+  const { user } = useAuth();
   const { showToast } = useToast();
   const [editingData, setEditingData] = useState(data);
   const [habitosNegativos, setHabitosNegativos] = useState([]);
@@ -29,12 +32,17 @@ const HistoriaMedicaEdit = ({ data }) => {
     });
   };
 
-  const onEditSubmit = handleSubmit((values) => {
+  const onEditSubmit = handleSubmit(async (values) => {
     let habitos_salud = [...habitosPositivos, ...habitosNegativos];
     if (habitos_salud.length === 0) {
       habitos_salud = ["Ninguno"];
     }
     values.Habitos_salud = habitos_salud.join(",");
+    const res = await editHistoriaMedicaRequest(data.id,values,user.token);
+    if (res.status !== 200) {
+      showToast("error", "Ocurrio un error al actualizar la historia medica");
+      return;
+    }
     showToast("success", "Historia Medica actualizada");
   });
 
