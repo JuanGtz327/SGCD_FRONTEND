@@ -25,7 +25,7 @@ const PatientDetails = () => {
           <section className="text-gray-600 body-font">
             <div className="container px-5 pb-5 mx-auto flex flex-col">
               <div className="lg:w-full mx-auto">
-                <div className="flex flex-col sm:flex-row mt-10">
+                <div className="flex flex-col sm:flex-row md:mt-10">
                   <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
                     <div className="w-36 h-36 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
                       <img className="rounded-full" src={userImg} alt="text" />
@@ -60,6 +60,9 @@ const PatientDetails = () => {
                         <b>Genero:</b>{" "}
                         {paciente.Genero == "M" ? "Masculino" : "Femenino"}
                       </p>
+                      <p>
+                        <b>Numero Telefono:</b> {paciente.Domicilio.Telefono}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -71,10 +74,8 @@ const PatientDetails = () => {
 
           <section className="text-gray-600 body-font">
             <div className="container px-5 py-5 mx-auto">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">
-                Administracion de Paciente
-                <br className="hidden sm:block" />
-                Estatus Medico
+              <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-10 md:mb-20">
+                Expediente Clinico
               </h1>
               <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
                 <div className="p-4 md:w-1/3 flex">
@@ -93,12 +94,12 @@ const PatientDetails = () => {
                   </div>
                   <div className="flex-grow pl-6">
                     <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                      Expediente Clinico
+                      Informacion Clinica
                     </h2>
                     <p className="leading-relaxed text-base">
-                      En esta seccion se podra visualizar el expediente clinico
-                      del paciente. Se podra visualizar el historial de
-                      enfermedades, alergias, medicamentos, etc.
+                      En esta seccion se podra visualizar la informacion clinica
+                      del paciente. Donde se encuentran los datos del examen
+                      fisico asi como la historia medica.
                     </p>
                     <Link
                       to={`${
@@ -128,14 +129,17 @@ const PatientDetails = () => {
                   </div>
                   <div className="flex-grow pl-6">
                     <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                      Nuevos Padecimientos
+                      Padecimientos
                     </h2>
                     <p className="leading-relaxed text-base">
                       En esta seccion se podra agregar nuevos padecimientos al
-                      paciente, en relacion al avance medico del paciente.
+                      paciente, asi como consultar el historico de enfermedades.
                     </p>
                     <Link
-                      to={`medicalRecord/${paciente.id}`}
+                      to={`${
+                        import.meta.env.VITE_FRONTEND_URL ||
+                        "http://localhost:5173/"
+                      }medicalCondition/${paciente.id}`}
                       className="mt-3 text-indigo-500 inline-flex items-center"
                     >
                       Agregar Padecimiento
@@ -170,12 +174,12 @@ const PatientDetails = () => {
                   </div>
                   <div className="flex-grow pl-6">
                     <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                      Gestion Clinica
+                      Seguimiento Clinico
                     </h2>
                     <p className="leading-relaxed text-base">
                       En este apartado se podra gestionar la informacion del
                       paciente, como la informacion de contacto, proximas citas,
-                      y gestion de recetas medicas.
+                      notas asi como la gestion de recetas medicas.
                     </p>
                     <Link
                       to={`clinicalManagment/${paciente.id}`}
@@ -201,7 +205,7 @@ const PatientDetails = () => {
           </section>
         </>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </>
   );

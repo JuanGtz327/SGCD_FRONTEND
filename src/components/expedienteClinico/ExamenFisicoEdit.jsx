@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { editExamenFisicoRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
 
-const ExamenFisicoEdit = ({ data }) => {
+const ExamenFisicoEdit = ({ data, patientID }) => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const [editingData, setEditingData] = useState(data);
@@ -31,7 +31,6 @@ const ExamenFisicoEdit = ({ data }) => {
   };
 
   const onEditSubmit = handleSubmit(async (values) => {
-    console.log(values);
     const res = await editExamenFisicoRequest(data.id, values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al actualizar el examen fisico");
@@ -229,7 +228,7 @@ const ExamenFisicoEdit = ({ data }) => {
           <Link
             to={`${
               import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-            }patient/2`}
+            }patient/${patientID}`}
           >
             <Button className="mt-5 w-fit bg-cerise-500" color="blue">
               Cancelar

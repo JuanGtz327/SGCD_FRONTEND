@@ -102,3 +102,8 @@ export const editExamenFisicoRequest = (id, data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.put(`/admin/editExamenFisico/${id}`, data, { headers });
 };
+
+export const addHistoriaClinicaActual = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addHistoriaClinicaActual`, data, { headers });
+};

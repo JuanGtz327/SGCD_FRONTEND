@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { editHistoriaMedicaRequest } from "../../api/api";
 
-const HistoriaMedicaEdit = ({ data }) => {
+const HistoriaMedicaEdit = ({ data, patientID }) => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const [editingData, setEditingData] = useState(data);
@@ -302,7 +302,7 @@ const HistoriaMedicaEdit = ({ data }) => {
           <Link
             to={`${
               import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-            }patient/2`}
+            }patient/${patientID}`}
           >
             <Button className="mt-5 w-fit bg-cerise-500" color="blue">
               Cancelar

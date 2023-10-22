@@ -20,6 +20,7 @@ import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./common/Layout.jsx";
 import PatientDetails from "./components/paciente/PatientDetails.jsx";
 import ClinicDetail from "./components/expedienteClinico/ClinicDetail.jsx";
+import MedicalCondition from "./components/expedienteClinico/MedicalCondition.jsx";
 
 const App = () => {
   return (
@@ -100,6 +101,14 @@ const App = () => {
                 element={
                   <Layout>
                     <ClinicDetail />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/medicalCondition/:patientID"
+                element={
+                  <Layout>
+                    <MedicalCondition />
                   </Layout>
                 }
               />

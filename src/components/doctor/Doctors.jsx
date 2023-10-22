@@ -37,8 +37,6 @@ const Doctors = () => {
     }
   };
 
-  console.log(doctors);
-
   return (
     <>
       {loading ? (
@@ -84,10 +82,10 @@ const Doctors = () => {
               <div className="-my-8 divide-y-2 divide-gray-100">
                 {doctors.length === 0 || infoToDisplay.length === 0 ? (
                   <EmptyData
-                    title="No hay pacientes"
-                    description="Agrega un paciente para comenzar"
-                    btnDesc="Agregar paciente"
-                    onNewData={() => navigate("/addPatient")}
+                    title="No hay doctores"
+                    description="Agrega un doctor para comenzar"
+                    btnDesc="Agregar doctor"
+                    onNewData={() => navigate("/addDoctor")}
                   />
                 ) : (
                   <>
@@ -135,7 +133,7 @@ const Doctors = () => {
                               to={`/doctor/${idUser}`}
                               className="text-blue-500 inline-flex items-center mt-4"
                             >
-                              Detalles del paciente
+                              Detalles del doctor
                               <svg
                                 className="w-4 h-4 ml-2"
                                 viewBox="0 0 24 24"

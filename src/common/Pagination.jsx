@@ -16,7 +16,7 @@ const Pagination = ({ prev, currentPage, pageCount, next, getItemProps }) => {
               >
                 <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Anterior
               </Button>
-              <div className="hidden md:flex items-center gap-2">
+              <div className="hidden 2xl:flex items-center gap-2">
                 {Array.from({ length: pageCount }).map((_, index) => (
                   <IconButton
                     key={index}

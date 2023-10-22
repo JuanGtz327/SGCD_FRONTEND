@@ -37,8 +37,6 @@ const Appointments = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
-  console.log(appointments);
-
   const {
     register,
     handleSubmit,

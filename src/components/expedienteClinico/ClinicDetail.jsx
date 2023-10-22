@@ -68,11 +68,13 @@ const ClinicDetail = () => {
                   {id == 0 && (
                     <HistoriaMedicaEdit
                       data={paciente.HistorialClinico.HistoriaMedica}
+                      patientID={patientID}
                     />
                   )}
                   {id == 1 && (
                     <ExamenFisicoEdit
                       data={paciente.HistorialClinico.ExamenFisico}
+                      patientID={patientID}
                     />
                   )}
                 </TabPanel>
@@ -81,12 +83,11 @@ const ClinicDetail = () => {
           </Tabs>
           <div className={`${!mainVisible && "hidden"} text-center py-24`}>
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-              Expediente Clinico
+              Informacion Clinica
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado se incluyen los datos del expediente clinico del
-              paciente. Se divide en dos secciones Historia Medica y Examen
-              Fisico. Para editar la informacion de cada seccion da click en la
+              En este apartado se incluyen la informacion clinica del paciente. Se divide en dos secciones Historia Medica y Examen
+              Fisico. Para editar la informacion de cada seccion de click en la
               pestaña correspondiente.
             </p>
             <div className="flex mt-6 justify-center">
