@@ -30,7 +30,7 @@ const Appointments = () => {
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore } = useDay();
+  const { isToday, isBefore, isValidHour,convertToBirthDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
@@ -50,6 +50,16 @@ const Appointments = () => {
     values.idDocPac = ids[0];
     values.id = ids[1];
     delete values.Hora;
+
+    if (!isValidHour(values.Fecha, 30)) {
+      showToast(
+        "error",
+        "La cita no puede ser en los ultimos 30 min",
+        "center"
+      );
+      return;
+    }
+
     try {
       await createAppointmentRequest(values, user.token);
       showToast("success", "Cita agendada");
@@ -105,7 +115,7 @@ const Appointments = () => {
       </section>
 
       {loading ? (
-        <Loader top="mt-32"/>
+        <Loader top="mt-32" />
       ) : (
         <>
           <div className="flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
@@ -114,11 +124,12 @@ const Appointments = () => {
               customClassName="w-full max-w-lg"
               onDayChange={onDayChange}
               onSetToday={onSetToday}
+              appointments={appointments}
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
-                {selectDate.toDate().toDateString()}
+                {convertToBirthDate(selectDate.format())}
               </h1>
               <div className="text-gray-400 grid grid-cols-2">
                 <h6 className="flex my-auto">
@@ -135,11 +146,14 @@ const Appointments = () => {
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
-                <AppointmentsAccordion appointments={filterAppointmens()} />
+                <AppointmentsAccordion
+                  appointments={filterAppointmens()}
+                  setLoading={setLoading}
+                />
               </div>
             </div>
 
-            <Dialog open={open} handler={handleOpen} size="xs">
+            <Dialog open={open} handler={handleOpen} size="sm" dismiss={{enabled:false}}>
               <div className="flex items-center justify-between">
                 <DialogHeader>
                   Cita - {getDia(selectDate)} {selectDate.date()}{" "}
@@ -147,46 +161,46 @@ const Appointments = () => {
                 </DialogHeader>
               </div>
               <form onSubmit={onAppointmentSubmit}>
-                <DialogBody divider>
-                  <div className="grid gap-6">
-                    <Input
-                      label="Hora"
-                      type="time"
-                      variant="standard"
-                      {...register("Hora", { required: true })}
-                      error={errors.Hora ? true : false}
-                    />
-                    <Controller
-                      name="idDocPac"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          label="Paciente"
-                          containerProps={{ className: "min-w-[72px]" }}
-                          error={errors.id ? true : false}
-                          variant="standard"
-                        >
-                          {pacientes.map(
-                            ({ id, DocPac, Nombre, ApellidoP }) => (
-                              <Option
-                                key={id}
-                                value={`${DocPac.id.toString()},${id}`}
-                              >
-                                {Nombre} {ApellidoP}
-                              </Option>
-                            )
-                          )}
-                        </Select>
-                      )}
-                    />
-                    <Textarea
-                      label="Diagnostico"
-                      {...register("Diagnostico", { required: true })}
-                      error={errors.Diagnostico ? true : false}
-                      variant="standard"
-                    />
-                  </div>
+                <DialogBody className="flex flex-col gap-5">
+                  <Input
+                    color="blue"
+                    label="Hora"
+                    type="time"
+                    step={1800}
+                    variant="standard"
+                    {...register("Hora", { required: true })}
+                    error={errors.Hora ? true : false}
+                  />
+                  <Controller
+                    name="idDocPac"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Paciente"
+                        containerProps={{ className: "min-w-[72px]" }}
+                        error={errors.id ? true : false}
+                        variant="standard"
+                      >
+                        {pacientes.map(({ id, DocPac, Nombre, ApellidoP }) => (
+                          <Option
+                            key={id}
+                            value={`${DocPac.id.toString()},${id}`}
+                          >
+                            {Nombre} {ApellidoP}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  <Textarea
+                    color="blue"
+                    label="Diagnostico"
+                    {...register("Diagnostico", { required: true })}
+                    error={errors.Diagnostico ? true : false}
+                    variant="standard"
+                  />
                 </DialogBody>
                 <DialogFooter className="space-x-2">
                   <Button className="bg-cerise-500" onClick={handleOpen}>

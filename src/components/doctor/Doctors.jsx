@@ -63,6 +63,7 @@ const Doctors = () => {
                     Buscar doctor
                   </label>
                   <Input
+                  color="blue"
                     type="text"
                     variant="standard"
                     className="w-full bg-opacity-50 rounded text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"

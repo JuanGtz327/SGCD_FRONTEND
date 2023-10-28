@@ -13,10 +13,16 @@ import { useCalendar } from "../../../hooks/useCalendar";
 import { useDay } from "../../../hooks/useDay";
 import PreAppointmentsAccordion from "../custom/PreAppointmentsAccordion";
 import { useForm } from "react-hook-form";
+import { useAppointments } from "../../../hooks/useAppointments";
+import Loader from "../../../common/Loader";
+import AppointmentsAccordion from "../../citas/custom/AppointmentsAccordion";
+import dayjs from "dayjs";
 
-const CitasHistorial = ({preAppointments,onAppointments}) => {
+const CitasHistorial = ({ preAppointments, onAppointments }) => {
   const { currentDate, getDia, getMes } = useCalendar();
   const { isToday, isBefore } = useDay();
+
+  const { nextAppointments, loading } = useAppointments(true);
   const {
     register: registerCita,
     handleSubmit: handleSubmitCita,
@@ -24,9 +30,19 @@ const CitasHistorial = ({preAppointments,onAppointments}) => {
   } = useForm();
 
   const [selectDate, setSelectDate] = useState(currentDate);
-  
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+
+  const filterAppointmens = () => {
+    const appointmensPerDay = nextAppointments.filter(
+      ({ Fecha }) => Fecha.split(" ")[0] === selectDate.format().split("T")[0]
+    );
+
+    return appointmensPerDay.sort(
+      (a, b) => dayjs(a["Fecha"]) - dayjs(b["Fecha"])
+    );
+  };
 
   const onDayChange = (date) => {
     setSelectDate(date);
@@ -45,13 +61,15 @@ const CitasHistorial = ({preAppointments,onAppointments}) => {
   const onNewAppointment = handleSubmitCita((values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     delete values.Hora;
-    onAppointments(values,true);
+    onAppointments(values, true);
     handleOpen();
   });
 
   const onDeletePreAppointment = (index) => {
-    onAppointments(index,false);
+    onAppointments(index, false);
   };
+
+  console.log(nextAppointments);
 
   return (
     <>
@@ -61,52 +79,57 @@ const CitasHistorial = ({preAppointments,onAppointments}) => {
         Simplemente seleccione el dia de su preferencia y la hora en la que
         desea agendar la cita.
       </p>
-      <div className="flex flex-col md:flex-row">
-        <Calendar
-          selectDate={selectDate}
-          customClassName="md:w-1/2 mt-7"
-          onDayChange={onDayChange}
-          onSetToday={onSetToday}
-        />
-        <div className="h-full mt-0 sm:mt-5 sm:px-5 py-2 sm:py-8 md:w-1/2">
-          <div className="text-gray-400 w-full">
-            {validDate() && (
-              <Button
-                color="blue"
-                fullWidth
-                onClick={handleOpen}
-              >
-                Agendar cita
-              </Button>
-            )}
-          </div>
-          <hr className="mt-5" />
-          <div className="mt-5">
-            <PreAppointmentsAccordion
-              appointments={preAppointments}
-              onDeletePreAppointment={onDeletePreAppointment}
-            />
+      {loading ? (
+        <Loader top="mt-32" />
+      ) : (
+        <div className="flex flex-col md:flex-row">
+          <Calendar
+            selectDate={selectDate}
+            customClassName="md:w-1/2 mt-7"
+            onDayChange={onDayChange}
+            onSetToday={onSetToday}
+            appointments={nextAppointments}
+          />
+          <div className="h-full mt-0 sm:mt-5 sm:px-5 py-2 sm:py-8 md:w-1/2">
+            <div className="text-gray-400 w-full">
+              {validDate() && (
+                <Button color="blue" fullWidth onClick={handleOpen}>
+                  Agendar cita
+                </Button>
+              )}
+            </div>
+            <hr className="mt-5" />
+            <div className="mt-5">
+              <AppointmentsAccordion appointments={filterAppointmens()} />
+              <PreAppointmentsAccordion
+                appointments={preAppointments}
+                onDeletePreAppointment={onDeletePreAppointment}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <Dialog open={open} handler={handleOpen} size="xs">
+      <Dialog open={open} handler={handleOpen} size="sm" dismiss={{enabled:false}}>
         <div className="flex items-center justify-between">
           <DialogHeader>
             Cita - {getDia(selectDate)} {selectDate.date()} {getMes(selectDate)}
           </DialogHeader>
         </div>
         <form>
-          <DialogBody divider>
-            <div className="grid gap-6">
+          <DialogBody>
+            <div className="flex flex-col gap-5">
               <Input
+                color="blue"
                 label="Hora"
                 type="time"
+                step={1800}
                 variant="standard"
                 {...registerCita("Hora", { required: true })}
                 error={errorsCita.Hora ? true : false}
               />
               <Textarea
+                color="blue"
                 label="Diagnostico"
                 {...registerCita("Diagnostico", { required: true })}
                 error={errorsCita.Diagnostico ? true : false}
@@ -115,10 +138,10 @@ const CitasHistorial = ({preAppointments,onAppointments}) => {
             </div>
           </DialogBody>
           <DialogFooter className="space-x-2">
-            <Button variant="text" color="red" onClick={handleOpen}>
+            <Button className="bg-cerise-500" onClick={handleOpen}>
               Cancelar
             </Button>
-            <Button variant="gradient" color="blue" onClick={onNewAppointment}>
+            <Button color="blue" onClick={onNewAppointment}>
               Agendar Cita
             </Button>
           </DialogFooter>

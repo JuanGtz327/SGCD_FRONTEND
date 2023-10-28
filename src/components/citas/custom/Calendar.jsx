@@ -5,7 +5,13 @@ function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Calendar = ({ selectDate, onDayChange, onSetToday, customClassName="" }) => {
+const Calendar = ({
+  selectDate,
+  onDayChange,
+  onSetToday,
+  customClassName = "",
+  appointments = [],
+}) => {
   const {
     calendar,
     getCalendarHeader,
@@ -64,9 +70,28 @@ const Calendar = ({ selectDate, onDayChange, onSetToday, customClassName="" }) =
                     : "",
                   "h-10 w-10 rounded-full grid place-content-center hover:bg-cyan-400 hover:text-white transition-all cursor-pointer select-none"
                 )}
-                onClick={() => onDayChange(date)}
+                onClick={() => {
+                  onDayChange(date);
+                  console.log(appointments);
+                }}
               >
                 {date.date()}
+                {appointments.filter((appointment) => {
+                  let dateAppointment = new Date(appointment.Fecha);
+                  return (
+                    dateAppointment.toDateString() ==
+                    date.toDate().toDateString()
+                  );
+                }).length > 0 && (
+                  <div
+                    className={` w-2 h-2 rounded-full mx-auto ${
+                      selectDate.toDate().toDateString() ===
+                      date.toDate().toDateString()
+                        ? "bg-cerise-500"
+                        : "bg-cerise-300"
+                    }`}
+                  ></div>
+                )}
               </h1>
             </div>
           );

@@ -14,6 +14,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-4">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Nombre"
               type="text"
@@ -27,6 +28,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-4">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Apellido Paterno"
               maxLength={15}
@@ -41,6 +43,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-4">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Apellido Materno"
               maxLength={15}
@@ -55,6 +58,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-4">
           <div className="mt-2">
             <Input
+              color="blue"
               label="CURP"
               maxLength={18}
               variant="standard"
@@ -69,6 +73,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-4">
           <div className="mt-2">
             <Input
+              color="blue"
               label="Cedula Profesional"
               maxLength={8}
               variant="standard"
@@ -93,6 +98,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
                   error={errors.Especialidad ? true : false}
                   size="lg"
                   variant="standard"
+                  color="blue"
                 >
                   <Option value="Medicina Interna">Medicina Interna</Option>
                   <Option value="Cirugía General">Cirugía General</Option>
@@ -121,6 +127,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-6">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Correo"
               type="email"
@@ -134,6 +141,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-6">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Contraseña"
               variant="standard"
@@ -176,6 +184,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Numero Telefonico"
               variant="standard"
@@ -189,6 +198,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               label="Estado"
               maxLength={18}
               variant="standard"
@@ -203,6 +213,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               label="Municipio"
               maxLength={18}
               variant="standard"
@@ -217,6 +228,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               label="Colonia"
               maxLength={18}
               variant="standard"
@@ -231,6 +243,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Codigo Postal"
               type="number"
@@ -244,6 +257,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Calle"
               type="text"
@@ -257,6 +271,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Numero Exterior"
               maxLength={5}
@@ -271,6 +286,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
+              color="blue"
               size="lg"
               label="Numero Interior"
               maxLength={5}

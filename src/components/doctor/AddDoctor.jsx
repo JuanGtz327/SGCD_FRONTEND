@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import {
-  Card,
-  Button,
-  Typography,
-  Textarea,
-} from "@material-tailwind/react";
+import { Card, Button, Typography, Textarea } from "@material-tailwind/react";
 import DatosDoctor from "./datos_doctor/DatosDoctor.jsx";
 import StepperC from "../../common/StepperC.jsx";
 import { createDoctorRequest } from "../../api/api";
@@ -50,7 +45,10 @@ const AddDoctor = () => {
   return (
     <>
       <div className="flex flex-col h-full">
-        <Card shadow={false} className="w-full max-w-6xl px-5 lg:px-16 py-5 mx-auto">
+        <Card
+          shadow={false}
+          className="w-full max-w-6xl px-5 lg:px-16 py-5 mx-auto"
+        >
           <Typography
             variant="h3"
             color="blue-gray"
@@ -77,13 +75,14 @@ const AddDoctor = () => {
                 doctor.
               </p>
               <Textarea
+                color="blue"
                 variant="standard"
                 label="Configuraciones"
                 {...register("Configuraciones")}
               />
               <hr className="mt-6" />
               {loading ? (
-                <Loader top="mt-6"/>
+                <Loader top="mt-6" />
               ) : (
                 <div className="flex">
                   <Button

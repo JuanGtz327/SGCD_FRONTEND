@@ -1,6 +1,6 @@
 import loader from "../assets/loader.svg";
 
-const Loader = ({ top='h-[calc(90vh)]',size='w-16 h-16' }) => {
+const Loader = ({ top='h-[calc(90vh)]',size='w-12 h-12' }) => {
   return (
     <div className={`flex items-center mx-auto w-full ${top ? top : "mt-32"}`}>
       <div className={`${size} mx-auto`}>

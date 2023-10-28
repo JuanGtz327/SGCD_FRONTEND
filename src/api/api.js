@@ -79,9 +79,24 @@ export const createAppointmentRequest = (data, token) => {
   return axios.post(`/admin/addCita`, data, { headers });
 };
 
+export const getValidAppointmentsRequest = (fecha,token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getValidCitas/${fecha}`, { headers });
+};
+
 export const getAppointmentsRequest = (token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getCitas`, { headers });
+};
+
+export const editAppointmentRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.put(`/admin/editCita`, data, { headers });
+};
+
+export const cancelAppointmentRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/cancelCita`, data, { headers });
 };
 
 //PARA Especialidades

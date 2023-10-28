@@ -24,8 +24,21 @@ export const useDay = () => {
     return currentDate.isAfter(Fecha);
   };
 
+  const isBeforeOneDay = (Fecha) => {
+    const original = dayjs(Fecha)
+    return currentDate.isBefore(original.subtract(2, "hour"));
+  };
+
+  const isValidHour = (Fecha,time) => {
+    const original = dayjs(Fecha)
+    const minutos = currentDate.minute();
+    const redondeadoMinutos = Math.floor(minutos / time) * time;
+    const horaRedondeada = currentDate.set('minute', redondeadoMinutos);
+    return horaRedondeada.isBefore(original);
+  }
+
   const isBefore = (Fecha) => {
-    return currentDate.isBefore(Fecha);
+    return currentDate.isBefore(dayjs(Fecha));
   };
 
   const inProgress = (Fecha) => {
@@ -66,9 +79,12 @@ export const useDay = () => {
   }
 
   return {
+    currentDate,
     isToday,
     isBefore,
+    isBeforeOneDay,
     isAfter,
+    isValidHour,
     inProgress,
     findNext,
     convertToBirthDate
