@@ -55,7 +55,7 @@ const SignUp = () => {
       <div className="flex w-full h-full">
         <div className="px-5 w-full my-auto z-10">
           <Card
-            className="shadow-lg mx-auto max-w-md px-0 sm:px-5 py-2"
+            className="shadow-lg mx-auto max-w-[400px] px-0 sm:px-5 md:py-2 h-auto"
             color="white"
           >
             <CardHeader
@@ -66,13 +66,11 @@ const SignUp = () => {
                 SGCD
               </Typography>
             </CardHeader>
-            <CardBody className="mt-auto">
-              <Typography color="gray" className="mt-1 font-normal">
-                Ingresa tus datos para registrarte
-              </Typography>
-              <form className="mt-4 mb-2" onSubmit={onSubmit}>
+            <CardBody>
+              <form className="mb-2" onSubmit={onSubmit}>
                 <div className="mb-4 flex flex-col gap-4">
                   <Input
+                    color="blue"
                     variant="standard"
                     size="lg"
                     label="Correo"
@@ -82,6 +80,7 @@ const SignUp = () => {
                     error={errors.Correo ? true : false}
                   />
                   <Input
+                    color="blue"
                     size="lg"
                     variant="standard"
                     label="Contraseña"
@@ -91,6 +90,7 @@ const SignUp = () => {
                     error={errors.Password ? true : false}
                   />
                   <Input
+                    color="blue"
                     size="lg"
                     variant="standard"
                     label="Confirmar contraseña"
@@ -133,9 +133,9 @@ const SignUp = () => {
                       Acepto los
                       <Link
                         to="/"
-                        className="font-medium transition-colors hover:text-gray-900"
+                        className="font-bold textClinic"
                       >
-                        &nbsp;Terminos y condiciones
+                        &nbsp;Términos y condiciones
                       </Link>
                     </Typography>
                   }
@@ -144,7 +144,7 @@ const SignUp = () => {
                   className={`${errors.Checked ? "border-red-800" : ""}`}
                 />
                 {loading ? (
-                  <Loader top="mt-5"/>
+                  <Loader top="mt-5" />
                 ) : (
                   <Button color="blue" className="mt-6" fullWidth type="submit">
                     Sign Up
@@ -156,7 +156,7 @@ const SignUp = () => {
               <Typography
                 variant="small"
                 color="gray"
-                className="mt-4 text-center font-normal flex justify-center"
+                className="text-center font-normal flex justify-center"
               >
                 ¿Ya cuentas con una cuenta?
                 <Link to="/login">
@@ -164,7 +164,7 @@ const SignUp = () => {
                     variant="small"
                     className="ml-1 font-bold textClinic"
                   >
-                    Log in
+                    Iniciar Sesión
                   </Typography>
                 </Link>
               </Typography>

@@ -15,9 +15,6 @@ export default withMT({
         'xl': '1366px',
         '2xl': '1536px',
       },
-      fontFamily: {
-        sans: ['Rubik', 'sans-serif'],
-      },
       container: {
         center: true,
       },

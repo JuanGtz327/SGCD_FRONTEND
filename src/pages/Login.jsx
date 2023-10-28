@@ -49,7 +49,7 @@ const LogIn = () => {
       <div className="flex w-full h-full">
         <div className="px-5 w-full my-auto z-10">
           <Card
-            className="shadow-lg mx-auto max-w-md px-0 sm:px-5 py-2 h-[550px]"
+            className="shadow-lg mx-auto max-w-[400px] px-0 sm:px-5 md:py-2 h-auto"
             color="white"
           >
             <CardHeader
@@ -60,13 +60,11 @@ const LogIn = () => {
                 SGCD
               </Typography>
             </CardHeader>
-            <CardBody className="mt-auto">
-              <Typography color="gray" className="font-normal">
-                Ingresa tus credenciales
-              </Typography>
-              <form onSubmit={onSubmit} className="mt-4 mb-2">
-                <div className="flex flex-col gap-4">
+            <CardBody>
+              <form onSubmit={onSubmit} className="mb-2">
+                <div className="flex flex-col gap-8">
                   <Input
+                    color="blue"
                     type="email"
                     label="Email"
                     size="lg"
@@ -76,6 +74,7 @@ const LogIn = () => {
                     error={errors.Correo ? true : false}
                   />
                   <Input
+                    color="blue"
                     type="password"
                     label="Contraseña"
                     size="lg"
@@ -86,7 +85,7 @@ const LogIn = () => {
                   />
                 </div>
                 {loading ? (
-                  <Loader top="mt-5"/>
+                  <Loader top="mt-5" />
                 ) : (
                   <Button fullWidth type="submit" className="mt-5" color="blue">
                     Log In
@@ -103,7 +102,7 @@ const LogIn = () => {
                     variant="small"
                     className="ml-1 font-bold textClinic"
                   >
-                    Sign up
+                    Crear cuenta
                   </Typography>
                 </Link>
               </Typography>
