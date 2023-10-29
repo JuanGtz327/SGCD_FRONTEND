@@ -7,28 +7,30 @@ import {
   Input,
   Textarea,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
-import { createAppointmentRequest } from "../../api/api";
-import AppointmentsAccordion from "./custom/AppointmentsAccordion";
-import { useAppointments } from "../../hooks/useAppointments";
-import { useToast } from "../../hooks/useToast";
-import { useCalendar } from "../../hooks/useCalendar";
-import Calendar from "./custom/Calendar";
-import { useDay } from "../../hooks/useDay";
-import Loader from "../../common/Loader";
-import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
-import { BsClipboard2CheckFill } from "react-icons/bs";
+import { useForm, Controller } from "react-hook-form";
+import { useDoctors } from "../../../hooks/useDoctors";
+import { useAppointments } from "../../../hooks/useAppointments";
+import { useAuth } from "../../../context/AuthContext";
+import { useToast } from "../../../hooks/useToast";
+import { useCalendar } from "../../../hooks/useCalendar";
+import { useDay } from "../../../hooks/useDay";
+import { createAppointmentRequest } from "../../../api/api";
+import Loader from "../../../common/Loader";
+import Calendar from "./Calendar";
+import AppointmentsAccordion from "./AppointmentsAccordion";
 
-const PatientAppointments = () => {
-  const { appointments, loading, setLoading } = useAppointments();
+const AdminAppointments = () => {
+  const { doctors } = useDoctors();
+  const { adminAppointments, loading, setLoading, setFiltro } = useAppointments();
 
   const { user } = useAuth();
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isValidHour, convertToBirthDate } = useDay();
+  const { isToday, isBefore, isValidHour, convertToBirthDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
@@ -38,6 +40,7 @@ const PatientAppointments = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -60,7 +63,7 @@ const PatientAppointments = () => {
     try {
       await createAppointmentRequest(values, user.token);
       showToast("success", "Cita agendada");
-      setLoading(true);
+      //setLoading(true);
       setOpen(false);
     } catch (error) {
       showToast("error", error.response.data.message, "center");
@@ -68,7 +71,7 @@ const PatientAppointments = () => {
   });
 
   const filterAppointmens = () => {
-    const appointmensPerDay = appointments.filter(
+    const appointmensPerDay = adminAppointments.filter(
       ({ Fecha }) => Fecha.split(" ")[0] === selectDate.format().split("T")[0]
     );
 
@@ -85,17 +88,23 @@ const PatientAppointments = () => {
     setSelectDate(date);
   };
 
+  const validDate = () => {
+    if (isToday(selectDate)) return true;
+    else if (isBefore(selectDate)) return true;
+    else return false;
+  };
+
   return (
     <div className="h-full">
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-              Citas Paciente
+              Citas Administrador
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede consultar las citas agendadas por sus
-              doctores.
+              En este apartado puede consultar la agenda de citas de los
+              doctores y agendar citas para los pacientes.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -114,40 +123,51 @@ const PatientAppointments = () => {
               customClassName="w-full max-w-lg"
               onDayChange={onDayChange}
               onSetToday={onSetToday}
-              appointments={appointments}
+              appointments={adminAppointments}
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
                 {convertToBirthDate(selectDate.format())}
               </h1>
-              <div className="text-gray-400 grid md:grid-cols-2">
+              <div className="text-gray-400 grid grid-cols-3">
                 <h6 className="flex my-auto">
                   {filterAppointmens().length == 0
                     ? "No hay"
                     : filterAppointmens().length}{" "}
                   citas agendadas
                 </h6>
-                <div className="flex justify-around mt-3 text-xl md:text-3xl md:mt-0">
-                  <div className="flex items-center gap-1 ">
-                    <MdCancelPresentation className="text-cerise-500"/>{" "}
-                    <p className="text-sm md:text-base">Cancelada</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-[#10b981]">
-                    <BsClipboard2CheckFill />{" "}
-                    <p className="text-sm md:text-base">Completada</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-blue-500">
-                    <MdPendingActions /> <p className="text-sm md:text-base">Pendiente</p>
-                  </div>
-                </div>
+                <Controller
+                  name="agendaDoctor"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      color="blue"
+                      label="Seleccione un doctor"
+                      containerProps={{ className: "min-w-[72px]" }}
+                      variant="standard"
+                      onChange={(e) => {setFiltro(e)}}
+                    >
+                      {doctors.map(({ id, Nombre, ApellidoP }) => (
+                        <Option key={id} value={`${id}`}>
+                          {Nombre} {ApellidoP}
+                        </Option>
+                      ))}
+                    </Select>
+                  )}
+                />
+                {validDate() && (
+                  <Button color="blue" onClick={handleOpen}>
+                    AGENDAR CITA
+                  </Button>
+                )}
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
                 <AppointmentsAccordion
                   appointments={filterAppointmens()}
                   setLoading={setLoading}
-                  view="paciente"
                 />
               </div>
             </div>
@@ -175,6 +195,26 @@ const PatientAppointments = () => {
                     {...register("Hora", { required: true })}
                     error={errors.Hora ? true : false}
                   />
+                  <Controller
+                    name="idDocPac"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Paciente"
+                        containerProps={{ className: "min-w-[72px]" }}
+                        error={errors.id ? true : false}
+                        variant="standard"
+                      >
+                        {doctors.map(({ id, Nombre, ApellidoP }) => (
+                          <Option key={id} value={`id`}>
+                            {Nombre} {ApellidoP}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
+                  />
                   <Textarea
                     color="blue"
                     label="Diagnostico"
@@ -200,4 +240,4 @@ const PatientAppointments = () => {
   );
 };
 
-export default PatientAppointments;
+export default AdminAppointments;

@@ -22,6 +22,7 @@ import PatientDetails from "./components/paciente/PatientDetails.jsx";
 import ClinicDetail from "./components/expedienteClinico/ClinicDetail.jsx";
 import MedicalCondition from "./components/expedienteClinico/MedicalCondition.jsx";
 import PatientAppointments from "./components/citas/PatientAppointments.jsx";
+import AdminAppointments from "./components/citas/custom/AdminAppointments.jsx";
 
 const App = () => {
   return (
@@ -102,6 +103,14 @@ const App = () => {
                 element={
                   <Layout>
                     <Appointments />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/adminAppointments"
+                element={
+                  <Layout>
+                    <AdminAppointments />
                   </Layout>
                 }
               />

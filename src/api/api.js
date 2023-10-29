@@ -84,6 +84,11 @@ export const getValidAppointmentsRequest = (fecha,token) => {
   return axios.get(`/admin/getValidCitas/${fecha}`, { headers });
 };
 
+export const getAdminAppointmentsRequest = (filtro='all',token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getCitasAdmin/${filtro}`, { headers });
+};
+
 export const getAppointmentsRequest = (token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getCitas`, { headers });
