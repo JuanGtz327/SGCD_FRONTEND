@@ -5,7 +5,7 @@ import {
   Switch,
   Button,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -32,13 +32,34 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
     });
   };
 
+  useEffect(() => {
+    setHabitosNegativos(
+      data.Habitos_salud.split(",").filter(
+        (item) =>
+          item === "Tabaquismo" ||
+          item === "Alcohol" ||
+          item === "Drogas" ||
+          item === "No_dormir"
+      )
+    );
+    setHabitosPositivos(
+      data.Habitos_salud.split(",").filter(
+        (item) =>
+          item === "Dieta" ||
+          item === "Ejercicio" ||
+          item === "Higiene" ||
+          item === "Autocuidado"
+      )
+    );
+  }, [data]);
+
   const onEditSubmit = handleSubmit(async (values) => {
     let habitos_salud = [...habitosPositivos, ...habitosNegativos];
     if (habitos_salud.length === 0) {
       habitos_salud = ["Ninguno"];
     }
     values.Habitos_salud = habitos_salud.join(",");
-    const res = await editHistoriaMedicaRequest(data.id,values,user.token);
+    const res = await editHistoriaMedicaRequest(data.id, values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al actualizar la historia medica");
       return;
@@ -71,10 +92,12 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
       <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
         Historia Medica
       </h2>
-      <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir la informacion medica por la que su
-        paciente ha pasado.
-      </p>
+      {!user.idPaciente && (
+        <p className="mt-1 text-sm leading-6 text-gray-600">
+          En este apartado debe incluir la informacion medica por la que su
+          paciente ha pasado.
+        </p>
+      )}
 
       <form onSubmit={onEditSubmit}>
         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-6">
@@ -83,10 +106,12 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <Textarea
                 value={editingData.Enfermedades_hereditarias}
                 variant="standard"
+                color="blue"
                 label="Enfermedades Hereditarias"
                 {...register("Enfermedades_hereditarias", { required: true })}
                 error={errors.Enfermedades_hereditarias ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
               />
             </div>
           </div>
@@ -95,10 +120,12 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <Textarea
                 value={editingData.Enfermedades_previas}
                 variant="standard"
+                color="blue"
                 label="Enfermedades Previas"
                 {...register("Enfermedades_previas", { required: true })}
                 error={errors.Enfermedades_previas ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
               />
             </div>
           </div>
@@ -107,10 +134,12 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <Textarea
                 value={editingData.Cirugias}
                 variant="standard"
+                color="blue"
                 label="Cirugias"
                 {...register("Cirugias", { required: true })}
                 error={errors.Cirugias ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
               />
             </div>
           </div>
@@ -120,9 +149,11 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 value={editingData.Alergias}
                 variant="standard"
                 label="Alergias"
+                color="blue"
                 {...register("Alergias", { required: true })}
                 error={errors.Alergias ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
               />
             </div>
           </div>
@@ -132,9 +163,11 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 value={editingData.Traumatismos}
                 variant="standard"
                 label="Traumatismos"
+                color="blue"
                 {...register("Traumatismos", { required: true })}
                 error={errors.Traumatismos ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
               />
             </div>
           </div>
@@ -143,13 +176,14 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <div className="w-fit mx-auto mt-8">
                 <Switch
                   crossOrigin={undefined}
-                  checked={editingData.Vacunas}
+                  checked={editingData.Vacunas==="1"}
                   onClick={(e) => {
                     setEditingData({
                       ...editingData,
-                      Vacunas: e.target.checked,
+                      Vacunas: e.target.checked===true?"1":"0",
                     });
                   }}
+                  disabled={user.idPaciente}
                   label={
                     <div>
                       <Typography color="blue-gray" className="font-medium">
@@ -178,6 +212,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <div className="flex">
                 <Checkbox
                   checked={habitosNegativos.includes("Tabaquismo")}
+                  disabled={user.idPaciente}
                   color="indigo"
                   value="Tabaquismo"
                   onChange={(e) => {
@@ -193,6 +228,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 <Checkbox
                   checked={habitosNegativos.includes("Alcohol")}
                   color="indigo"
+                  disabled={user.idPaciente}
                   value="Alcohol"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -207,6 +243,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 <Checkbox
                   checked={habitosNegativos.includes("Drogas")}
                   color="indigo"
+                  disabled={user.idPaciente}
                   value="Drogas"
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
@@ -222,6 +259,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   checked={habitosNegativos.includes("No_dormir")}
                   color="indigo"
                   value="No_dormir"
+                  disabled={user.idPaciente}
                   onChange={(e) => {
                     onNewHN(e.target.value, e.target.checked);
                   }}
@@ -243,6 +281,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   checked={habitosPositivos.includes("Dieta")}
                   color="indigo"
                   value="Dieta"
+                  disabled={user.idPaciente}
                   onChange={(e) => {
                     onNewHP(e.target.value, e.target.checked);
                   }}
@@ -257,6 +296,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   checked={habitosPositivos.includes("Ejercicio")}
                   color="indigo"
                   value="Ejercicio"
+                  disabled={user.idPaciente}
                   onChange={(e) => {
                     onNewHP(e.target.value, e.target.checked);
                   }}
@@ -271,6 +311,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   checked={habitosPositivos.includes("Higiene")}
                   color="indigo"
                   value="Higiene"
+                  disabled={user.idPaciente}
                   onChange={(e) => {
                     onNewHP(e.target.value, e.target.checked);
                   }}
@@ -284,6 +325,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 <Checkbox
                   checked={habitosPositivos.includes("Autocuidado")}
                   color="indigo"
+                  disabled={user.idPaciente}
                   value="Autocuidado"
                   onChange={(e) => {
                     onNewHP(e.target.value, e.target.checked);
@@ -298,20 +340,22 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
           </div>
         </div>
 
-        <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
-          <Link
-            to={`${
-              import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-            }patient/${patientID}`}
-          >
-            <Button className="mt-5 w-fit bg-cerise-500" color="blue">
-              Cancelar
+        {!user.idPaciente && (
+          <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
+            <Link
+              to={`${
+                import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+              }patient/${patientID}`}
+            >
+              <Button className="mt-5 w-fit bg-cerise-500" color="blue">
+                Cancelar
+              </Button>
+            </Link>
+            <Button type="submit" className="w-fit mt-5" color="blue">
+              Actualizar
             </Button>
-          </Link>
-          <Button type="submit" className="w-fit mt-5" color="blue">
-            Actualizar
-          </Button>
-        </div>
+          </div>
+        )}
       </form>
     </>
   );

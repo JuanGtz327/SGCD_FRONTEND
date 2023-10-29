@@ -1,27 +1,27 @@
 import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
   Tab,
   TabPanel,
+  Tabs,
+  TabsBody,
+  TabsHeader,
 } from "@material-tailwind/react";
+import { useParams } from "react-router-dom";
 import {
   ClipboardDocumentListIcon,
   FingerPrintIcon,
 } from "@heroicons/react/24/solid";
 import { FaUserDoctor } from "react-icons/fa6";
-import { createElement, useEffect, useState } from "react";
-import HistoriaMedicaEdit from "./HistoriaMedicaEdit";
-import ExamenFisicoEdit from "./ExamenFisicoEdit";
-import { useParams } from "react-router-dom";
-import { usePatients } from "../../hooks/usePatients";
 import Loader from "../../common/Loader";
-import MedicosEdit from "./MedicosEdit";
+import { createElement, useEffect, useState } from "react";
+import { usePatients } from "../../hooks/usePatients";
+import HistoriaMedicaEdit from "../expedienteClinico/HistoriaMedicaEdit";
+import ExamenFisicoEdit from "../expedienteClinico/ExamenFisicoEdit";
+import MedicosEdit from "../expedienteClinico/MedicosEdit";
 
-const ClinicDetail = () => {
+const ExpedienteClinico = () => {
   const { patientID } = useParams();
   const [paciente, setPaciente] = useState(null);
-  const { getPaciente, loading } = usePatients(null, patientID);
+  const { getPaciente, loading } = usePatients();
   const [mainVisible, setMainVisible] = useState(true);
 
   useEffect(() => {
@@ -100,10 +100,11 @@ const ClinicDetail = () => {
               Informacion Clinica
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado se incluyen la informacion clinica del paciente.
-              Se divide en tres secciones Historia Medica, Examen Fisico e
-              Historial de medicos. Para editar la informacion de cada seccion
-              de click en la pestaña correspondiente.
+              En este apartado se incluyen la informacion de su expediente
+              clinico. Se divide en tres secciones Historia Medica que es donde
+              puede consultar el antecendete de enfermedaes, el examen fisico
+              que es donde puede consultar los datos de su examen fisico y por
+              ultimo el historial de medicos.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -117,4 +118,4 @@ const ClinicDetail = () => {
   );
 };
 
-export default ClinicDetail;
+export default ExpedienteClinico;

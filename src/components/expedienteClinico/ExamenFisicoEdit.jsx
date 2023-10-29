@@ -41,12 +41,14 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
 
   return (
     <>
-      <h2 className="text-base font-semibold leading-7 text-gray-900">
+      <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
         Examen Fisico
       </h2>
-      <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir las mediciones clincias de su paciente.
-      </p>
+      {!user.idPaciente && (
+        <p className="mt-1 text-sm leading-6 text-gray-600">
+          En este apartado debe incluir las mediciones clincias de su paciente.
+        </p>
+      )}
 
       <form onSubmit={onEditSubmit}>
         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -62,6 +64,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Peso", { required: true })}
                 error={errors.Peso ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -85,6 +89,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Estatura", { required: true })}
                 error={errors.Estatura ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -108,6 +114,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Presion_arterial", { required: true })}
                 error={errors.Presion_arterial ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -131,6 +139,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Frecuencia_cardiaca", { required: true })}
                 error={errors.Frecuencia_cardiaca ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -154,6 +164,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Frecuencia_respiratoria", { required: true })}
                 error={errors.Frecuencia_respiratoria ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -177,6 +189,8 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Temperatura", { required: true })}
                 error={errors.Temperatura ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
               <Typography
                 variant="small"
@@ -199,24 +213,32 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 {...register("Grupo_sanguineo", { required: true })}
                 error={errors.Grupo_sanguinieo ? true : false}
                 onChange={handleInputChange}
+                readOnly={user.idPaciente}
+                color="blue"
               />
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-full">
-          <h2 className="mt-16 text-base font-semibold leading-7 text-gray-900">
-            Detalles del examen fisico
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            En este apartado puede incluir mas detalles del examen medico de su
-            paciente.
-          </p>
-          <div className="mt-6">
+          {!user.idPaciente && (
+            <>
+              <h2 className="mt-16 text-base font-semibold leading-7 text-gray-900">
+                Detalles del examen fisico
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                En este apartado puede incluir mas detalles del examen medico de
+                su paciente.
+              </p>
+            </>
+          )}
+          <div className="mt-10">
             <Textarea
               value={editingData.Exploracion_detallada}
               variant="standard"
               label="Detalle de examen fisico"
+              color="blue"
+              readOnly={user.idPaciente}
               rows={9}
               {...register("Exploracion_detallada", { required: true })}
               error={errors.Exploracion_detallada ? true : false}
@@ -224,20 +246,22 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
             />
           </div>
         </div>
-        <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
-          <Link
-            to={`${
-              import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-            }patient/${patientID}`}
-          >
-            <Button className="mt-5 w-fit bg-cerise-500" color="blue">
-              Cancelar
+        {!user.idPaciente && (
+          <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
+            <Link
+              to={`${
+                import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+              }patient/${patientID}`}
+            >
+              <Button className="mt-5 w-fit bg-cerise-500" color="blue">
+                Cancelar
+              </Button>
+            </Link>
+            <Button type="submit" className="w-fit mt-5" color="blue">
+              Actualizar
             </Button>
-          </Link>
-          <Button type="submit" className="w-fit mt-5" color="blue">
-            Actualizar
-          </Button>
-        </div>
+          </div>
+        )}
       </form>
     </>
   );

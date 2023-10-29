@@ -13,6 +13,11 @@ export const usePatients = (clinicID) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    if (!user.is_doctor) {
+      return;
+    }
+
     (async () => {
       if (clinicID) {
         const response = await getPatientsClinicRequest(user.token, clinicID);

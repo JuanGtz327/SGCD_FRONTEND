@@ -33,6 +33,7 @@ import {
 import { FaUserDoctor } from "react-icons/fa6";
 
 import { useAuth } from "../context/AuthContext.jsx";
+import { MdContacts } from "react-icons/md";
 
 const NavBar = () => {
   const [open, setOpen] = React.useState(0);
@@ -49,7 +50,7 @@ const NavBar = () => {
       <Card className="md:flex h-[calc(100vh)] w-fit p-4 shadow-xl rounded-none sidebarStyles">
         <div className="mb-2 flex items-center gap-4 p-4">
           <Typography variant="h6" className="mx-auto">
-            Bienvenido {user.email}
+            {user.email}
           </Typography>
         </div>
         <div className="p-2">
@@ -201,6 +202,21 @@ const NavBar = () => {
               <Typography className="mr-auto font-normal">Citas</Typography>
             </ListItem>
           </Link>
+
+          {!user.is_doctor && (
+            <Link
+              to={`/medicalRecord/${user.idPaciente}`}
+            >
+              <ListItem className="text-white">
+                <ListItemPrefix>
+                  <MdContacts className="h-5 w-5" />
+                </ListItemPrefix>
+                <Typography className="mr-auto font-normal">
+                  Expediente Clinico
+                </Typography>
+              </ListItem>
+            </Link>
+          )}
           <hr className="my-2 border-blue-gray-50" />
           <ListItem className="text-white">
             <ListItemPrefix>

@@ -129,8 +129,8 @@ const PatientAppointments = () => {
                   citas agendadas
                 </h6>
                 <div className="flex justify-around mt-3 text-xl md:text-3xl md:mt-0">
-                  <div className="flex items-center gap-1 ">
-                    <MdCancelPresentation className="text-cerise-500"/>{" "}
+                  <div className="flex items-center gap-1 text-cerise-500">
+                    <MdCancelPresentation />{" "}
                     <p className="text-sm md:text-base">Cancelada</p>
                   </div>
                   <div className="flex items-center gap-1 text-[#10b981]">
