@@ -89,6 +89,11 @@ export const getAppointmentsRequest = (token) => {
   return axios.get(`/admin/getCitas`, { headers });
 };
 
+export const getPatientAppointmentsRequest = (token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getCitasPaciente`, { headers });
+};
+
 export const editAppointmentRequest = (data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.put(`/admin/editCita`, data, { headers });

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { getAppointmentsRequest, getValidAppointmentsRequest } from "../api/api";
+import { getAppointmentsRequest, getPatientAppointmentsRequest, getValidAppointmentsRequest } from "../api/api";
 import { useDay } from "./useDay";
 
 export const useAppointments = (validApponitments = false) => {
@@ -12,8 +12,15 @@ export const useAppointments = (validApponitments = false) => {
 
   useEffect(() => {
     (async () => {
-      const res = await getAppointmentsRequest(user.token);
-      setAppointments(res.data);
+      if (user.is_admin) {
+        return;
+      }else if (user.is_admin === false && user.is_doctor === true) {
+        const res = await getAppointmentsRequest(user.token);
+        setAppointments(res.data);
+      }else{
+        const res = await getPatientAppointmentsRequest(user.token);
+        setAppointments(res.data);
+      }
       setLoading(false);
     })();
   }, [loading, user.token]);

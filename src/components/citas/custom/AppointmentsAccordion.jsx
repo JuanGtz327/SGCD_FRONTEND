@@ -12,7 +12,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { BsClipboard2CheckFill } from "react-icons/bs";
-import { MdPendingActions } from "react-icons/md";
+import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
 import dayjs from "dayjs";
 import { useDay } from "../../../hooks/useDay";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,11 @@ import {
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
 
-const AppointmentsAccordion = ({ appointments, setLoading }) => {
+const AppointmentsAccordion = ({
+  appointments,
+  setLoading,
+  view = "doctor",
+}) => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const { isAfter, findNext, isBeforeOneDay, isValidHour } = useDay();
@@ -88,7 +92,6 @@ const AppointmentsAccordion = ({ appointments, setLoading }) => {
     };
 
     try {
-      console.log(payload);
       await editAppointmentRequest(payload, user.token);
       showToast("success", "Cita actualizada");
       setLoading(true);
@@ -127,7 +130,14 @@ const AppointmentsAccordion = ({ appointments, setLoading }) => {
     <>
       {appointments.map(
         (
-          { id, Fecha, Diagnostico, DocPac: { Paciente } },
+          {
+            id,
+            Fecha,
+            Estado,
+            Diagnostico,
+            CancelacionCitum,
+            DocPac: { Paciente, Doctor },
+          },
           index,
           appointments
         ) => (
@@ -144,15 +154,24 @@ const AppointmentsAccordion = ({ appointments, setLoading }) => {
             >
               <div className="w-full flex justify-between self-center">
                 <p>
-                  {Paciente.Nombre} {Paciente.ApellidoP}
+                  {view === "doctor"
+                    ? Paciente.Nombre + " " + Paciente.ApellidoP
+                    : "Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}
                 </p>
                 <div className="flex md:gap-2">
                   <p>{dayjs(Fecha).format("h:mm A")}</p>
                   <p className="text-2xl md:text-3xl">
-                    {isAfter(Fecha) ? (
-                      <BsClipboard2CheckFill color="#31AD2F" />
+                    {Estado === false ? (
+                      <MdCancelPresentation className="text-cerise-500" />
+                    ) : isAfter(Fecha) ? (
+                      <BsClipboard2CheckFill color="#10b981" />
                     ) : (
-                      <MdPendingActions />
+                      <div className="flex gap-1">
+                        <MdPendingActions className="text-blue-500" />
+                        {CancelacionCitum?.Pendiente && (
+                          <MdCancelPresentation className="text-cerise-500" />
+                        )}
+                      </div>
                     )}
                   </p>
                 </div>
@@ -160,8 +179,18 @@ const AppointmentsAccordion = ({ appointments, setLoading }) => {
             </AccordionHeader>
             <AccordionBody className="pt-0 text-base">
               <div className="flex justify-between">
-                <p>{Diagnostico}</p>
-                {isBeforeOneDay(Fecha) && (
+                <div>
+                  <p>
+                    <b className="font-bold">Diagnostico:</b> {Diagnostico}
+                  </p>
+                  {CancelacionCitum && (
+                    <p>
+                      <b className="font-bold">Motivo Cancelacion:</b>{" "}
+                      {CancelacionCitum.Motivo}
+                    </p>
+                  )}
+                </div>
+                {isBeforeOneDay(Fecha) && view === "doctor" && (
                   <div className="flex gap-3">
                     <Button
                       className="bg-cerise-500"
@@ -183,6 +212,22 @@ const AppointmentsAccordion = ({ appointments, setLoading }) => {
                     </Button>
                   </div>
                 )}
+                {isBeforeOneDay(Fecha) &&
+                  view === "paciente" &&
+                  Estado === true &&
+                  CancelacionCitum?.Pendiente != true && (
+                    <div className="flex gap-3">
+                      <Button
+                        className="bg-cerise-500 w-fit h-fit"
+                        onClick={() => {
+                          handleOpenDialog();
+                          setSelectedAppointment(id);
+                        }}
+                      >
+                        No podre asistir
+                      </Button>
+                    </div>
+                  )}
               </div>
             </AccordionBody>
           </Accordion>

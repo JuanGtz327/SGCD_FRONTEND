@@ -88,9 +88,16 @@ const NavBar = () => {
                   className="border-b-0 p-3"
                 >
                   <ListItemPrefix>
-                    <FaUserDoctor className="h-5 w-5" color={`${open2===1?'black':'white'}`} />
+                    <FaUserDoctor
+                      className="h-5 w-5"
+                      color={`${open2 === 1 ? "black" : "white"}`}
+                    />
                   </ListItemPrefix>
-                  <Typography className={`${open2===1?'text-black':'text-white'} mr-auto font-normal`}>
+                  <Typography
+                    className={`${
+                      open2 === 1 ? "text-black" : "text-white"
+                    } mr-auto font-normal`}
+                  >
                     Doctores
                   </Typography>
                 </AccordionHeader>
@@ -136,9 +143,16 @@ const NavBar = () => {
                   className="border-b-0 p-3"
                 >
                   <ListItemPrefix>
-                    <FaceSmileIcon className="h-5 w-5" color={`${open===1?'black':'white'}`} />
+                    <FaceSmileIcon
+                      className="h-5 w-5"
+                      color={`${open === 1 ? "black" : "white"}`}
+                    />
                   </ListItemPrefix>
-                  <Typography className={`${open===1?'text-black':'text-white'} mr-auto font-normal`}>
+                  <Typography
+                    className={`${
+                      open === 1 ? "text-black" : "text-white"
+                    } mr-auto font-normal`}
+                  >
                     Pacientes
                   </Typography>
                 </AccordionHeader>
@@ -153,7 +167,13 @@ const NavBar = () => {
                       Nuevo Paciente
                     </ListItem>
                   </Link>
-                  <Link to={`${user.is_admin?`/listPatients/${user.idClinica}`:'/listPatients'}`}>
+                  <Link
+                    to={`${
+                      user.is_admin
+                        ? `/listPatients/${user.idClinica}`
+                        : "/listPatients"
+                    }`}
+                  >
                     <ListItem className="text-white">
                       <ListItemPrefix>
                         <QueueListIcon className="h-5 w-5" />
@@ -165,14 +185,20 @@ const NavBar = () => {
               </AccordionBody>
             </Accordion>
           )}
-          <Link to="/appointments">
+          <Link
+            to={`${
+              user.is_doctor
+                ? user.is_doctor && user.is_admin === false
+                  ? "/appointments"
+                  : "/adminAppointments"
+                : "/patientAppointments"
+            }`}
+          >
             <ListItem className="text-white">
               <ListItemPrefix>
-                <CalendarIcon className="h-5 w-5"/>
+                <CalendarIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography className="mr-auto font-normal">
-                Citas
-              </Typography>
+              <Typography className="mr-auto font-normal">Citas</Typography>
             </ListItem>
           </Link>
           <hr className="my-2 border-blue-gray-50" />

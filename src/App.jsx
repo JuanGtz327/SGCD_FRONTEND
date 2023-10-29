@@ -21,6 +21,7 @@ import Layout from "./common/Layout.jsx";
 import PatientDetails from "./components/paciente/PatientDetails.jsx";
 import ClinicDetail from "./components/expedienteClinico/ClinicDetail.jsx";
 import MedicalCondition from "./components/expedienteClinico/MedicalCondition.jsx";
+import PatientAppointments from "./components/citas/PatientAppointments.jsx";
 
 const App = () => {
   return (
@@ -85,6 +86,14 @@ const App = () => {
                 element={
                   <Layout>
                     <PatientDetails />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/patientAppointments"
+                element={
+                  <Layout>
+                    <PatientAppointments />
                   </Layout>
                 }
               />
