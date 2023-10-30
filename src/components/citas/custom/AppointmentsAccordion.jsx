@@ -152,14 +152,14 @@ const AppointmentsAccordion = ({
                 open === index ? "text-blue-500 hover:!text-blue-700" : ""
               }`}
             >
-              <div className="w-full flex justify-between self-center">
+              <div className="w-full flex justify-between self-center text-base xl:text-lg items-center">
                 <p>
                   {view === "doctor"
                     ? Paciente.Nombre + " " + Paciente.ApellidoP
                     : "Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}
                 </p>
-                <div className="flex md:gap-2">
-                  <p>{dayjs(Fecha).format("h:mm A")}</p>
+                <div className="flex md:gap-2 items-center">
+                  <p className="hidden 2xl:flex">{dayjs(Fecha).format("h:mm A")}</p>
                   <p className="text-2xl md:text-3xl">
                     {Estado === false ? (
                       <MdCancelPresentation className="text-cerise-500" />
@@ -180,6 +180,10 @@ const AppointmentsAccordion = ({
             <AccordionBody className="pt-0 text-base">
               <div className="flex justify-between">
                 <div>
+                  <p className="2xl:hidden">
+                    <b className="font-bold">Horario:</b>{" "}
+                    {dayjs(Fecha).format("h:mm A")}
+                  </p>
                   <p>
                     <b className="font-bold">Diagnostico:</b> {Diagnostico}
                   </p>
@@ -272,7 +276,7 @@ const AppointmentsAccordion = ({
         <form>
           <DialogBody className="flex flex-col gap-5">
             <Input
-            color="blue"
+              color="blue"
               label="Fecha"
               type="date"
               value={editAppointment?.Fecha.split(" ")[0]}
@@ -282,7 +286,7 @@ const AppointmentsAccordion = ({
               onChange={handleInputChange}
             />
             <Input
-            color="blue"
+              color="blue"
               label="Hora"
               type="time"
               step={1800}
@@ -293,7 +297,7 @@ const AppointmentsAccordion = ({
               onChange={handleInputChange}
             />
             <Textarea
-            color="blue"
+              color="blue"
               label="Diagnostico"
               value={editAppointment?.Diagnostico}
               {...registerEdit("Diagnostico", { required: true })}

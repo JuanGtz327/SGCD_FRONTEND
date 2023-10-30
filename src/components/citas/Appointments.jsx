@@ -30,7 +30,7 @@ const Appointments = () => {
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isValidHour, convertToBirthDate } = useDay();
+  const { isToday, isBefore, isValidHour, translatedDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
@@ -129,7 +129,7 @@ const Appointments = () => {
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
-                {convertToBirthDate(selectDate.format())}
+                {translatedDate(selectDate.format())}
               </h1>
               <div className="text-gray-400 grid grid-cols-2">
                 <h6 className="flex my-auto">

@@ -121,24 +121,24 @@ const PatientAppointments = () => {
               <h1 className="font-semibold">
                 {convertToBirthDate(selectDate.format())}
               </h1>
-              <div className="text-gray-400 grid md:grid-cols-2">
+              <div className="text-gray-400 flex justify-between">
                 <h6 className="flex my-auto">
                   {filterAppointmens().length == 0
                     ? "No hay"
                     : filterAppointmens().length}{" "}
                   citas agendadas
                 </h6>
-                <div className="flex justify-around mt-3 text-xl md:text-3xl md:mt-0">
+                <div className="flex gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
                   <div className="flex items-center gap-1 text-cerise-500">
                     <MdCancelPresentation />{" "}
-                    <p className="text-sm md:text-base">Cancelada</p>
+                    <p className="text-sm 2xl:text-lg">Cancelada</p>
                   </div>
                   <div className="flex items-center gap-1 text-[#10b981]">
                     <BsClipboard2CheckFill />{" "}
-                    <p className="text-sm md:text-base">Completada</p>
+                    <p className="text-sm 2xl:text-lg">Completada</p>
                   </div>
                   <div className="flex items-center gap-1 text-blue-500">
-                    <MdPendingActions /> <p className="text-sm md:text-base">Pendiente</p>
+                    <MdPendingActions /> <p className="text-sm 2xl:text-lg">Pendiente</p>
                   </div>
                 </div>
               </div>

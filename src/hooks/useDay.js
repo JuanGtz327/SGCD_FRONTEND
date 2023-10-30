@@ -78,6 +78,11 @@ export const useDay = () => {
     return birthDate.format('DD MMMM YYYY');
   }
 
+  const translatedDate = (dateString) => {
+    const [datePart] = dateString.split(' ');
+    return dayjs(datePart).format('DD MMMM YYYY');
+  }
+
   return {
     currentDate,
     isToday,
@@ -87,6 +92,7 @@ export const useDay = () => {
     isValidHour,
     inProgress,
     findNext,
-    convertToBirthDate
+    convertToBirthDate,
+    translatedDate
   };
 };
