@@ -30,7 +30,7 @@ const Appointments = () => {
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isValidHour,convertToBirthDate } = useDay();
+  const { isToday, isBefore, isValidHour, convertToBirthDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
@@ -153,7 +153,12 @@ const Appointments = () => {
               </div>
             </div>
 
-            <Dialog open={open} handler={handleOpen} size="sm" dismiss={{enabled:false}}>
+            <Dialog
+              open={open}
+              handler={handleOpen}
+              size="sm"
+              dismiss={{ enabled: false }}
+            >
               <div className="flex items-center justify-between">
                 <DialogHeader>
                   Cita - {getDia(selectDate)} {selectDate.date()}{" "}
@@ -183,10 +188,18 @@ const Appointments = () => {
                         error={errors.id ? true : false}
                         variant="standard"
                       >
-                        {pacientes.map(({ id, DocPac, Nombre, ApellidoP }) => (
+                        {pacientes.map(({ id, DocPacs, Nombre, ApellidoP }) => (
                           <Option
                             key={id}
-                            value={`${DocPac.id.toString()},${id}`}
+                            value={`${
+                              DocPacs.find(
+                                ({
+                                  Doctor: {
+                                    User: { Correo },
+                                  },
+                                }) => Correo === user.email
+                              ).id
+                            },${id}`}
                           >
                             {Nombre} {ApellidoP}
                           </Option>
