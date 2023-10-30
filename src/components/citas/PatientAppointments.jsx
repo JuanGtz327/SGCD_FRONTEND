@@ -28,7 +28,7 @@ const PatientAppointments = () => {
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isValidHour, convertToBirthDate } = useDay();
+  const { isValidHour, translatedDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
 
@@ -119,7 +119,7 @@ const PatientAppointments = () => {
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
-                {convertToBirthDate(selectDate.format())}
+                {translatedDate(selectDate.format())}
               </h1>
               <div className="text-gray-400 flex justify-between">
                 <h6 className="flex my-auto">
