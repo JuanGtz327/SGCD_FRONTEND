@@ -89,6 +89,11 @@ export const editPatientRequest = (id, data, token) => {
   return axios.put(`/admin/editPatient/${id}`, data, { headers });
 };
 
+export const addDocPacRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addDocPac`, data, { headers });
+};
+
 //PARA Citas
 
 export const createAppointmentRequest = (data, token) => {

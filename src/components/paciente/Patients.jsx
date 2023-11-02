@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import userImg from "../../assets/user.png";
 import { DeleteModal } from "../generalModals/DeleteModal";
 import { MdEmail } from "react-icons/md";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
@@ -63,7 +62,7 @@ const Patients = () => {
                   consultar los detalles asociados a sus expedientes clinicos.
                 </p>
               </div>
-              <div className="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+              <div className="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-0 sm:space-x-4 sm:space-y-0 space-y-4 items-end">
                 <div className="relative flex-grow w-full">
                   <label
                     htmlFor="full-name"
@@ -72,6 +71,7 @@ const Patients = () => {
                     Buscar paciente
                   </label>
                   <Input
+                  color="blue"
                     type="text"
                     variant="standard"
                     className="w-full bg-opacity-50 rounded text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
@@ -121,30 +121,39 @@ const Patients = () => {
                         Paciente
                       ) => (
                         <div
-                          className="py-8 flex flex-wrap md:flex-nowrap"
+                          className="py-2 md:py-8 flex flex-wrap md:flex-nowrap border-b-2"
                           key={key}
                         >
-                          <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
-                            <img
-                              className="w-full rounded-md h-32 lg:w-32 object-cover"
-                              src={userImg}
-                              alt="text"
-                            />
+                          <div className="sm:flex-shrink-0 mb-4 sm:mb-0 sm:mr-4 mx-auto rounded-md">
+                            <div className="sm:w-32 sm:h-32 h-20 w-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                              <svg
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                className="sm:w-16 sm:h-16 w-10 h-10"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                              </svg>
+                            </div>
                           </div>
                           <div className="md:flex-grow">
-                            <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">
+                            <h2 className="text-lg md:text-xl 2xl:text-2xl font-medium text-gray-900 title-font mb-2">
                               {`${Nombre} ${ApellidoP} ${ApellidoM}`}
                             </h2>
-                            <p className="leading-relaxed">
+                            <p className="leading-relaxed hidden md:block">
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
                             <Link
                               to={`/patient/${id}`}
-                              className="text-indigo-500 inline-flex items-center mt-4"
+                              className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
                             >
                               Detalles del paciente
                               <svg
-                                className="w-4 h-4 ml-2"
+                                className="w-4 h-4 ml-1"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                                 strokeWidth="2"
@@ -156,35 +165,60 @@ const Patients = () => {
                                 <path d="M12 5l7 7-7 7"></path>
                               </svg>
                             </Link>
+                            {user.is_admin && (
+                              <Link
+                                to={`/newDocPac/${id}`}
+                                className="text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5"
+                              >
+                                Asignar Nuevo Doctor
+                                <svg
+                                  className="w-4 h-4 ml-1"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  fill="none"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="M5 12h14"></path>
+                                  <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                              </Link>
+                            )}
                           </div>
                           <div className="md:w-fit md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span className="mt-3 flex gap-2 font-semibold title-font text-gray-700">
+                            <span className="mt-3 md:flex gap-2 font-semibold title-font text-gray-700 hidden">
                               <MdEmail className="w-6 h-6" />
                               {Correo}
                             </span>
                             <div className="flex gap-5 mt-5">
-                              <Button
-                                size="sm"
-                                className="flex items-center"
-                                color="blue"
-                                onClick={() => {
-                                  setOpenEdit(true);
-                                  setEditingPatient(
-                                    Paciente.find((p) => p.idUser === idUser)
-                                  );
-                                }}
-                              >
-                                <AiFillEdit className="w-6 h-6" /> Credenciales
-                              </Button>
+                              {user.is_admin && (
+                                <Button
+                                  size="sm"
+                                  className="flex items-center"
+                                  color="blue"
+                                  onClick={() => {
+                                    setOpenEdit(true);
+                                    setEditingPatient(
+                                      Paciente.find((p) => p.idUser === idUser)
+                                    );
+                                  }}
+                                >
+                                  <AiFillEdit className="w-6 h-6" />{" "}
+                                  Credenciales
+                                </Button>
+                              )}
                               <Button
                                 size="sm"
                                 onClick={() => {
                                   setPatientToDelete(idUser);
                                   setShowDeleteModal(true);
                                 }}
-                                className="bg-cerise-500 flex items-center"
+                                className="bg-cerise-500 flex items-center w-full"
                               >
-                                <AiFillDelete className="w-6 h-6" /> Eliminar
+                                <div className="flex items-center mx-auto">
+                                  <AiFillDelete className="w-6 h-6" /> Eliminar
+                                </div>
                               </Button>
                             </div>
                           </div>

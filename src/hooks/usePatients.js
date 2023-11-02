@@ -23,8 +23,13 @@ export const usePatients = (clinicID) => {
         const response = await getPatientsClinicRequest(user.token, clinicID);
         setPacientes(response.data);
       } else {
-        const response = await getPatientsRequest(user.token);
-        setPacientes(response.data);
+        if (user.is_admin) {
+          const response = await getPatientsClinicRequest(user.token, user.idClinica);
+          setPacientes(response.data);
+        } else {
+          const response = await getPatientsRequest(user.token);
+          setPacientes(response.data);
+        }
       }
       setLoading(false);
     })();

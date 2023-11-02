@@ -25,6 +25,7 @@ import PatientAppointments from "./components/citas/PatientAppointments.jsx";
 import AdminAppointments from "./components/citas/custom/AdminAppointments.jsx";
 import ExpedienteClinico from "./components/paciente/ExpedienteClinico.jsx";
 import Perfil from "./components/general/Perfil.jsx";
+import DocPac from "./components/admin/DocPac.jsx";
 
 const App = () => {
   return (
@@ -145,6 +146,14 @@ const App = () => {
                 element={
                   <Layout>
                     <Perfil />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/newDocPac/:patientID"
+                element={
+                  <Layout>
+                    <DocPac />
                   </Layout>
                 }
               />
