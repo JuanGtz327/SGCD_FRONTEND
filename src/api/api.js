@@ -18,6 +18,23 @@ export const veryfyTokenRequest = (token) => {
   return axios.post("/verify-token", token);
 };
 
+//Llamadas geneales a la API
+
+export const getProfileRequest = (token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getProfile`, { headers });
+};
+
+export const editPasswordRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/editPassword`, data, { headers });
+};
+
+export const editProfileRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.put(`/admin/editProfile`, data, { headers });
+};
+
 //API para el CRUD de los doctores
 
 export const createDoctorRequest = (data, token) => {
@@ -79,12 +96,12 @@ export const createAppointmentRequest = (data, token) => {
   return axios.post(`/admin/addCita`, data, { headers });
 };
 
-export const getValidAppointmentsRequest = (fecha,token) => {
+export const getValidAppointmentsRequest = (fecha, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getValidCitas/${fecha}`, { headers });
 };
 
-export const getAdminAppointmentsRequest = (filtro='all',token) => {
+export const getAdminAppointmentsRequest = (filtro = 'all', token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getCitasAdmin/${filtro}`, { headers });
 };

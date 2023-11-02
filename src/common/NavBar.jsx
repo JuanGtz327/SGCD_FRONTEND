@@ -204,9 +204,7 @@ const NavBar = () => {
           </Link>
 
           {!user.is_doctor && (
-            <Link
-              to={`/medicalRecord/${user.idPaciente}`}
-            >
+            <Link to={`/medicalRecord/${user.idPaciente}`}>
               <ListItem className="text-white">
                 <ListItemPrefix>
                   <MdContacts className="h-5 w-5" />
@@ -232,12 +230,14 @@ const NavBar = () => {
               />
             </ListItemSuffix>
           </ListItem>
-          <ListItem className="text-white">
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Perfil
-          </ListItem>
+          <Link to="/profile">
+            <ListItem className="text-white">
+              <ListItemPrefix>
+                <UserCircleIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Perfil
+            </ListItem>
+          </Link>
           <ListItem className="text-white">
             <ListItemPrefix>
               <Cog6ToothIcon className="h-5 w-5" />
