@@ -25,7 +25,6 @@ const CitasHistorial = ({ preAppointments, onAppointments }) => {
   const { docConfigs } = useDoctors();
   const { currentDate, getDia, getMes } = useCalendar();
   const { isToday, isBefore } = useDay();
-
   const { nextAppointments, loading } = useAppointments(true);
   const {
     register: registerCita,
