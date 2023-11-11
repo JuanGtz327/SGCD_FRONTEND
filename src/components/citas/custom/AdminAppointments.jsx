@@ -23,19 +23,23 @@ import AppointmentsAccordion from "./AppointmentsAccordion";
 import { useHorarios } from "../../../hooks/useHorarios";
 
 const AdminAppointments = () => {
-  const { doctors } = useDoctors();
   const { adminAppointments, loading, setLoading, setFiltro, filtro } =
     useAppointments();
+  const { doctors, docConfigs } = useDoctors(filtro);
 
   const { user } = useAuth();
   const { showToast } = useToast();
 
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isValidHour, convertToBirthDate } = useDay();
-
+  const { isToday, isBefore, isValidHour, translatedDate } = useDay();
+  const [newAppointmentBtnVisible, setNewAppointmentBtnVisible] =
+    useState(false);
   const [selectDate, setSelectDate] = useState(currentDate);
-  const { horariosCita } = useHorarios(filtro, adminAppointments, selectDate);
-
+  const { horariosCita } = useHorarios(
+    docConfigs,
+    adminAppointments,
+    selectDate
+  );
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -126,13 +130,26 @@ const AdminAppointments = () => {
               onDayChange={onDayChange}
               onSetToday={onSetToday}
               appointments={adminAppointments}
+              diasLaborales={
+                docConfigs?.Configuracione
+                  ? docConfigs?.Configuracione.Dias_laborables.split(",")
+                  : [
+                      "Lunes",
+                      "Martes",
+                      "Miercoles",
+                      "Jueves",
+                      "Viernes",
+                      "Sabado",
+                      "Domingo",
+                    ]
+              }
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
               <h1 className="font-semibold">
-                {convertToBirthDate(selectDate.format())}
+                {translatedDate(selectDate.format())}
               </h1>
-              <div className="text-gray-400 grid grid-cols-3">
+              <div className="text-gray-400 grid grid-cols-3 gap-5">
                 <h6 className="flex my-auto">
                   {filterAppointmens().length == 0
                     ? "No hay"
@@ -151,6 +168,9 @@ const AdminAppointments = () => {
                       variant="standard"
                       onChange={(e) => {
                         setFiltro(e);
+                        if (!newAppointmentBtnVisible) {
+                          setNewAppointmentBtnVisible(true);
+                        }
                       }}
                     >
                       {doctors.map(({ id, Nombre, ApellidoP }) => (
@@ -161,17 +181,28 @@ const AdminAppointments = () => {
                     </Select>
                   )}
                 />
-                {validDate() && (
-                  <Button color="blue" onClick={handleOpen}>
-                    AGENDAR CITA
-                  </Button>
-                )}
+                {validDate() &&
+                  newAppointmentBtnVisible &&
+                  (docConfigs?.Configuracione
+                    ? docConfigs?.Configuracione.Dias_laborables.split(
+                        ","
+                      ).includes(getDia(selectDate))
+                    : false) && (
+                    <Button color="blue" onClick={handleOpen}>
+                      AGENDAR CITA
+                    </Button>
+                  )}
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
                 <AppointmentsAccordion
                   appointments={filterAppointmens()}
                   setLoading={setLoading}
+                  docConfigs={docConfigs}
+                  selectDate={selectDate}
+                  onChangeSelectDate={onDayChange}
+                  enableControls={newAppointmentBtnVisible}
+                  view="admin"
                 />
               </div>
             </div>

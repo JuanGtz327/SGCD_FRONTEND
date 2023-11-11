@@ -25,16 +25,18 @@ import {
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
 import { useHorarios } from "../../../hooks/useHorarios";
-import { useDoctors } from "../../../hooks/useDoctors";
 import { useCalendar } from "../../../hooks/useCalendar";
 
 const AppointmentsAccordion = ({
+  docConfigs,
+  selectDate,
   appointments,
   setLoading,
   view = "doctor",
+  onChangeSelectDate,
+  enableControls = true,
 }) => {
   const { user } = useAuth();
-  const { docConfigs } = useDoctors();
   const { showToast } = useToast();
   const { isAfter, findNext, isBeforeOneDay, isValidHour } = useDay();
   const nextAppointment = findNext(appointments);
@@ -46,7 +48,6 @@ const AppointmentsAccordion = ({
   const handleOpenEdit = () => setOpenEdit(!openEdit);
   const [editAppointment, setEditAppointment] = useState(null);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-  const [selectDate, setSelectDate] = useState(dayjs());
   const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
   const { getDia } = useCalendar();
 
@@ -129,14 +130,7 @@ const AppointmentsAccordion = ({
         ...editAppointment,
         [event.target.name]: valor,
       });
-      setSelectDate(dayjs(event.target.value));
-    } else if (event.target.name === "Hora") {
-      const valor =
-        editAppointment.Fecha.split(" ")[0] + " " + event.target.value;
-      setEditAppointment({
-        ...editAppointment,
-        Fecha: valor,
-      });
+      onChangeSelectDate(dayjs(event.target.value));
     } else {
       setEditAppointment({
         ...editAppointment,
@@ -172,11 +166,18 @@ const AppointmentsAccordion = ({
               }`}
             >
               <div className="w-full flex justify-between self-center text-base xl:text-lg items-center">
-                <p>
-                  {view === "doctor"
-                    ? Paciente.Nombre + " " + Paciente.ApellidoP
-                    : "Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}
-                </p>
+                {view === "admin" ? (
+                  <div className="flex flex-col">
+                    <b>Medico: {Doctor.Nombre + " " + Doctor.ApellidoP} </b>
+                    <b>
+                      Paciente: {Paciente.Nombre + " " + Paciente.ApellidoP}{" "}
+                    </b>
+                  </div>
+                ) : view === "doctor" ? (
+                  <p>{Paciente.Nombre + " " + Paciente.ApellidoP}</p>
+                ) : (
+                  <p>{"Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}</p>
+                )}
                 <div className="flex md:gap-2 items-center">
                   <p className="hidden 2xl:flex">
                     {dayjs(Fecha).format("h:mm A")}
@@ -215,28 +216,30 @@ const AppointmentsAccordion = ({
                     </p>
                   )}
                 </div>
-                {isBeforeOneDay(Fecha) && view === "doctor" && (
-                  <div className="flex gap-3">
-                    <Button
-                      className="bg-cerise-500"
-                      onClick={() => {
-                        handleOpenDialog();
-                        setSelectedAppointment(id);
-                      }}
-                    >
-                      Cancelar Cita
-                    </Button>
-                    <Button
-                      className="bg-blue-500"
-                      onClick={() => {
-                        handleOpenEdit();
-                        setEditAppointment(appointments[index]);
-                      }}
-                    >
-                      Actualizar Cita
-                    </Button>
-                  </div>
-                )}
+                {isBeforeOneDay(Fecha) &&
+                  (view === "doctor" || view === "admin") &&
+                  enableControls && (
+                    <div className="flex gap-3">
+                      <Button
+                        className="bg-cerise-500"
+                        onClick={() => {
+                          handleOpenDialog();
+                          setSelectedAppointment(id);
+                        }}
+                      >
+                        Cancelar Cita
+                      </Button>
+                      <Button
+                        className="bg-blue-500"
+                        onClick={() => {
+                          handleOpenEdit();
+                          setEditAppointment(appointments[index]);
+                        }}
+                      >
+                        Actualizar Cita
+                      </Button>
+                    </div>
+                  )}
                 {isBeforeOneDay(Fecha) &&
                   view === "paciente" &&
                   Estado === true &&
@@ -293,7 +296,7 @@ const AppointmentsAccordion = ({
         size="sm"
         dismiss={{ enabled: false }}
       >
-        <DialogHeader>Actualizar Cita {}</DialogHeader>
+        <DialogHeader>Actualizar Cita</DialogHeader>
         <form>
           <DialogBody className="flex flex-col gap-5">
             <Input
@@ -317,6 +320,14 @@ const AppointmentsAccordion = ({
                   containerProps={{ className: "min-w-[72px]" }}
                   error={errors.Hora ? true : false}
                   variant="standard"
+                  name="Hora"
+                  onChange={(e) => {
+                    const valor = editAppointment.Fecha.split(" ")[0] + " " + e;
+                    setEditAppointment({
+                      ...editAppointment,
+                      Fecha: valor,
+                    });
+                  }}
                 >
                   {horariosCita.map((horario) => (
                     <Option key={horario} value={horario}>

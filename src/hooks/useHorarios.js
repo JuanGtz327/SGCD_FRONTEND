@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { getDoctorConfig } from "../api/api";
-import { useAuth } from "../context/AuthContext";
 
 const generarHorarios = (rangoTiempo, duracionCita) => {
   // Parseamos el rango de tiempo en horas
@@ -20,7 +18,11 @@ const generarHorarios = (rangoTiempo, duracionCita) => {
 
   for (let i = 0; i < cantidadCitas; i++) {
     const minutos = (horaActual % 1) * 60;
-    const horaFormateada = `${Math.floor(horaActual)}:${minutos === 0 ? "00" : minutos
+
+    let checkValidHour = `${Math.floor(horaActual)}`
+    if (checkValidHour.length < 2) checkValidHour = "0" + checkValidHour;
+
+    const horaFormateada = `${checkValidHour}:${minutos === 0 ? "00" : minutos
       }`;
 
     horarios.push(horaFormateada);
@@ -33,27 +35,20 @@ const generarHorarios = (rangoTiempo, duracionCita) => {
 };
 
 export const useHorarios = (docConfigs, appointments, selectDate) => {
-  const { user } = useAuth();
   const [horarios, setHorarios] = useState([]);
   const [horariosCita, setHorariosCita] = useState([]);
   const [horariosOcupados, setHorariosOcupados] = useState([]);
 
   useEffect(() => {
-    if (docConfigs.length === 0) return;
 
-    if (user.is_admin) {
+    if (docConfigs === undefined || !docConfigs)
+      return;
 
-      (async () => {
-        const response = await getDoctorConfig(docConfigs === 'all' ? 0 : docConfigs, user.token);
-        if (response.data) {
-          setHorarios(generarHorarios(
-            response.data.Configuracione.Horario,
-            response.data.Configuracione.Duracion_cita
-          ));
-        }
-      })();
-      return
-    }
+    if (docConfigs.length === 0)
+      return;
+
+    if (docConfigs === 'all' || docConfigs >= 0)
+      return;
 
     const horarios = generarHorarios(
       docConfigs.Configuracione.Horario,
@@ -63,6 +58,9 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
   }, [docConfigs]);
 
   useEffect(() => {
+    if (selectDate === undefined)
+      return;
+
     setHorariosOcupados(
       appointments
         .filter(
@@ -74,15 +72,15 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
           return horarioOcupado.substring(0, horarioOcupado.lastIndexOf(":"));
         })
     );
-  }, [horarios,appointments, selectDate]);
+  }, [horarios, appointments, selectDate]);
 
   useEffect(() => {
     setHorariosCita(
       horarios.filter((cita1) => !horariosOcupados.includes(cita1))
     );
-  }, [horarios,horariosOcupados]);
+  }, [horarios, horariosOcupados]);
 
   return {
-    horariosCita
+    horariosCita,
   }
 }

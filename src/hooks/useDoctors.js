@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDoctorConfig, getDoctorsRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
-export const useDoctors = () => {
+export const useDoctors = (idDoctor) => {
   const { user } = useAuth();
   const [filtered, setFiltered] = useState([]);
   const [doctors, setDoctors] = useState([]);
@@ -22,6 +22,16 @@ export const useDoctors = () => {
       })();
     }
   }, [loading, user.token]);
+
+  useEffect(() => {
+    if (user.is_admin) {
+      if (idDoctor === undefined || !idDoctor) return;
+      (async () => {
+        const response = await getDoctorConfig(docConfigs === 'all' ? 0 : idDoctor, user.token);
+        setDocConfigs(response.data);
+      })();
+    }
+  }, [idDoctor]);
 
   const filterDoctors = (value) => {
     setFiltered(

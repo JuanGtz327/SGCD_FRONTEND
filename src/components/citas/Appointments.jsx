@@ -49,6 +49,8 @@ const Appointments = () => {
   } = useForm();
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
+    const checkValidHour = values.Hora.split(":")[0];
+    if (checkValidHour.length < 2) values.Hora = "0" + values.Hora;
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     const ids = values.idDocPac.split(",");
     values.idDocPac = ids[0];
@@ -100,6 +102,10 @@ const Appointments = () => {
     else return false;
   };
 
+  const onChangeSelectDate = (date) => {
+    setSelectDate(date);
+  };
+
   return (
     <div className="h-full">
       <section className="text-gray-600 body-font">
@@ -147,7 +153,13 @@ const Appointments = () => {
                     : filterAppointmens().length}{" "}
                   citas agendadas
                 </h6>
-                {validDate() && pacientes.length > 0 ? (
+                {validDate() &&
+                (docConfigs?.Configuracione
+                  ? docConfigs?.Configuracione.Dias_laborables.split(
+                      ","
+                    ).includes(getDia(selectDate))
+                  : false) &&
+                pacientes.length > 0 ? (
                   <Button color="blue" onClick={handleOpen}>
                     AGENDAR CITA
                   </Button>
@@ -155,7 +167,7 @@ const Appointments = () => {
                   <p className="flex my-auto">
                     {pacientes.length == 0
                       ? "Añada un paciente para agendar citas"
-                      : "Horario no disponible"}
+                      : "Horario no disponible para agendar citas"}
                   </p>
                 )}
               </div>
@@ -164,6 +176,9 @@ const Appointments = () => {
                 <AppointmentsAccordion
                   appointments={filterAppointmens()}
                   setLoading={setLoading}
+                  docConfigs={docConfigs}
+                  selectDate={selectDate}
+                  onChangeSelectDate={onChangeSelectDate}
                 />
               </div>
             </div>
