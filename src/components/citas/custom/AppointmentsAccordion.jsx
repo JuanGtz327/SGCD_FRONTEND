@@ -10,18 +10,23 @@ import {
   DialogFooter,
   Textarea,
   Input,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { BsClipboard2CheckFill } from "react-icons/bs";
 import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
 import dayjs from "dayjs";
 import { useDay } from "../../../hooks/useDay";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   cancelAppointmentRequest,
   editAppointmentRequest,
 } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
+import { useHorarios } from "../../../hooks/useHorarios";
+import { useDoctors } from "../../../hooks/useDoctors";
+import { useCalendar } from "../../../hooks/useCalendar";
 
 const AppointmentsAccordion = ({
   appointments,
@@ -29,6 +34,7 @@ const AppointmentsAccordion = ({
   view = "doctor",
 }) => {
   const { user } = useAuth();
+  const { docConfigs } = useDoctors();
   const { showToast } = useToast();
   const { isAfter, findNext, isBeforeOneDay, isValidHour } = useDay();
   const nextAppointment = findNext(appointments);
@@ -40,11 +46,15 @@ const AppointmentsAccordion = ({
   const handleOpenEdit = () => setOpenEdit(!openEdit);
   const [editAppointment, setEditAppointment] = useState(null);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const [selectDate, setSelectDate] = useState(dayjs());
+  const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
+  const { getDia } = useCalendar();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const {
@@ -105,12 +115,21 @@ const AppointmentsAccordion = ({
 
   const handleInputChange = (event) => {
     if (event.target.name === "Fecha") {
+      if (
+        !docConfigs.Configuracione.Dias_laborables.split(",").includes(
+          getDia(dayjs(event.target.value))
+        )
+      ) {
+        showToast("error", "Este dia no esta disponible para agendar citas.");
+        return;
+      }
       const valor =
         event.target.value + " " + editAppointment.Fecha.split(" ")[1];
       setEditAppointment({
         ...editAppointment,
         [event.target.name]: valor,
       });
+      setSelectDate(dayjs(event.target.value));
     } else if (event.target.name === "Hora") {
       const valor =
         editAppointment.Fecha.split(" ")[0] + " " + event.target.value;
@@ -159,7 +178,9 @@ const AppointmentsAccordion = ({
                     : "Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}
                 </p>
                 <div className="flex md:gap-2 items-center">
-                  <p className="hidden 2xl:flex">{dayjs(Fecha).format("h:mm A")}</p>
+                  <p className="hidden 2xl:flex">
+                    {dayjs(Fecha).format("h:mm A")}
+                  </p>
                   <p className="text-2xl md:text-3xl">
                     {Estado === false ? (
                       <MdCancelPresentation className="text-cerise-500" />
@@ -285,16 +306,25 @@ const AppointmentsAccordion = ({
               error={errorsEdit.Fecha ? true : false}
               onChange={handleInputChange}
             />
-            <Input
-              color="blue"
-              label="Hora"
-              type="time"
-              step={1800}
-              value={editAppointment?.Fecha.split(" ")[1]}
-              variant="standard"
-              {...registerEdit("Hora", { required: true })}
-              error={errorsEdit.Hora ? true : false}
-              onChange={handleInputChange}
+            <Controller
+              name="Hora"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  color="blue"
+                  label="Hora"
+                  containerProps={{ className: "min-w-[72px]" }}
+                  error={errors.Hora ? true : false}
+                  variant="standard"
+                >
+                  {horariosCita.map((horario) => (
+                    <Option key={horario} value={horario}>
+                      {horario}
+                    </Option>
+                  ))}
+                </Select>
+              )}
             />
             <Textarea
               color="blue"
