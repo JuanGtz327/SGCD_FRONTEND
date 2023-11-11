@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { getDoctorsRequest } from "../api/api";
+import { getDoctorConfig, getDoctorsRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
 export const useDoctors = () => {
-  const {user} = useAuth();
-  const [filtered,setFiltered] = useState([]);
+  const { user } = useAuth();
+  const [filtered, setFiltered] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [docConfigs, setDocConfigs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,6 +15,12 @@ export const useDoctors = () => {
       setDoctors(response.data);
       setLoading(false);
     })();
+    if (user.is_doctor && !user.is_admin) {
+      (async () => {
+        const response = await getDoctorConfig(user.idDoctor, user.token);
+        setDocConfigs(response.data);
+      })();
+    }
   }, [loading, user.token]);
 
   const filterDoctors = (value) => {
@@ -39,6 +46,7 @@ export const useDoctors = () => {
   };
 
   return {
+    docConfigs,
     doctors,
     filtered,
     loading,

@@ -51,6 +51,7 @@ export const useAppointments = (validApponitments = false) => {
     nextAppointments,
     loading,
     setLoading,
-    setFiltro
+    setFiltro,
+    filtro
   };
 }

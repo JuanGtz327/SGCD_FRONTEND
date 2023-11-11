@@ -1,5 +1,6 @@
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { useCalendar } from "../../../hooks/useCalendar";
+import { useToast } from "../../../hooks/useToast";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -11,6 +12,7 @@ const Calendar = ({
   onSetToday,
   customClassName = "",
   appointments = [],
+  diasLaborales = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
 }) => {
   const {
     calendar,
@@ -18,7 +20,10 @@ const Calendar = ({
     setTodayDate,
     onNextMonth,
     onPrevMonth,
+    getDia
   } = useCalendar();
+
+  const { showToast } = useToast();
 
   return (
     <div className={`${customClassName} h-fit p-1 md:p-12`}>
@@ -64,6 +69,7 @@ const Calendar = ({
                 className={cn(
                   currentMonth ? "" : "text-gray-400",
                   today ? "bg-indigo-400 text-white" : "",
+                  !diasLaborales.includes(getDia(date)) ? "bg-cerise-500/20 font-bold" : "",
                   selectDate.toDate().toDateString() ===
                     date.toDate().toDateString()
                     ? "bg-light-blue-500 text-white"
@@ -71,8 +77,11 @@ const Calendar = ({
                   "h-10 w-10 rounded-full grid place-content-center hover:bg-cyan-400 hover:text-white transition-all cursor-pointer select-none"
                 )}
                 onClick={() => {
-                  onDayChange(date);
-                  console.log(appointments);
+                  if (!diasLaborales.includes(getDia(date))) {
+                    showToast("error","Este dia no esta disponible para agendar citas.");
+                  }else{
+                    onDayChange(date);
+                  }
                 }}
               >
                 {date.date()}

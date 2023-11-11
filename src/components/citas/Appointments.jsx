@@ -4,7 +4,6 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
   Textarea,
   Button,
   Select,
@@ -21,8 +20,11 @@ import { useCalendar } from "../../hooks/useCalendar";
 import Calendar from "./custom/Calendar";
 import { useDay } from "../../hooks/useDay";
 import Loader from "../../common/Loader";
+import { useDoctors } from "../../hooks/useDoctors";
+import { useHorarios } from "../../hooks/useHorarios";
 
 const Appointments = () => {
+  const { docConfigs, setLoading: setDoctorLoading } = useDoctors();
   const { pacientes } = usePatients();
   const { appointments, loading, setLoading } = useAppointments();
 
@@ -33,6 +35,7 @@ const Appointments = () => {
   const { isToday, isBefore, isValidHour, translatedDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
+  const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -42,6 +45,7 @@ const Appointments = () => {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
@@ -64,6 +68,8 @@ const Appointments = () => {
       await createAppointmentRequest(values, user.token);
       showToast("success", "Cita agendada");
       setLoading(true);
+      setDoctorLoading(true);
+      reset();
       setOpen(false);
     } catch (error) {
       showToast("error", error.response.data.message, "center");
@@ -125,6 +131,9 @@ const Appointments = () => {
               onDayChange={onDayChange}
               onSetToday={onSetToday}
               appointments={appointments}
+              diasLaborales={docConfigs.Configuracione.Dias_laborables.split(
+                ","
+              )}
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
@@ -138,10 +147,16 @@ const Appointments = () => {
                     : filterAppointmens().length}{" "}
                   citas agendadas
                 </h6>
-                {validDate() && (
+                {validDate() && pacientes.length > 0 ? (
                   <Button color="blue" onClick={handleOpen}>
                     AGENDAR CITA
                   </Button>
+                ) : (
+                  <p className="flex my-auto">
+                    {pacientes.length == 0
+                      ? "Añada un paciente para agendar citas"
+                      : "Horario no disponible"}
+                  </p>
                 )}
               </div>
               <hr className="mt-5" />
@@ -156,7 +171,7 @@ const Appointments = () => {
             <Dialog
               open={open}
               handler={handleOpen}
-              size="sm"
+              size="xs"
               dismiss={{ enabled: false }}
             >
               <div className="flex items-center justify-between">
@@ -167,46 +182,61 @@ const Appointments = () => {
               </div>
               <form onSubmit={onAppointmentSubmit}>
                 <DialogBody className="flex flex-col gap-5">
-                  <Input
-                    color="blue"
-                    label="Hora"
-                    type="time"
-                    step={1800}
-                    variant="standard"
-                    {...register("Hora", { required: true })}
-                    error={errors.Hora ? true : false}
-                  />
-                  <Controller
-                    name="idDocPac"
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        color="blue"
-                        label="Paciente"
-                        containerProps={{ className: "min-w-[72px]" }}
-                        error={errors.id ? true : false}
-                        variant="standard"
-                      >
-                        {pacientes.map(({ id, DocPacs, Nombre, ApellidoP }) => (
-                          <Option
-                            key={id}
-                            value={`${
-                              DocPacs.find(
-                                ({
-                                  Doctor: {
-                                    User: { Correo },
-                                  },
-                                }) => Correo === user.email
-                              ).id
-                            },${id}`}
-                          >
-                            {Nombre} {ApellidoP}
-                          </Option>
-                        ))}
-                      </Select>
-                    )}
-                  />
+                  <div className="grid grid-cols-2 gap-6">
+                    <Controller
+                      name="Hora"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          color="blue"
+                          label="Hora"
+                          containerProps={{ className: "min-w-[72px]" }}
+                          error={errors.Hora ? true : false}
+                          variant="standard"
+                        >
+                          {horariosCita.map((horario) => (
+                            <Option key={horario} value={horario}>
+                              {horario}
+                            </Option>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                    <Controller
+                      name="idDocPac"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          color="blue"
+                          label="Paciente"
+                          containerProps={{ className: "min-w-[72px]" }}
+                          error={errors.id ? true : false}
+                          variant="standard"
+                        >
+                          {pacientes.map(
+                            ({ id, DocPacs, Nombre, ApellidoP }) => (
+                              <Option
+                                key={id}
+                                value={`${
+                                  DocPacs.find(
+                                    ({
+                                      Doctor: {
+                                        User: { Correo },
+                                      },
+                                    }) => Correo === user.email
+                                  ).id
+                                },${id}`}
+                              >
+                                {Nombre} {ApellidoP}
+                              </Option>
+                            )
+                          )}
+                        </Select>
+                      )}
+                    />
+                  </div>
                   <Textarea
                     color="blue"
                     label="Diagnostico"

@@ -4,7 +4,6 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
   Textarea,
   Button,
   Select,
@@ -21,10 +20,12 @@ import { createAppointmentRequest } from "../../../api/api";
 import Loader from "../../../common/Loader";
 import Calendar from "./Calendar";
 import AppointmentsAccordion from "./AppointmentsAccordion";
+import { useHorarios } from "../../../hooks/useHorarios";
 
 const AdminAppointments = () => {
   const { doctors } = useDoctors();
-  const { adminAppointments, loading, setLoading, setFiltro } = useAppointments();
+  const { adminAppointments, loading, setLoading, setFiltro, filtro } =
+    useAppointments();
 
   const { user } = useAuth();
   const { showToast } = useToast();
@@ -33,6 +34,7 @@ const AdminAppointments = () => {
   const { isToday, isBefore, isValidHour, convertToBirthDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
+  const { horariosCita } = useHorarios(filtro, adminAppointments, selectDate);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -147,7 +149,9 @@ const AdminAppointments = () => {
                       label="Seleccione un doctor"
                       containerProps={{ className: "min-w-[72px]" }}
                       variant="standard"
-                      onChange={(e) => {setFiltro(e)}}
+                      onChange={(e) => {
+                        setFiltro(e);
+                      }}
                     >
                       {doctors.map(({ id, Nombre, ApellidoP }) => (
                         <Option key={id} value={`${id}`}>
@@ -186,14 +190,25 @@ const AdminAppointments = () => {
               </div>
               <form onSubmit={onAppointmentSubmit}>
                 <DialogBody className="flex flex-col gap-5">
-                  <Input
-                    color="blue"
-                    label="Hora"
-                    type="time"
-                    step={1800}
-                    variant="standard"
-                    {...register("Hora", { required: true })}
-                    error={errors.Hora ? true : false}
+                  <Controller
+                    name="Hora"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Hora"
+                        containerProps={{ className: "min-w-[72px]" }}
+                        error={errors.Hora ? true : false}
+                        variant="standard"
+                      >
+                        {horariosCita.map((horario) => (
+                          <Option key={horario} value={horario}>
+                            {horario}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
                   />
                   <Controller
                     name="idDocPac"

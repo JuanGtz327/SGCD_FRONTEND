@@ -37,6 +37,11 @@ export const editProfileRequest = (data, token) => {
 
 //API para el CRUD de los doctores
 
+export const getDoctorConfig = (id, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getDoctorConfigs/${id}`, { headers });
+};
+
 export const createDoctorRequest = (data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.post(`/admin/addDoctor`, data, { headers });

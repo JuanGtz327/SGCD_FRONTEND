@@ -59,7 +59,7 @@ const months = [
 ];
 
 const days = [
-  "Dominigo",
+  "Domingo",
   "Lunes",
   "Martes",
   "Miercoles",
