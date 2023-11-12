@@ -46,7 +46,7 @@ export function ConfirmationModal({
               handleOpen();
             }}
           >
-            Cancel
+            Cancelar
           </Button>
           <Button
             color="blue"

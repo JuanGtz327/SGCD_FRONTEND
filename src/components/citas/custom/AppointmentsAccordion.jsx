@@ -200,7 +200,7 @@ const AppointmentsAccordion = ({
               </div>
             </AccordionHeader>
             <AccordionBody className="pt-0 text-base">
-              <div className="flex justify-between">
+              <div className="flex flex-col md:flex-row md:justify-between gap-3">
                 <div>
                   <p className="2xl:hidden">
                     <b className="font-bold">Horario:</b>{" "}
@@ -219,7 +219,7 @@ const AppointmentsAccordion = ({
                 {isBeforeOneDay(Fecha) &&
                   (view === "doctor" || view === "admin") &&
                   enableControls && (
-                    <div className="flex gap-3">
+                    <div className="flex md:gap-3 md:justify-end justify-between">
                       <Button
                         className="bg-cerise-500"
                         onClick={() => {
@@ -246,7 +246,7 @@ const AppointmentsAccordion = ({
                   CancelacionCitum?.Pendiente != true && (
                     <div className="flex gap-3">
                       <Button
-                        className="bg-cerise-500 w-fit h-fit"
+                        className="bg-cerise-500 w-full md:w-fit h-fit"
                         onClick={() => {
                           handleOpenDialog();
                           setSelectedAppointment(id);

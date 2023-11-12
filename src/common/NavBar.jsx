@@ -12,7 +12,6 @@ import {
   AccordionHeader,
   AccordionBody,
   Alert,
-  Input,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
@@ -28,7 +27,6 @@ import {
 import {
   ChevronDownIcon,
   CubeTransparentIcon,
-  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { FaUserDoctor } from "react-icons/fa6";
 
@@ -52,14 +50,6 @@ const NavBar = () => {
           <Typography variant="h6" className="mx-auto">
             {user.email}
           </Typography>
-        </div>
-        <div className="p-2">
-          <Input
-            icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-            label="Buscar"
-            color="blue"
-            className="bg-white ring-0"
-          />
         </div>
         <List>
           <Link to="/main">

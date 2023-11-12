@@ -52,6 +52,11 @@ export const getDoctorsRequest = (token) => {
   return axios.get(`/admin/getDoctors`, { headers });
 };
 
+export const getPatientDoctorsRequest = (idPaciente,token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getPatientDoctors/${idPaciente}`, { headers });
+};
+
 export const editDoctorRequest = (id, data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.put(`/admin/editDoctor/${id}`, data, { headers });
@@ -106,6 +111,11 @@ export const createAppointmentRequest = (data, token) => {
   return axios.post(`/admin/addCita`, data, { headers });
 };
 
+export const createPatientAppointmentRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addPatientCita`, data, { headers });
+};
+
 export const getValidAppointmentsRequest = (fecha, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getValidCitas/${fecha}`, { headers });
@@ -116,14 +126,14 @@ export const getAdminAppointmentsRequest = (filtro = 'all', token) => {
   return axios.get(`/admin/getCitasAdmin/${filtro}`, { headers });
 };
 
-export const getAppointmentsRequest = (token) => {
+export const getAppointmentsRequest = (filtro,token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  return axios.get(`/admin/getCitas`, { headers });
+  return axios.get(`/admin/getCitas/${filtro}`, { headers });
 };
 
-export const getPatientAppointmentsRequest = (token) => {
+export const getPatientAppointmentsRequest = (filtro = 'all',token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  return axios.get(`/admin/getCitasPaciente`, { headers });
+  return axios.get(`/admin/getCitasPaciente/${filtro}`, { headers });
 };
 
 export const editAppointmentRequest = (data, token) => {

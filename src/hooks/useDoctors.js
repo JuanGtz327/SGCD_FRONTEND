@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDoctorConfig, getDoctorsRequest } from "../api/api";
+import { getDoctorConfig, getDoctorsRequest, getPatientDoctorsRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
 export const useDoctors = (idDoctor) => {
@@ -10,6 +10,14 @@ export const useDoctors = (idDoctor) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user.is_doctor) {
+      (async () => {
+        const response = await getPatientDoctorsRequest(user.idPaciente,user.token);
+        setDoctors(response.data);
+        setLoading(false);
+      })();
+      return;
+    }
     (async () => {
       const response = await getDoctorsRequest(user.token);
       setDoctors(response.data);
@@ -25,6 +33,13 @@ export const useDoctors = (idDoctor) => {
 
   useEffect(() => {
     if (user.is_admin) {
+      if (idDoctor === undefined || !idDoctor) return;
+      (async () => {
+        const response = await getDoctorConfig(docConfigs === 'all' ? 0 : idDoctor, user.token);
+        setDocConfigs(response.data);
+      })();
+    }
+    if (!user.is_admin && !user.is_doctor) {
       if (idDoctor === undefined || !idDoctor) return;
       (async () => {
         const response = await getDoctorConfig(docConfigs === 'all' ? 0 : idDoctor, user.token);

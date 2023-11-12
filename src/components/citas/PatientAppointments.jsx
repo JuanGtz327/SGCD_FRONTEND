@@ -4,13 +4,14 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
   Textarea,
   Button,
+  Option,
+  Select,
 } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
-import { createAppointmentRequest } from "../../api/api";
+import { createPatientAppointmentRequest } from "../../api/api";
 import AppointmentsAccordion from "./custom/AppointmentsAccordion";
 import { useAppointments } from "../../hooks/useAppointments";
 import { useToast } from "../../hooks/useToast";
@@ -20,18 +21,22 @@ import { useDay } from "../../hooks/useDay";
 import Loader from "../../common/Loader";
 import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
 import { BsClipboard2CheckFill } from "react-icons/bs";
+import { useDoctors } from "../../hooks/useDoctors";
+import { useHorarios } from "../../hooks/useHorarios";
 
 const PatientAppointments = () => {
-  const { appointments, loading, setLoading } = useAppointments();
-
+  const { appointments, loading, setLoading, setFiltro, filtro } =
+    useAppointments();
+  const { doctors, docConfigs } = useDoctors(filtro);
   const { user } = useAuth();
   const { showToast } = useToast();
-
+  const [newAppointmentBtnVisible, setNewAppointmentBtnVisible] =
+    useState(false);
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isValidHour, translatedDate } = useDay();
-
+  const { isToday, isBefore, isValidHour, translatedDate } = useDay();
+  const [selectedDoctor, setSelectedDoctor] = useState({});
   const [selectDate, setSelectDate] = useState(currentDate);
-
+  const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -39,14 +44,15 @@ const PatientAppointments = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    reset
   } = useForm();
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
+    values.idDocPac = selectedDoctor.DocPac.id;
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
-    const ids = values.idDocPac.split(",");
-    values.idDocPac = ids[0];
-    values.id = ids[1];
     delete values.Hora;
+    delete values.agendaDoctor;
 
     if (!isValidHour(values.Fecha, 30)) {
       showToast(
@@ -58,10 +64,11 @@ const PatientAppointments = () => {
     }
 
     try {
-      await createAppointmentRequest(values, user.token);
+      await createPatientAppointmentRequest(values, user.token);
       showToast("success", "Cita agendada");
       setLoading(true);
       setOpen(false);
+      reset();
     } catch (error) {
       showToast("error", error.response.data.message, "center");
     }
@@ -83,6 +90,12 @@ const PatientAppointments = () => {
 
   const onSetToday = (date) => {
     setSelectDate(date);
+  };
+
+  const validDate = () => {
+    if (isToday(selectDate)) return true;
+    else if (isBefore(selectDate)) return true;
+    else return false;
   };
 
   return (
@@ -115,38 +128,94 @@ const PatientAppointments = () => {
               onDayChange={onDayChange}
               onSetToday={onSetToday}
               appointments={appointments}
+              diasLaborales={
+                docConfigs?.Configuracione
+                  ? docConfigs?.Configuracione.Dias_laborables.split(",")
+                  : [
+                      "Lunes",
+                      "Martes",
+                      "Miercoles",
+                      "Jueves",
+                      "Viernes",
+                      "Sabado",
+                      "Domingo",
+                    ]
+              }
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
-              <h1 className="font-semibold">
-                {translatedDate(selectDate.format())}
-              </h1>
-              <div className="text-gray-400 flex justify-between">
-                <h6 className="flex my-auto">
+              <div className="flex justify-between md:justify-start gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
+                <div className="flex items-center gap-1 text-cerise-500">
+                  <MdCancelPresentation />{" "}
+                  <p className="text-sm 2xl:text-lg">Cancelada</p>
+                </div>
+                <div className="flex items-center gap-1 text-[#10b981]">
+                  <BsClipboard2CheckFill />{" "}
+                  <p className="text-sm 2xl:text-lg">Completada</p>
+                </div>
+                <div className="flex items-center gap-1 text-blue-500">
+                  <MdPendingActions />{" "}
+                  <p className="text-sm 2xl:text-lg">Pendiente</p>
+                </div>
+              </div>
+              <div className="font-semibold mt-5 flex gap-3 text-sm md:text-base justify-between md:justify-start">
+                <p>{translatedDate(selectDate.format())}</p>
+                <p className="text-gray-400">|</p>
+                <p>
                   {filterAppointmens().length == 0
                     ? "No hay"
                     : filterAppointmens().length}{" "}
                   citas agendadas
-                </h6>
-                <div className="flex gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
-                  <div className="flex items-center gap-1 text-cerise-500">
-                    <MdCancelPresentation />{" "}
-                    <p className="text-sm 2xl:text-lg">Cancelada</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-[#10b981]">
-                    <BsClipboard2CheckFill />{" "}
-                    <p className="text-sm 2xl:text-lg">Completada</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-blue-500">
-                    <MdPendingActions /> <p className="text-sm 2xl:text-lg">Pendiente</p>
-                  </div>
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 mt-5">
+                <div className="col-span-2">
+                  <Controller
+                    name="agendaDoctor"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Seleccione un doctor para agendar una cita"
+                        variant="standard"
+                        onChange={(e) => {
+                          setFiltro(e);
+                          if (!newAppointmentBtnVisible) {
+                            setNewAppointmentBtnVisible(true);
+                          }
+                          setSelectedDoctor(doctors.find(({ id }) => id == e));
+                        }}
+                      >
+                        {doctors.map(({ id, Nombre, ApellidoP }) => (
+                          <Option key={id} value={`${id}`}>
+                            {Nombre} {ApellidoP}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
+                  />
                 </div>
+                {validDate() &&
+                  newAppointmentBtnVisible &&
+                  (docConfigs?.Configuracione
+                    ? docConfigs?.Configuracione.Dias_laborables.split(
+                        ","
+                      ).includes(getDia(selectDate))
+                    : false) && (
+                    <Button color="blue" onClick={handleOpen} className="mt-3 md:mt-0">
+                      AGENDAR CITA
+                    </Button>
+                  )}
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
                 <AppointmentsAccordion
                   appointments={filterAppointmens()}
                   setLoading={setLoading}
+                  docConfigs={docConfigs}
+                  selectDate={selectDate}
+                  onChangeSelectDate={onDayChange}
                   view="paciente"
                 />
               </div>
@@ -155,29 +224,43 @@ const PatientAppointments = () => {
             <Dialog
               open={open}
               handler={handleOpen}
-              size="sm"
+              size="xs"
               dismiss={{ enabled: false }}
             >
               <div className="flex items-center justify-between">
-                <DialogHeader>
+                <DialogHeader className="text-lg md:text-2xl">
                   Cita - {getDia(selectDate)} {selectDate.date()}{" "}
                   {getMes(selectDate)}
                 </DialogHeader>
               </div>
               <form onSubmit={onAppointmentSubmit}>
                 <DialogBody className="flex flex-col gap-5">
-                  <Input
-                    color="blue"
-                    label="Hora"
-                    type="time"
-                    step={1800}
-                    variant="standard"
-                    {...register("Hora", { required: true })}
-                    error={errors.Hora ? true : false}
+                  <h1 className="font-semibold text-black text-lg">
+                    Medico: {selectedDoctor.Nombre} {selectedDoctor.ApellidoP}
+                  </h1>
+                  <Controller
+                    name="Hora"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Hora"
+                        containerProps={{ className: "min-w-[72px]" }}
+                        error={errors.Hora ? true : false}
+                        variant="standard"
+                      >
+                        {horariosCita.map((horario) => (
+                          <Option key={horario} value={horario}>
+                            {horario}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
                   />
                   <Textarea
                     color="blue"
-                    label="Diagnostico"
+                    label="Motivo de la cita"
                     {...register("Diagnostico", { required: true })}
                     error={errors.Diagnostico ? true : false}
                     variant="standard"

@@ -8,6 +8,7 @@ import {
   Button,
   Select,
   Option,
+  Alert,
 } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
@@ -22,15 +23,16 @@ import { useDay } from "../../hooks/useDay";
 import Loader from "../../common/Loader";
 import { useDoctors } from "../../hooks/useDoctors";
 import { useHorarios } from "../../hooks/useHorarios";
+import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
+import { BsClipboard2CheckFill } from "react-icons/bs";
+import { GoAlertFill } from "react-icons/go";
 
 const Appointments = () => {
   const { docConfigs, setLoading: setDoctorLoading } = useDoctors();
   const { pacientes } = usePatients();
-  const { appointments, loading, setLoading } = useAppointments();
-
+  const { appointments, loading, setLoading, setFiltro } = useAppointments();
   const { user } = useAuth();
   const { showToast } = useToast();
-
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
   const { isToday, isBefore, isValidHour, translatedDate } = useDay();
 
@@ -143,16 +145,56 @@ const Appointments = () => {
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
-              <h1 className="font-semibold">
-                {translatedDate(selectDate.format())}
-              </h1>
-              <div className="text-gray-400 grid grid-cols-2">
-                <h6 className="flex my-auto">
+              <div className="flex justify-between md:justify-start gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
+                <div className="flex items-center gap-1 text-cerise-500">
+                  <MdCancelPresentation />{" "}
+                  <p className="text-sm 2xl:text-lg">Cancelada</p>
+                </div>
+                <div className="flex items-center gap-1 text-[#10b981]">
+                  <BsClipboard2CheckFill />{" "}
+                  <p className="text-sm 2xl:text-lg">Completada</p>
+                </div>
+                <div className="flex items-center gap-1 text-blue-500">
+                  <MdPendingActions />{" "}
+                  <p className="text-sm 2xl:text-lg">Pendiente</p>
+                </div>
+              </div>
+              <div className="font-semibold mt-5 flex gap-3 text-sm md:text-base justify-between md:justify-start">
+                <p>{translatedDate(selectDate.format())}</p>
+                <p className="text-gray-400">|</p>
+                <p>
                   {filterAppointmens().length == 0
                     ? "No hay"
                     : filterAppointmens().length}{" "}
                   citas agendadas
-                </h6>
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 mt-5">
+                {pacientes.length > 0 && (
+                  <div className="col-span-2">
+                    <Controller
+                      name="agendaDoctor"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          color="blue"
+                          label="Filtrar por paciente"
+                          variant="standard"
+                          onChange={(e) => {
+                            setFiltro(e);
+                          }}
+                        >
+                          {pacientes.map(({ id, Nombre, ApellidoP }) => (
+                            <Option key={id} value={`${id}`}>
+                              {Nombre} {ApellidoP}
+                            </Option>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </div>
+                )}
                 {validDate() &&
                 (docConfigs?.Configuracione
                   ? docConfigs?.Configuracione.Dias_laborables.split(
@@ -160,15 +202,29 @@ const Appointments = () => {
                     ).includes(getDia(selectDate))
                   : false) &&
                 pacientes.length > 0 ? (
-                  <Button color="blue" onClick={handleOpen}>
+                  <Button color="blue" onClick={handleOpen} className="mt-3 md:mt-0">
                     AGENDAR CITA
                   </Button>
                 ) : (
-                  <p className="flex my-auto">
-                    {pacientes.length == 0
-                      ? "Añada un paciente para agendar citas"
-                      : "Horario no disponible para agendar citas"}
-                  </p>
+                  <div className="flex mt-5 col-span-3">
+                    {pacientes.length == 0 ? (
+                      <Alert
+                        className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+                        open
+                        icon={<GoAlertFill />}
+                      >
+                        Añada un paciente para agendar citas.
+                      </Alert>
+                    ) : (
+                      <Alert
+                        className="rounded-none border-l-4 border-cerise-500 bg-cerise-500/20 font-medium text-red-600"
+                        open
+                        icon={<GoAlertFill />}
+                      >
+                        Horario no disponible para agendar citas.
+                      </Alert>
+                    )}
+                  </div>
                 )}
               </div>
               <hr className="mt-5" />

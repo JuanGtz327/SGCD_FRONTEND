@@ -21,6 +21,8 @@ import Loader from "../../../common/Loader";
 import Calendar from "./Calendar";
 import AppointmentsAccordion from "./AppointmentsAccordion";
 import { useHorarios } from "../../../hooks/useHorarios";
+import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
+import { BsClipboard2CheckFill } from "react-icons/bs";
 
 const AdminAppointments = () => {
   const { adminAppointments, loading, setLoading, setFiltro, filtro } =
@@ -146,41 +148,58 @@ const AdminAppointments = () => {
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
             <div className="h-full w-full max-w-4xl sm:px-5 py-8">
-              <h1 className="font-semibold">
-                {translatedDate(selectDate.format())}
-              </h1>
-              <div className="text-gray-400 grid grid-cols-3 gap-5">
-                <h6 className="flex my-auto">
+              <div className="flex justify-between md:justify-start gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
+                <div className="flex items-center gap-1 text-cerise-500">
+                  <MdCancelPresentation />{" "}
+                  <p className="text-sm 2xl:text-lg">Cancelada</p>
+                </div>
+                <div className="flex items-center gap-1 text-[#10b981]">
+                  <BsClipboard2CheckFill />{" "}
+                  <p className="text-sm 2xl:text-lg">Completada</p>
+                </div>
+                <div className="flex items-center gap-1 text-blue-500">
+                  <MdPendingActions />{" "}
+                  <p className="text-sm 2xl:text-lg">Pendiente</p>
+                </div>
+              </div>
+              <div className="font-semibold mt-5 flex gap-3 text-sm md:text-base justify-between md:justify-start">
+                <p>{translatedDate(selectDate.format())}</p>
+                <p className="text-gray-400">|</p>
+                <p>
                   {filterAppointmens().length == 0
                     ? "No hay"
                     : filterAppointmens().length}{" "}
                   citas agendadas
-                </h6>
-                <Controller
-                  name="agendaDoctor"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      color="blue"
-                      label="Seleccione un doctor"
-                      containerProps={{ className: "min-w-[72px]" }}
-                      variant="standard"
-                      onChange={(e) => {
-                        setFiltro(e);
-                        if (!newAppointmentBtnVisible) {
-                          setNewAppointmentBtnVisible(true);
-                        }
-                      }}
-                    >
-                      {doctors.map(({ id, Nombre, ApellidoP }) => (
-                        <Option key={id} value={`${id}`}>
-                          {Nombre} {ApellidoP}
-                        </Option>
-                      ))}
-                    </Select>
-                  )}
-                />
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 mt-5">
+                <div className="col-span-2">
+                  <Controller
+                    name="agendaDoctor"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        color="blue"
+                        label="Seleccione un doctor"
+                        containerProps={{ className: "min-w-[72px]" }}
+                        variant="standard"
+                        onChange={(e) => {
+                          setFiltro(e);
+                          if (!newAppointmentBtnVisible) {
+                            setNewAppointmentBtnVisible(true);
+                          }
+                        }}
+                      >
+                        {doctors.map(({ id, Nombre, ApellidoP }) => (
+                          <Option key={id} value={`${id}`}>
+                            {Nombre} {ApellidoP}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                </div>
                 {validDate() &&
                   newAppointmentBtnVisible &&
                   (docConfigs?.Configuracione
@@ -188,7 +207,7 @@ const AdminAppointments = () => {
                         ","
                       ).includes(getDia(selectDate))
                     : false) && (
-                    <Button color="blue" onClick={handleOpen}>
+                    <Button color="blue" onClick={handleOpen} className="mt-3 md:mt-0">
                       AGENDAR CITA
                     </Button>
                   )}
@@ -210,7 +229,7 @@ const AdminAppointments = () => {
             <Dialog
               open={open}
               handler={handleOpen}
-              size="sm"
+              size="xs"
               dismiss={{ enabled: false }}
             >
               <div className="flex items-center justify-between">

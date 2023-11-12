@@ -15,10 +15,10 @@ export const useAppointments = (validApponitments = false) => {
   useEffect(() => {
     (async () => {
       if (user.is_admin === false && user.is_doctor === true) {
-        const res = await getAppointmentsRequest(user.token);
+        const res = await getAppointmentsRequest(filtro===null?'all':filtro,user.token);
         setAppointments(res.data);
       } else {
-        const res = await getPatientAppointmentsRequest(user.token);
+        const res = await getPatientAppointmentsRequest(filtro===null?'all':filtro,user.token);
         setAppointments(res.data);
       }
       setLoading(false);
@@ -30,6 +30,20 @@ export const useAppointments = (validApponitments = false) => {
       (async () => {
         const res = await getAdminAppointmentsRequest(filtro===null?'all':filtro,user.token);
         setAdminAppointments(res.data);
+        setLoading(false);
+      })();
+    }
+    if (!user.is_admin && user.is_doctor) {
+      (async () => {
+        const res = await getAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        setAppointments(res.data);
+        setLoading(false);
+      })();
+    }
+    if (!user.is_admin && !user.is_doctor) {
+      (async () => {
+        const res = await getPatientAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        setAppointments(res.data);
         setLoading(false);
       })();
     }
