@@ -26,6 +26,7 @@ import AdminAppointments from "./components/citas/custom/AdminAppointments.jsx";
 import ExpedienteClinico from "./components/paciente/ExpedienteClinico.jsx";
 import Perfil from "./components/general/Perfil.jsx";
 import DocPac from "./components/admin/DocPac.jsx";
+import Clinic from "./components/general/Clinic.jsx";
 
 const App = () => {
   return (
@@ -154,6 +155,14 @@ const App = () => {
                 element={
                   <Layout>
                     <DocPac />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/clinic"
+                element={
+                  <Layout>
+                    <Clinic />
                   </Layout>
                 }
               />

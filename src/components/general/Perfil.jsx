@@ -85,7 +85,7 @@ const Perfil = () => {
   };
 
   return (
-    <div>
+    <div className="lg:px-16">
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">
@@ -103,12 +103,12 @@ const Perfil = () => {
         </div>
       </section>
       {!loading ? (
-        <div className="mt-6 border-t border-gray-100">
+        <div className="bg-white shadow-2xl rounded-sm md:px-16 md:py-10 py-4 md:mt-8 border-t border-gray-100 md:min-h-[500px]">
           <form onSubmit={onSubmit}>
             <dl className="divide-y divide-gray-100">
               {!user.is_admin && (
-                <div className="px-4 py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                <div className="px-4 md:py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
+                  <dt className="text-base font-medium leading-6 text-gray-900">
                     Nombre Completo
                   </dt>
                   <div className="col-span-5">
@@ -252,8 +252,8 @@ const Perfil = () => {
                   </div>
                 </div>
               )}
-              <div className="bg-white px-4 py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
+              <div className="px-4 py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
+                <dt className="text-base font-medium leading-6 text-gray-900">
                   Credenciales
                 </dt>
                 <div className="col-span-5">
@@ -292,7 +292,7 @@ const Perfil = () => {
               </div>
               {!user.is_admin && (
                 <div className=" px-4 py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                  <dt className="text-base font-medium leading-6 text-gray-900">
                     Domicilio
                   </dt>
                   <div className="col-span-5">
@@ -434,7 +434,7 @@ const Perfil = () => {
                 </div>
               )}
             </dl>
-            <div className="flex justify-end mt-10">
+            <div className="flex md:justify-end justify-center mt-10">
               <div className="w-full max-w-xs">
                 {!btnLoading ? (
                   <Button type="submit" color="blue" className="h-fit w-full">

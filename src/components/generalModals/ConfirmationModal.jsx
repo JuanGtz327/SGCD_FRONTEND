@@ -33,12 +33,12 @@ export function ConfirmationModal({
       >
         <DialogBody className="grid place-items-center gap-4">
           <GiConfirmed className="text-submarine-500 h-10 w-10" />
-          <Typography className="text-submarine-500" variant="h5">
+          <Typography className="text-submarine-500 text-center" variant="h5">
             {tittle}
           </Typography>
           <Typography className="text-center font-normal">{message}</Typography>
         </DialogBody>
-        <DialogFooter className="space-x-2">
+        <DialogFooter className="flex justify-between md:justify-end md:gap-3">
           <Button
             className="bg-cerise-500 text-white"
             onClick={() => {

@@ -29,6 +29,7 @@ import {
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
 import { FaUserDoctor } from "react-icons/fa6";
+import { FaClinicMedical } from "react-icons/fa";
 
 import { useAuth } from "../context/AuthContext.jsx";
 import { MdContacts } from "react-icons/md";
@@ -205,6 +206,18 @@ const NavBar = () => {
               </ListItem>
             </Link>
           )}
+
+          <Link to={`/clinic`}>
+            <ListItem className="text-white">
+              <ListItemPrefix>
+                <FaClinicMedical className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography className="mr-auto font-normal">
+                Mi Clinica
+              </Typography>
+            </ListItem>
+          </Link>
+
           <hr className="my-2 border-blue-gray-50" />
           <ListItem className="text-white">
             <ListItemPrefix>

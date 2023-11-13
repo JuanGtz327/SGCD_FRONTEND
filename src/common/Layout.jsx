@@ -2,6 +2,7 @@ import { Bars3Icon, HomeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import NavBar from "./NavBar.jsx";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import fondo from "../assets/fondo.svg";
 import { Link } from "react-router-dom";
 
 const Layout = ({ children }) => {
@@ -95,6 +96,11 @@ const Layout = ({ children }) => {
 
       <main className="py-5 lg:pl-72">
         <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+        <div className="hidden md:block md:fixed top-10 md:top-0 w-full h-full -z-10">
+          <svg className="w-full h-full">
+            <image href={fondo} className="h-full" />
+          </svg>
+        </div>
       </main>
     </>
   );

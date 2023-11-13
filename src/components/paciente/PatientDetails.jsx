@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import userImg from "../../assets/user.png";
 import { usePatients } from "../../hooks/usePatients";
 import { Link, useParams } from "react-router-dom";
 import { useDay } from "../../hooks/useDay";
@@ -19,16 +18,27 @@ const PatientDetails = () => {
   }, [patientID]);
 
   return (
-    <>
+    <div className="lg:px-16">
       {!loading && paciente ? (
-        <>
+        <div className="bg-white rounded-sm shadow-none md:shadow-2xl lg:mt-24 py-8 md:py-0">
           <section className="text-gray-600 body-font">
             <div className="container px-5 pb-5 mx-auto flex flex-col">
               <div className="lg:w-full mx-auto">
                 <div className="flex flex-col sm:flex-row md:mt-10">
                   <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
-                    <div className="w-36 h-36 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
-                      <img className="rounded-full" src={userImg} alt="text" />
+                    <div className="sm:w-36 sm:h-36 h-20 w-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                      <svg
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        className="sm:w-16 sm:h-16 w-10 h-10"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
                     </div>
                     <div className="flex flex-col items-center text-center justify-center">
                       <h2 className="font-medium title-font mt-4 text-gray-900 text-lg">
@@ -203,11 +213,11 @@ const PatientDetails = () => {
               </div>
             </div>
           </section>
-        </>
+        </div>
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 };
 

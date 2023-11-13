@@ -72,7 +72,7 @@ const MedicalCondition = () => {
   });
 
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font lg:px-16">
       <div className="container px-1 md:py-10 2xl:py-24 mx-auto flex flex-wrap items-center divide-red-700">
         <div className="w-full lg:w-2/6 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <Timeline>
@@ -90,7 +90,7 @@ const MedicalCondition = () => {
                   ) => (
                     <TimelineItem className="h-28" key={key}>
                       <TimelineConnector className="!w-[78px]" />
-                      <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-indigo-900/5">
+                      <TimelineHeader className="relative rounded-sm border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-indigo-900/5">
                         <TimelineIcon
                           className="p-3 text-indigo-500 bg-indigo-100"
                           variant="ghost"
@@ -155,7 +155,7 @@ const MedicalCondition = () => {
             getItemProps={getItemProps}
           />
         </div>
-        <div className="lg:w-3/5 md:w-1/2 shadow-lg rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+        <div className="bg-white lg:w-3/5 md:w-1/2 shadow-none md:shadow-2xl rounded-sm md:p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
           <h2 className="text-gray-900 text-2xl font-bold">
             Nuevo Padecimiento
           </h2>
@@ -165,6 +165,7 @@ const MedicalCondition = () => {
                 <div className="mt-2">
                   <Input
                     size="lg"
+                    color="blue"
                     label="Motivo de la consulta"
                     type="text"
                     variant="standard"
@@ -176,6 +177,7 @@ const MedicalCondition = () => {
               <div className="md:col-span-6 2xl:col-span-4">
                 <div className="mt-2">
                   <Input
+                    color="blue"
                     size="lg"
                     label="Fecha inicio de sintomas"
                     type="date"
@@ -188,6 +190,7 @@ const MedicalCondition = () => {
               <div className="lg:col-span-full">
                 <div className="mt-2">
                   <Textarea
+                    color="blue"
                     variant="standard"
                     label="Sintomas"
                     {...register("Sintomas", { required: true })}
@@ -199,6 +202,7 @@ const MedicalCondition = () => {
               <div className="lg:col-span-full">
                 <div className="mt-2">
                   <Textarea
+                    color="blue"
                     variant="standard"
                     label="Plan de tratamiento"
                     rows={8}

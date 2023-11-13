@@ -89,17 +89,33 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
 
   return (
     <>
-      <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
+      <h2 className="text-lg font-semibold leading-7 text-gray-900 md:mt-5">
         Historia Medica
       </h2>
-      {!user.idPaciente && (
-        <p className="mt-1 text-sm leading-6 text-gray-600">
-          En este apartado debe incluir la informacion medica por la que su
-          paciente ha pasado.
-        </p>
-      )}
-
       <form onSubmit={onEditSubmit}>
+        {!user.idPaciente && (
+          <div className="flex items-center justify-between">
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              En este apartado debe incluir la informacion medica por la que su
+              paciente ha pasado.
+            </p>
+            <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
+              <Link
+                to={`${
+                  import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+                }patient/${patientID}`}
+              >
+                <Button className="mt-5 w-full bg-cerise-500" color="blue">
+                  Volver
+                </Button>
+              </Link>
+              <Button type="submit" className="w-fit mt-5" color="blue">
+                Actualizar
+              </Button>
+            </div>
+          </div>
+        )}
+
         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-6">
           <div className="xl:col-span-3">
             <div className="mt-2">
@@ -176,11 +192,11 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               <div className="w-fit mx-auto mt-8">
                 <Switch
                   crossOrigin={undefined}
-                  checked={editingData.Vacunas==="1"}
+                  checked={editingData.Vacunas === "1"}
                   onClick={(e) => {
                     setEditingData({
                       ...editingData,
-                      Vacunas: e.target.checked===true?"1":"0",
+                      Vacunas: e.target.checked === true ? "1" : "0",
                     });
                   }}
                   disabled={user.idPaciente}
@@ -339,23 +355,6 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
             </div>
           </div>
         </div>
-
-        {!user.idPaciente && (
-          <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
-            <Link
-              to={`${
-                import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-              }patient/${patientID}`}
-            >
-              <Button className="mt-5 w-fit bg-cerise-500" color="blue">
-                Cancelar
-              </Button>
-            </Link>
-            <Button type="submit" className="w-fit mt-5" color="blue">
-              Actualizar
-            </Button>
-          </div>
-        )}
       </form>
     </>
   );

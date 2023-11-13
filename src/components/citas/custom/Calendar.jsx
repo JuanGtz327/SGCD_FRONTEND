@@ -26,7 +26,7 @@ const Calendar = ({
   const { showToast } = useToast();
 
   return (
-    <div className={`${customClassName} h-fit p-1 md:p-12`}>
+    <div className={`${customClassName} h-fit p-1 md:p-12 bg-white rounded-sm shadow-none md:shadow-2xl`}>
       <div className="flex justify-between items-center">
         <h1 className="select-none font-semibold">{getCalendarHeader()}</h1>
         <div className="flex gap-10 items-center ">
@@ -68,7 +68,7 @@ const Calendar = ({
               <h1
                 className={cn(
                   currentMonth ? "" : "text-gray-400",
-                  today ? "bg-indigo-400 text-white" : "",
+                  today ? "bg-blue-500 text-white" : "",
                   !diasLaborales.includes(getDia(date)) ? "bg-cerise-500/20 font-bold" : "",
                   selectDate.toDate().toDateString() ===
                     date.toDate().toDateString()

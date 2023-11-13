@@ -92,7 +92,7 @@ const CitasHistorial = ({ preAppointments, onAppointments }) => {
         <div className="flex flex-col md:flex-row">
           <Calendar
             selectDate={selectDate}
-            customClassName="md:w-1/2 mt-7"
+            customClassName="md:w-1/2 mt-7 shadow-none"
             onDayChange={onDayChange}
             onSetToday={onSetToday}
             appointments={nextAppointments}

@@ -1,21 +1,37 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Button } from "@material-tailwind/react";
 
-const MedicosEdit = ({ data }) => {
+const MedicosEdit = ({ data, patientID }) => {
   const { user } = useAuth();
 
   return (
     <>
-      <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
+      <h2 className="text-lg font-semibold text-gray-900 md:mt-5">
         Historial de Medicos
       </h2>
+
       {!user.idPaciente && (
-        <p className="mt-1 text-sm leading-6 text-gray-600">
-          En este apartado puede consultar los medicos que han atendido a su
-          paciente.
-        </p>
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <p className="mt-1 text-sm leading-6 text-gray-600">
+            En este apartado puede consultar los medicos que han atendido a su
+            paciente.
+          </p>
+          <div className="flex justify-between md:justify-start md:gap-5">
+            <Link
+              to={`${
+                import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+              }newDocPac/${patientID}`}
+            >
+              <Button className="mt-5 w-fit" color="blue">
+                Añadir nuevo medico
+              </Button>
+            </Link>
+          </div>
+        </div>
       )}
       <section className="text-gray-600 body-font">
-        <div className="py-8">
+        <div className="py-4 grid 2xl:grid-cols-2 2xl:gap-10">
           {data.map(
             ({
               id,
@@ -30,7 +46,7 @@ const MedicosEdit = ({ data }) => {
               },
             }) => (
               <div
-                className="flex items-center sm:flex-row flex-col border p-4 mb-4 sm:mb-0 rounded"
+                className="flex items-center sm:flex-row flex-col border p-4 mb-4 sm:mb-0 rounded-2xl"
                 key={id}
               >
                 <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">

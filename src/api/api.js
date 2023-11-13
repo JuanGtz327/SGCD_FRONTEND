@@ -169,3 +169,16 @@ export const addHistoriaClinicaActual = (data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.post(`/admin/addHistoriaClinicaActual`, data, { headers });
 };
+
+//Para la clinica
+
+export const getClinicaRequest = (token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getClinica`, { headers });
+};
+
+export const editClinicaRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.put(`/admin/editClinica`, data, { headers });
+};
+

@@ -50,9 +50,9 @@ const Patients = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:px-16">
           <section className="text-gray-600 body-font">
-            <div className="container px-5 py-5 mx-auto">
+            <div className="container px-0 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">
                 <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
                   Mis Pacientes
@@ -61,33 +61,27 @@ const Patients = () => {
                   En este apartado podrás ver a todos tus pacientes, así como
                   consultar los detalles asociados a sus expedientes clinicos.
                 </p>
-              </div>
-              <div className="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-0 sm:space-x-4 sm:space-y-0 space-y-4 items-end">
-                <div className="relative flex-grow w-full">
-                  <label
-                    htmlFor="full-name"
-                    className="leading-7 text-sm text-gray-600"
-                  >
-                    Buscar paciente
-                  </label>
-                  <Input
-                  color="blue"
-                    type="text"
-                    variant="standard"
-                    className="w-full bg-opacity-50 rounded text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
-                    onChange={(e) => {
-                      if (e.target.value.length === 0) setIsSearching(false);
-                      if (e.target.value.length > 0 && !isSearching)
-                        setIsSearching(true);
-                      filterPatients(e.target.value);
-                    }}
-                  />
+                <div className="flex mt-6 justify-center">
+                  <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
                 </div>
               </div>
             </div>
           </section>
-          <section className="text-gray-600 body-font overflow-hidden">
-            <div className="container px-5 py-10 mx-auto">
+          <section className="bg-white py-5 px-5 rounded-sm md:px-8 md:min-h-[635px] shadow-none md:shadow-2xl text-black body-font overflow-hidden">
+            <Input
+              color="blue"
+              type="text"
+              variant="standard"
+              label="Buscar paciente"
+              className="w-full rounded text-base outline-none text-black-700 py-1 px-3 leading-8 duration-200 ease-in-out"
+              onChange={(e) => {
+                if (e.target.value.length === 0) setIsSearching(false);
+                if (e.target.value.length > 0 && !isSearching)
+                  setIsSearching(true);
+                filterPatients(e.target.value);
+              }}
+            />
+            <div className="container py-10 mx-auto">
               <div className="-my-8 divide-y-2 divide-gray-100">
                 {pacientes.length === 0 || infoToDisplay.length === 0 ? (
                   <EmptyData
@@ -121,7 +115,7 @@ const Patients = () => {
                         Paciente
                       ) => (
                         <div
-                          className="py-2 md:py-8 flex flex-wrap md:flex-nowrap border-b-2"
+                          className="py-2 md:py-6 flex flex-wrap md:flex-nowrap border-b-2"
                           key={key}
                         >
                           <div className="sm:flex-shrink-0 mb-4 sm:mb-0 sm:mr-4 mx-auto rounded-md">
@@ -204,8 +198,10 @@ const Patients = () => {
                                     );
                                   }}
                                 >
-                                  <AiFillEdit className="w-6 h-6" />{" "}
-                                  Credenciales
+                                  <div className="flex items-center mx-auto">
+                                    <AiFillEdit className="w-6 h-6" />{" "}
+                                    Credenciales
+                                  </div>
                                 </Button>
                               )}
                               <Button
@@ -251,6 +247,8 @@ const Patients = () => {
               setPatientToDelete(0);
               setShowDeleteModal(false);
             }}
+            tittle="Seguro que desea eliminar este paciente?"
+            message="Esta accion no se puede deshacer."
           />
         </div>
       )}

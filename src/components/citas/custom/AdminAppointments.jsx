@@ -8,6 +8,7 @@ import {
   Button,
   Select,
   Option,
+  Alert,
 } from "@material-tailwind/react";
 import { useForm, Controller } from "react-hook-form";
 import { useDoctors } from "../../../hooks/useDoctors";
@@ -22,7 +23,8 @@ import Calendar from "./Calendar";
 import AppointmentsAccordion from "./AppointmentsAccordion";
 import { useHorarios } from "../../../hooks/useHorarios";
 import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
-import { BsClipboard2CheckFill } from "react-icons/bs";
+import { BsClipboard2CheckFill, BsInfoCircleFill } from "react-icons/bs";
+import { GoAlertFill } from "react-icons/go";
 
 const AdminAppointments = () => {
   const { adminAppointments, loading, setLoading, setFiltro, filtro } =
@@ -125,7 +127,7 @@ const AdminAppointments = () => {
         <Loader top="mt-32" />
       ) : (
         <>
-          <div className="flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
+          <div className="mt-8 flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
             <Calendar
               selectDate={selectDate}
               customClassName="w-full max-w-lg"
@@ -147,7 +149,7 @@ const AdminAppointments = () => {
               }
             />
             <hr className="sm:hidden h-px my-0 bg-gray-300 border-0 w-full" />
-            <div className="h-full w-full max-w-4xl sm:px-5 py-8">
+            <div className="bg-white shadow-none md:shadow-2xl rounded-sm h-full md:min-h-[600px] w-full max-w-4xl sm:px-5 py-8">
               <div className="flex justify-between md:justify-start gap-2 mt-3 md:text-lg 2xl:text-3xl md:mt-0">
                 <div className="flex items-center gap-1 text-cerise-500">
                   <MdCancelPresentation />{" "}
@@ -206,23 +208,57 @@ const AdminAppointments = () => {
                     ? docConfigs?.Configuracione.Dias_laborables.split(
                         ","
                       ).includes(getDia(selectDate))
-                    : false) && (
-                    <Button color="blue" onClick={handleOpen} className="mt-3 md:mt-0">
+                    : false) ? (
+                    <Button
+                      color="blue"
+                      onClick={handleOpen}
+                      className="mt-3 md:mt-0"
+                    >
                       AGENDAR CITA
                     </Button>
+                  ): (
+                    <div className="flex mt-5 col-span-3">
+                      {!newAppointmentBtnVisible ? (
+                        <Alert
+                          className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+                          open
+                          icon={<GoAlertFill />}
+                        >
+                          Seleccione un doctor para agendar una cita.
+                        </Alert>
+                      ) : (
+                        <Alert
+                          className="rounded-none border-l-4 border-cerise-500 bg-cerise-500/20 font-medium text-red-600"
+                          open
+                          icon={<GoAlertFill />}
+                        >
+                          Horario no disponible para agendar citas.
+                        </Alert>
+                      )}
+                    </div>
                   )}
               </div>
               <hr className="mt-5" />
               <div className="mt-5">
-                <AppointmentsAccordion
-                  appointments={filterAppointmens()}
-                  setLoading={setLoading}
-                  docConfigs={docConfigs}
-                  selectDate={selectDate}
-                  onChangeSelectDate={onDayChange}
-                  enableControls={newAppointmentBtnVisible}
-                  view="admin"
-                />
+                {filterAppointmens().length == 0 ? (
+                  <Alert
+                    className="rounded-none border-l-4 border-blue-500 bg-blue-500/20 font-medium text-blue-600"
+                    open
+                    icon={<BsInfoCircleFill />}
+                  >
+                    No cuenta con citas agendadas para este dia.
+                  </Alert>
+                ) : (
+                  <AppointmentsAccordion
+                    appointments={filterAppointmens()}
+                    setLoading={setLoading}
+                    docConfigs={docConfigs}
+                    selectDate={selectDate}
+                    onChangeSelectDate={onDayChange}
+                    enableControls={newAppointmentBtnVisible}
+                    view="admin"
+                  />
+                )}
               </div>
             </div>
 

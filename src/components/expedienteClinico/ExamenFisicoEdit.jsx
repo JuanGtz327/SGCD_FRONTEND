@@ -44,13 +44,30 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
       <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
         Examen Fisico
       </h2>
-      {!user.idPaciente && (
-        <p className="mt-1 text-sm leading-6 text-gray-600">
-          En este apartado debe incluir las mediciones clincias de su paciente.
-        </p>
-      )}
-
       <form onSubmit={onEditSubmit}>
+        {!user.idPaciente && (
+          <div className="flex items-center justify-between">
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              En este apartado debe incluir las mediciones clincias de su
+              paciente.
+            </p>
+            <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
+              <Link
+                to={`${
+                  import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+                }patient/${patientID}`}
+              >
+                <Button className="mt-5 w-full bg-cerise-500" color="blue">
+                  Volver
+                </Button>
+              </Link>
+              <Button type="submit" className="w-fit mt-5" color="blue">
+                Actualizar
+              </Button>
+            </div>
+          </div>
+        )}
+
         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
           <div className="lg:col-span-3">
             <div className="mt-2 relative flex">
@@ -223,7 +240,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
         <div className="lg:col-span-full">
           {!user.idPaciente && (
             <>
-              <h2 className="mt-16 text-base font-semibold leading-7 text-gray-900">
+              <h2 className="mt-8 text-base font-semibold leading-7 text-gray-900">
                 Detalles del examen fisico
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
@@ -246,22 +263,6 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
             />
           </div>
         </div>
-        {!user.idPaciente && (
-          <div className="flex justify-between md:justify-start md:gap-5 md:mt-10">
-            <Link
-              to={`${
-                import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-              }patient/${patientID}`}
-            >
-              <Button className="mt-5 w-fit bg-cerise-500" color="blue">
-                Cancelar
-              </Button>
-            </Link>
-            <Button type="submit" className="w-fit mt-5" color="blue">
-              Actualizar
-            </Button>
-          </div>
-        )}
       </form>
     </>
   );
