@@ -17,6 +17,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { useToast } from "../../hooks/useToast";
 import { editClinicaRequest, getClinicaRequest } from "../../api/api";
+import Loader from "../../common/Loader.jsx";
 
 const Clinic = () => {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ const Clinic = () => {
   const [loading, setLoading] = useState(false);
   const [clinica, setClinica] = useState({});
   const [direccion, setDireccion] = useState(
-    "https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=EscuelaSuperiorComputo&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
+    "https://maps.google.com/maps?width=100%&height=600&hl=en&q=EscuelaSuperiorComputo&ie=UTF8&t=8&z=14&iwloc=B&output=embed"
   );
   const { showToast } = useToast();
 
@@ -45,13 +46,15 @@ const Clinic = () => {
         setDireccion(
           direccion.replace(
             "EscuelaSuperiorComputo",
-            (
-              response.data?.Domicilio.Calle +
-              response.data?.Domicilio.Num_ext +
-              response.data?.Domicilio.Municipio +
-              response.data?.Domicilio.Colonia +
-              response.data?.Domicilio.Estado
-            ).replace(" ", "")
+            encodeURIComponent(
+              (
+                response.data?.Domicilio.Calle +
+                response.data?.Domicilio.Num_ext +
+                response.data?.Domicilio.Municipio +
+                response.data?.Domicilio.Colonia +
+                response.data?.Domicilio.Estado
+              ).replace(" ", "")
+            )
           )
         );
       }
@@ -194,9 +197,7 @@ const Clinic = () => {
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center h-[600px]">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-cerise-500"></div>
-        </div>
+        <Loader />
       )}
 
       <Dialog

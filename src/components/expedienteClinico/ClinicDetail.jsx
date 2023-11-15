@@ -54,7 +54,7 @@ const ClinicDetail = () => {
     <>
       {!loading && paciente ? (
         <div className="py-5 px-1 md:py-10 lg:px-16">
-          <Tabs value="dashboard">
+          <Tabs value="dashboard" className="shadow-none md:shadow-2xl">
             <TabsHeader>
               {data.map(({ label, value, icon }) => (
                 <Tab key={value} value={value}>
@@ -65,7 +65,7 @@ const ClinicDetail = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="bg-white shadow-none md:shadow-2xl rounded-sm mt-5 md:mt-10 2xl:min-h-[700px]  mx-auto">
+            <TabsBody className="bg-white rounded-sm mt-5 md:mt-10 2xl:min-h-[700px] mx-auto">
               <TabPanel value="dashboard">
                 <div className="text-center py-24">
                   <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">

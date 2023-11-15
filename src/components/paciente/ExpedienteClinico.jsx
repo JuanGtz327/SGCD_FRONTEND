@@ -54,7 +54,7 @@ const ExpedienteClinico = () => {
     <>
       {!loading && paciente ? (
         <div className="py-5 px-1 md:py-10 lg:px-16">
-          <Tabs value="dashboard">
+          <Tabs value="dashboard" className="shadow-none md:shadow-2xl">
             <TabsHeader>
               {data.map(({ label, value, icon }) => (
                 <Tab key={value} value={value}>

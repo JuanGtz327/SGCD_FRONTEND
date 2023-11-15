@@ -46,7 +46,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Card className="md:flex h-[calc(100vh)] w-fit p-4 shadow-xl rounded-none sidebarStyles">
+      <Card className="md:flex h-[calc(100vh)] p-4 shadow-xl rounded-none sidebarStyles w-full">
         <div className="mb-2 flex items-center gap-4 p-4">
           <Typography variant="h6" className="mx-auto">
             {user.email}
