@@ -139,7 +139,7 @@ const Appointments = () => {
               onDayChange={onDayChange}
               onSetToday={onSetToday}
               appointments={appointments}
-              diasLaborales={docConfigs.Configuracione.Dias_laborables.split(
+              diasLaborales={docConfigs.Configuracione?.Dias_laborables.split(
                 ","
               )}
             />

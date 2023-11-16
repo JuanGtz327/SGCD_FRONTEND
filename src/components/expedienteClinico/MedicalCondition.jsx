@@ -101,14 +101,12 @@ const MedicalCondition = () => {
                           <Typography variant="h6" color="blue-gray">
                             {Motivo_consulta}
                           </Typography>
-                          <Typography
-                            variant="small"
-                            color="gray"
+                          <div
                             className="font-normal"
                           >
                             <div className="2xl:flex justify-between gap-3 md:gap-0">
                               <p>Fecha Sintomas {Fecha_inicio_sintomas}</p>
-                              <div>
+                              <div className="text-base">
                                 <p
                                   className="text-indigo-500 inline-flex items-center hover:cursor-pointer"
                                   onClick={() => {
@@ -136,7 +134,7 @@ const MedicalCondition = () => {
                                 </p>
                               </div>
                             </div>
-                          </Typography>
+                          </div>
                         </div>
                       </TimelineHeader>
                     </TimelineItem>

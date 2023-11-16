@@ -153,10 +153,8 @@ const SignUp = () => {
               </form>
             </CardBody>
             <CardFooter className="flex justify-center mt-auto">
-              <Typography
-                variant="small"
-                color="gray"
-                className="text-center font-normal flex justify-center"
+              <div
+                className="text-center text-sm flex justify-center"
               >
                 ¿Ya cuentas con una cuenta?
                 <Link to="/login">
@@ -167,7 +165,7 @@ const SignUp = () => {
                     Iniciar Sesión
                   </Typography>
                 </Link>
-              </Typography>
+              </div>
             </CardFooter>
           </Card>
         </div>

@@ -182,7 +182,7 @@ const AppointmentsAccordion = ({
                   <p className="hidden 2xl:flex">
                     {dayjs(Fecha).format("h:mm A")}
                   </p>
-                  <p className="text-2xl md:text-3xl">
+                  <div className="text-2xl md:text-3xl">
                     {Estado === false ? (
                       <MdCancelPresentation className="text-cerise-500" />
                     ) : isAfter(Fecha) ? (
@@ -195,7 +195,7 @@ const AppointmentsAccordion = ({
                         )}
                       </div>
                     )}
-                  </p>
+                  </div>
                 </div>
               </div>
             </AccordionHeader>

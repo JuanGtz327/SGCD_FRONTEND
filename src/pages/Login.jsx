@@ -95,7 +95,7 @@ const LogIn = () => {
             </CardBody>
             <CardFooter className="flex justify-center mt-auto">
               <hr className="h-px my-0 bg-gray-300 border-0" />
-              <Typography variant="small" className="flex justify-center">
+              <div className="text-sm text-gray-500 flex justify-center">
                 ¿No tienes una cuenta?
                 <Link to="/signup">
                   <Typography
@@ -105,7 +105,7 @@ const LogIn = () => {
                     Crear cuenta
                   </Typography>
                 </Link>
-              </Typography>
+              </div>
             </CardFooter>
           </Card>
         </div>
