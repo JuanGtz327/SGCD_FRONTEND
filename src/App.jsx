@@ -7,7 +7,6 @@ import PaginaInicio from "./components/inicio/PaginaInicio.jsx";
 import SignUp from "./pages/Signup.jsx";
 import LogIn from "./pages/Login.jsx";
 
-import DoctorPanel from "./components/doctor/DoctorPanel.jsx";
 import Doctors from "./components/doctor/Doctors.jsx";
 import AddDoctor from "./components/doctor/AddDoctor.jsx";
 
@@ -27,6 +26,7 @@ import ExpedienteClinico from "./components/paciente/ExpedienteClinico.jsx";
 import Perfil from "./components/general/Perfil.jsx";
 import DocPac from "./components/admin/DocPac.jsx";
 import Clinic from "./components/general/Clinic.jsx";
+import MainPanel from "./components/general/MainPanel.jsx";
 
 const App = () => {
   return (
@@ -42,7 +42,7 @@ const App = () => {
                 path="/main"
                 element={
                   <Layout>
-                    <DoctorPanel />
+                    <MainPanel />
                   </Layout>
                 }
               />
@@ -167,7 +167,7 @@ const App = () => {
                 }
               />
             </Route>
-            <Route path="*" element={<h1>No se encontro</h1>} />
+            <Route path="*" element={<h1>No se encontro</h1>}/>
           </Routes>
         </BrowserRouter>
       </AlertProvider>

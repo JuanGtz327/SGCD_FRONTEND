@@ -27,7 +27,7 @@ import { BsClipboard2CheckFill, BsInfoCircleFill } from "react-icons/bs";
 import { GoAlertFill } from "react-icons/go";
 
 const AdminAppointments = () => {
-  const { adminAppointments, loading, setLoading, setFiltro, filtro } =
+  const { appointments, loading, setLoading, setFiltro, filtro } =
     useAppointments();
   const { doctors, docConfigs } = useDoctors(filtro);
 
@@ -41,7 +41,7 @@ const AdminAppointments = () => {
   const [selectDate, setSelectDate] = useState(currentDate);
   const { horariosCita } = useHorarios(
     docConfigs,
-    adminAppointments,
+    appointments,
     selectDate
   );
   const [open, setOpen] = useState(false);
@@ -81,7 +81,7 @@ const AdminAppointments = () => {
   });
 
   const filterAppointmens = () => {
-    const appointmensPerDay = adminAppointments.filter(
+    const appointmensPerDay = appointments.filter(
       ({ Fecha }) => Fecha.split(" ")[0] === selectDate.format().split("T")[0]
     );
 
@@ -133,7 +133,7 @@ const AdminAppointments = () => {
               customClassName="w-full max-w-lg"
               onDayChange={onDayChange}
               onSetToday={onSetToday}
-              appointments={adminAppointments}
+              appointments={appointments}
               diasLaborales={
                 docConfigs?.Configuracione
                   ? docConfigs?.Configuracione.Dias_laborables.split(",")

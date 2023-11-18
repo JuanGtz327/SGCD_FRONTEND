@@ -6,7 +6,6 @@ import { useDay } from "./useDay";
 export const useAppointments = (validApponitments = false) => {
   const { user } = useAuth();
   const [filtro, setFiltro] = useState('all');
-  const [adminAppointments, setAdminAppointments] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [nextAppointments, setNextAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +28,7 @@ export const useAppointments = (validApponitments = false) => {
     if (user.is_admin) {
       (async () => {
         const res = await getAdminAppointmentsRequest(filtro===null?'all':filtro,user.token);
-        setAdminAppointments(res.data);
+        setAppointments(res.data);
         setLoading(false);
       })();
     }
@@ -61,7 +60,6 @@ export const useAppointments = (validApponitments = false) => {
 
   return {
     appointments,
-    adminAppointments,
     nextAppointments,
     loading,
     setLoading,

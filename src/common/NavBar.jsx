@@ -6,8 +6,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Chip,
   Accordion,
   AccordionHeader,
   AccordionBody,
@@ -15,8 +13,6 @@ import {
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
   PowerIcon,
   CalendarIcon,
   ClipboardDocumentListIcon,
@@ -47,11 +43,12 @@ const NavBar = () => {
   return (
     <>
       <Card className="md:flex h-[calc(100vh)] p-4 shadow-xl rounded-none sidebarStyles w-full">
-        <div className="mb-2 flex items-center gap-4 p-4">
-          <Typography variant="h6" className="mx-auto">
-            {user.email}
+        <div className="flex items-center ">
+          <Typography variant="h1" className="mx-auto">
+            SGCD
           </Typography>
         </div>
+        <hr className="my-2 border-blue-gray-50 mx-2"/>
         <List>
           <Link to="/main">
             <ListItem className="text-white">
@@ -219,20 +216,6 @@ const NavBar = () => {
           </Link>
 
           <hr className="my-2 border-blue-gray-50" />
-          <ListItem className="text-white">
-            <ListItemPrefix>
-              <InboxIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Mensajes
-            <ListItemSuffix>
-              <Chip
-                value="14"
-                size="sm"
-                variant="ghost"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
-          </ListItem>
           <Link to="/profile">
             <ListItem className="text-white">
               <ListItemPrefix>
@@ -241,12 +224,6 @@ const NavBar = () => {
               Perfil
             </ListItem>
           </Link>
-          <ListItem className="text-white">
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Configuracion
-          </ListItem>
           <button
             onClick={async () => {
               await logout();

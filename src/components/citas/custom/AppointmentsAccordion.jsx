@@ -168,15 +168,41 @@ const AppointmentsAccordion = ({
               <div className="w-full flex justify-between self-center text-base xl:text-lg items-center">
                 {view === "admin" ? (
                   <div className="flex flex-col">
-                    <b>Medico: {Doctor.Nombre + " " + Doctor.ApellidoP} </b>
                     <b>
-                      Paciente: {Paciente.Nombre + " " + Paciente.ApellidoP}{" "}
+                      Medico:{" "}
+                      {Doctor.Nombre +
+                        " " +
+                        Doctor.ApellidoP +
+                        " " +
+                        Doctor.ApellidoM}{" "}
+                    </b>
+                    <b>
+                      Paciente:{" "}
+                      {Paciente.Nombre +
+                        " " +
+                        Paciente.ApellidoP +
+                        " " +
+                        Paciente.ApellidoM}
                     </b>
                   </div>
                 ) : view === "doctor" ? (
-                  <p>{Paciente.Nombre + " " + Paciente.ApellidoP}</p>
+                  <p>
+                    Paciente:{" "}
+                    {Paciente.Nombre +
+                      " " +
+                      Paciente.ApellidoP +
+                      " " +
+                      Paciente.ApellidoM}
+                  </p>
                 ) : (
-                  <p>{"Medico: " + Doctor.Nombre + " " + Doctor.ApellidoP}</p>
+                  <p>
+                    {"Medico: " +
+                      Doctor.Nombre +
+                      " " +
+                      Doctor.ApellidoP +
+                      " " +
+                      Doctor.ApellidoM}
+                  </p>
                 )}
                 <div className="flex md:gap-2 items-center">
                   <p className="hidden 2xl:flex">
