@@ -115,11 +115,11 @@ const Patients = () => {
                         Paciente
                       ) => (
                         <div
-                          className="py-2 md:py-6 flex flex-wrap md:flex-nowrap border-b-2"
+                          className="py-8 flex flex-wrap md:flex-nowrap justify-between"
                           key={key}
                         >
-                          <div className="sm:flex-shrink-0 mb-4 sm:mb-0 sm:mr-4 mx-auto rounded-md">
-                            <div className="sm:w-32 sm:h-32 h-20 w-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                          <div className="flex flex-col md:flex-row sm:flex-shrink-0 gap-5 mb-4 sm:mb-0 rounded-md">
+                            <div className="mx-auto sm:w-32 sm:h-32 h-20 w-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
                               <svg
                                 fill="none"
                                 stroke="currentColor"
@@ -133,38 +133,18 @@ const Patients = () => {
                                 <circle cx="12" cy="7" r="4"></circle>
                               </svg>
                             </div>
-                          </div>
-                          <div className="md:flex-grow">
-                            <h2 className="text-lg md:text-xl 2xl:text-2xl font-medium text-gray-900 title-font mb-2">
-                              {`${Nombre} ${ApellidoP} ${ApellidoM}`}
-                            </h2>
-                            <p className="leading-relaxed hidden md:block">
-                              {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
-                            </p>
-                            <Link
-                              to={`/patient/${id}`}
-                              className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
-                            >
-                              Detalles del paciente
-                              <svg
-                                className="w-4 h-4 ml-1"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                              </svg>
-                            </Link>
-                            {user.is_admin && (
+                            <div>
+                              <h2 className="text-lg md:text-xl 2xl:text-2xl font-medium text-gray-900 title-font mb-2 text-center md:text-left">
+                                {`${Nombre} ${ApellidoP} ${ApellidoM}`}
+                              </h2>
+                              <p className="mb-3 text-sm md:text-base leading-relaxed md:block text-justify">
+                                {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
+                              </p>
                               <Link
-                                to={`/newDocPac/${id}`}
-                                className="text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5"
+                                to={`/patient/${id}`}
+                                className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
                               >
-                                Asignar Nuevo Doctor
+                                Detalles paciente
                                 <svg
                                   className="w-4 h-4 ml-1"
                                   viewBox="0 0 24 24"
@@ -178,18 +158,43 @@ const Patients = () => {
                                   <path d="M12 5l7 7-7 7"></path>
                                 </svg>
                               </Link>
-                            )}
+                              {user.is_admin && (
+                                <Link
+                                  to={`/newDocPac/${id}`}
+                                  className="ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5"
+                                >
+                                  Asignar Doctor
+                                  <svg
+                                    className="w-4 h-4 ml-1"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                  </svg>
+                                </Link>
+                              )}
+                            </div>
                           </div>
-                          <div className="md:w-fit md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span className="mt-3 md:flex gap-2 font-semibold title-font text-gray-700 hidden">
+                          <div className="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                            <span className="w-full mt-3 md:flex gap-1 font-semibold title-font text-gray-700 hidden justify-end">
                               <MdEmail className="w-6 h-6" />
                               {Correo}
                             </span>
-                            <div className="flex gap-5 mt-5">
-                              {user.is_admin && (
+                            <div
+                              className={`grid ${
+                                user.is_admin
+                                  ? "grid-cols-2"
+                                  : "md:grid-cols-2 grid-cols-1"
+                              } gap-2 md:mt-5 mt-2 w-full`}
+                            >
+                              {user.is_admin ? (
                                 <Button
                                   size="sm"
-                                  className="flex items-center"
                                   color="blue"
                                   onClick={() => {
                                     setOpenEdit(true);
@@ -203,6 +208,8 @@ const Patients = () => {
                                     Credenciales
                                   </div>
                                 </Button>
+                              ) : (
+                                <div></div>
                               )}
                               <Button
                                 size="sm"
@@ -210,7 +217,7 @@ const Patients = () => {
                                   setPatientToDelete(idUser);
                                   setShowDeleteModal(true);
                                 }}
-                                className="bg-cerise-500 flex items-center w-full"
+                                className="bg-cerise-500"
                               >
                                 <div className="flex items-center mx-auto">
                                   <AiFillDelete className="w-6 h-6" /> Eliminar

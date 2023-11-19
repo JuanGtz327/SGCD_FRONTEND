@@ -127,10 +127,10 @@ const Doctors = () => {
                             </div>
                           </div>
                           <div className="md:flex-grow">
-                            <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">
+                            <h2 className="text-center md:text-left text-lg md:text-2xl font-medium text-gray-900 title-font mb-2">
                               {`${Nombre} ${ApellidoP} ${ApellidoM}`}
                             </h2>
-                            <p className="leading-relaxed">
+                            <p className="text-sm md:text-base leading-relaxed text-justify">
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
                             <Link
@@ -153,13 +153,13 @@ const Doctors = () => {
                             </Link>
                           </div>
                           <div className="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <span className="font-semibold title-font text-gray-700">
+                            <span className="font-semibold title-font text-gray-700 hidden md:inline">
                               {Correo}
                             </span>
-                            <span className="mt-1 text-gray-500 text-sm">
+                            <span className="mt-1 text-gray-500 text-sm hidden md:inline">
                               {Especialidad}
                             </span>
-                            <div className="flex gap-5 mt-5">
+                            <div className={`grid ${user.is_admin?'grid-cols-2':'md:grid-cols-2 grid-cols-1'} gap-2 md:mt-5 mt-2 w-full`}>
                               {user.is_admin && (
                                 <Button
                                   size="sm"
