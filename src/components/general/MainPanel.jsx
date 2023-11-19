@@ -74,6 +74,7 @@ const MainPanel = () => {
       appointments[findNext(appointments)].Fecha.split(" ")[0] !=
       currentDate.format().split("T")[0]
     ) {
+      setLoadingAppointments(false);
       return;
     }
 
@@ -141,7 +142,7 @@ const MainPanel = () => {
             <div className="flex flex-wrap gap-1 ">
               <div className=" md:p-2 p-1 lg:w-full md:h-[275px] ">
                 <div className="bg-white md:shadow-2xl h-full md:p-4 flex flex-col justify-between">
-                  {loadingAppointments ? (
+                  {!loadingAppointments ? (
                     <>
                       <Typography
                         variant="h4"
@@ -174,7 +175,7 @@ const MainPanel = () => {
                         </Alert>
                       )}
                       <div className="flex justify-end mt-3">
-                        <Link to="/appointments">
+                        <Link to={`${user.is_admin?'/adminAppointments':user.is_doctor?'/appointments':'/patientAppointments'}`}>
                           <Typography
                             variant="small"
                             color="blue"
