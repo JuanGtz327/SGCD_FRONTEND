@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
+  getPatiensByDoctorRequest,
   getPatientRequest,
   getPatientsClinicRequest,
   getPatientsRequest,
@@ -51,6 +52,13 @@ export const usePatients = (clinicID) => {
     );
   };
 
+  const getPatiensByDoctor = async (doctorID) => {
+    setLoading(true);
+    const response = await getPatiensByDoctorRequest(doctorID, user.token);
+    setLoading(false);
+    return response.data;
+  };
+
   const getPaciente = async (patientID) => {
     setLoading(true);
     const response = await getPatientRequest(patientID, user.token);
@@ -64,6 +72,7 @@ export const usePatients = (clinicID) => {
     loading,
     setLoading,
     filterPatients,
-    getPaciente
+    getPaciente,
+    getPatiensByDoctor,
   };
 };

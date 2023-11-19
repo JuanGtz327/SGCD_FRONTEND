@@ -69,14 +69,19 @@ export const deleteDoctorRequest = (id, token) => {
 
 //PARA Pacientes
 
-export const createPatientRequest = (data, token) => {
+export const createPatientRequest = (data, token, idDoctor) => {
   const headers = { Authorization: `Bearer ${token}` };
-  return axios.post(`/admin/addPatient`, data, { headers });
+  return axios.post(`/admin/addPatient/${idDoctor}`, data, { headers });
 };
 
 export const getPatientsRequest = (token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getPatients`, { headers });
+};
+
+export const getPatiensByDoctorRequest = (idDoctor,token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getPatientsByDoctor/${idDoctor}`, { headers });
 };
 
 export const getPatientRequest = (id, token) => {
@@ -105,6 +110,11 @@ export const addDocPacRequest = (data, token) => {
 };
 
 //PARA Citas
+
+export const createAdminAppointmentRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addCitaAdmin`, data, { headers });
+};
 
 export const createAppointmentRequest = (data, token) => {
   const headers = { Authorization: `Bearer ${token}` };

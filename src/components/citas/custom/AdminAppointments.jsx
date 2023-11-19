@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogHeader,
@@ -17,7 +17,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
 import { useCalendar } from "../../../hooks/useCalendar";
 import { useDay } from "../../../hooks/useDay";
-import { createAppointmentRequest } from "../../../api/api";
+import { createAdminAppointmentRequest } from "../../../api/api";
 import Loader from "../../../common/Loader";
 import Calendar from "./Calendar";
 import AppointmentsAccordion from "./AppointmentsAccordion";
@@ -25,11 +25,13 @@ import { useHorarios } from "../../../hooks/useHorarios";
 import { MdCancelPresentation, MdPendingActions } from "react-icons/md";
 import { BsClipboard2CheckFill, BsInfoCircleFill } from "react-icons/bs";
 import { GoAlertFill } from "react-icons/go";
+import { usePatients } from "../../../hooks/usePatients";
 
 const AdminAppointments = () => {
   const { appointments, loading, setLoading, setFiltro, filtro } =
     useAppointments();
   const { doctors, docConfigs } = useDoctors(filtro);
+  const { getPatiensByDoctor } = usePatients();
 
   const { user } = useAuth();
   const { showToast } = useToast();
@@ -39,6 +41,7 @@ const AdminAppointments = () => {
   const [newAppointmentBtnVisible, setNewAppointmentBtnVisible] =
     useState(false);
   const [selectDate, setSelectDate] = useState(currentDate);
+  const [pacientes, setPacientes] = useState([]);
   const { horariosCita } = useHorarios(
     docConfigs,
     appointments,
@@ -46,6 +49,14 @@ const AdminAppointments = () => {
   );
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+
+  useEffect(() => {
+    (async ()=>{
+      if (filtro!=="all") {
+        setPacientes(await getPatiensByDoctor(filtro));
+      }
+    })();
+  }, [filtro]);
 
   const {
     register,
@@ -56,10 +67,9 @@ const AdminAppointments = () => {
 
   const onAppointmentSubmit = handleSubmit(async (values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
-    const ids = values.idDocPac.split(",");
-    values.idDocPac = ids[0];
-    values.id = ids[1];
+    values.idDoctor = parseInt(filtro);
     delete values.Hora;
+    delete values.agendaDoctor;
 
     if (!isValidHour(values.Fecha, 30)) {
       showToast(
@@ -71,7 +81,7 @@ const AdminAppointments = () => {
     }
 
     try {
-      await createAppointmentRequest(values, user.token);
+      await createAdminAppointmentRequest(values, user.token);
       showToast("success", "Cita agendada");
       //setLoading(true);
       setOpen(false);
@@ -297,7 +307,7 @@ const AdminAppointments = () => {
                     )}
                   />
                   <Controller
-                    name="idDocPac"
+                    name="idPaciente"
                     control={control}
                     render={({ field }) => (
                       <Select
@@ -305,11 +315,11 @@ const AdminAppointments = () => {
                         color="blue"
                         label="Paciente"
                         containerProps={{ className: "min-w-[72px]" }}
-                        error={errors.id ? true : false}
+                        error={errors.idPaciente ? true : false}
                         variant="standard"
                       >
-                        {doctors.map(({ id, Nombre, ApellidoP }) => (
-                          <Option key={id} value={`id`}>
+                        {pacientes.map(({ id, Nombre, ApellidoP }) => (
+                          <Option key={id} value={id}>
                             {Nombre} {ApellidoP}
                           </Option>
                         ))}

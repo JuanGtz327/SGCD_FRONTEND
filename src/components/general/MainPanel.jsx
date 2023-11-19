@@ -68,7 +68,10 @@ const MainPanel = () => {
   const [loadingAppointments, setLoadingAppointments] = useState(true);
 
   useEffect(() => {
-    if (appointments[findNext(appointments)] === undefined) return;
+    if (appointments[findNext(appointments)] === undefined) {
+      setLoadingAppointments(false);
+      return;
+    }
 
     if (
       appointments[findNext(appointments)].Fecha.split(" ")[0] !=
@@ -175,7 +178,15 @@ const MainPanel = () => {
                         </Alert>
                       )}
                       <div className="flex justify-end mt-3">
-                        <Link to={`${user.is_admin?'/adminAppointments':user.is_doctor?'/appointments':'/patientAppointments'}`}>
+                        <Link
+                          to={`${
+                            user.is_admin
+                              ? "/adminAppointments"
+                              : user.is_doctor
+                              ? "/appointments"
+                              : "/patientAppointments"
+                          }`}
+                        >
                           <Typography
                             variant="small"
                             color="blue"

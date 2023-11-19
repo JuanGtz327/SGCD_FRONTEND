@@ -7,6 +7,7 @@ import {
   DialogFooter,
   Select,
   Option,
+  Alert,
 } from "@material-tailwind/react";
 import { useState } from "react";
 import Calendar from "../../citas/custom/Calendar";
@@ -20,12 +21,15 @@ import AppointmentsAccordion from "../../citas/custom/AppointmentsAccordion";
 import dayjs from "dayjs";
 import { useDoctors } from "../../../hooks/useDoctors";
 import { useHorarios } from "../../../hooks/useHorarios";
+import { useAuth } from "../../../context/AuthContext";
+import { GoAlertFill } from "react-icons/go";
 
-const CitasHistorial = ({ preAppointments, onAppointments }) => {
-  const { docConfigs } = useDoctors();
+const CitasHistorial = ({ preAppointments, onAppointments, filtro }) => {
+  const { user } = useAuth();
   const { currentDate, getDia, getMes } = useCalendar();
   const { isToday, isBefore } = useDay();
   const { nextAppointments, loading } = useAppointments(true);
+  const { docConfigs } = useDoctors(filtro);
   const {
     register: registerCita,
     handleSubmit: handleSubmitCita,
@@ -39,7 +43,6 @@ const CitasHistorial = ({ preAppointments, onAppointments }) => {
     nextAppointments,
     selectDate
   );
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -70,6 +73,9 @@ const CitasHistorial = ({ preAppointments, onAppointments }) => {
   const onNewAppointment = handleSubmitCita((values) => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     delete values.Hora;
+    if (user.is_admin) {
+      values.idDoctor = filtro;
+    }
     onAppointments(values, true);
     handleOpen();
   });
@@ -89,23 +95,69 @@ const CitasHistorial = ({ preAppointments, onAppointments }) => {
       {loading ? (
         <Loader top="mt-32" />
       ) : (
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row w-full justify-center">
           <Calendar
             selectDate={selectDate}
-            customClassName="md:w-1/2 mt-7 shadow-none"
+            customClassName="max-w-[900px] mt-5"
             onDayChange={onDayChange}
             onSetToday={onSetToday}
             appointments={nextAppointments}
-            diasLaborales={docConfigs.Configuracione?.Dias_laborables.split(",")}
+            diasLaborales={
+              docConfigs?.Configuracione
+                ? docConfigs?.Configuracione.Dias_laborables.split(",")
+                : [
+                    "Lunes",
+                    "Martes",
+                    "Miercoles",
+                    "Jueves",
+                    "Viernes",
+                    "Sabado",
+                    "Domingo",
+                  ]
+            }
           />
-          <div className="h-full mt-0 sm:mt-5 sm:px-5 py-2 sm:py-8 md:w-1/2">
-            <div className="text-gray-400 w-full">
-              {validDate() && (
-                <Button color="blue" fullWidth onClick={handleOpen}>
-                  Agendar cita
-                </Button>
-              )}
-            </div>
+          <div className="h-full mt-0 sm:mt-5 sm:px-5 py-2 sm:py-8 w-full max-w-2xl">
+            {user.is_admin ? (
+              <div className="grid grid-cols-1 gap-5">
+                {validDate() &&
+                (docConfigs?.Configuracione
+                  ? docConfigs?.Configuracione.Dias_laborables.split(
+                      ","
+                    ).includes(getDia(selectDate))
+                  : false) ? (
+                  <div className="text-gray-400 w-full">
+                    <Button color="blue" fullWidth onClick={handleOpen}>
+                      Agendar cita
+                    </Button>
+                  </div>
+                ) : (
+                  <Alert
+                    className="rounded-none border-l-4 border-cerise-500 bg-cerise-500/20 font-medium text-red-600"
+                    open
+                    icon={<GoAlertFill />}
+                  >
+                    Horario no disponible para agendar citas.
+                  </Alert>
+                )}
+              </div>
+            ) : (
+              <div className="text-gray-400 w-full">
+                {validDate() ? (
+                  <Button color="blue" fullWidth onClick={handleOpen}>
+                    Agendar cita
+                  </Button>
+                ) : (
+                  <Alert
+                    className="rounded-none border-l-4 border-cerise-500 bg-cerise-500/20 font-medium text-red-600"
+                    open
+                    icon={<GoAlertFill />}
+                  >
+                    Horario no disponible para agendar citas.
+                  </Alert>
+                )}
+              </div>
+            )}
+
             <hr className="mt-5" />
             <div className="mt-5">
               <AppointmentsAccordion appointments={filterAppointmens()} />

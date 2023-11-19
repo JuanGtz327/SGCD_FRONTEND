@@ -5,6 +5,8 @@ import {
   Button,
   Typography,
   Input,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import HistoriaMedica from "./historial_clinico/HistoriaMedica";
 import { createPatientRequest } from "../../api/api";
@@ -27,6 +29,7 @@ import HistoriaClinicaActual from "./historial_clinico/HistoriaClinicaActual";
 import CitasHistorial from "./historial_clinico/CitasHistorial";
 import NotasHistorial from "./historial_clinico/NotasHistorial";
 import Loader from "../../common/Loader";
+import { useDoctors } from "../../hooks/useDoctors.js";
 
 const AddPatient = () => {
   const [loading, setLoading] = useState(false);
@@ -44,6 +47,9 @@ const AddPatient = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
+  const [filtro, setFiltro] = useState("all");
+  const { doctors } = useDoctors(filtro);
+  const [btnVisible, setBtnVisible] = useState(false);
 
   const onSubmit = handleSubmit(async (values) => {
     let habitos_salud = [...habitosPositivos, ...habitosNegativos];
@@ -112,7 +118,8 @@ const AddPatient = () => {
           Password: values.Password,
           PasswordDoctor: values.PasswordDoctor,
         },
-        user.token
+        user.token,
+        user.is_admin ? filtro : null
       );
       showToast("success", "Paciente añadido exitosamente");
       navigate("/listPatients");
@@ -150,6 +157,16 @@ const AddPatient = () => {
 
   const onAppointments = (values, adding) => {
     if (adding) {
+      const error = preAppointments.find((item) => {
+        if (item.Fecha === values.Fecha) {
+          showToast("error", "Ya existe una cita en esta fecha");
+          return true;
+        }
+      });
+      if (error) {
+        return;
+      }
+
       setPreAppointments((prev) => [...prev, values]);
       return;
     } else {
@@ -171,14 +188,48 @@ const AddPatient = () => {
   return (
     <>
       <div className="flex flex-col lg:px-16">
-        <Card shadow={false} className="bg-white rounded-sm w-full shadow-none md:shadow-2xl md:min-h-[730px] px-5 lg:px-16 py-5 mx-auto">
-          <Typography
-            variant="h3"
-            color="blue-gray"
-            className="text-center mb-5"
-          >
-            Nuevo paciente
-          </Typography>
+        <Card
+          shadow={false}
+          className="bg-white rounded-sm w-full shadow-none md:shadow-2xl md:min-h-[730px] px-5 lg:px-16 py-5 mx-auto"
+        >
+          <div className="flex justify-center gap-5">
+            <Typography
+              variant="h3"
+              color="blue-gray"
+              className="text-center mb-5"
+            >
+              Nuevo paciente
+            </Typography>
+
+            {user.is_admin && (
+              <Controller
+                name="idDoctor"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    color="blue"
+                    label="Seleccione un doctor"
+                    containerProps={{ className: "max-w-md" }}
+                    variant="standard"
+                    onChange={(e) => {
+                      setFiltro(e);
+                      if (!btnVisible) {
+                        setBtnVisible(true);
+                      }
+                    }}
+                  >
+                    {doctors.map(({ id, Nombre, ApellidoP }) => (
+                      <Option key={id} value={`${id}`}>
+                        {Nombre} {ApellidoP}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
+              />
+            )}
+          </div>
+
           <hr />
           <form className="mt-4 mb-2 w-[100%]" onSubmit={onSubmit}>
             <div className={`${step != 0 && "hidden"}`}>
@@ -207,6 +258,7 @@ const AddPatient = () => {
               <CitasHistorial
                 preAppointments={preAppointments}
                 onAppointments={onAppointments}
+                filtro={filtro}
               />
             </div>
             <div className={`${step != 5 && "hidden"}`}>
@@ -231,7 +283,7 @@ const AddPatient = () => {
                     error={errors.PasswordDoctor ? true : false}
                   />
                   {loading ? (
-                    <Loader top="mt-6"/>
+                    <Loader top="mt-6" />
                   ) : (
                     <div className="flex">
                       <Button

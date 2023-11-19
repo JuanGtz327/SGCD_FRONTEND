@@ -13,11 +13,14 @@ export const useAppointments = (validApponitments = false) => {
 
   useEffect(() => {
     (async () => {
-      if (user.is_admin === false && user.is_doctor === true) {
-        const res = await getAppointmentsRequest(filtro===null?'all':filtro,user.token);
+      if (user.is_admin) {
+        const res = await getAdminAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
+        setAppointments(res.data);
+      } else if (!user.is_admin && user.is_doctor) {
+        const res = await getAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
         setAppointments(res.data);
       } else {
-        const res = await getPatientAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        const res = await getPatientAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
         setAppointments(res.data);
       }
       setLoading(false);
@@ -27,21 +30,21 @@ export const useAppointments = (validApponitments = false) => {
   useEffect(() => {
     if (user.is_admin) {
       (async () => {
-        const res = await getAdminAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        const res = await getAdminAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
         setAppointments(res.data);
         setLoading(false);
       })();
     }
     if (!user.is_admin && user.is_doctor) {
       (async () => {
-        const res = await getAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        const res = await getAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
         setAppointments(res.data);
         setLoading(false);
       })();
     }
     if (!user.is_admin && !user.is_doctor) {
       (async () => {
-        const res = await getPatientAppointmentsRequest(filtro===null?'all':filtro,user.token);
+        const res = await getPatientAppointmentsRequest(filtro === null ? 'all' : filtro, user.token);
         setAppointments(res.data);
         setLoading(false);
       })();
