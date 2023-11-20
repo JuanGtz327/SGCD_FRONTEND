@@ -52,6 +52,11 @@ export const getDoctorsRequest = (token) => {
   return axios.get(`/admin/getDoctors`, { headers });
 };
 
+export const getDoctorRequest = (idDoctor,token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getDoctor/${idDoctor}`, { headers });
+};
+
 export const getPatientDoctorsRequest = (idPaciente,token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getPatientDoctors/${idPaciente}`, { headers });
@@ -60,6 +65,11 @@ export const getPatientDoctorsRequest = (idPaciente,token) => {
 export const editDoctorRequest = (id, data, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.put(`/admin/editDoctor/${id}`, data, { headers });
+};
+
+export const   editDoctorConfigsRequest = (id, data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.put(`/admin/editDoctorConfigs/${id}`, data, { headers });
 };
 
 export const deleteDoctorRequest = (id, token) => {

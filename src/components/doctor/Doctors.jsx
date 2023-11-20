@@ -89,6 +89,7 @@ const Doctors = () => {
                         {
                           User: { Correo },
                           idUser,
+                          id,
                           Especialidad,
                           Nombre,
                           ApellidoP,
@@ -134,10 +135,28 @@ const Doctors = () => {
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
                             <Link
-                              to={`/doctor/${idUser}`}
+                              to={`/doctor/${id}`}
                               className="text-blue-500 inline-flex items-center mt-4"
                             >
                               Detalles del doctor
+                              <svg
+                                className="w-4 h-4 ml-2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                              </svg>
+                            </Link>
+                            <Link
+                              to={`/newPacDoc/${id}`}
+                              className="text-blue-500 inline-flex items-center mt-4 ml-4"
+                            >
+                              Pacientes
                               <svg
                                 className="w-4 h-4 ml-2"
                                 viewBox="0 0 24 24"
@@ -159,7 +178,13 @@ const Doctors = () => {
                             <span className="mt-1 text-gray-500 text-sm hidden md:inline">
                               {Especialidad}
                             </span>
-                            <div className={`grid ${user.is_admin?'grid-cols-2':'md:grid-cols-2 grid-cols-1'} gap-2 md:mt-5 mt-2 w-full`}>
+                            <div
+                              className={`grid ${
+                                user.is_admin
+                                  ? "grid-cols-2"
+                                  : "md:grid-cols-2 grid-cols-1"
+                              } gap-2 md:mt-5 mt-2 w-full`}
+                            >
                               {user.is_admin && (
                                 <Button
                                   size="sm"

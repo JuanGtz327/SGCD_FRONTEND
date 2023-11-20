@@ -1,6 +1,5 @@
 import {
   Alert,
-  Avatar,
   Card,
   CardBody,
   CardHeader,
@@ -320,12 +319,20 @@ const MainPanel = () => {
                                   className="px-1 md:px-4"
                                 >
                                   <ListItemPrefix>
-                                    <Avatar
-                                      variant="circular"
-                                      alt="candice"
-                                      className="w-10 h-10"
-                                      src="https://docs.material-tailwind.com/img/face-1.jpg"
-                                    />
+                                    <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                                      <svg
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        className="w-8 h-8"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                      </svg>
+                                    </div>
                                   </ListItemPrefix>
                                   <div className="w-full">
                                     <div className="flex justify-between items-center w-full">
@@ -367,12 +374,20 @@ const MainPanel = () => {
                                   className="px-1 md:px-4"
                                 >
                                   <ListItemPrefix>
-                                    <Avatar
-                                      variant="circular"
-                                      alt="candice"
-                                      className="w-10 h-10"
-                                      src="https://docs.material-tailwind.com/img/face-1.jpg"
-                                    />
+                                    <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                                      <svg
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        className="w-8 h-8"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                      </svg>
+                                    </div>
                                   </ListItemPrefix>
                                   <div className="w-full">
                                     <div className="flex justify-between items-center w-full">
@@ -434,12 +449,20 @@ const MainPanel = () => {
                               className="px-1 md:px-4"
                             >
                               <ListItemPrefix>
-                                <Avatar
-                                  variant="circular"
-                                  alt="candice"
-                                  className="w-10 h-10"
-                                  src="https://docs.material-tailwind.com/img/face-1.jpg"
-                                />
+                                <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                                  <svg
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    className="w-8 h-8"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                  </svg>
+                                </div>
                               </ListItemPrefix>
                               <div className="w-full">
                                 <div className="flex justify-between items-center w-full">
@@ -480,12 +503,20 @@ const MainPanel = () => {
                                 className="px-1 md:px-4"
                               >
                                 <ListItemPrefix>
-                                  <Avatar
-                                    variant="circular"
-                                    alt="candice"
-                                    className="w-10 h-10"
-                                    src="https://docs.material-tailwind.com/img/face-1.jpg"
-                                  />
+                                  <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                                    <svg
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      className="w-8 h-8"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                      <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                  </div>
                                 </ListItemPrefix>
                                 <div className="w-full">
                                   <div className="flex justify-between items-center w-full">

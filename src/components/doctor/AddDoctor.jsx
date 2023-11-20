@@ -56,7 +56,10 @@ const AddDoctor = () => {
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    values.Dias_laborales = configuraciones.dias_laborables.join(',');
+    values.Dias_laborales = configuraciones.dias_laborables.join(",");
+    if (!values.Inicio || !values.Fin) {
+      return showToast("error", "Debes llenar todos los campos", "center");
+    }
     values.Horario = `${values.Inicio}-${values.Fin}`;
     delete values.Inicio;
     delete values.Fin;
@@ -66,7 +69,7 @@ const AddDoctor = () => {
       showToast("success", "Registro completo");
       navigate("/listDoctors");
     } catch (error) {
-      showToast("error", error.message, "center");
+      showToast("error", error.response.data.message);
     }
     setLoading(false);
   });
@@ -78,7 +81,12 @@ const AddDoctor = () => {
   }, [errors, showToast]);
 
   const onLaborableDay = (day, checked) => {
+    
     if (!checked) {
+      if (configuraciones.dias_laborables.length == 1) {
+        showToast("error", "Debe seleccionar al menos un dia laborable");
+        return;
+      }
       setConfiguraciones({
         ...configuraciones,
         dias_laborables: configuraciones.dias_laborables.filter(
@@ -245,6 +253,7 @@ const AddDoctor = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-5">
                     <Controller
                       name="Inicio"
+                      rules={{ required: true }}
                       control={control}
                       render={({ field }) => (
                         <Select
@@ -264,6 +273,7 @@ const AddDoctor = () => {
                     <Controller
                       name="Fin"
                       control={control}
+                      rules={{ required: true }}
                       render={({ field }) => (
                         <Select
                           {...field}

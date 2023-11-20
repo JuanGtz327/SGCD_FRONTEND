@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDoctorConfig, getDoctorsRequest, getPatientDoctorsRequest } from "../api/api";
+import { getDoctorConfig, getDoctorRequest, getDoctorsRequest, getPatientDoctorsRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
 export const useDoctors = (idDoctor) => {
@@ -70,6 +70,13 @@ export const useDoctors = (idDoctor) => {
     );
   };
 
+  const getDoctor = async (doctorID) => {
+    setLoading(true);
+    const response = await getDoctorRequest(doctorID, user.token);
+    setLoading(false);
+    return response.data;
+  };
+
   return {
     docConfigs,
     doctors,
@@ -77,5 +84,6 @@ export const useDoctors = (idDoctor) => {
     loading,
     setLoading,
     filterDoctors,
+    getDoctor,
   };
 };

@@ -27,6 +27,9 @@ import Perfil from "./components/general/Perfil.jsx";
 import DocPac from "./components/admin/DocPac.jsx";
 import Clinic from "./components/general/Clinic.jsx";
 import MainPanel from "./components/general/MainPanel.jsx";
+import DoctorDetails from "./components/doctor/DoctorDetails.jsx";
+import DoctorAdministration from "./components/doctor/DoctorAdministration.jsx";
+import PacDoc from "./components/admin/PacDoc.jsx";
 
 const App = () => {
   return (
@@ -59,6 +62,22 @@ const App = () => {
                 element={
                   <Layout>
                     <Doctors />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/doctor/:doctorID"
+                element={
+                  <Layout>
+                    <DoctorDetails />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/doctorHandle/:doctorID"
+                element={
+                  <Layout>
+                    <DoctorAdministration />
                   </Layout>
                 }
               />
@@ -155,6 +174,14 @@ const App = () => {
                 element={
                   <Layout>
                     <DocPac />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/newPacDoc/:doctorID"
+                element={
+                  <Layout>
+                    <PacDoc />
                   </Layout>
                 }
               />
