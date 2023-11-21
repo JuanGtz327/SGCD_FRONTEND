@@ -394,7 +394,7 @@ const MainPanel = () => {
                                       <Typography
                                         variant="h6"
                                         color="blue-gray"
-                                        className="flex"
+                                        className="flex gap-1"
                                       >
                                         {paciente.Nombre}{" "}
                                         <p className="hidden md:block">
@@ -469,9 +469,9 @@ const MainPanel = () => {
                                   <Typography
                                     variant="h6"
                                     color="blue-gray"
-                                    className="flex"
+                                    className="flex gap-1"
                                   >
-                                    {paciente.Nombre}{" "}
+                                    {paciente.Nombre}
                                     <p className="hidden md:block">
                                       {paciente.ApellidoP} {paciente.ApellidoM}
                                     </p>
@@ -523,7 +523,7 @@ const MainPanel = () => {
                                     <Typography
                                       variant="h6"
                                       color="blue-gray"
-                                      className="flex"
+                                      className="flex gap-1"
                                     >
                                       {doctor.Nombre}
                                       <p className="hidden md:block">

@@ -61,11 +61,18 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
     if (selectDate === undefined)
       return;
 
+      console.log(appointments);
+
     setHorariosOcupados(
       appointments
         .filter(
-          ({ Fecha }) =>
-            Fecha.split(" ")[0] === selectDate.format().split("T")[0]
+          ({ Fecha, CancelacionCitum }) =>{
+
+            if(CancelacionCitum !== null)
+              return false;
+
+            return Fecha.split(" ")[0] === selectDate.format().split("T")[0]
+          }
         )
         .map(({ Fecha }) => {
           const horarioOcupado = Fecha.split(" ")[1];

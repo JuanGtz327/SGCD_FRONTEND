@@ -30,6 +30,7 @@ import MainPanel from "./components/general/MainPanel.jsx";
 import DoctorDetails from "./components/doctor/DoctorDetails.jsx";
 import DoctorAdministration from "./components/doctor/DoctorAdministration.jsx";
 import PacDoc from "./components/admin/PacDoc.jsx";
+import DoctorConfigs from "./components/doctor/DoctorConfigs.jsx";
 
 const App = () => {
   return (
@@ -78,6 +79,14 @@ const App = () => {
                 element={
                   <Layout>
                     <DoctorAdministration />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/doctorConfigs"
+                element={
+                  <Layout>
+                    <DoctorConfigs />
                   </Layout>
                 }
               />

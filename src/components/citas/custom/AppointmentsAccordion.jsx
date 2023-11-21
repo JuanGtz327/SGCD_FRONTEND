@@ -20,12 +20,14 @@ import { useDay } from "../../../hooks/useDay";
 import { Controller, useForm } from "react-hook-form";
 import {
   cancelAppointmentRequest,
+  cancelConfirmAppointmentRequest,
   editAppointmentRequest,
 } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
 import { useHorarios } from "../../../hooks/useHorarios";
 import { useCalendar } from "../../../hooks/useCalendar";
+import { ConfirmationModal } from "../../generalModals/ConfirmationModal";
 
 const AppointmentsAccordion = ({
   docConfigs,
@@ -49,6 +51,7 @@ const AppointmentsAccordion = ({
   const [editAppointment, setEditAppointment] = useState(null);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
   const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { getDia } = useCalendar();
 
   const {
@@ -244,6 +247,7 @@ const AppointmentsAccordion = ({
                 </div>
                 {isBeforeOneDay(Fecha) &&
                   (view === "doctor" || view === "admin") &&
+                  !CancelacionCitum &&
                   enableControls && (
                     <div className="flex md:gap-3 md:justify-end justify-between">
                       <Button
@@ -282,11 +286,50 @@ const AppointmentsAccordion = ({
                       </Button>
                     </div>
                   )}
+
+                {isBeforeOneDay(Fecha) &&
+                  view === "doctor" &&
+                  Estado === true &&
+                  CancelacionCitum?.Pendiente == true && (
+                    <div className="flex md:gap-3 md:justify-end justify-between">
+                      <Button
+                        className="bg-cerise-500 w-full md:w-fit h-fit"
+                        onClick={() => {
+                          setShowConfirmationModal(true);
+                          setSelectedAppointment(id);
+                        }}
+                      >
+                        Confirmar Cancelacion
+                      </Button>
+                      <Button
+                        className="bg-blue-500 h-fit"
+                        onClick={() => {
+                          handleOpenEdit();
+                          setEditAppointment(appointments[index]);
+                        }}
+                      >
+                        Actualizar Cita
+                      </Button>
+                    </div>
+                  )}
               </div>
             </AccordionBody>
           </Accordion>
         )
       )}
+
+      <ConfirmationModal
+        show={showConfirmationModal}
+        onConfirm={async () => {
+          await cancelConfirmAppointmentRequest({ idCita: selectedAppointment }, user.token);
+          showToast("success", "Cita cancelada");
+        }}
+        onCancel={() => {
+          setShowConfirmationModal(false);
+        }}
+        tittle="Confirmar Cancelacion"
+        message="¿Realemente desea cancelar la cita? Esta accion no se puede deshacer."
+      />
 
       <Dialog
         open={openDialog}

@@ -29,6 +29,7 @@ import { FaClinicMedical } from "react-icons/fa";
 
 import { useAuth } from "../context/AuthContext.jsx";
 import { MdContacts } from "react-icons/md";
+import { IoMdSettings } from "react-icons/io";
 
 const NavBar = () => {
   const [open, setOpen] = React.useState(0);
@@ -48,7 +49,7 @@ const NavBar = () => {
             SGCD
           </Typography>
         </div>
-        <hr className="my-2 border-blue-gray-50 mx-2"/>
+        <hr className="my-2 border-blue-gray-50 mx-2" />
         <List>
           <Link to="/main">
             <ListItem className="text-white">
@@ -203,7 +204,7 @@ const NavBar = () => {
               </ListItem>
             </Link>
           )}
-
+          <hr className="my-2 border-blue-gray-50" />
           <Link to={`/clinic`}>
             <ListItem className="text-white">
               <ListItemPrefix>
@@ -214,8 +215,6 @@ const NavBar = () => {
               </Typography>
             </ListItem>
           </Link>
-
-          <hr className="my-2 border-blue-gray-50" />
           <Link to="/profile">
             <ListItem className="text-white">
               <ListItemPrefix>
@@ -224,6 +223,18 @@ const NavBar = () => {
               Perfil
             </ListItem>
           </Link>
+          {!user.is_admin && user.is_doctor && (
+            <Link to={`/doctorConfigs`}>
+              <ListItem className="text-white">
+                <ListItemPrefix>
+                  <IoMdSettings className="h-5 w-5" />
+                </ListItemPrefix>
+                <Typography className="mr-auto font-normal">
+                  Configuraciones
+                </Typography>
+              </ListItem>
+            </Link>
+          )}
           <button
             onClick={async () => {
               await logout();

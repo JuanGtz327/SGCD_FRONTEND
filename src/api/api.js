@@ -166,6 +166,11 @@ export const cancelAppointmentRequest = (data, token) => {
   return axios.post(`/admin/cancelCita`, data, { headers });
 };
 
+export const cancelConfirmAppointmentRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/cancelConfirmCita`, data, { headers });
+};
+
 //PARA Especialidades
 
 export const getEspecialidadesRequest = (token) => {
