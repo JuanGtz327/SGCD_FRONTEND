@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
 import { useToast } from "../../hooks/useToast";
 import {
@@ -20,6 +20,7 @@ import { useDoctors } from "../../hooks/useDoctors";
 import { Controller, useForm } from "react-hook-form";
 import { addDocPacRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
+import EmptyData from "../../common/EmptyData";
 
 const PacDoc = () => {
   const { user } = useAuth();
@@ -30,14 +31,14 @@ const PacDoc = () => {
     pacientes: adminPacientes,
     getPatiensByDoctor,
     loading,
-    setLoading
+    setLoading,
   } = usePatients();
   const { showToast } = useToast();
   const [pacientes, setPacientes] = useState(null);
   const [pacientesChoose, setPacientesChoose] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -82,7 +83,7 @@ const PacDoc = () => {
 
   return (
     <>
-      {!loading && doctor ? (
+      {!loading && doctor && pacientes ? (
         <section className="text-gray-600 body-font">
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
@@ -102,9 +103,9 @@ const PacDoc = () => {
               </div>
             </section>
             <div className="bg-white shadow-none md:shadow-2xl min-h-[600px] py-4 md:py-8 px-2 md:px-8 md:mt-10">
-              <div className="grid grid-cols-1 md:grid-cols-3">
+              <div className="grid grid-cols-1 md:grid-cols-4">
                 <div className="col-span-1">
-                  <Card className="w-fit md:w-96">
+                  <Card className="w-fit md:w-full">
                     <CardHeader floated={false} className="h-80 bg-indigo-100">
                       <div className="h-full w-full inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
                         <svg
@@ -160,9 +161,9 @@ const PacDoc = () => {
                     </CardBody>
                   </Card>
                 </div>
-                <div className="col-span-2 mt-5 md:mt-0">
+                <div className="col-span-3 mt-5 md:mt-0">
                   <div className=" grid md:grid-cols-3">
-                    {pacientes?.map(
+                    {pacientes.map(
                       ({
                         id,
                         Nombre,
@@ -197,6 +198,13 @@ const PacDoc = () => {
                       )
                     )}
                   </div>
+                  <EmptyData
+                    data={pacientes}
+                    title="No hay pacientes registrados"
+                    description={`El doctor ${doctor.Nombre} ${doctor.ApellidoP} ${doctor.ApellidoM} no tiene pacientes registrados`}
+                    btnDesc="Añadir paciente"
+                    onNewData={() => navigate(`/addPatient`)}
+                  />
                 </div>
               </div>
             </div>
@@ -212,40 +220,43 @@ const PacDoc = () => {
             </div>
 
             <form onSubmit={onNewDocPac}>
-            <DialogBody className="px-5">
-              <Controller
-                name="idPaciente"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    color="blue"
-                    label="Selecciona un paciente"
-                    containerProps={{ className: "min-w-[72px]" }}
-                    error={errors.idPaciente ? true : false}
-                    variant="standard"
-                  >
-                    {pacientesChoose.map(({Nombre, ApellidoP, ApellidoM, id}) => (
-                      <Option key={id} value={id}>
-                        {Nombre} {ApellidoP} {ApellidoM}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
-              />
-              <Typography color="red" variant="small" className="mt-3">
-                {errors.idPaciente && "Debes seleccionar un paciente para poder continuar"}
-              </Typography>
-            </DialogBody>
-            <DialogFooter className="space-x-2">
-              <Button className="bg-cerise-500" onClick={handleOpen}>
-                Cancelar
-              </Button>
-              <Button color="blue" type="sumbit">
-                Añadir paciente
-              </Button>
-            </DialogFooter>
+              <DialogBody className="px-5">
+                <Controller
+                  name="idPaciente"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      color="blue"
+                      label="Selecciona un paciente"
+                      containerProps={{ className: "min-w-[72px]" }}
+                      error={errors.idPaciente ? true : false}
+                      variant="standard"
+                    >
+                      {pacientesChoose.map(
+                        ({ Nombre, ApellidoP, ApellidoM, id }) => (
+                          <Option key={id} value={id}>
+                            {Nombre} {ApellidoP} {ApellidoM}
+                          </Option>
+                        )
+                      )}
+                    </Select>
+                  )}
+                />
+                <Typography color="red" variant="small" className="mt-3">
+                  {errors.idPaciente &&
+                    "Debes seleccionar un paciente para poder continuar"}
+                </Typography>
+              </DialogBody>
+              <DialogFooter className="space-x-2">
+                <Button className="bg-cerise-500" onClick={handleOpen}>
+                  Cancelar
+                </Button>
+                <Button color="blue" type="sumbit">
+                  Añadir paciente
+                </Button>
+              </DialogFooter>
             </form>
           </Dialog>
         </section>

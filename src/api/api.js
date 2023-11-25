@@ -207,3 +207,14 @@ export const editClinicaRequest = (data, token) => {
   return axios.put(`/admin/editClinica`, data, { headers });
 };
 
+//Para las recetas
+export const addRecetaRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addReceta`, data, { headers });
+};
+
+//Para los estudios
+export const getHistoriaClinicaActualRequest = (id,token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getHistoriaClinicaActual/${id}`, { headers });
+};

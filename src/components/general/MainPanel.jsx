@@ -15,7 +15,7 @@ import {
 } from "@material-tailwind/react";
 import { useAuth } from "../../context/AuthContext";
 import { FaCalendarCheck } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppointments } from "../../hooks/useAppointments";
 import { useCalendar } from "../../hooks/useCalendar";
 import { createElement, useEffect, useState } from "react";
@@ -28,6 +28,7 @@ import { getClinicaRequest, getProfileRequest } from "../../api/api";
 import Loader from "../../common/Loader";
 import { FaUser } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
+import EmptyData from "../../common/EmptyData";
 
 const data = [
   {
@@ -65,6 +66,7 @@ const MainPanel = () => {
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loadingClinica, setLoadingClinica] = useState(true);
   const [loadingAppointments, setLoadingAppointments] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (appointments[findNext(appointments)] === undefined) {
@@ -364,6 +366,13 @@ const MainPanel = () => {
                                   </div>
                                 </ListItem>
                               ))}
+                              <EmptyData
+                                data={doctors}
+                                title="No hay doctores registrados"
+                                description={`Puedes agregar un nuevo doctor haciendo click en el boton "Añadir doctor"`}
+                                btnDesc="Añadir doctor"
+                                onNewData={() => navigate(`/addDoctor`)}
+                              />
                             </List>
                           </TabPanel>
                           <TabPanel value="patients" className="py-0 px-0">
@@ -422,6 +431,13 @@ const MainPanel = () => {
                                   </div>
                                 </ListItem>
                               ))}
+                              <EmptyData
+                                data={pacientes}
+                                title="No hay pacientes registrados"
+                                description={`Puedes agregar un nuevo paciente haciendo click en el boton "Añadir paciente"`}
+                                btnDesc="Añadir paciente"
+                                onNewData={() => navigate(`/addPatient`)}
+                              />
                             </List>
                           </TabPanel>
                         </TabsBody>
@@ -496,6 +512,15 @@ const MainPanel = () => {
                               </div>
                             </ListItem>
                           ))}
+                          {user.is_doctor && (
+                            <EmptyData
+                              data={pacientes}
+                              title="No hay pacientes registrados"
+                              description={`Puedes agregar un nuevo paciente haciendo click en el boton "Añadir paciente"`}
+                              btnDesc="Añadir paciente"
+                              onNewData={() => navigate(`/addPatient`)}
+                            />
+                          )}
                           {!user.is_doctor &&
                             doctors.slice(0, 4).map((doctor) => (
                               <ListItem

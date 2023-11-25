@@ -61,8 +61,6 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
     if (selectDate === undefined)
       return;
 
-      console.log(appointments);
-
     setHorariosOcupados(
       appointments
         .filter(

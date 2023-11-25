@@ -1,8 +1,8 @@
 import { PlusIcon } from "@heroicons/react/20/solid";
 
-const EmptyData = ({title,description,btnDesc,onNewData}) => {
+const EmptyData = ({ data = [], title, description, btnDesc, onNewData }) => {
   return (
-    <div className="text-center">
+    <div className={`text-center ${data.length > 0 && "hidden"}`}>
       <svg
         className="mx-auto h-12 w-12 text-gray-800"
         fill="none"
@@ -19,9 +19,7 @@ const EmptyData = ({title,description,btnDesc,onNewData}) => {
         />
       </svg>
       <h3 className="mt-2 text-sm font-semibold text-gray-900">{title}</h3>
-      <p className="mt-1 text-sm text-gray-700">
-        {description}
-      </p>
+      <p className="mt-1 text-sm text-gray-700">{description}</p>
       <div className="mt-6">
         <button
           type="button"

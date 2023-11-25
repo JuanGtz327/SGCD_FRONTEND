@@ -7,6 +7,7 @@ import {
   Input,
   Textarea,
   Timeline,
+  TimelineBody,
   TimelineConnector,
   TimelineHeader,
   TimelineIcon,
@@ -18,7 +19,7 @@ import { MdOutlineSick } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { AiFillClockCircle } from "react-icons/ai";
 import Loader from "../../common/Loader";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
 import { addHistoriaClinicaActual } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
@@ -38,6 +39,8 @@ const MedicalCondition = () => {
   const [currentPadecimiento, setCurrentPadecimiento] = useState(null);
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
     useNavigationC(padecimientos);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -81,10 +84,12 @@ const MedicalCondition = () => {
                 {infoToDisplay.map(
                   (
                     {
+                      id,
                       Motivo_consulta,
                       Fecha_inicio_sintomas,
                       Sintomas,
                       Plan_tratamiento,
+                      Recetum,
                     },
                     key
                   ) => (
@@ -101,9 +106,7 @@ const MedicalCondition = () => {
                           <Typography variant="h6" color="blue-gray">
                             {Motivo_consulta}
                           </Typography>
-                          <div
-                            className="font-normal"
-                          >
+                          <div className="font-normal">
                             <div className="2xl:flex justify-between gap-3 md:gap-0">
                               <p>Fecha Sintomas {Fecha_inicio_sintomas}</p>
                               <div className="text-base">
@@ -111,10 +114,12 @@ const MedicalCondition = () => {
                                   className="text-indigo-500 inline-flex items-center hover:cursor-pointer"
                                   onClick={() => {
                                     setCurrentPadecimiento({
+                                      id,
                                       Motivo_consulta,
                                       Fecha_inicio_sintomas,
                                       Sintomas,
                                       Plan_tratamiento,
+                                      Recetum,
                                     });
                                     handleOpen();
                                   }}
@@ -252,17 +257,101 @@ const MedicalCondition = () => {
         </DialogHeader>
         <DialogBody>
           <div className="flex flex-col gap-5">
-            <p>Sintomas: {currentPadecimiento?.Sintomas}</p>
-            <hr />
-            <div>
-              <p>Plan Tratamiento: {currentPadecimiento?.Plan_tratamiento}</p>
+            <div className="flex gap-2">
+              <p className="font-bold text-gray-900">Sintomas:</p>
+              <p> {currentPadecimiento?.Sintomas}</p>
             </div>
+            <hr />
+            <div className="flex gap-2">
+              <p className="font-bold text-gray-900">Plan Tratamiento:</p>
+              <p> {currentPadecimiento?.Plan_tratamiento}</p>
+            </div>
+            {currentPadecimiento?.Recetum !== null && (
+              <>
+                <hr />
+                <p className="font-bold text-gray-900">Receta Ascociada</p>
+                <div className="grid grid-cols-2">
+                  <div className="flex gap-2">
+                    <p className="font-bold text-gray-900">
+                      Fecha de elaboracion:
+                    </p>
+                    <p>
+                      {currentPadecimiento?.Recetum.Fecha_inicio.split(" ")[0]}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <p className="font-bold text-gray-900">Valida hasta:</p>
+                    <p>
+                      {currentPadecimiento?.Recetum.Fecha_fin.split(" ")[0]}
+                    </p>
+                  </div>
+                </div>
+                <div className="w-fit">
+                  <Timeline>
+                    {currentPadecimiento?.Recetum.Medicamentos.map(
+                      ({
+                        id,
+                        Nombre,
+                        Dosis,
+                        Frecuencia,
+                        Via_administracion,
+                      }) => (
+                        <TimelineItem key={id}>
+                          <TimelineConnector />
+                          <TimelineHeader className="h-3">
+                            <TimelineIcon className="bg-blue-500" />
+                            <Typography className="font-bold text-gray-900">
+                              {Nombre}
+                            </Typography>
+                          </TimelineHeader>
+                          <TimelineBody className="pb-4">
+                            <Typography variant="small" className="font-normal">
+                              Tomar {Dosis} cada {Frecuencia} via{" "}
+                              {Via_administracion}
+                            </Typography>
+                          </TimelineBody>
+                        </TimelineItem>
+                      )
+                    )}
+                  </Timeline>
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">
+                    Indicaciones Adicionales
+                  </p>
+                  <p className="leading-relaxed text-base">
+                    {currentPadecimiento?.Recetum.Indicaciones}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </DialogBody>
         <DialogFooter>
+          {currentPadecimiento?.Recetum === null && (
+            <Button
+              color="blue"
+              onClick={() => {
+                navigate(`/newRecipe/${patientID}/${currentPadecimiento?.id}`);
+              }}
+              className="mr-1 border-0"
+            >
+              <span>Generar Receta</span>
+            </Button>
+          )}
+          {currentPadecimiento?.Recetum !== null && (
+            <Button
+              color="blue"
+              onClick={() => {
+                navigate(`/newRecipe/${patientID}/${currentPadecimiento?.id}`);
+              }}
+              className="mr-1 border-0"
+            >
+              <span>Reimprimir Receta</span>
+            </Button>
+          )}
           <Button
             onClick={() => {
-              setCurrentPadecimiento({});
               handleOpen();
             }}
             className="mr-1 bg-cerise-500 border-0"

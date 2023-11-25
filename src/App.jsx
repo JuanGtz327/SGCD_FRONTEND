@@ -31,6 +31,7 @@ import DoctorDetails from "./components/doctor/DoctorDetails.jsx";
 import DoctorAdministration from "./components/doctor/DoctorAdministration.jsx";
 import PacDoc from "./components/admin/PacDoc.jsx";
 import DoctorConfigs from "./components/doctor/DoctorConfigs.jsx";
+import Recipe from "./components/recetas/Recipe.jsx";
 
 const App = () => {
   return (
@@ -199,6 +200,14 @@ const App = () => {
                 element={
                   <Layout>
                     <Clinic />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/newRecipe/:patientID/:padecimientoID"
+                element={
+                  <Layout>
+                    <Recipe />
                   </Layout>
                 }
               />
