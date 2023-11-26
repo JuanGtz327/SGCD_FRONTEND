@@ -342,8 +342,14 @@ const MedicalCondition = () => {
           {currentPadecimiento?.Recetum !== null && (
             <Button
               color="blue"
-              onClick={() => {
-                navigate(`/newRecipe/${patientID}/${currentPadecimiento?.id}`);
+              onClick={async () => {
+                window.open(
+                  import.meta.env.VITE_API_URL
+                    ? `${import.meta.env.VITE_API_URL}/admin/recipePDF/${
+                        currentPadecimiento?.Recetum.id
+                      }`
+                    : `http://localhost:8000/admin/recipePDF/${currentPadecimiento?.Recetum.id}`
+                );
               }}
               className="mr-1 border-0"
             >

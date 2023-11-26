@@ -7,12 +7,15 @@ import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { useToast } from "../../hooks/useToast";
 import { useDay } from "../../hooks/useDay";
-import { addRecetaRequest, getHistoriaClinicaActualRequest } from "../../api/api";
+import {
+  addRecetaRequest,
+  getHistoriaClinicaActualRequest,
+} from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
 
 const Recipe = () => {
   const { user } = useAuth();
-  const { patientID,padecimientoID } = useParams();
+  const { patientID, padecimientoID } = useParams();
   const { getPaciente, loading } = usePatients();
   const { showToast } = useToast();
   const { currentDate } = useDay();
@@ -24,10 +27,13 @@ const Recipe = () => {
   useEffect(() => {
     (async () => {
       setPaciente(await getPaciente(patientID));
-      const res = await getHistoriaClinicaActualRequest(padecimientoID,user.token);
+      const res = await getHistoriaClinicaActualRequest(
+        padecimientoID,
+        user.token
+      );
       setPadecimiento(res.data);
     })();
-  }, [patientID,padecimientoID]);
+  }, [patientID, padecimientoID]);
 
   const {
     register,
@@ -144,9 +150,18 @@ const Recipe = () => {
     payload.Medicamentos = Object.values(Medicamentos);
 
     try {
-      await addRecetaRequest(payload, user.token);
-      showToast("success", "Receta generada");
-      reset();
+      const res = await addRecetaRequest(payload, user.token);
+      if (res.status == 200) {
+        showToast("success", "Receta generada");
+        window.history.back();
+        window.open(
+          import.meta.env.VITE_API_URL
+            ? `${import.meta.env.VITE_API_URL}/admin/recipePDF/${
+                res.data.recipe
+              }`
+            : `http://localhost:8000/admin/recipePDF/${res.data.recipe}`
+        );
+      }
     } catch (error) {
       showToast("error", error.response.data.message);
     }
