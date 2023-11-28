@@ -1,12 +1,14 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDoctors } from "../../hooks/useDoctors";
 import Loader from "../../common/Loader";
+import { Button } from "@material-tailwind/react";
 
 const DoctorDetails = () => {
   const { doctorID } = useParams();
   const [doctor, setDoctor] = useState(null);
   const { getDoctor, loading } = useDoctors(null, doctorID);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -44,6 +46,12 @@ const DoctorDetails = () => {
                       </h2>
                       <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
                       <p className="text-base">Paciente No# {doctor.id}</p>
+                      <Button
+                        className="mt-3 bg-cerise-500 inline-flex items-center"
+                        onClick={() => navigate('/listDoctors')}
+                      >
+                        Volver a mis doctores
+                      </Button>
                     </div>
                   </div>
                   <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
@@ -61,8 +69,7 @@ const DoctorDetails = () => {
                         <b>Especialidad</b> {doctor.Especialidad}
                       </p>
                       <p className="leading-relaxed mb-4">
-                        <b>Cedula:</b>{" "}
-                        {doctor.Cedula }
+                        <b>Cedula:</b> {doctor.Cedula}
                       </p>
                       <p>
                         <b>Numero Telefono:</b> {doctor.Domicilio.Telefono}
@@ -102,7 +109,8 @@ const DoctorDetails = () => {
                     </h2>
                     <p className="leading-relaxed text-base">
                       En esta seccion puede gestionar las configuraciones de su
-                      doctor, como lo son su perfil y sus preferencias de trabajo.
+                      doctor, como lo son su perfil y sus preferencias de
+                      trabajo.
                     </p>
                     <Link
                       to={`${

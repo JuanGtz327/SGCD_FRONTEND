@@ -26,6 +26,7 @@ export const useNavigationC = (data) => {
   };
 
   useEffect(() => {
+    if(!data) return;
     setTotalItems(data.length);
     setPageCount(Math.ceil(data.length / itemsPerPage));
     setInfoToDisplay(data.slice(startIndex, endIndex + 1));

@@ -11,6 +11,7 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
+  Input,
   Option,
   Select,
   Typography,
@@ -21,6 +22,7 @@ import { Controller, useForm } from "react-hook-form";
 import { addDocPacRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
 import EmptyData from "../../common/EmptyData";
+import { useNavigationC } from "../../hooks/useNavigationC";
 
 const PacDoc = () => {
   const { user } = useAuth();
@@ -32,9 +34,13 @@ const PacDoc = () => {
     getPatiensByDoctor,
     loading,
     setLoading,
+    filterPatients,
+    filtered,
   } = usePatients();
-  const { showToast } = useToast();
+  const [isSearching, setIsSearching] = useState(false);
   const [pacientes, setPacientes] = useState(null);
+  const { infoToDisplay } = useNavigationC(isSearching ? filtered : pacientes);
+  const { showToast } = useToast();
   const [pacientesChoose, setPacientesChoose] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -162,40 +168,70 @@ const PacDoc = () => {
                   </Card>
                 </div>
                 <div className="col-span-3 mt-5 md:mt-0">
-                  <div className=" grid md:grid-cols-3">
-                    {pacientes.map(
-                      ({
-                        id,
-                        Nombre,
-                        ApellidoP,
-                        ApellidoM,
-                        User: { Correo },
-                      }) => (
-                        <div className="p-2" key={id}>
-                          <div className="flex items-center border-blue-400 border p-4 rounded-lg">
-                            <div className="mr-2 sm:w-16 sm:h-16 h-14 w-14 sm:mr-5 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
-                              <svg
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                className="sm:w-8 sm:h-18 w-10 h-10"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                              </svg>
-                            </div>
-                            <div className="flex-grow">
-                              <h2 className="text-gray-900 title-font text-sm font-medium">
-                                {Nombre} {ApellidoP} {ApellidoM}
-                              </h2>
-                              <p className="text-gray-500 text-sm">{Correo}</p>
+                  <div className="mx-4">
+                    <Input
+                      color="blue"
+                      type="text"
+                      variant="standard"
+                      label="Buscar paciente"
+                      className="text-base text-gray-900"
+                      onChange={(e) => {
+                        if (e.target.value.length === 0) setIsSearching(false);
+                        if (e.target.value.length > 0 && !isSearching)
+                          setIsSearching(true);
+                        filterPatients(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-3 mt-2 mx-2">
+                    {infoToDisplay.length > 0 ? (
+                      infoToDisplay.map(
+                        ({
+                          id,
+                          Nombre,
+                          ApellidoP,
+                          ApellidoM,
+                          User: { Correo },
+                        }) => (
+                          <div className="p-2" key={id}>
+                            <div className="flex items-center border-blue-400 border p-4 rounded-lg">
+                              <div className="mr-2 sm:w-16 sm:h-16 h-14 w-14 sm:mr-5 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                                <svg
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  className="sm:w-8 sm:h-18 w-10 h-10"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                                  <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                              </div>
+                              <div className="flex-grow">
+                                <h2 className="text-gray-900 title-font text-sm font-medium">
+                                  {Nombre} {ApellidoP} {ApellidoM}
+                                </h2>
+                                <p className="text-gray-500 text-sm">
+                                  {Correo}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )
                       )
+                    ) : (
+                      <>
+                        <div></div>
+                        <EmptyData
+                          data={infoToDisplay}
+                          title="No se encontro ningun paciente"
+                          description={`No se encontraron pacientes para el doctor ${doctor.Nombre} ${doctor.ApellidoP} ${doctor.ApellidoM}`}
+                          hideButton
+                        />
+                        <div></div>
+                      </>
                     )}
                   </div>
                   <EmptyData

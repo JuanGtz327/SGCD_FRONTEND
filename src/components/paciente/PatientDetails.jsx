@@ -87,7 +87,7 @@ const PatientDetails = () => {
               <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-10 md:mb-20">
                 Expediente Clinico
               </h1>
-              <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+              <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 justify-center">
                 <div className="p-4 md:w-1/3 flex">
                   <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
                     <svg
@@ -153,49 +153,6 @@ const PatientDetails = () => {
                       className="mt-3 text-indigo-500 inline-flex items-center"
                     >
                       Agregar Padecimiento
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        className="w-4 h-4 ml-2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-                <div className="p-4 md:w-1/3 flex">
-                  <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-6 h-6"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <div className="flex-grow pl-6">
-                    <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                      Seguimiento Clinico
-                    </h2>
-                    <p className="leading-relaxed text-base">
-                      En este apartado se podra gestionar la informacion del
-                      paciente, como la informacion de contacto, proximas citas,
-                      notas asi como la gestion de recetas medicas.
-                    </p>
-                    <Link
-                      to={`clinicalManagment/${paciente.id}`}
-                      className="mt-3 text-indigo-500 inline-flex items-center"
-                    >
-                      Consultar
                       <svg
                         fill="none"
                         stroke="currentColor"
