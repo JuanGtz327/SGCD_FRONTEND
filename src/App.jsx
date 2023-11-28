@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
-import { AlertProvider } from "./context/AlertContext.jsx";
+import { ClinicProvider } from "./context/ClinicContext.jsx";
 
 import PaginaInicio from "./components/inicio/PaginaInicio.jsx";
 
@@ -36,8 +36,8 @@ import Recipe from "./components/recetas/Recipe.jsx";
 const App = () => {
   return (
     <AuthProvider>
-      <AlertProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ClinicProvider>
           <Routes>
             <Route path="/" element={<PaginaInicio />} />
             <Route path="/login" element={<LogIn />} />
@@ -212,10 +212,10 @@ const App = () => {
                 }
               />
             </Route>
-            <Route path="*" element={<h1>No se encontro</h1>}/>
+            <Route path="*" element={<h1>No se encontro</h1>} />
           </Routes>
-        </BrowserRouter>
-      </AlertProvider>
+        </ClinicProvider>
+      </BrowserRouter>
     </AuthProvider>
   );
 };

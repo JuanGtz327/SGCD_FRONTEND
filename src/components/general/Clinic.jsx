@@ -18,11 +18,13 @@ import { useForm } from "react-hook-form";
 import { useToast } from "../../hooks/useToast";
 import { editClinicaRequest, getClinicaRequest } from "../../api/api";
 import Loader from "../../common/Loader.jsx";
+import { useClinic } from "../../context/ClinicContext.jsx";
 
 const Clinic = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const { clinicState } = useClinic();
   const [rated, setRated] = useState(5);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openEdit, setOpenEdit] = useState(clinicState.Domicilio === null);
   const [loading, setLoading] = useState(false);
   const [clinica, setClinica] = useState({});
   const [direccion, setDireccion] = useState(
@@ -95,8 +97,9 @@ const Clinic = () => {
       );
       showToast("success", "Clinica Actualizada");
       handleOpen();
+      window.location.reload();
     } catch (error) {
-      showToast("error", "Error al actualizar la clinica");
+      showToast("error", error.response.data.message);
     }
   });
 
@@ -399,9 +402,23 @@ const Clinic = () => {
             </div>
           </DialogBody>
           <DialogFooter className="flex md:justify-end justify-between gap-5">
-            <Button onClick={() => handleOpen(null)} className="bg-cerise-500">
-              <span>Cancelar</span>
-            </Button>
+            {clinicState.Domicilio !== null ? (
+              <Button
+                onClick={() => handleOpen(null)}
+                className="bg-cerise-500"
+              >
+                <span>Cancelar</span>
+              </Button>
+            ) : (
+              <Button
+                className="bg-cerise-500"
+                onClick={async () => {
+                  await logout();
+                }}
+              >
+                Cerrar Sesion
+              </Button>
+            )}
             <Button color="blue" type="submit">
               <span>Actualizar</span>
             </Button>

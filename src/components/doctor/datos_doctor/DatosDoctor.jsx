@@ -55,7 +55,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           </div>
         </div>
 
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
               color="blue"
@@ -70,7 +70,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           </div>
         </div>
 
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-3">
           <div className="mt-2">
             <Input
               color="blue"
@@ -85,7 +85,30 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           </div>
         </div>
 
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-3">
+          <div className="mt-2">
+            <Controller
+              name="Genero"
+              rules={{ required: true }}
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  label="Genero"
+                  error={errors.Genero ? true : false}
+                  size="lg"
+                  variant="standard"
+                  color="blue"
+                >
+                  <Option value="M">Masculino</Option>
+                  <Option value="F">Femenino</Option>
+                </Select>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="lg:col-span-3">
           <div className="mt-2">
             <Controller
               name="Especialidad"

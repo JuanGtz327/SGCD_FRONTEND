@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       setIsAuthenticated(false);
       localStorage.removeItem('token');
+      window.location.reload();
     } catch (error) {
       throw new Error(error.response.data.message);
     }
