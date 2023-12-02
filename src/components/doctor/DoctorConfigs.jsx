@@ -83,7 +83,7 @@ const DoctorConfigs = () => {
     <>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
-          <div className="text-center mb-0">
+          <div className="text-center mb-0 ">
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
               Configuraciones
             </h1>
@@ -98,21 +98,21 @@ const DoctorConfigs = () => {
         </div>
       </section>
       {!loading && configuraciones ? (
-        <div className="container px-12">
-          <div className="bg-white min-h-[600px] flex flex-col h-full px-10">
+        <div className="container md:px-12">
+          <div className="bg-white md:shadow-2xl min-h-[600px] flex flex-col h-full md:px-10">
             <form className="mt-4 mb-2 w-[100%]">
               <div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col md:flex-row items-center justify-between">
                   <div>
                     <h2 className="text-base font-semibold leading-7 text-gray-900">
                       Configuraciones
                     </h2>
-                    <p className="mt-1 mb-10 text-sm leading-6 text-gray-600">
+                    <p className="mt-1 md:mb-10 text-sm leading-6 text-gray-600">
                       En este apartado puede establecer las configuraciones del
                       doctor.
                     </p>
                   </div>
-                  <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
+                  <div className="w-full md:w-fit flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
                     <Button
                       onClick={async () => {
                         const configuracionesPayload = {
@@ -137,7 +137,7 @@ const DoctorConfigs = () => {
                           );
                         }
                       }}
-                      className="w-fit mt-5"
+                      className="md:w-fit my-5 md:my-0 md:mt-5"
                       color="blue"
                     >
                       Actualizar

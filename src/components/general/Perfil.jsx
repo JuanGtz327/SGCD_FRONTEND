@@ -103,7 +103,7 @@ const Perfil = () => {
         </div>
       </section>
       {!loading ? (
-        <div className="bg-white shadow-2xl rounded-sm md:px-16 md:py-10 py-4 md:mt-8 border-t border-gray-100 md:min-h-[500px]">
+        <div className="bg-white md:shadow-2xl rounded-sm md:px-16 md:py-10 py-4 md:mt-8 border-t border-gray-100 md:min-h-[500px]">
           <form onSubmit={onSubmit}>
             <dl className="divide-y divide-gray-100">
               {!user.is_admin && (
