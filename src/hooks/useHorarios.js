@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppointments } from "./useAppointments";
 
 const generarHorarios = (rangoTiempo, duracionCita) => {
   // Parseamos el rango de tiempo en horas
@@ -35,6 +36,7 @@ const generarHorarios = (rangoTiempo, duracionCita) => {
 };
 
 export const useHorarios = (docConfigs, appointments, selectDate) => {
+  const { appointments: EditAppointmentsTime } = useAppointments();
   const [horarios, setHorarios] = useState([]);
   const [horariosCita, setHorariosCita] = useState([]);
   const [horariosOcupados, setHorariosOcupados] = useState([]);
@@ -64,9 +66,9 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
     setHorariosOcupados(
       appointments
         .filter(
-          ({ Fecha, CancelacionCitum }) =>{
+          ({ Fecha, CancelacionCitum }) => {
 
-            if(CancelacionCitum !== null)
+            if (CancelacionCitum !== null)
               return false;
 
             return Fecha.split(" ")[0] === selectDate.format().split("T")[0]
@@ -85,7 +87,27 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
     );
   }, [horarios, horariosOcupados]);
 
+  const getHorariosEdit = (filterDate) => {
+
+    const ocupados = EditAppointmentsTime.filter(
+      ({ Fecha, CancelacionCitum }) => {
+
+        if (CancelacionCitum !== null)
+          return false;
+
+        return Fecha.split(" ")[0] === filterDate.format().split("T")[0]
+      }
+    )
+      .map(({ Fecha }) => {
+        const horarioOcupado = Fecha.split(" ")[1];
+        return horarioOcupado.substring(0, horarioOcupado.lastIndexOf(":"));
+      })
+
+    return horarios.filter((cita1) => !ocupados.includes(cita1))
+  }
+
   return {
     horariosCita,
+    getHorariosEdit
   }
 }

@@ -104,10 +104,6 @@ const Appointments = () => {
     else return false;
   };
 
-  const onChangeSelectDate = (date) => {
-    setSelectDate(date);
-  };
-
   return (
     <div className="h-full">
       <section className="text-gray-600 body-font">
@@ -247,7 +243,6 @@ const Appointments = () => {
                     setLoading={setLoading}
                     docConfigs={docConfigs}
                     selectDate={selectDate}
-                    onChangeSelectDate={onChangeSelectDate}
                   />
                 )}
               </div>

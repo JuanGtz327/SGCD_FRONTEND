@@ -35,7 +35,6 @@ const AppointmentsAccordion = ({
   appointments,
   setLoading,
   view = "doctor",
-  onChangeSelectDate,
   enableControls = true,
 }) => {
   const { user } = useAuth();
@@ -50,9 +49,16 @@ const AppointmentsAccordion = ({
   const handleOpenEdit = () => setOpenEdit(!openEdit);
   const [editAppointment, setEditAppointment] = useState(null);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-  const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
+  const [editDate, setEditDate] = useState(selectDate);
+  const { getHorariosEdit } = useHorarios(docConfigs, appointments, editDate);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { getDia } = useCalendar();
+
+  useEffect(() => {
+    if (selectDate) {
+      setEditDate(selectDate);
+    }
+  }, [selectDate]);
 
   const {
     register,
@@ -133,7 +139,7 @@ const AppointmentsAccordion = ({
         ...editAppointment,
         [event.target.name]: valor,
       });
-      onChangeSelectDate(dayjs(event.target.value));
+      setEditDate(dayjs(event.target.value));
     } else {
       setEditAppointment({
         ...editAppointment,
@@ -321,7 +327,10 @@ const AppointmentsAccordion = ({
       <ConfirmationModal
         show={showConfirmationModal}
         onConfirm={async () => {
-          await cancelConfirmAppointmentRequest({ idCita: selectedAppointment }, user.token);
+          await cancelConfirmAppointmentRequest(
+            { idCita: selectedAppointment },
+            user.token
+          );
           showToast("success", "Cita cancelada");
         }}
         onCancel={() => {
@@ -398,7 +407,7 @@ const AppointmentsAccordion = ({
                     });
                   }}
                 >
-                  {horariosCita.map((horario) => (
+                  {getHorariosEdit(editDate).map((horario) => (
                     <Option key={horario} value={horario}>
                       {horario}
                     </Option>

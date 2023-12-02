@@ -250,7 +250,6 @@ const PatientAppointments = () => {
                     setLoading={setLoading}
                     docConfigs={docConfigs}
                     selectDate={selectDate}
-                    onChangeSelectDate={onDayChange}
                     view="paciente"
                   />
                 )}

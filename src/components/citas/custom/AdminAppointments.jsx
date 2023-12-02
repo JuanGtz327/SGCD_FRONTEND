@@ -264,7 +264,6 @@ const AdminAppointments = () => {
                     setLoading={setLoading}
                     docConfigs={docConfigs}
                     selectDate={selectDate}
-                    onChangeSelectDate={onDayChange}
                     enableControls={newAppointmentBtnVisible}
                     view="admin"
                   />
