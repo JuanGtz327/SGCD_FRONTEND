@@ -38,7 +38,7 @@ const MedicalCondition = () => {
   const { getPaciente, loading } = usePatients(null, patientID);
   const [currentPadecimiento, setCurrentPadecimiento] = useState(null);
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
-    useNavigationC(padecimientos);
+    useNavigationC(padecimientos, 5);
 
   const navigate = useNavigate();
 
@@ -76,7 +76,25 @@ const MedicalCondition = () => {
 
   return (
     <section className="text-gray-600 body-font lg:px-16">
-      <div className="container px-1 md:py-10 2xl:py-24 mx-auto flex flex-wrap items-center divide-red-700">
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-6 mx-auto">
+          <div className="text-center mb-0">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
+              Padecimientos
+            </h1>
+            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
+              En este apartado puede consultar el historial de padecimientos del
+              paciente asi como añadir nuevos padecimientos. Si desea generar
+              una receta para un padecimiento, presione el boton
+              &quot;Detalles&quot; y posteriormente &quot;Generar Receta&quot;.
+            </p>
+            <div className="flex mt-6 justify-center">
+              <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="container px-1 md:py-5 2xl:py-0 mx-auto flex flex-wrap items-center divide-red-700">
         <div className="w-full lg:w-2/6 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <Timeline>
             {!loading ? (

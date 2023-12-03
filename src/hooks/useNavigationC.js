@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export const useNavigationC = (data) => {
-  const itemsPerPage = 3;
+export const useNavigationC = (data,itemsPerPageVar=3) => {
+  const itemsPerPage = itemsPerPageVar;
   const [totalItems, setTotalItems] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);

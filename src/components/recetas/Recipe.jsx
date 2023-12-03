@@ -189,10 +189,10 @@ const Recipe = () => {
         </div>
       </section>
       {!loading && paciente && padecimiento ? (
-        <section className="text-gray-600 body-font bg-white shadow-2xl">
-          <div className="container px-5 py-5 lg:py-12 mx-auto">
+        <section className="text-gray-600 body-font bg-white md:shadow-2xl">
+          <div className="container md:px-5 py-5 lg:py-12 mx-auto">
             <form onSubmit={handleCreateRecipe}>
-              <div className="grid lg:grid-cols-12 gap-5 lg:mx-20">
+              <div className="grid lg:grid-cols-12 gap-5 lg:mx-7">
                 <div className="lg:col-span-4">
                   <label className="leading-7 text-sm text-gray-600">
                     Nombre Paciente

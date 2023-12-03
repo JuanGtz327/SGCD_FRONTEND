@@ -144,7 +144,7 @@ const MainPanel = () => {
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-1">
             <div className="flex flex-wrap gap-1 ">
-              <div className=" md:p-2 p-1 lg:w-full md:h-[275px] ">
+              <div className=" md:p-2 p-1 w-full md:h-[275px] ">
                 <div className="bg-white md:shadow-2xl h-full md:p-4 flex flex-col justify-between">
                   {!loadingAppointments ? (
                     <>
@@ -153,22 +153,24 @@ const MainPanel = () => {
                         className="flex gap-2 items-center"
                       >
                         <FaCalendarCheck className="text-indigo-500" /> Proxima
-                        cita
+                        cita de hoy
                       </Typography>
                       {nextAppointment ? (
-                        <AppointmentsAccordion
-                          appointments={nextAppointment}
-                          selectDate={currentDate}
-                          docConfigs={docConfigs}
-                          setDoctorLoading={setDoctorLoading}
-                          view={
-                            user.is_admin
-                              ? "admin"
-                              : user.is_doctor && !user.is_admin
-                              ? "doctor"
-                              : "patient"
-                          }
-                        />
+                        <div className="my-5 md:my-0">
+                          <AppointmentsAccordion
+                            appointments={nextAppointment}
+                            selectDate={currentDate}
+                            docConfigs={docConfigs}
+                            setDoctorLoading={setDoctorLoading}
+                            view={
+                              user.is_admin
+                                ? "admin"
+                                : user.is_doctor && !user.is_admin
+                                ? "doctor"
+                                : "patient"
+                            }
+                          />
+                        </div>
                       ) : (
                         <Alert
                           className="mt-3 md:mt-0 rounded border-blue-500 bg-blue-500/10 font-medium text-blue-600 h-3/5 flex items-center"
@@ -446,7 +448,7 @@ const MainPanel = () => {
                       <>
                         <Typography
                           variant="h4"
-                          className="flex gap-2 items-center p-5 pb-0"
+                          className="flex gap-2 items-center p-5 pb-0 px-0 md:px-5"
                         >
                           <FaCalendarCheck className="text-indigo-500" />
                           {user.is_admin
@@ -455,7 +457,7 @@ const MainPanel = () => {
                             ? "Mis pacientes"
                             : "Mis doctores"}
                         </Typography>
-                        <div className="flex mt-2 justify-center px-5">
+                        <div className="flex mt-2 justify-center px-0 md:px-5">
                           <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
                         </div>
                         <List className="px-0">
