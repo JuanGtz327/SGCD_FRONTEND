@@ -99,7 +99,7 @@ const AppointmentsAccordion = ({
     if (!isValidHour(editAppointment.Fecha, 30)) {
       showToast(
         "error",
-        "La cita no puede ser en los ultimos 30 min",
+        "El horario de la cita no es valido",
         "center"
       );
       return;

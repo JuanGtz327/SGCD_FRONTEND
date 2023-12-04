@@ -74,6 +74,15 @@ const MedicalCondition = () => {
     setLoadingPadecimiento(false);
   });
 
+  const isMax2Hours = (date) => {
+    const date1 = new Date(date);
+    const date2 = new Date();
+    const diffTime = Math.abs(date2 - date1);
+    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+    console.log("La diferencia es de: ", (diffHours-6), " horas");
+    return (diffHours-6) <= 2;
+  };
+
   return (
     <section className="text-gray-600 body-font lg:px-16">
       <section className="text-gray-600 body-font">
@@ -108,6 +117,7 @@ const MedicalCondition = () => {
                       Sintomas,
                       Plan_tratamiento,
                       Recetum,
+                      createdAt,
                     },
                     key
                   ) => (
@@ -138,6 +148,7 @@ const MedicalCondition = () => {
                                       Sintomas,
                                       Plan_tratamiento,
                                       Recetum,
+                                      createdAt,
                                     });
                                     handleOpen();
                                   }}
@@ -346,34 +357,42 @@ const MedicalCondition = () => {
           </div>
         </DialogBody>
         <DialogFooter>
-          {currentPadecimiento?.Recetum === null && (
-            <Button
-              color="blue"
-              onClick={() => {
-                navigate(`/newRecipe/${patientID}/${currentPadecimiento?.id}`);
-              }}
-              className="mr-1 border-0"
-            >
-              <span>Generar Receta</span>
-            </Button>
-          )}
-          {currentPadecimiento?.Recetum !== null && (
-            <Button
-              color="blue"
-              onClick={async () => {
-                window.open(
-                  import.meta.env.VITE_API_URL
-                    ? `${import.meta.env.VITE_API_URL}/admin/recipePDF/${
-                        currentPadecimiento?.Recetum.id
-                      }`
-                    : `http://localhost:8000/admin/recipePDF/${currentPadecimiento?.Recetum.id}`
-                );
-              }}
-              className="mr-1 border-0"
-            >
-              <span>Reimprimir Receta</span>
-            </Button>
-          )}
+          {currentPadecimiento?.Recetum === null &&
+            !user.is_admin &&
+            user.is_doctor &&
+            isMax2Hours(currentPadecimiento?.createdAt) && (
+              <Button
+                color="blue"
+                onClick={() => {
+                  navigate(
+                    `/newRecipe/${patientID}/${currentPadecimiento?.id}`
+                  );
+                }}
+                className="mr-1 border-0"
+              >
+                <span>Generar Receta</span>
+              </Button>
+            )}
+          {currentPadecimiento?.Recetum !== null &&
+            !user.is_admin &&
+            user.is_doctor &&
+            isMax2Hours(currentPadecimiento?.createdAt) && (
+              <Button
+                color="blue"
+                onClick={async () => {
+                  window.open(
+                    import.meta.env.VITE_API_URL
+                      ? `${import.meta.env.VITE_API_URL}/admin/recipePDF/${
+                          currentPadecimiento?.Recetum.id
+                        }`
+                      : `http://localhost:8000/admin/recipePDF/${currentPadecimiento?.Recetum.id}`
+                  );
+                }}
+                className="mr-1 border-0"
+              >
+                <span>Reimprimir Receta</span>
+              </Button>
+            )}
           <Button
             onClick={() => {
               handleOpen();

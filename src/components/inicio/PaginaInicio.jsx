@@ -252,7 +252,7 @@ export default function PaginaInicio() {
                 </Typography>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
-                    to="/signup"
+                    to="/login"
                     className="w-64 rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-azure-500"
                   >
                     Comenzar
@@ -286,7 +286,7 @@ export default function PaginaInicio() {
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Todas las herramientas que necesitas para gestionar tu clinica de
               manera facil y rapida, con un sistema que le permitira gestionar
-              sus pacientes, citas, medicamentos, recetas y mas.
+              sus pacientes, citas, recetas y mas.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -294,7 +294,7 @@ export default function PaginaInicio() {
               {features.map((feature) => (
                 <div key={feature.name} className="relative pl-16">
                   <dt className="text-base font-semibold leading-7 text-gray-900">
-                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
                       <feature.icon
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
