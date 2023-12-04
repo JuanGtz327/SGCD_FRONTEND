@@ -16,6 +16,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
               size="lg"
               label="Motivo de la consulta"
               type="text"
+              color="blue"
               variant="standard"
               {...register("Motivo_consulta", { required: true })}
               error={errors.Motivo_consulta ? true : false}
@@ -28,6 +29,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
               size="lg"
               label="Fecha inicio de sintomas"
               type="date"
+              color="blue"
               variant="standard"
               {...register("Fecha_inicio_sintomas", { required: true })}
               error={errors.Fecha_inicio_sintomas ? true : false}
@@ -39,6 +41,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
             <Textarea
               variant="standard"
               label="Sintomas"
+              color="blue"
               {...register("Sintomas", { required: true })}
               rows={8}
               error={errors.Sintomas ? true : false}
@@ -49,6 +52,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Plan de tratamiento"
               rows={8}
               {...register("Plan_tratamiento", { required: true })}

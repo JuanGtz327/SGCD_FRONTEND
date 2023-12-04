@@ -1,11 +1,21 @@
-import {
-  Input,
-  Select,
-  Option,
-  Typography,
-} from "@material-tailwind/react";
+import { Input, Select, Option, Typography } from "@material-tailwind/react";
 
-const DatosPersonales = ({ register, Controller, control, errors }) => {
+const DatosPersonales = ({
+  register,
+  Controller,
+  control,
+  errors,
+  setNombre,
+  setApellidoP,
+  setApellidoM,
+}) => {
+  const handleInputChange = (event) => {
+    console.log(event.target.name, event.target.value);
+    if (event.target.name === "Nombre") setNombre(event.target.value);
+    else if (event.target.name === "ApellidoP") setApellidoP(event.target.value);
+    else if (event.target.name === "ApellidoM") setApellidoM(event.target.value);
+  };
+
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -23,6 +33,8 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               label="Nombre"
               type="text"
               variant="standard"
+              color="blue"
+              onInput={handleInputChange}
               {...register("Nombre", { required: true })}
               error={errors.Nombre ? true : false}
             />
@@ -36,7 +48,9 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               label="Apellido Paterno"
               maxLength={15}
               type="text"
+              color="blue"
               variant="standard"
+              onInput={handleInputChange}
               {...register("ApellidoP", { required: true })}
               error={errors.ApellidoP ? true : false}
             />
@@ -50,7 +64,9 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               label="Apellido Materno"
               maxLength={15}
               type="text"
+              color="blue"
               variant="standard"
+              onInput={handleInputChange}
               {...register("ApellidoM", { required: true })}
               error={errors.ApellidoM ? true : false}
             />
@@ -64,6 +80,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               maxLength={18}
               variant="standard"
               size="lg"
+              color="blue"
               type="text"
               {...register("CURP", { required: true })}
               error={errors.CURP ? true : false}
@@ -79,6 +96,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               variant="standard"
               size="lg"
               type="date"
+              color="blue"
               {...register("Fecha_nacimiento", { required: true })}
               error={errors.Fecha_nacimiento ? true : false}
             />
@@ -96,6 +114,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
                   {...field}
                   label="Genero"
                   size="lg"
+                  color="blue"
                   variant="standard"
                   error={errors.Genero ? true : false}
                 >
@@ -114,6 +133,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               label="Correo"
               type="email"
               variant="standard"
+              color="blue"
               {...register("Correo", { required: true })}
               error={errors.Correo ? true : false}
             />
@@ -126,12 +146,13 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               size="lg"
               label="Contraseña"
               variant="standard"
+              color="blue"
               type="password"
               {...register("Password", { required: true })}
               error={errors.Password ? true : false}
             />
           </div>
-          <Typography variant="small" className="flex mt-3">
+          <Typography variant="small" className="flex mt-3" color="blue">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -168,6 +189,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               size="lg"
               label="Numero Telefonico"
               variant="standard"
+              color="blue"
               type="number"
               {...register("Telefono", { required: true })}
               error={errors.Telefono ? true : false}
@@ -181,6 +203,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               label="Estado"
               maxLength={18}
               variant="standard"
+              color="blue"
               size="lg"
               type="text"
               {...register("Estado", { required: true })}
@@ -194,6 +217,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               label="Municipio"
               maxLength={18}
+              color="blue"
               variant="standard"
               size="lg"
               type="text"
@@ -207,6 +231,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           <div className="mt-2">
             <Input
               label="Colonia"
+              color="blue"
               maxLength={18}
               variant="standard"
               size="lg"
@@ -223,6 +248,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               size="lg"
               label="Codigo Postal"
               type="number"
+              color="blue"
               variant="standard"
               {...register("CP", { required: true })}
               error={errors.CP ? true : false}
@@ -235,6 +261,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               size="lg"
               label="Calle"
+              color="blue"
               type="text"
               variant="standard"
               {...register("Calle", { required: true })}
@@ -249,6 +276,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               size="lg"
               label="Numero Exterior"
               maxLength={5}
+              color="blue"
               type="text"
               variant="standard"
               {...register("Num_ext", { required: true })}
@@ -262,6 +290,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               size="lg"
               label="Numero Interior"
+              color="blue"
               maxLength={5}
               type="text"
               variant="standard"

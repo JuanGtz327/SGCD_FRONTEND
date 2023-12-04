@@ -33,6 +33,9 @@ import { useDoctors } from "../../hooks/useDoctors.js";
 
 const AddPatient = () => {
   const [loading, setLoading] = useState(false);
+  const [nombrePaciente, setNombrePaciente] = useState("Nuevo Paciente");
+  const [apellidoPaciente, setApellidoPaciente] = useState("");
+  const [apellidoPacienteM, setApellidoPacienteM] = useState("");
   const [habitosNegativos, setHabitosNegativos] = useState([]);
   const [habitosPositivos, setHabitosPositivos] = useState([]);
   const [preAppointments, setPreAppointments] = useState([]);
@@ -52,6 +55,12 @@ const AddPatient = () => {
   const [btnVisible, setBtnVisible] = useState(false);
 
   const onSubmit = handleSubmit(async (values) => {
+
+    if (user.is_admin && filtro==='all'){
+      showToast("error", "Debes seleccionar un doctor");
+      return;
+    }
+
     let habitos_salud = [...habitosPositivos, ...habitosNegativos];
     if (habitos_salud.length === 0) {
       habitos_salud = ["Ninguno"];
@@ -192,13 +201,13 @@ const AddPatient = () => {
           shadow={false}
           className="bg-white rounded-sm w-full shadow-none md:shadow-2xl md:min-h-[730px] px-5 lg:px-16 py-5 mx-auto"
         >
-          <div className="flex justify-center gap-5">
+          <div className="flex justify-between gap-5">
             <Typography
               variant="h3"
               color="blue-gray"
               className="text-center mb-5"
             >
-              Nuevo paciente
+              {nombrePaciente} {apellidoPaciente} {apellidoPacienteM}
             </Typography>
 
             {user.is_admin && (
@@ -209,7 +218,7 @@ const AddPatient = () => {
                   <Select
                     {...field}
                     color="blue"
-                    label="Seleccione un doctor"
+                    label="Asignar al doctor"
                     containerProps={{ className: "max-w-md" }}
                     variant="standard"
                     onChange={(e) => {
@@ -238,6 +247,9 @@ const AddPatient = () => {
                 errors={errors}
                 control={control}
                 Controller={Controller}
+                setNombre={setNombrePaciente}
+                setApellidoP={setApellidoPaciente}
+                setApellidoM={setApellidoPacienteM}
               />
             </div>
             <div className={`${step != 1 && "hidden"}`}>
@@ -278,6 +290,7 @@ const AddPatient = () => {
                     size="lg"
                     label="Ingrese su contraseña de doctor"
                     type="password"
+                    color="blue"
                     variant="standard"
                     {...register("PasswordDoctor", { required: true })}
                     error={errors.PasswordDoctor ? true : false}

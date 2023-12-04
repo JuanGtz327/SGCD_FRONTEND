@@ -64,6 +64,11 @@ export function BreadCrumbsPag({
       href: "/newPacDoc/idDoctor",
       type: "doctor",
     },
+    {
+      title: "Nueva Receta",
+      href: "/newRecipe/patientID/padecimientoID",
+      type: "receta",
+    },
   ];
   const [finalElements, setFinalElements] = useState([]);
 
@@ -86,6 +91,9 @@ export function BreadCrumbsPag({
         }
         if (!element.noChange && element.type === "doctor") {
           element.href = reemplazarUltimaParte(element.href, idDoctor);
+        }
+        if (element.type === "receta") {
+          element.href = window.location.pathname;
         }
       }
       return element;

@@ -12,6 +12,7 @@ import {
   getHistoriaClinicaActualRequest,
 } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const Recipe = () => {
   const { user } = useAuth();
@@ -170,6 +171,7 @@ const Recipe = () => {
 
   return (
     <div className="lg:px-16">
+      <BreadCrumbsPag show={[1, 2, 3, 5, 10]} idPaciente={patientID}/>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">

@@ -21,6 +21,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Enfermedades Hereditarias"
               {...register("Enfermedades_hereditarias", { required: true })}
               error={errors.Enfermedades_hereditarias ? true : false}
@@ -31,6 +32,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Enfermedades Previas"
               {...register("Enfermedades_previas", { required: true })}
               error={errors.Enfermedades_previas ? true : false}
@@ -41,6 +43,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Cirugias"
               {...register("Cirugias", { required: true })}
               error={errors.Cirugias ? true : false}
@@ -51,6 +54,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Alergias"
               {...register("Alergias", { required: true })}
               error={errors.Alergias ? true : false}
@@ -61,6 +65,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
+              color="blue"
               label="Traumatismos"
               {...register("Traumatismos", { required: true })}
               error={errors.Traumatismos ? true : false}

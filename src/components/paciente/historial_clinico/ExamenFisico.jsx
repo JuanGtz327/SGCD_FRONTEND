@@ -17,6 +17,7 @@ const ExamenFisico = ({ register, errors }) => {
               size="lg"
               label="Peso"
               type="number"
+              color="blue"
               variant="standard"
               className="pr-8"
               {...register("Peso", { required: true })}
@@ -38,6 +39,7 @@ const ExamenFisico = ({ register, errors }) => {
               size="lg"
               label="Estatura"
               type="number"
+              color="blue"
               variant="standard"
               className="pr-8"
               {...register("Estatura", { required: true })}
@@ -59,6 +61,7 @@ const ExamenFisico = ({ register, errors }) => {
               size="lg"
               label="Presion Arterial"
               type="number"
+              color="blue"
               variant="standard"
               className="pr-16"
               {...register("Presion_arterial", { required: true })}
@@ -82,6 +85,7 @@ const ExamenFisico = ({ register, errors }) => {
               type="number"
               variant="standard"
               className="pr-24"
+              color="blue"
               {...register("Frecuencia_cardiaca", { required: true })}
               error={errors.Frecuencia_cardiaca ? true : false}
             />
@@ -102,6 +106,7 @@ const ExamenFisico = ({ register, errors }) => {
               label="Frecuencia Respiratoria"
               type="number"
               variant="standard"
+              color="blue"
               className="pr-36"
               {...register("Frecuencia_respiratoria", { required: true })}
               error={errors.Frecuencia_respiratoria ? true : false}
@@ -122,6 +127,7 @@ const ExamenFisico = ({ register, errors }) => {
               size="lg"
               label="Temperatura"
               type="number"
+              color="blue"
               variant="standard"
               className="pr-24"
               {...register("Temperatura", { required: true })}
@@ -143,6 +149,7 @@ const ExamenFisico = ({ register, errors }) => {
               size="lg"
               label="Grupo Sanquineo"
               type="text"
+              color="blue"
               variant="standard"
               {...register("Grupo_sanguineo", { required: true })}
               error={errors.Grupo_sanguinieo ? true : false}
@@ -162,6 +169,7 @@ const ExamenFisico = ({ register, errors }) => {
         <div className="mt-6">
           <Textarea
             variant="standard"
+            color="blue"
             label="Detalle de examen fisico"
             rows={9}
             {...register("Detalles", { required: true })}

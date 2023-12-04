@@ -92,10 +92,7 @@ const PacDoc = () => {
     <div className="lg:px-16">
       {!loading && doctor && pacientes ? (
         <section className="text-gray-600 body-font">
-          <BreadCrumbsPag
-            show={[6, 7, 9]}
-            idDoctor={doctorID}
-          />
+          <BreadCrumbsPag show={[6, 7, 9]} idDoctor={doctorID} />
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
@@ -233,19 +230,13 @@ const PacDoc = () => {
                           data={infoToDisplay}
                           title="No se encontro ningun paciente"
                           description={`No se encontraron pacientes para el doctor ${doctor.Nombre} ${doctor.ApellidoP} ${doctor.ApellidoM}`}
-                          hideButton
+                          btnDesc="Añadir nuevo paciente"
+                          onNewData={() => navigate(`/addPatient`)}
                         />
                         <div></div>
                       </>
                     )}
                   </div>
-                  <EmptyData
-                    data={pacientes}
-                    title="No hay pacientes registrados"
-                    description={`El doctor ${doctor.Nombre} ${doctor.ApellidoP} ${doctor.ApellidoM} no tiene pacientes registrados`}
-                    btnDesc="Añadir paciente"
-                    onNewData={() => navigate(`/addPatient`)}
-                  />
                 </div>
               </div>
             </div>
