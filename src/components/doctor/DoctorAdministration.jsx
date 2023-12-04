@@ -25,6 +25,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../hooks/useToast";
 import { editDoctorConfigsRequest } from "../../api/api";
 import { IoIosWarning } from "react-icons/io";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const horarios = [
   "06:00",
@@ -111,7 +112,19 @@ const DoctorAdministration = () => {
   return (
     <>
       {!loading && doctor ? (
-        <div className="py-5 px-1 md:py-10 lg:px-16">
+        <div className="py-5 px-1 md:py-4 lg:px-16">
+          <BreadCrumbsPag show={[6, 7,8]} idDoctor={doctorID} />
+          <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
+            <div className="w-full text-center">
+              <Typography variant="h3" color="gray" className="md:text-right">
+                Dr: {doctor.Nombre} {doctor.ApellidoP}{" "}
+                {doctor.ApellidoM}
+              </Typography>
+              <div className="flex my-2 md:mt-6 justify-center">
+                <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
+              </div>
+            </div>
+          </div>
           <Tabs value="dashboard" className="shadow-none md:shadow-2xl">
             <TabsHeader>
               {data.map(({ label, value, icon }) => (

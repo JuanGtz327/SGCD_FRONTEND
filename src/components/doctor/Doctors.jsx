@@ -12,6 +12,7 @@ import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
 import Loader from "../../common/Loader";
 import { DeleteModal } from "../generalModals/DeleteModal";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const Doctors = () => {
   const { user } = useAuth();
@@ -44,6 +45,7 @@ const Doctors = () => {
         <Loader />
       ) : (
         <div className="flex flex-col lg:px-16">
+          <BreadCrumbsPag show={[6]}/>
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">

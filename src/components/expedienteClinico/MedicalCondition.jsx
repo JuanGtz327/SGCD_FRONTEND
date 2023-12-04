@@ -26,6 +26,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../hooks/useToast";
 import Pagination from "../../common/Pagination";
 import { useNavigationC } from "../../hooks/useNavigationC";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const MedicalCondition = () => {
   const { user } = useAuth();
@@ -79,19 +80,23 @@ const MedicalCondition = () => {
     const date2 = new Date();
     const diffTime = Math.abs(date2 - date1);
     const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
-    console.log("La diferencia es de: ", (diffHours-6), " horas");
-    return (diffHours-6) <= 2;
+    console.log("La diferencia es de: ", diffHours - 6, " horas");
+    return diffHours - 6 <= 2;
   };
 
   return (
     <section className="text-gray-600 body-font lg:px-16">
+      <BreadCrumbsPag
+        show={[1, 2, 3, 5]}
+        idPaciente={patientID}
+      />
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
               Padecimientos
             </h1>
-            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
+            <p className="text-base leading-relaxed lg:w-3/4 mx-auto text-gray-500s">
               En este apartado puede consultar el historial de padecimientos del
               paciente asi como añadir nuevos padecimientos. Si desea generar
               una receta para un padecimiento, presione el boton

@@ -14,6 +14,7 @@ import { useToast } from "../../hooks/useToast";
 import EmptyData from "../../common/EmptyData";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const Patients = () => {
   const { user } = useAuth();
@@ -51,6 +52,7 @@ const Patients = () => {
         <Loader />
       ) : (
         <div className="flex flex-col lg:px-16">
+          <BreadCrumbsPag show={[1]} idClinica={clinicID}/>
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">

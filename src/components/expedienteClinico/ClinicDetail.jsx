@@ -4,6 +4,7 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Typography,
 } from "@material-tailwind/react";
 import {
   ClipboardDocumentListIcon,
@@ -17,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
 import Loader from "../../common/Loader";
 import MedicosEdit from "./MedicosEdit";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const ClinicDetail = () => {
   const { patientID } = useParams();
@@ -53,7 +55,19 @@ const ClinicDetail = () => {
   return (
     <>
       {!loading && paciente ? (
-        <div className="py-5 px-1 md:py-10 lg:px-16">
+        <div className="py-5 px-1 md:py-4 lg:px-16">
+          <BreadCrumbsPag show={[1, 2, 3]} idPaciente={patientID} />
+          <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
+            <div className="w-full text-center">
+              <Typography variant="h3" color="gray" className="md:text-right">
+                Paciente: {paciente.Nombre} {paciente.ApellidoP}{" "}
+                {paciente.ApellidoM}
+              </Typography>
+              <div className="flex my-2 md:mt-6 justify-center">
+                <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
+              </div>
+            </div>
+          </div>
           <Tabs value="dashboard" className="shadow-none md:shadow-2xl">
             <TabsHeader>
               {data.map(({ label, value, icon }) => (
@@ -65,7 +79,7 @@ const ClinicDetail = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody className="bg-white rounded-sm mt-5 md:mt-10 2xl:min-h-[700px] mx-auto">
+            <TabsBody className="bg-white rounded-sm mt-5 md:mt-5 2xl:min-h-[700px] mx-auto">
               <TabPanel value="dashboard">
                 <div className="text-center py-24">
                   <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
@@ -87,22 +101,28 @@ const ClinicDetail = () => {
               {data.map(({ value, id }) => (
                 <TabPanel key={value} value={value}>
                   {id == 0 && (
-                    <HistoriaMedicaEdit
-                      data={paciente.HistorialClinico.HistoriaMedica}
-                      patientID={patientID}
-                    />
+                    <div className="lg:px-16">
+                      <HistoriaMedicaEdit
+                        data={paciente.HistorialClinico.HistoriaMedica}
+                        patientID={patientID}
+                      />
+                    </div>
                   )}
                   {id == 1 && (
-                    <ExamenFisicoEdit
-                      data={paciente.HistorialClinico.ExamenFisico}
-                      patientID={patientID}
-                    />
+                    <div className="lg:px-16">
+                      <ExamenFisicoEdit
+                        data={paciente.HistorialClinico.ExamenFisico}
+                        patientID={patientID}
+                      />
+                    </div>
                   )}
                   {id == 2 && (
-                    <MedicosEdit
-                      data={paciente.DocPacs}
-                      patientID={patientID}
-                    />
+                    <div className="lg:px-16">
+                      <MedicosEdit
+                        data={paciente.DocPacs}
+                        patientID={patientID}
+                      />
+                    </div>
                   )}
                 </TabPanel>
               ))}

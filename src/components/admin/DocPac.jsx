@@ -18,6 +18,7 @@ import { usePatients } from "../../hooks/usePatients";
 import Loader from "../../common/Loader";
 import { addDocPacRequest } from "../../api/api";
 import { GiConfirmed } from "react-icons/gi";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const DocPac = () => {
   const { user } = useAuth();
@@ -55,9 +56,13 @@ const DocPac = () => {
   };
 
   return (
-    <>
+    <div className="lg:px-16">
       {!loading && paciente ? (
         <section className="text-gray-600 body-font">
+          <BreadCrumbsPag
+            show={[1, 2, 3, 4]}
+            idPaciente={patientID}
+          />
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
@@ -118,9 +123,7 @@ const DocPac = () => {
                           "http://localhost:5173/"
                         }patient/${patientID}`}
                       >
-                        <Button
-                          className="mt-5 w-fit bg-cerise-500"
-                        >
+                        <Button className="mt-5 w-fit bg-cerise-500">
                           Volver
                         </Button>
                       </Link>
@@ -226,7 +229,7 @@ const DocPac = () => {
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 };
 

@@ -23,6 +23,7 @@ import { addDocPacRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
 import EmptyData from "../../common/EmptyData";
 import { useNavigationC } from "../../hooks/useNavigationC";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const PacDoc = () => {
   const { user } = useAuth();
@@ -88,9 +89,13 @@ const PacDoc = () => {
   }, [adminPacientes, pacientes]);
 
   return (
-    <>
+    <div className="lg:px-16">
       {!loading && doctor && pacientes ? (
         <section className="text-gray-600 body-font">
+          <BreadCrumbsPag
+            show={[6, 7, 9]}
+            idDoctor={doctorID}
+          />
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
@@ -299,7 +304,7 @@ const PacDoc = () => {
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 };
 

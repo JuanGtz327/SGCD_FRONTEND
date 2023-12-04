@@ -5,6 +5,7 @@ import { useDay } from "../../hooks/useDay";
 import { MdOutlineSick } from "react-icons/md";
 import Loader from "../../common/Loader";
 import { Typography } from "@material-tailwind/react";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const PatientDetails = () => {
   const { convertToBirthDate } = useDay();
@@ -19,23 +20,23 @@ const PatientDetails = () => {
   }, [patientID]);
 
   return (
-    <div className="lg:px-16">
+    <div className="py-5 lg:px-16">
       {!loading && paciente ? (
         <>
-          <div className="flex w-full mt-10 lg:mb-10 mb-5 flex-wrap">
-            <div className="w-full md:w-1/3 text-center">
-              <Typography variant="h3" color="gray">
-                {paciente.Nombre} {paciente.ApellidoP} {paciente.ApellidoM}
+          <BreadCrumbsPag
+            show={[1, 2]}
+            idPaciente={patientID}
+          />
+          <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
+            <div className="w-full text-center">
+              <Typography variant="h3" color="gray" className="md:text-right">
+                Paciente: {paciente.Nombre} {paciente.ApellidoP}{" "}
+                {paciente.ApellidoM}
               </Typography>
               <div className="flex my-2 md:mt-6 justify-center">
                 <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
               </div>
             </div>
-            <p className="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base text-justify">
-              Bienvenido a la vista de detalles del paciente, en esta seccion
-              podra visualizar la informacion del paciente, asi como agregar
-              nuevos padecimientos y consultar su expediente clinico.
-            </p>
           </div>
           <div className="bg-white rounded-sm shadow-none md:shadow-2xl py-8 md:py-0">
             <section className="text-gray-600 body-font">

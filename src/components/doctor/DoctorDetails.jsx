@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDoctors } from "../../hooks/useDoctors";
 import Loader from "../../common/Loader";
 import { Button, Typography } from "@material-tailwind/react";
+import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 
 const DoctorDetails = () => {
   const { doctorID } = useParams();
@@ -20,20 +21,17 @@ const DoctorDetails = () => {
     <div className="lg:px-16">
       {!loading && doctor ? (
         <>
-          <div className="flex w-full mt-5 lg:mb-10 mb-5 flex-wrap">
-            <div className="w-full md:w-[40%] text-center">
-              <Typography variant="h3" color="gray">
-                Dr. {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
+          <BreadCrumbsPag show={[6, 7]} idDoctor={doctorID} />
+          <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
+            <div className="w-full text-center">
+              <Typography variant="h3" color="gray" className="md:text-right">
+                Dr: {doctor.Nombre} {doctor.ApellidoP}{" "}
+                {doctor.ApellidoM}
               </Typography>
               <div className="flex my-2 md:mt-6 justify-center">
                 <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
               </div>
             </div>
-            <p className="lg:pl-6 lg:w-[60%] mx-auto leading-relaxed text-base text-justify">
-              Bienvenido a la vista de detalles del doctor, en esta seccion
-              podra visualizar la informacion del doctor, asi como consultar sus
-              pacientes y gestionar su perfil.
-            </p>
           </div>
           <div className="bg-white rounded-sm shadow-none md:shadow-2xl py-8 md:py-0">
             <section className="text-gray-600 body-font">
@@ -61,7 +59,7 @@ const DoctorDetails = () => {
                           {doctor.ApellidoM}
                         </h2>
                         <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
-                        <p className="text-base">Paciente No# {doctor.id}</p>
+                        <p className="text-base">Doctor No# {doctor.id}</p>
                         <Button
                           className="mt-3 bg-cerise-500 inline-flex items-center"
                           onClick={() => navigate("/listDoctors")}
