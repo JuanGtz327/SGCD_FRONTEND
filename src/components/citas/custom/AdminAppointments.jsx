@@ -42,17 +42,13 @@ const AdminAppointments = () => {
     useState(false);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [pacientes, setPacientes] = useState([]);
-  const { horariosCita } = useHorarios(
-    docConfigs,
-    appointments,
-    selectDate
-  );
+  const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
-    (async ()=>{
-      if (filtro!=="all") {
+    (async () => {
+      if (filtro !== "all") {
         setPacientes(await getPatiensByDoctor(filtro));
       }
     })();
@@ -213,40 +209,43 @@ const AdminAppointments = () => {
                   />
                 </div>
                 {validDate() &&
-                  newAppointmentBtnVisible &&
-                  (docConfigs?.Configuracione
-                    ? docConfigs?.Configuracione.Dias_laborables.split(
-                        ","
-                      ).includes(getDia(selectDate))
-                    : false) ? (
-                    <Button
-                      color="blue"
-                      onClick={handleOpen}
-                      className="mt-3 md:mt-0"
-                    >
-                      AGENDAR CITA
-                    </Button>
-                  ): (
-                    <div className="flex mt-5 col-span-3">
-                      {!newAppointmentBtnVisible ? (
-                        <Alert
-                          className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
-                          open
-                          icon={<GoAlertFill />}
-                        >
-                          Seleccione un doctor para agendar una cita.
-                        </Alert>
-                      ) : (
-                        <Alert
-                          className="rounded-none border-l-4 border-cerise-500 bg-cerise-500/20 font-medium text-red-600"
-                          open
-                          icon={<GoAlertFill />}
-                        >
-                          Horario no disponible para agendar citas.
-                        </Alert>
-                      )}
-                    </div>
-                  )}
+                horariosCita.length > 0 &&
+                newAppointmentBtnVisible &&
+                (docConfigs?.Configuracione
+                  ? docConfigs?.Configuracione.Dias_laborables.split(
+                      ","
+                    ).includes(getDia(selectDate))
+                  : false) ? (
+                  <Button
+                    color="blue"
+                    onClick={handleOpen}
+                    className="mt-3 md:mt-0"
+                  >
+                    AGENDAR CITA
+                  </Button>
+                ) : (
+                  <div className="flex mt-5 col-span-3">
+                    {!newAppointmentBtnVisible ? (
+                      <Alert
+                        className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+                        open
+                        icon={<GoAlertFill />}
+                      >
+                        Seleccione un doctor para agendar una cita.
+                      </Alert>
+                    ) : (
+                      <Alert
+                        className="rounded-none border-l-4 font-medium border-cerise-500 bg-cerise-500/20 text-red-600"
+                        open
+                        icon={<GoAlertFill />}
+                      >
+                        {horariosCita.length == 0
+                          ? "Ya no hay horarios disponibles para agendar cita"
+                          : "Horario no disponible para agendar citas."}
+                      </Alert>
+                    )}
+                  </div>
+                )}
               </div>
               <hr className="mt-5" />
               <div className="mt-5">

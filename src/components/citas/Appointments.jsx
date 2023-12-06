@@ -192,6 +192,7 @@ const Appointments = () => {
                   </div>
                 )}
                 {validDate() &&
+                horariosCita.length > 0 &&
                 (docConfigs?.Configuracione
                   ? docConfigs?.Configuracione.Dias_laborables.split(
                       ","
@@ -221,7 +222,9 @@ const Appointments = () => {
                         open
                         icon={<GoAlertFill />}
                       >
-                        Horario no disponible para agendar citas.
+                        {horariosCita.length == 0
+                          ? "Ya no hay horarios disponibles para agendar cita"
+                          : "Horario no disponible para agendar citas."}
                       </Alert>
                     )}
                   </div>

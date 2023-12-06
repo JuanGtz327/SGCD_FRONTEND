@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -66,7 +66,7 @@ const LogIn = () => {
                   <Input
                     color="blue"
                     type="email"
-                    label="Email"
+                    label="Correo electrónico"
                     size="lg"
                     variant="standard"
                     containerProps={{ className: "min-w-[72px] mb-5" }}
@@ -88,23 +88,19 @@ const LogIn = () => {
                   <Loader top="mt-5" />
                 ) : (
                   <Button fullWidth type="submit" className="mt-5" color="blue">
-                    Log In
+                    Ingresar
                   </Button>
                 )}
               </form>
             </CardBody>
             <CardFooter className="flex justify-center mt-auto">
-              <hr className="h-px my-0 bg-gray-300 border-0" />
               <div className="text-sm text-gray-500 flex justify-center">
-                ¿No tienes una cuenta?
-                <Link to="/signup">
-                  <Typography
-                    variant="small"
-                    className="ml-1 font-bold textClinic"
-                  >
-                    Crear cuenta
-                  </Typography>
-                </Link>
+                <Typography
+                  variant="small"
+                  className="ml-1 font-bold textClinic"
+                >
+                  Sistema de Gestión de Clinica para Doctores
+                </Typography>
               </div>
             </CardFooter>
           </Card>

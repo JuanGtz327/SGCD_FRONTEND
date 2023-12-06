@@ -52,7 +52,7 @@ const Patients = () => {
         <Loader />
       ) : (
         <div className="flex flex-col lg:px-16">
-          <BreadCrumbsPag show={[1]} idClinica={clinicID}/>
+          <BreadCrumbsPag show={[1]} idClinica={clinicID} />
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">
@@ -142,42 +142,46 @@ const Patients = () => {
                               <p className="mb-3 text-sm md:text-base leading-relaxed md:block text-justify">
                                 {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                               </p>
-                              <Link
-                                to={`/patient/${id}`}
-                                className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
-                              >
-                                Detalles paciente
-                                <svg
-                                  className="w-4 h-4 ml-1"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  fill="none"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M5 12h14"></path>
-                                  <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                              </Link>
-                              <Link
-                                to={`/medicalCondition/${id}`}
-                                className="ml-0 md:ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4"
-                              >
-                                Padecimientos
-                                <svg
-                                  className="w-4 h-4 ml-1"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  fill="none"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M5 12h14"></path>
-                                  <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                              </Link>
+                              {!user.is_admin && user.is_doctor && (
+                                <>
+                                  <Link
+                                    to={`/patient/${id}`}
+                                    className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
+                                  >
+                                    Detalles paciente
+                                    <svg
+                                      className="w-4 h-4 ml-1"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      fill="none"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M5 12h14"></path>
+                                      <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                  </Link>
+                                  <Link
+                                    to={`/medicalCondition/${id}`}
+                                    className="ml-0 md:ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4"
+                                  >
+                                    Padecimientos
+                                    <svg
+                                      className="w-4 h-4 ml-1"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      fill="none"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M5 12h14"></path>
+                                      <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                  </Link>
+                                </>
+                              )}
                               {user.is_admin && (
                                 <Link
                                   to={`/newDocPac/${id}`}

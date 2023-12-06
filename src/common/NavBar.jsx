@@ -149,14 +149,16 @@ const NavBar = () => {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
-                  <Link to="/addPatient">
-                    <ListItem className="text-white">
-                      <ListItemPrefix>
-                        <PlusIcon className="h-5 w-5" />
-                      </ListItemPrefix>
-                      Nuevo Paciente
-                    </ListItem>
-                  </Link>
+                  {!user.is_admin && user.is_doctor && (
+                    <Link to="/addPatient">
+                      <ListItem className="text-white">
+                        <ListItemPrefix>
+                          <PlusIcon className="h-5 w-5" />
+                        </ListItemPrefix>
+                        Nuevo Paciente
+                      </ListItem>
+                    </Link>
+                  )}
                   <Link
                     to={`${
                       user.is_admin

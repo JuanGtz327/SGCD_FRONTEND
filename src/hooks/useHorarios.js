@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAppointments } from "./useAppointments";
+import dayjs from "dayjs";
+import "dayjs/locale/es";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("es");
+const currentDate = dayjs().tz("America/Mexico_City");
 
 const generarHorarios = (rangoTiempo, duracionCita) => {
   // Parseamos el rango de tiempo en horas
@@ -82,13 +91,23 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
   }, [horarios, appointments, selectDate]);
 
   useEffect(() => {
-    setHorariosCita(
-      horarios.filter((cita1) => !horariosOcupados.includes(cita1))
-    );
+    //Si la fecha seleccionada es mayor a la fecha actual, cargar todos los horarios
+    if (currentDate.isBefore(selectDate)) {
+      setHorariosCita(horarios.filter((cita1) => !horariosOcupados.includes(cita1)));
+      return;
+    }
+    // Si la fecha seleccionada es igual a la fecha actual, cargar los horarios disponibles
+    const arrHoras = horarios.filter((cita1) => !horariosOcupados.includes(cita1))
+    const horasValidas = arrHoras.filter(hora => {
+      const [hour, minute] = hora.split(':');
+      const horaDayjs = currentDate.set('hour', parseInt(hour)).set('minute', parseInt(minute));
+      return horaDayjs.isAfter(currentDate);
+    });
+    setHorariosCita(horasValidas);
   }, [horarios, horariosOcupados]);
 
   const getHorariosEdit = (filterDate) => {
-
+    //Si la fecha seleccionada es mayor a la fecha actual, cargar todos los horarios
     const ocupados = EditAppointmentsTime.filter(
       ({ Fecha, CancelacionCitum }) => {
 
@@ -103,7 +122,21 @@ export const useHorarios = (docConfigs, appointments, selectDate) => {
         return horarioOcupado.substring(0, horarioOcupado.lastIndexOf(":"));
       })
 
-    return horarios.filter((cita1) => !ocupados.includes(cita1))
+    const arrHoras = horarios.filter((cita1) => !ocupados.includes(cita1))
+
+    // Si la fecha seleccionada es igual a la fecha actual, cargar los horarios disponibles
+    const horasValidas = arrHoras.filter(hora => {
+      const [hour, minute] = hora.split(':');
+      const horaDayjs = currentDate.set('hour', parseInt(hour)).set('minute', parseInt(minute));
+      return horaDayjs.isAfter(currentDate);
+    });
+
+    if (currentDate.isBefore(filterDate)) {
+      return arrHoras;
+    } else {
+      return horasValidas;
+    }
+
   }
 
   return {

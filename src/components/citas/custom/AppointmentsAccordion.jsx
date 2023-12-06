@@ -97,11 +97,7 @@ const AppointmentsAccordion = ({
     }
 
     if (!isValidHour(editAppointment.Fecha, 30)) {
-      showToast(
-        "error",
-        "El horario de la cita no es valido",
-        "center"
-      );
+      showToast("error", "El horario de la cita no es valido", "center");
       return;
     }
 
@@ -288,7 +284,7 @@ const AppointmentsAccordion = ({
                           setSelectedAppointment(id);
                         }}
                       >
-                        No podre asistir
+                        No podré asistir
                       </Button>
                     </div>
                   )}
@@ -346,7 +342,7 @@ const AppointmentsAccordion = ({
         size="sm"
         dismiss={{ enabled: false }}
       >
-        <DialogHeader>Esta seguro que desea cancelar la cita?</DialogHeader>
+        <DialogHeader>¿Esta seguro que desea cancelar la cita?</DialogHeader>
         <form>
           <DialogBody className="py-10">
             <Textarea
