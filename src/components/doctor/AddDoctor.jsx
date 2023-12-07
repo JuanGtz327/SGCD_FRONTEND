@@ -63,6 +63,24 @@ const AddDoctor = () => {
     values.Horario = `${values.Inicio}-${values.Fin}`;
     delete values.Inicio;
     delete values.Fin;
+
+    const [horasInicio, minutosInicio] = values.Horario.split("-")[0]
+      .split(":")
+      .map(Number);
+    const [horasFin, minutosFin] = values.Horario.split("-")[1]
+      .split(":")
+      .map(Number);
+
+    if (
+      !(
+        horasInicio < horasFin ||
+        (horasInicio === horasFin && minutosInicio < minutosFin)
+      )
+    ) {
+      showToast("error", "La hora de inicio debe ser menor a la hora de fin");
+      return;
+    }
+
     setLoading(true);
     try {
       await createDoctorRequest(values, user.token);
@@ -81,7 +99,6 @@ const AddDoctor = () => {
   }, [errors, showToast]);
 
   const onLaborableDay = (day, checked) => {
-    
     if (!checked) {
       if (configuraciones.dias_laborables.length == 1) {
         showToast("error", "Debe seleccionar al menos un dia laborable");

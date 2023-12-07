@@ -151,6 +151,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
               size="lg"
               type="text"
               {...register("CURP", { required: true })}
+              pattern="^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$"
               error={errors.CURP ? true : false}
               onChange={(event) =>
                 setEditingData({

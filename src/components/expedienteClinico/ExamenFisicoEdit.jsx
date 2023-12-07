@@ -125,7 +125,9 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 value={editingData.Presion_arterial}
                 size="lg"
                 label="Presion Arterial"
-                type="number"
+                type="string"
+                pattern="[0-9]{2,3}/[0-9]{2,3}"
+                title="Formato: 120/80"
                 variant="standard"
                 className="pr-16"
                 {...register("Presion_arterial", { required: true })}
@@ -201,6 +203,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 size="lg"
                 label="Temperatura"
                 type="number"
+                pattern="^\d{2}(\.\d)?$"
                 variant="standard"
                 className="pr-24"
                 {...register("Temperatura", { required: true })}

@@ -55,8 +55,7 @@ const AddPatient = () => {
   const [btnVisible, setBtnVisible] = useState(false);
 
   const onSubmit = handleSubmit(async (values) => {
-
-    if (user.is_admin && filtro==='all'){
+    if (user.is_admin && filtro === "all") {
       showToast("error", "Debes seleccionar un doctor");
       return;
     }
@@ -113,6 +112,15 @@ const AddPatient = () => {
       Plan_tratamiento: values.Plan_tratamiento,
     };
     setLoading(true);
+
+    const regex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+
+    if (!regex.test(values.Password)) {
+      showToast("error", "La contraseña del paciente no cumple con los requisitos");
+      setLoading(false);
+      return;
+    }
+
     try {
       await createPatientRequest(
         {

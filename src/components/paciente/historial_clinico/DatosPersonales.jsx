@@ -84,6 +84,7 @@ const DatosPersonales = ({
               type="text"
               {...register("CURP", { required: true })}
               error={errors.CURP ? true : false}
+              pattern="^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$"
             />
           </div>
         </div>

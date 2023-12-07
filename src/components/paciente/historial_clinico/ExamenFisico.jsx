@@ -60,7 +60,9 @@ const ExamenFisico = ({ register, errors }) => {
             <Input
               size="lg"
               label="Presion Arterial"
-              type="number"
+              type="string"
+              pattern="[0-9]{2,3}/[0-9]{2,3}"
+              title="Formato: 120/80"
               color="blue"
               variant="standard"
               className="pr-16"
@@ -128,6 +130,7 @@ const ExamenFisico = ({ register, errors }) => {
               label="Temperatura"
               type="number"
               color="blue"
+              pattern="^\d{2}(\.\d)?$"
               variant="standard"
               className="pr-24"
               {...register("Temperatura", { required: true })}

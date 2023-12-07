@@ -40,6 +40,15 @@ const SignUp = () => {
       if (Password !== CPassword) {
         throw new Error("Las contraseñas no coinciden");
       }
+      const regex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+
+      if (!regex.test(Password)) {
+        showToast(
+          "error",
+          "La contraseña no cumple con los requisitos"
+        );
+        return;
+      }
       delete values.CPassword;
       delete values.Checked;
       await signup(values);
@@ -131,10 +140,7 @@ const SignUp = () => {
                       }`}
                     >
                       Acepto los
-                      <Link
-                        to="/"
-                        className="font-bold textClinic"
-                      >
+                      <Link to="/" className="font-bold textClinic">
                         &nbsp;Términos y condiciones
                       </Link>
                     </Typography>
@@ -153,9 +159,7 @@ const SignUp = () => {
               </form>
             </CardBody>
             <CardFooter className="flex justify-center mt-auto">
-              <div
-                className="text-center text-sm flex justify-center"
-              >
+              <div className="text-center text-sm flex justify-center">
                 ¿Ya cuentas con una cuenta?
                 <Link to="/login">
                   <Typography

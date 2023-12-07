@@ -121,6 +121,30 @@ const DoctorConfigs = () => {
                           Horario: configuraciones.Horario,
                           Duracion_cita: configuraciones.Duracion_cita,
                         };
+
+                        const [horasInicio, minutosInicio] = configuraciones.Horario
+                          .split("-")[0]
+                          .split(":")
+                          .map(Number);
+                        const [horasFin, minutosFin] = configuraciones.Horario
+                          .split("-")[1]
+                          .split(":")
+                          .map(Number);
+
+                        if (
+                          !(
+                            horasInicio < horasFin ||
+                            (horasInicio === horasFin &&
+                              minutosInicio < minutosFin)
+                          )
+                        ) {
+                          showToast(
+                            "error",
+                            "La hora de inicio debe ser menor a la hora de fin"
+                          );
+                          return;
+                        }
+
                         try {
                           await editDoctorConfigsRequest(
                             user.idDoctor,

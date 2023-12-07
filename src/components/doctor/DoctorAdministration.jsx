@@ -113,12 +113,11 @@ const DoctorAdministration = () => {
     <>
       {!loading && doctor ? (
         <div className="py-5 px-1 md:py-4 lg:px-16">
-          <BreadCrumbsPag show={[6, 7,8]} idDoctor={doctorID} />
+          <BreadCrumbsPag show={[6, 7, 8]} idDoctor={doctorID} />
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
               <Typography variant="h3" color="gray" className="md:text-right">
-                Dr: {doctor.Nombre} {doctor.ApellidoP}{" "}
-                {doctor.ApellidoM}
+                Dr: {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
               </Typography>
               <div className="flex my-2 md:mt-6 justify-center">
                 <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -196,6 +195,30 @@ const DoctorAdministration = () => {
                                     Duracion_cita:
                                       configuraciones.Duracion_cita,
                                   };
+
+                                  const [horasInicio, minutosInicio] =
+                                    configuraciones.Horario.split("-")[0]
+                                      .split(":")
+                                      .map(Number);
+                                  const [horasFin, minutosFin] =
+                                    configuraciones.Horario.split("-")[1]
+                                      .split(":")
+                                      .map(Number);
+
+                                  if (
+                                    !(
+                                      horasInicio < horasFin ||
+                                      (horasInicio === horasFin &&
+                                        minutosInicio < minutosFin)
+                                    )
+                                  ) {
+                                    showToast(
+                                      "error",
+                                      "La hora de inicio debe ser menor a la hora de fin"
+                                    );
+                                    return;
+                                  }
+
                                   try {
                                     await editDoctorConfigsRequest(
                                       doctorID,
@@ -229,8 +252,8 @@ const DoctorAdministration = () => {
                               icon={<IoIosWarning />}
                             >
                               Para poder actualizar las configuraciones debe
-                              tener en cuenta que no puede tener citas
-                              agendadas en los nuevos horarios que quiera establecer.
+                              tener en cuenta que no puede tener citas agendadas
+                              en los nuevos horarios que quiera establecer.
                             </Alert>
                             <div>
                               <h2 className="text-sm font-semibold leading-7 text-gray-900">

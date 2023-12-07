@@ -36,6 +36,16 @@ const EditDoctorDialog = ({
     try {
       if (values.Password === "") {
         delete values.Password;
+      }else{
+        const regex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+
+        if (!regex.test(values.Password)) {
+          showToast(
+            "error",
+            "La contraseña del doctor no cumple con los requisitos"
+          );
+          return;
+        }
       }
       if (editingEmail === false) {
         delete values.Correo;
