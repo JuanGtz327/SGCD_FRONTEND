@@ -84,7 +84,6 @@ const DatosPersonales = ({
               type="text"
               {...register("CURP", { required: true })}
               error={errors.CURP ? true : false}
-              pattern="^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$"
             />
           </div>
         </div>
@@ -189,6 +188,7 @@ const DatosPersonales = ({
             <Input
               size="lg"
               label="Numero Telefonico"
+              maxLength={10}
               variant="standard"
               color="blue"
               type="number"
@@ -248,6 +248,7 @@ const DatosPersonales = ({
             <Input
               size="lg"
               label="Codigo Postal"
+              maxLength={5}
               type="number"
               color="blue"
               variant="standard"

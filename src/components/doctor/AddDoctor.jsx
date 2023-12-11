@@ -56,9 +56,31 @@ const AddDoctor = () => {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    const showErrors = [];
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+
+    if (!passwordRegex.test(values.Password))
+      showErrors.push(
+        "La contraseña del doctor no cumple con los requisitos"
+      );
+
+    const curpRegex = /^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$/;
+
+    if (!curpRegex.test(values.CURP))
+      showErrors.push("El formato de la CURP no es valido");
+
+    if (showErrors.length > 0) {
+      for (let i = 0; i < showErrors.length; i++) {
+        showToast("error", showErrors[i]);
+      }
+      setLoading(false);
+      return;
+    }
+
     values.Dias_laborales = configuraciones.dias_laborables.join(",");
     if (!values.Inicio || !values.Fin) {
-      return showToast("error", "Debes llenar todos los campos", "center");
+      return showToast("error", "Debe ingresar una hora de entrada y salida", "center");
     }
     values.Horario = `${values.Inicio}-${values.Fin}`;
     delete values.Inicio;

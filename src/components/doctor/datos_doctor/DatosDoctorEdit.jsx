@@ -38,12 +38,14 @@ const DatosPersonales = ({ doctor, doctorID }) => {
       },
     };
 
-    const res = await editDoctorRequest(doctorID, citaPaylaod, user.token);
-    if (res.status !== 200) {
-      showToast("error", "Ocurrio un error al actualizar al doctor");
+    try {
+      await editDoctorRequest(doctorID, citaPaylaod, user.token);
+      showToast("success", "Doctor actualizado");
+      
+    } catch (error) {
+      showToast("error",error.response.data.message);
       return;
     }
-    showToast("success", "Doctor actualizado");
   });
 
   return (
@@ -55,7 +57,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             En este apartado debe incluir la informacion personal de su
-            paciente.
+            doctor.
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">

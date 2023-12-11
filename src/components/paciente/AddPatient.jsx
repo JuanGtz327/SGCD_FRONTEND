@@ -30,6 +30,8 @@ import CitasHistorial from "./historial_clinico/CitasHistorial";
 import NotasHistorial from "./historial_clinico/NotasHistorial";
 import Loader from "../../common/Loader";
 import { useDoctors } from "../../hooks/useDoctors.js";
+import { useDay } from "../../hooks/useDay.js";
+import { useCalendar } from "../../hooks/useCalendar.js";
 
 const AddPatient = () => {
   const [loading, setLoading] = useState(false);
@@ -53,6 +55,8 @@ const AddPatient = () => {
   const [filtro, setFiltro] = useState("all");
   const { doctors } = useDoctors(filtro);
   const [btnVisible, setBtnVisible] = useState(false);
+  const { currentDate } = useDay();
+  const { dayjs } = useCalendar();
 
   const onSubmit = handleSubmit(async (values) => {
     if (user.is_admin && filtro === "all") {
@@ -113,10 +117,114 @@ const AddPatient = () => {
     };
     setLoading(true);
 
-    const regex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+    const showErrors = [];
 
-    if (!regex.test(values.Password)) {
-      showToast("error", "La contraseña del paciente no cumple con los requisitos");
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+
+    if (!passwordRegex.test(values.Password))
+      showErrors.push(
+        "La contraseña del paciente no cumple con los requisitos"
+      );
+
+    const curpRegex = /^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$/;
+
+    if (!curpRegex.test(pacientePayload.CURP))
+      showErrors.push("El formato de la CURP no es valido");
+
+    //Verificar que el nombre no contenga numeros
+    const nombreRegex = /^[a-zA-Z\s]*$/;
+
+    if (!nombreRegex.test(pacientePayload.Nombre))
+      showErrors.push("El nombre no puede contener numeros");
+
+    //Verificar que el apellido paterno no contenga numeros
+    if (!nombreRegex.test(pacientePayload.ApellidoP))
+      showErrors.push("El apellido paterno no puede contener numeros");
+
+    //Verificar que el apellido materno no contenga numeros
+    if (!nombreRegex.test(pacientePayload.ApellidoM))
+      showErrors.push("El apellido materno no puede contener numeros");
+
+    //Verificar que el telefono solo contenga numeros y sea de 10 digitos
+    const telefonoRegex = /^[0-9]{10}$/;
+
+    if (!telefonoRegex.test(domicilioPayload.Telefono))
+      showErrors.push("El telefono debe contener 10 digitos");
+
+    //Verificar que el codigo postal solo contenga numeros y sea de 5 digitos
+    const cpRegex = /^[0-9]{5}$/;
+
+    if (!cpRegex.test(domicilioPayload.CP))
+      showErrors.push("El codigo postal debe contener 5 digitos");
+
+    //Fecha de naacimiento no puede ser mayor a la fecha actual
+    if (currentDate.isBefore(dayjs(pacientePayload.Fecha_nacimiento)))
+      showErrors.push("La fecha de nacimiento no es valida");
+
+    const presionRegex = /^\d{2,3}\/\d{2,3}$/;
+
+    if (!presionRegex.test(examenFisicoPayload.Presion_arterial))
+      showErrors.push("El formato de la presion arterial debe ser 00/00");
+
+    //Verificar que el peso sea mayor a 0 y menor a 1000
+    if (examenFisicoPayload.Peso < 0 || examenFisicoPayload.Peso > 1000)
+      showErrors.push("El peso debe ser mayor a 0 y menor a 1000");
+
+    //Verificar que la estatura sea mayor a 0 y menor a 300
+    if (examenFisicoPayload.Estatura < 30 || examenFisicoPayload.Estatura > 250)
+      showErrors.push("La estatura debe ser mayor a 30 y menor a 250");
+
+    //Verificar que la frecuencia cardiaca sea mayor a 0 y menor a 300
+    if (
+      examenFisicoPayload.Frecuencia_cardiaca < 0 ||
+      examenFisicoPayload.Frecuencia_cardiaca > 300
+    )
+      showErrors.push(
+        "La frecuencia cardiaca debe ser mayor a 0 y menor a 300"
+      );
+
+    //Verificar que la frecuencia respiratoria sea mayor a 0 y menor a 300
+    if (
+      examenFisicoPayload.Frecuencia_respiratoria < 0 ||
+      examenFisicoPayload.Frecuencia_respiratoria > 300
+    )
+      showErrors.push(
+        "La frecuencia respiratoria debe ser mayor a 0 y menor a 300"
+      );
+
+    //Verificar que la temperatura sea mayor a 0 y menor a 100
+    if (
+      examenFisicoPayload.Temperatura < 0 ||
+      examenFisicoPayload.Temperatura > 100
+    )
+      showErrors.push("La temperatura debe ser mayor a 0 y menor a 100");
+
+    //Verificar la expresion regular de la temperatura
+    const temperaturaRegex = /^\d{2}(\.\d{1})?$/;
+
+    if (!temperaturaRegex.test(examenFisicoPayload.Temperatura))
+      showErrors.push("El formato de la temperatura debe ser 00.0");
+
+    //Verificar que el grupo sanguineo sea valido
+    const grupoSanguineoRegex = /^(A|B|AB|O)[+-]$/;
+
+    if (!grupoSanguineoRegex.test(examenFisicoPayload.Grupo_sanguineo))
+      showErrors.push("El grupo sanguineo no es valido, ej: O+");
+
+    //Verificar que la fecha de inicio de sintomas no sea mayor a la fecha actual
+    if (
+      currentDate.isBefore(
+        dayjs(historiaClinicaActualPayload.Fecha_inicio_sintomas)
+      )
+    )
+      showErrors.push(
+        "La fecha de inicio de sintomas no puede ser mayor a la actual"
+      );
+
+    if (showErrors.length > 0) {
+      for (let i = 0; i < showErrors.length; i++) {
+        showToast("error", showErrors[i]);
+      }
       setLoading(false);
       return;
     }

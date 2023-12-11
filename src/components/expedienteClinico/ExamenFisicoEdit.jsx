@@ -31,6 +31,58 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
   };
 
   const onEditSubmit = handleSubmit(async (values) => {
+    const showErrors = [];
+    const presionRegex = /^\d{2,3}\/\d{2,3}$/;
+
+    if (!presionRegex.test(values.Presion_arterial))
+      showErrors.push("El formato de la presion arterial debe ser 00/00");
+
+    //Verificar que el peso sea mayor a 0 y menor a 1000
+    if (values.Peso < 0 || values.Peso > 1000)
+      showErrors.push("El peso debe ser mayor a 0 y menor a 1000");
+
+    //Verificar que la estatura sea mayor a 0 y menor a 300
+    if (values.Estatura < 30 || values.Estatura > 250)
+      showErrors.push("La estatura debe ser mayor a 30 y menor a 250");
+
+    //Verificar que la frecuencia cardiaca sea mayor a 0 y menor a 300
+    if (values.Frecuencia_cardiaca < 0 || values.Frecuencia_cardiaca > 300)
+      showErrors.push(
+        "La frecuencia cardiaca debe ser mayor a 0 y menor a 300"
+      );
+
+    //Verificar que la frecuencia respiratoria sea mayor a 0 y menor a 300
+    if (
+      values.Frecuencia_respiratoria < 0 ||
+      values.Frecuencia_respiratoria > 300
+    )
+      showErrors.push(
+        "La frecuencia respiratoria debe ser mayor a 0 y menor a 300"
+      );
+
+    //Verificar que la temperatura sea mayor a 0 y menor a 100
+    if (values.Temperatura < 0 || values.Temperatura > 100)
+      showErrors.push("La temperatura debe ser mayor a 0 y menor a 100");
+
+    //Verificar la expresion regular de la temperatura
+    const temperaturaRegex = /^\d{2}(\.\d{1})?$/;
+
+    if (!temperaturaRegex.test(values.Temperatura))
+      showErrors.push("El formato de la temperatura debe ser 00.0");
+
+    //Verificar que el grupo sanguineo sea valido
+    const grupoSanguineoRegex = /^(A|B|AB|O)[+-]$/;
+
+    if (!grupoSanguineoRegex.test(values.Grupo_sanguineo))
+      showErrors.push("El grupo sanguineo no es valido, ej: O+");
+
+    if (showErrors.length > 0) {
+      for (let i = 0; i < showErrors.length; i++) {
+        showToast("error", showErrors[i]);
+      }
+      return;
+    }
+
     const res = await editExamenFisicoRequest(data.id, values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al actualizar el examen fisico");
@@ -126,7 +178,6 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 size="lg"
                 label="Presion Arterial"
                 type="string"
-                pattern="[0-9]{2,3}/[0-9]{2,3}"
                 title="Formato: 120/80"
                 variant="standard"
                 className="pr-16"
@@ -203,7 +254,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
                 size="lg"
                 label="Temperatura"
                 type="number"
-                pattern="^\d{2}(\.\d)?$"
+                step="any"
                 variant="standard"
                 className="pr-24"
                 {...register("Temperatura", { required: true })}
