@@ -10,7 +10,6 @@ const DatosPersonales = ({
   setApellidoM,
 }) => {
   const handleInputChange = (event) => {
-    console.log(event.target.name, event.target.value);
     if (event.target.name === "Nombre") setNombre(event.target.value);
     else if (event.target.name === "ApellidoP") setApellidoP(event.target.value);
     else if (event.target.name === "ApellidoM") setApellidoM(event.target.value);

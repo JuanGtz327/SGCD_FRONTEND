@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button, Input } from "@material-tailwind/react";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
+import { FaPowerOff } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteDoctorRequest } from "../../api/api";
+import { activateDoctorRequest, deleteDoctorRequest } from "../../api/api";
 import { useDoctors } from "../../hooks/useDoctors";
 import Pagination from "../../common/Pagination";
 import EditDoctorDialog from "./custom/EditDoctorDialog";
@@ -18,8 +19,10 @@ const Doctors = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const [isSearching, setIsSearching] = useState(false);
-  const { doctors, loading, setLoading, filtered, filterDoctors } =
-    useDoctors();
+  const { doctors, loading, setLoading, filtered, filterDoctors } = useDoctors(
+    null,
+    false
+  );
   const [doctorToDelete, setDoctorToDelete] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
@@ -30,10 +33,23 @@ const Doctors = () => {
   const navigate = useNavigate();
 
   const onDeleteDoctor = async () => {
-    setLoading(true);
     try {
       await deleteDoctorRequest(doctorToDelete, user.token);
-      showToast("success", "Doctor eliminado");
+      setLoading(true);
+      setDoctorToDelete(0);
+      showToast("success", "Doctor desactivado");
+    } catch (error) {
+      showToast("error", error.response.data.message);
+      console.log(error);
+    }
+    setShowDeleteModal(false);
+  };
+
+  const handleActivateDoctor = async (id) => {
+    try {
+      await activateDoctorRequest(id, user.token);
+      setLoading(true);
+      showToast("success", "Doctor activado");
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +61,7 @@ const Doctors = () => {
         <Loader />
       ) : (
         <div className="flex flex-col lg:px-16">
-          <BreadCrumbsPag show={[6]}/>
+          <BreadCrumbsPag show={[6]} />
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
               <div className="flex flex-col text-center w-full mb-5">
@@ -89,7 +105,7 @@ const Doctors = () => {
                     {infoToDisplay.map(
                       (
                         {
-                          User: { Correo },
+                          User: { Correo, is_active },
                           idUser,
                           id,
                           Especialidad,
@@ -136,42 +152,53 @@ const Doctors = () => {
                             <p className="text-sm md:text-base leading-relaxed text-justify">
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
-                            <Link
-                              to={`/doctor/${id}`}
-                              className="text-blue-500 inline-flex items-center mt-4"
-                            >
-                              Detalles del doctor
-                              <svg
-                                className="w-4 h-4 ml-2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                              </svg>
-                            </Link>
-                            <Link
-                              to={`/newPacDoc/${id}`}
-                              className="text-blue-500 inline-flex items-center mt-4 ml-4"
-                            >
-                              Pacientes
-                              <svg
-                                className="w-4 h-4 ml-2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                              </svg>
-                            </Link>
+                            {is_active && (
+                              <>
+                                <Link
+                                  to={`/doctor/${id}`}
+                                  className="text-blue-500 inline-flex items-center mt-4"
+                                >
+                                  Detalles del doctor
+                                  <svg
+                                    className="w-4 h-4 ml-2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                  </svg>
+                                </Link>
+                                <Link
+                                  to={`/newPacDoc/${id}`}
+                                  className="text-blue-500 inline-flex items-center mt-4 ml-4"
+                                >
+                                  Pacientes
+                                  <svg
+                                    className="w-4 h-4 ml-2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                  </svg>
+                                </Link>
+                              </>
+                            )}
+
+                            {!is_active && (
+                              <p className="ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5">
+                                Active al doctor para poder ver sus detalles
+                                clinicos asi como sus pacientes.
+                              </p>
+                            )}
                           </div>
                           <div className="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                             <span className="font-semibold title-font text-gray-700 hidden md:inline">
@@ -205,18 +232,34 @@ const Doctors = () => {
                                   </div>
                                 </Button>
                               )}
-                              <Button
-                                size="sm"
-                                onClick={() => {
-                                  setDoctorToDelete(idUser);
-                                  setShowDeleteModal(true);
-                                }}
-                                className="bg-cerise-500 flex items-center w-full"
-                              >
-                                <div className="flex items-center mx-auto">
-                                  <AiFillDelete className="w-6 h-6" /> Eliminar
-                                </div>
-                              </Button>
+                              {is_active ? (
+                                <Button
+                                  size="sm"
+                                  onClick={() => {
+                                    setDoctorToDelete(idUser);
+                                    setShowDeleteModal(true);
+                                  }}
+                                  className="bg-cerise-500 flex items-center w-full"
+                                >
+                                  <div className="flex items-center mx-auto">
+                                    <FaPowerOff className="w-5 h-5 mr-1" />{" "}
+                                    Desactivar
+                                  </div>
+                                </Button>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  onClick={() => {
+                                    handleActivateDoctor(idUser);
+                                  }}
+                                  className="bg-[#10b981] flex items-center w-full"
+                                >
+                                  <div className="flex items-center mx-auto">
+                                    <FaPowerOff className="w-5 h-5 mr-1" />{" "}
+                                    Activar
+                                  </div>
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -251,8 +294,8 @@ const Doctors = () => {
               setDoctorToDelete(0);
               setShowDeleteModal(false);
             }}
-            tittle="Seguro que desea eliminar este doctor?"
-            message="Esta accion no se puede deshacer."
+            tittle="¿Seguro que desea desactivar este doctor?"
+            message="Al desactivar este doctor, ya no podrá iniciar sesión en el sistema, ni podrá ser asignado a nuevos pacientes."
           />
         </div>
       )}

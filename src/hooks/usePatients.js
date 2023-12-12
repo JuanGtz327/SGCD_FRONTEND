@@ -7,7 +7,7 @@ import {
   getPatientsRequest,
 } from "../api/api";
 
-export const usePatients = (clinicID) => {
+export const usePatients = (clinicID, showOnlyActive = true) => {
   const { user } = useAuth();
   const [pacientes, setPacientes] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -22,14 +22,24 @@ export const usePatients = (clinicID) => {
     (async () => {
       if (clinicID) {
         const response = await getPatientsClinicRequest(user.token, clinicID);
-        setPacientes(response.data);
+        if (showOnlyActive)
+          setPacientes(response.data.filter((patient) => patient.User.is_active));
+        else
+          setPacientes(response.data);
+
       } else {
         if (user.is_admin) {
           const response = await getPatientsClinicRequest(user.token, user.idClinica);
-          setPacientes(response.data);
+          if (showOnlyActive)
+            setPacientes(response.data.filter((patient) => patient.User.is_active));
+          else
+            setPacientes(response.data);
         } else {
           const response = await getPatientsRequest(user.token);
-          setPacientes(response.data);
+          if (showOnlyActive)
+            setPacientes(response.data.filter((patient) => patient.User.is_active));
+          else
+            setPacientes(response.data);
         }
       }
       setLoading(false);
@@ -56,6 +66,8 @@ export const usePatients = (clinicID) => {
     setLoading(true);
     const response = await getPatiensByDoctorRequest(doctorID, user.token);
     setLoading(false);
+    if (showOnlyActive)
+      return response.data.filter((patient) => patient.User.is_active);
     return response.data;
   };
 

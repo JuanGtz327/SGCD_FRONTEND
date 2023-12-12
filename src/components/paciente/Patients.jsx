@@ -3,8 +3,8 @@ import { Input, Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteModal } from "../generalModals/DeleteModal";
 import { MdEmail } from "react-icons/md";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { deletePatientRequest } from "../../api/api";
+import { AiFillEdit } from "react-icons/ai";
+import { activatePatientRequest, deletePatientRequest } from "../../api/api";
 import { usePatients } from "../../hooks/usePatients";
 import Pagination from "../../common/Pagination";
 import EditPacienteDialog from "./custom/EditPacienteDialog";
@@ -15,6 +15,7 @@ import EmptyData from "../../common/EmptyData";
 import { useParams } from "react-router-dom";
 import Loader from "../../common/Loader";
 import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
+import { FaPowerOff } from "react-icons/fa";
 
 const Patients = () => {
   const { user } = useAuth();
@@ -27,7 +28,7 @@ const Patients = () => {
   const { clinicID } = useParams();
 
   const { pacientes, loading, setLoading, filterPatients, filtered } =
-    usePatients(clinicID);
+    usePatients(clinicID, false);
 
   const { next, prev, currentPage, pageCount, infoToDisplay, getItemProps } =
     useNavigationC(isSearching ? filtered : pacientes);
@@ -39,11 +40,22 @@ const Patients = () => {
       await deletePatientRequest(patientToDelete, user.token);
       showToast("success", "Paciente eliminado");
     } catch (error) {
+      showToast("error", error.response.data.message);
       console.log(error);
     }
     setLoading(true);
     setPatientToDelete(0);
     setShowDeleteModal(false);
+  };
+
+  const handleActivatePatient = async (id) => {
+    try {
+      await activatePatientRequest(id, user.token);
+      showToast("success", "Paciente activado");
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(true);
   };
 
   return (
@@ -97,7 +109,7 @@ const Patients = () => {
                     {infoToDisplay.map(
                       (
                         {
-                          User: { Correo },
+                          User: { Correo, is_active },
                           id,
                           Nombre,
                           ApellidoP,
@@ -142,47 +154,49 @@ const Patients = () => {
                               <p className="mb-3 text-sm md:text-base leading-relaxed md:block text-justify">
                                 {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                               </p>
-                              {!user.is_admin && user.is_doctor && (
-                                <>
-                                  <Link
-                                    to={`/patient/${id}`}
-                                    className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
-                                  >
-                                    Detalles paciente
-                                    <svg
-                                      className="w-4 h-4 ml-1"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      fill="none"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
+                              {is_active &&
+                                !user.is_admin &&
+                                user.is_doctor && (
+                                  <>
+                                    <Link
+                                      to={`/patient/${id}`}
+                                      className="text-indigo-500 inline-flex items-center mt-1 md:mt-4"
                                     >
-                                      <path d="M5 12h14"></path>
-                                      <path d="M12 5l7 7-7 7"></path>
-                                    </svg>
-                                  </Link>
-                                  <Link
-                                    to={`/medicalCondition/${id}`}
-                                    className="ml-0 md:ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4"
-                                  >
-                                    Padecimientos
-                                    <svg
-                                      className="w-4 h-4 ml-1"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      strokeWidth="2"
-                                      fill="none"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
+                                      Detalles paciente
+                                      <svg
+                                        className="w-4 h-4 ml-1"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      >
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                      </svg>
+                                    </Link>
+                                    <Link
+                                      to={`/medicalCondition/${id}`}
+                                      className="ml-0 md:ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4"
                                     >
-                                      <path d="M5 12h14"></path>
-                                      <path d="M12 5l7 7-7 7"></path>
-                                    </svg>
-                                  </Link>
-                                </>
-                              )}
-                              {user.is_admin && (
+                                      Padecimientos
+                                      <svg
+                                        className="w-4 h-4 ml-1"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      >
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                      </svg>
+                                    </Link>
+                                  </>
+                                )}
+                              {is_active && user.is_admin && (
                                 <Link
                                   to={`/newDocPac/${id}`}
                                   className="ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5"
@@ -201,6 +215,12 @@ const Patients = () => {
                                     <path d="M12 5l7 7-7 7"></path>
                                   </svg>
                                 </Link>
+                              )}
+                              {!is_active && (
+                                <p className="ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5">
+                                  Active al paciente para poder gestionar sus
+                                  datos clinicos.
+                                </p>
                               )}
                             </div>
                           </div>
@@ -235,18 +255,34 @@ const Patients = () => {
                               ) : (
                                 <div></div>
                               )}
-                              <Button
-                                size="sm"
-                                onClick={() => {
-                                  setPatientToDelete(idUser);
-                                  setShowDeleteModal(true);
-                                }}
-                                className="bg-cerise-500"
-                              >
-                                <div className="flex items-center mx-auto">
-                                  <AiFillDelete className="w-6 h-6" /> Eliminar
-                                </div>
-                              </Button>
+                              {is_active ? (
+                                <Button
+                                  size="sm"
+                                  onClick={() => {
+                                    setPatientToDelete(idUser);
+                                    setShowDeleteModal(true);
+                                  }}
+                                  className="bg-cerise-500"
+                                >
+                                  <div className="flex items-center mx-auto">
+                                    <FaPowerOff className="w-5 h-5 mr-2" />{" "}
+                                    Desactivar
+                                  </div>
+                                </Button>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  onClick={() => {
+                                    handleActivatePatient(idUser);
+                                  }}
+                                  className="bg-[#10b981]"
+                                >
+                                  <div className="flex items-center mx-auto">
+                                    <FaPowerOff className="w-5 h-5 mr-2" />{" "}
+                                    Activar
+                                  </div>
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -278,8 +314,8 @@ const Patients = () => {
               setPatientToDelete(0);
               setShowDeleteModal(false);
             }}
-            tittle="Seguro que desea eliminar este paciente?"
-            message="Esta accion no se puede deshacer."
+            tittle="¿Seguro que desea desactivar este paciente?"
+            message="El paciente ya no podrá acceder a su cuenta ni podra ver su expediente clínico."
           />
         </div>
       )}
