@@ -6,6 +6,7 @@ import { MdOutlineSick } from "react-icons/md";
 import Loader from "../../common/Loader";
 import { Typography } from "@material-tailwind/react";
 import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
+import { GoGraph } from "react-icons/go";
 
 const PatientDetails = () => {
   const { convertToBirthDate } = useDay();
@@ -172,6 +173,41 @@ const PatientDetails = () => {
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
                         Agregar Padecimiento
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="p-4 md:w-1/3 flex">
+                    <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-indigo-500 mb-4 flex-shrink-0">
+                      <GoGraph className="w-6 h-6" />
+                    </div>
+                    <div className="flex-grow pl-6">
+                      <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
+                        Metricas Paciente
+                      </h2>
+                      <p className="leading-relaxed text-base">
+                        En esta seccion se podra consultar el progreso del
+                        paciente en cuanto a su peso, estatura, presion
+                        arterial, etc.
+                      </p>
+                      <Link
+                        to={`${
+                          import.meta.env.VITE_FRONTEND_URL ||
+                          "http://localhost:5173/"
+                        }stats/${paciente.id}`}
+                        className="mt-3 text-indigo-500 inline-flex items-center"
+                      >
+                        Consultar Metricas
                         <svg
                           fill="none"
                           stroke="currentColor"

@@ -228,3 +228,9 @@ export const getHistoriaClinicaActualRequest = (id, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getHistoriaClinicaActual/${id}`, { headers });
 };
+
+//Para las metricas
+export const getMetricasRequest = (id, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getMetricas/${id}`, { headers });
+};

@@ -30,6 +30,7 @@ import { FaClinicMedical } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext.jsx";
 import { MdContacts } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
+import { GoGraph } from "react-icons/go";
 
 const NavBar = () => {
   const [open, setOpen] = React.useState(0);
@@ -194,16 +195,28 @@ const NavBar = () => {
           </Link>
 
           {!user.is_doctor && (
-            <Link to={`/medicalRecord/${user.idPaciente}`}>
-              <ListItem className="text-white">
-                <ListItemPrefix>
-                  <MdContacts className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography className="mr-auto font-normal">
-                  Expediente Clinico
-                </Typography>
-              </ListItem>
-            </Link>
+            <>
+              <Link to={`/medicalRecord/${user.idPaciente}`}>
+                <ListItem className="text-white">
+                  <ListItemPrefix>
+                    <MdContacts className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography className="mr-auto font-normal">
+                    Expediente Clinico
+                  </Typography>
+                </ListItem>
+              </Link>
+              <Link to={`/stats/${user.idPaciente}`}>
+                <ListItem className="text-white">
+                  <ListItemPrefix>
+                    <GoGraph className="w-6 h-6" />
+                  </ListItemPrefix>
+                  <Typography className="mr-auto font-normal">
+                    Estadisticas
+                  </Typography>
+                </ListItem>
+              </Link>
+            </>
           )}
           <hr className="my-2 border-blue-gray-50" />
           <Link to={`/clinic`}>

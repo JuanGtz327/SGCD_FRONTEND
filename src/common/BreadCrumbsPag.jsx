@@ -69,6 +69,11 @@ export function BreadCrumbsPag({
       href: "/newRecipe/patientID/padecimientoID",
       type: "receta",
     },
+    {
+      title: "Estadisticas Paciente",
+      href: "/stats/patientID",
+      type: "patient",
+    },
   ];
   const [finalElements, setFinalElements] = useState([]);
 
