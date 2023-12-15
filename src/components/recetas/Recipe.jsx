@@ -118,7 +118,23 @@ const Recipe = () => {
   };
 
   const handleCreateRecipe = handleSubmit(async (data) => {
-    setLoadingRequest(true);
+
+    //Verificar que la fecha de expiracion sea mayor a la fecha actual
+    const date = new Date();
+    const dateFin = new Date(data.Fecha_fin);
+    if (dateFin < date) {
+      showToast("error", "La fecha de expiracion debe ser mayor a la fecha actual");
+      return;
+    }
+
+    //Verificar que la fecha de expiracion sea maximo 30 dias despues de la fecha actual
+    const dateMax = new Date();
+    dateMax.setDate(dateMax.getDate() + 30);
+    if (dateFin > dateMax) {
+      showToast("error", "La fecha de expiracion debe ser maximo 30 dias despues de la fecha actual");
+      return;
+    }
+
     const payload = {
       idPaciente: paciente.id,
       idHistoriaClinicaActual: padecimiento.id,
@@ -150,7 +166,15 @@ const Recipe = () => {
 
     payload.Medicamentos = Object.values(Medicamentos);
 
+    //Del array de medicamentos, eliminar los que no tengan nombre ni dosis ni frecuencia ni via de administracion
+
+    payload.Medicamentos = payload.Medicamentos.filter(
+      (medicamento) =>
+        medicamento.Nombre!=='' && medicamento.Dosis!=='' && medicamento.Frecuencia!=='' && medicamento.Via_administracion!==''
+    );
+
     try {
+      setLoadingRequest(true);
       const res = await addRecetaRequest(payload, user.token);
       if (res.status == 200) {
         showToast("success", "Receta generada");

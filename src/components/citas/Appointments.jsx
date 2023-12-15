@@ -34,7 +34,7 @@ const Appointments = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isValidHour, translatedDate } = useDay();
+  const { isToday, isBefore, isBefore6Months, isValidHour, translatedDate } = useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
   const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
@@ -58,6 +58,16 @@ const Appointments = () => {
     values.idDocPac = ids[0];
     values.id = ids[1];
     delete values.Hora;
+
+    //Validar que la cita sea maximo en los ultimos 6 meses
+    if (isBefore6Months(values.Fecha)) {
+      showToast(
+        "error",
+        "La cita no puede ser mayor a 6 meses",
+        "center"
+      );
+      return;
+    }
 
     if (!isValidHour(values.Fecha, 30)) {
       showToast(

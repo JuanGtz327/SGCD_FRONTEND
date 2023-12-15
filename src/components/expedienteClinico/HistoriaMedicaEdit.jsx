@@ -11,11 +11,13 @@ import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { editHistoriaMedicaRequest } from "../../api/api";
+import Loader from "../../common/Loader";
 
 const HistoriaMedicaEdit = ({ data, patientID }) => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const [editingData, setEditingData] = useState(data);
+  const [loading, setLoading] = useState(false);
   const [habitosNegativos, setHabitosNegativos] = useState([]);
   const [habitosPositivos, setHabitosPositivos] = useState([]);
 
@@ -59,12 +61,14 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
       habitos_salud = ["Ninguno"];
     }
     values.Habitos_salud = habitos_salud.join(",");
+    setLoading(true);
     const res = await editHistoriaMedicaRequest(data.id, values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al actualizar la historia medica");
       return;
     }
     showToast("success", "Historia Medica actualizada");
+    setLoading(false);
   });
 
   const onNewHP = (newHN, adding) => {
@@ -100,18 +104,25 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
               paciente ha pasado.
             </p>
             <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
-              <Link
-                to={`${
-                  import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-                }patient/${patientID}`}
-              >
-                <Button className="mt-5 w-full bg-cerise-500" color="blue">
-                  Volver
-                </Button>
-              </Link>
-              <Button type="submit" className="w-fit mt-5" color="blue">
-                Actualizar
-              </Button>
+              {!loading ? (
+                <>
+                  <Link
+                    to={`${
+                      import.meta.env.VITE_FRONTEND_URL ||
+                      "http://localhost:5173/"
+                    }patient/${patientID}`}
+                  >
+                    <Button className="mt-5 w-full bg-cerise-500" color="blue">
+                      Volver
+                    </Button>
+                  </Link>
+                  <Button type="submit" className="w-fit mt-5" color="blue">
+                    Actualizar
+                  </Button>
+                </>
+              ) : (
+                <Loader top="mt-0" />
+              )}
             </div>
           </div>
         )}

@@ -252,20 +252,27 @@ const PatientStats = () => {
     <div className="py-5 lg:px-16">
       {!loading && !metricasLoading && paciente ? (
         <>
-          <BreadCrumbsPag show={[1, 2, 11]} idPaciente={patientID} />
-          <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
-            <div className="w-full text-center">
-              <Typography variant="h3" color="gray" className="md:text-right">
-                Paciente: {paciente.Nombre} {paciente.ApellidoP}{" "}
-                {paciente.ApellidoM}
-              </Typography>
-              <div className="flex my-2 md:mt-6 justify-center">
-                <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
+          {user.is_doctor ? (
+            <>
+              <BreadCrumbsPag show={[1, 2, 11]} idPaciente={patientID} />
+              <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
+                <div className="w-full text-center">
+                  <Typography
+                    variant="h3"
+                    color="gray"
+                    className="md:text-right"
+                  >
+                    Paciente: {paciente.Nombre} {paciente.ApellidoP}{" "}
+                    {paciente.ApellidoM}
+                  </Typography>
+                  <div className="flex my-2 md:mt-6 justify-center">
+                    <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-sm shadow-none md:shadow-2xl py-8 md:py-6">
-            <div>
+            </>
+          ) : (
+            <div className="mb-8">
               <Typography variant="h3" color="gray" className="text-center">
                 Estadísticas
               </Typography>
@@ -278,6 +285,25 @@ const PatientStats = () => {
                 <div className="w-[50%] h-1 rounded-full bg-indigo-500 inline-flex"></div>
               </div>
             </div>
+          )}
+          <div className="bg-white rounded-sm shadow-none md:shadow-2xl py-8 md:py-6">
+            {user.is_doctor ? (
+              <div>
+                <Typography variant="h3" color="gray" className="text-center">
+                  Estadísticas
+                </Typography>
+                <Typography color="gray" className="text-center">
+                  A continuación se muestran las estadísticas generadas a partir
+                  de los datos registrados en el paciente.
+                </Typography>
+
+                <div className="flex my-2 md:mt-6 justify-center">
+                  <div className="w-[50%] h-1 rounded-full bg-indigo-500 inline-flex"></div>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
                 <div className="flex flex-wrap -mx-4 -mb-10 text-center">
@@ -286,15 +312,44 @@ const PatientStats = () => {
                       <Line data={dataPeso} options={optionsPeso} />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <FaWeight className="" />
-                      <h2>
-                        Peso Promedio{" "}
-                        {(
-                          datosPeso.reduce((total, peso) => total + peso, 0) /
-                          datosPeso.length
-                        ).toFixed(2)}{" "}
-                        kg
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <FaWeight className="h-5 w-5" />
+                          Peso Promedio{" "}
+                          {(
+                            datosPeso.reduce((total, peso) => total + peso, 0) /
+                            datosPeso.length
+                          ).toFixed(2)}{" "}
+                          kg
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {datosPeso.length > 1 &&
+                          (datosPeso[datosPeso.length - 1] >
+                          datosPeso[datosPeso.length - 2] ? (
+                            <span className="ml-5 text-green-500 text-sm">
+                              +{" "}
+                              {(
+                                datosPeso[datosPeso.length - 1] -
+                                datosPeso[datosPeso.length - 2]
+                              ).toFixed(2)}{" "}
+                              kg desde la última medición
+                            </span>
+                          ) : datosPeso[datosPeso.length - 1] ===
+                            datosPeso[datosPeso.length - 2] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Peso estable
+                            </span>
+                          ) : (
+                            <span className="text-red-500 text-sm">
+                              -{" "}
+                              {(
+                                datosPeso[datosPeso.length - 2] -
+                                datosPeso[datosPeso.length - 1]
+                              ).toFixed(2)}{" "}
+                              kg desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                   <div className="sm:w-1/2 mb-5 px-4">
@@ -302,17 +357,46 @@ const PatientStats = () => {
                       <Line data={dataEstatura} options={optionsPeso} />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <GiBodyHeight className="h-6 w-6" />
-                      <h2>
-                        Estatura Promedio{" "}
-                        {(
-                          datosEstatura.reduce(
-                            (total, estatura) => total + estatura,
-                            0
-                          ) / datosEstatura.length
-                        ).toFixed(2)}{" "}
-                        cm
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <GiBodyHeight className="h-6 w-6" />
+                          Estatura Promedio{" "}
+                          {(
+                            datosEstatura.reduce(
+                              (total, estatura) => total + estatura,
+                              0
+                            ) / datosEstatura.length
+                          ).toFixed(2)}{" "}
+                          cm
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {datosEstatura.length > 1 &&
+                          (datosEstatura[datosEstatura.length - 1] >
+                          datosEstatura[datosEstatura.length - 2] ? (
+                            <span className="ml-5 text-green-500 text-sm">
+                              +{" "}
+                              {(
+                                datosEstatura[datosEstatura.length - 1] -
+                                datosEstatura[datosEstatura.length - 2]
+                              ).toFixed(2)}{" "}
+                              cm desde la última medición
+                            </span>
+                          ) : datosEstatura[datosEstatura.length - 1] ===
+                            datosEstatura[datosEstatura.length - 2] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Estatura estable
+                            </span>
+                          ) : (
+                            <span className="text-red-500 text-sm">
+                              -{" "}
+                              {(
+                                datosEstatura[datosEstatura.length - 2] -
+                                datosEstatura[datosEstatura.length - 1]
+                              ).toFixed(2)}{" "}
+                              cm desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                   <hr className="border-blue-gray-200 mx-8 w-full mb-6" />
@@ -321,25 +405,55 @@ const PatientStats = () => {
                       <Bar data={dataPresion} options={optionsPresion} />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <GiMedicalDrip className="h-8 w-8" />
-                      <h2>
-                        Presion Arterial
-                        {` ${parseInt(
-                          (
-                            sistolica.reduce(
-                              (total, presion) => total + presion,
-                              0
-                            ) / sistolica.length
-                          ).toFixed(2)
-                        )} / ${parseInt(
-                          (
-                            diastolica.reduce(
-                              (total, presion) => total + presion,
-                              0
-                            ) / diastolica.length
-                          ).toFixed(2)
-                        )} mmHg`}
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <GiMedicalDrip className="h-8 w-8" />
+                          Presion Arterial
+                          {` ${parseInt(
+                            (
+                              sistolica.reduce(
+                                (total, presion) => total + presion,
+                                0
+                              ) / sistolica.length
+                            ).toFixed(2)
+                          )} / ${parseInt(
+                            (
+                              diastolica.reduce(
+                                (total, presion) => total + presion,
+                                0
+                              ) / diastolica.length
+                            ).toFixed(2)
+                          )} mmHg`}
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {sistolica.length > 1 &&
+                          diastolica.length > 1 &&
+                          (sistolica[sistolica.length - 1] >
+                          sistolica[sistolica.length - 2] ? (
+                            <span className="ml-5 text-green-500 text-sm">
+                              +{" "}
+                              {(
+                                sistolica[sistolica.length - 1] -
+                                sistolica[sistolica.length - 2]
+                              ).toFixed(2)}{" "}
+                              mmHg desde la última medición
+                            </span>
+                          ) : sistolica[sistolica.length - 1] ===
+                            sistolica[sistolica.length - 2] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Presión arterial estable
+                            </span>
+                          ) : (
+                            <span className="text-red-500 text-sm">
+                              -{" "}
+                              {(
+                                sistolica[sistolica.length - 2] -
+                                sistolica[sistolica.length - 1]
+                              ).toFixed(2)}{" "}
+                              mmHg desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                   <div className="sm:w-1/2 mb-5 px-4">
@@ -347,19 +461,64 @@ const PatientStats = () => {
                       <Line data={dataCardiaca} options={optionsCardio} />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <FaHeartbeat className="h-6 w-6" />
-                      <h2>
-                        Frecuencia Cardiaca Promedio{" "}
-                        {parseInt(
-                          (
-                            datosFrecuenciaCardiaca.reduce(
-                              (total, frecuencia) => total + frecuencia,
-                              0
-                            ) / datosFrecuenciaCardiaca.length
-                          ).toFixed(2)
-                        )}{" "}
-                        bpm
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <FaHeartbeat className="h-6 w-6" />
+                          Frecuencia Cardiaca Promedio{" "}
+                          {parseInt(
+                            (
+                              datosFrecuenciaCardiaca.reduce(
+                                (total, frecuencia) => total + frecuencia,
+                                0
+                              ) / datosFrecuenciaCardiaca.length
+                            ).toFixed(2)
+                          )}{" "}
+                          bpm
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {datosFrecuenciaCardiaca.length > 1 &&
+                          (datosFrecuenciaCardiaca[
+                            datosFrecuenciaCardiaca.length - 1
+                          ] >
+                          datosFrecuenciaCardiaca[
+                            datosFrecuenciaCardiaca.length - 2
+                          ] ? (
+                            <span className="ml-5 text-amber-500 text-sm">
+                              +{" "}
+                              {(
+                                datosFrecuenciaCardiaca[
+                                  datosFrecuenciaCardiaca.length - 1
+                                ] -
+                                datosFrecuenciaCardiaca[
+                                  datosFrecuenciaCardiaca.length - 2
+                                ]
+                              ).toFixed(2)}{" "}
+                              bpm desde la última medición
+                            </span>
+                          ) : datosFrecuenciaCardiaca[
+                              datosFrecuenciaCardiaca.length - 1
+                            ] ===
+                            datosFrecuenciaCardiaca[
+                              datosFrecuenciaCardiaca.length - 2
+                            ] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Frecuencia cardiaca estable
+                            </span>
+                          ) : (
+                            <span className="text-amber-500 text-sm">
+                              -{" "}
+                              {(
+                                datosFrecuenciaCardiaca[
+                                  datosFrecuenciaCardiaca.length - 2
+                                ] -
+                                datosFrecuenciaCardiaca[
+                                  datosFrecuenciaCardiaca.length - 1
+                                ]
+                              ).toFixed(2)}{" "}
+                              bpm desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                   <hr className="border-blue-gray-200 mx-8 w-full mb-6" />
@@ -371,19 +530,64 @@ const PatientStats = () => {
                       />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <FaPumpMedical className="h-6 w-6" />
-                      <h2>
-                        Frecuencia Respiratoria Promedio{" "}
-                        {parseInt(
-                          (
-                            datosFrecuenciaRespiratoria.reduce(
-                              (total, frecuencia) => total + frecuencia,
-                              0
-                            ) / datosFrecuenciaRespiratoria.length
-                          ).toFixed(2)
-                        )}{" "}
-                        xmin
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <FaPumpMedical className="h-6 w-6" />
+                          Frecuencia Respiratoria Promedio{" "}
+                          {parseInt(
+                            (
+                              datosFrecuenciaRespiratoria.reduce(
+                                (total, frecuencia) => total + frecuencia,
+                                0
+                              ) / datosFrecuenciaRespiratoria.length
+                            ).toFixed(2)
+                          )}{" "}
+                          xmin
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {datosFrecuenciaRespiratoria.length > 1 &&
+                          (datosFrecuenciaRespiratoria[
+                            datosFrecuenciaRespiratoria.length - 1
+                          ] >
+                          datosFrecuenciaRespiratoria[
+                            datosFrecuenciaRespiratoria.length - 2
+                          ] ? (
+                            <span className="ml-5 text-amber-500 text-sm">
+                              +{" "}
+                              {(
+                                datosFrecuenciaRespiratoria[
+                                  datosFrecuenciaRespiratoria.length - 1
+                                ] -
+                                datosFrecuenciaRespiratoria[
+                                  datosFrecuenciaRespiratoria.length - 2
+                                ]
+                              ).toFixed(2)}{" "}
+                              xmin desde la última medición
+                            </span>
+                          ) : datosFrecuenciaRespiratoria[
+                              datosFrecuenciaRespiratoria.length - 1
+                            ] ===
+                            datosFrecuenciaRespiratoria[
+                              datosFrecuenciaRespiratoria.length - 2
+                            ] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Frecuencia respiratoria estable
+                            </span>
+                          ) : (
+                            <span className="text-amber-500 text-sm">
+                              -{" "}
+                              {(
+                                datosFrecuenciaRespiratoria[
+                                  datosFrecuenciaRespiratoria.length - 2
+                                ] -
+                                datosFrecuenciaRespiratoria[
+                                  datosFrecuenciaRespiratoria.length - 1
+                                ]
+                              ).toFixed(2)}{" "}
+                              xmin desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                   <div className="sm:w-1/2 mb-5 px-4">
@@ -394,18 +598,47 @@ const PatientStats = () => {
                       />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">
-                      <FaTemperatureLow className="h-6 w-6" />
-                      <h2>
-                        Temperatura Promedio{" "}
-                        {(
-                          datosTemperatura.reduce(
-                            (total, temperatura) =>
-                              total + parseFloat(temperatura),
-                            0
-                          ) / datosTemperatura.length
-                        ).toFixed(2)}{" "}
-                        °C
-                      </h2>
+                      <div className="flex flex-col text-sm gap-3">
+                        <div className="flex justify-center items-center gap-2">
+                          <FaTemperatureLow className="h-6 w-6" />
+                          Temperatura Promedio{" "}
+                          {(
+                            datosTemperatura.reduce(
+                              (total, temperatura) =>
+                                total + parseFloat(temperatura),
+                              0
+                            ) / datosTemperatura.length
+                          ).toFixed(2)}{" "}
+                          °C
+                        </div>
+                        {/* Ver de cuanto fue el aumento o disminucion con respecto al valor anterior */}
+                        {datosTemperatura.length > 1 &&
+                          (datosTemperatura[datosTemperatura.length - 1] >
+                          datosTemperatura[datosTemperatura.length - 2] ? (
+                            <span className="ml-5 text-cerise-500 text-sm">
+                              +{" "}
+                              {(
+                                datosTemperatura[datosTemperatura.length - 1] -
+                                datosTemperatura[datosTemperatura.length - 2]
+                              ).toFixed(2)}{" "}
+                              °C desde la última medición
+                            </span>
+                          ) : datosTemperatura[datosTemperatura.length - 1] ===
+                            datosTemperatura[datosTemperatura.length - 2] ? (
+                            <span className="ml-5 text-gray-500 text-sm">
+                              Temperatura estable
+                            </span>
+                          ) : (
+                            <span className="text-cyan-500 text-sm">
+                              -{" "}
+                              {(
+                                datosTemperatura[datosTemperatura.length - 2] -
+                                datosTemperatura[datosTemperatura.length - 1]
+                              ).toFixed(2)}{" "}
+                              °C desde la última medición
+                            </span>
+                          ))}
+                      </div>
                     </div>
                   </div>
                 </div>

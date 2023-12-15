@@ -40,6 +40,7 @@ const DoctorConfigs = () => {
   const { user } = useAuth();
   const { getDoctor } = useDoctors();
   const [loading, setLoading] = useState(true);
+  const [btnLoading, setBtnLoading] = useState(false);
   const { showToast } = useToast();
   const [configuraciones, setConfiguraciones] = useState({});
 
@@ -113,59 +114,68 @@ const DoctorConfigs = () => {
                     </p>
                   </div>
                   <div className="w-full md:w-fit flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
-                    <Button
-                      onClick={async () => {
-                        const configuracionesPayload = {
-                          Dias_laborables:
-                            configuraciones.Dias_laborables.join(","),
-                          Horario: configuraciones.Horario,
-                          Duracion_cita: configuraciones.Duracion_cita,
-                        };
+                    {!btnLoading ? (
+                      <Button
+                        onClick={async () => {
+                          const configuracionesPayload = {
+                            Dias_laborables:
+                              configuraciones.Dias_laborables.join(","),
+                            Horario: configuraciones.Horario,
+                            Duracion_cita: configuraciones.Duracion_cita,
+                          };
 
-                        const [horasInicio, minutosInicio] = configuraciones.Horario
-                          .split("-")[0]
-                          .split(":")
-                          .map(Number);
-                        const [horasFin, minutosFin] = configuraciones.Horario
-                          .split("-")[1]
-                          .split(":")
-                          .map(Number);
+                          const [horasInicio, minutosInicio] =
+                            configuraciones.Horario.split("-")[0]
+                              .split(":")
+                              .map(Number);
+                          const [horasFin, minutosFin] =
+                            configuraciones.Horario.split("-")[1]
+                              .split(":")
+                              .map(Number);
 
-                        if (
-                          !(
-                            horasInicio < horasFin ||
-                            (horasInicio === horasFin &&
-                              minutosInicio < minutosFin)
-                          )
-                        ) {
-                          showToast(
-                            "error",
-                            "La hora de inicio debe ser menor a la hora de fin"
-                          );
-                          return;
-                        }
+                          if (
+                            !(
+                              horasInicio < horasFin ||
+                              (horasInicio === horasFin &&
+                                minutosInicio < minutosFin)
+                            )
+                          ) {
+                            showToast(
+                              "error",
+                              "La hora de inicio debe ser menor a la hora de fin"
+                            );
+                            return;
+                          }
 
-                        try {
-                          await editDoctorConfigsRequest(
-                            user.idDoctor,
-                            { configuracionesPayload },
-                            user.token
-                          );
-                          showToast("success", "Configuraciones actualizadas");
-                        } catch (error) {
-                          console.log(error);
-                          showToast(
-                            "error",
-                            error.response.data.message,
-                            "center"
-                          );
-                        }
-                      }}
-                      className="md:w-fit my-5 md:my-0 md:mt-5"
-                      color="blue"
-                    >
-                      Actualizar
-                    </Button>
+                          try {
+                            setBtnLoading(true);
+                            await editDoctorConfigsRequest(
+                              user.idDoctor,
+                              { configuracionesPayload },
+                              user.token
+                            );
+                            showToast(
+                              "success",
+                              "Configuraciones actualizadas"
+                            );
+                          } catch (error) {
+                            console.log(error);
+                            showToast(
+                              "error",
+                              error.response.data.message,
+                              "center"
+                            );
+                          }
+                          setBtnLoading(false);
+                        }}
+                        className="md:w-fit my-5 md:my-0 md:mt-5"
+                        color="blue"
+                      >
+                        Actualizar
+                      </Button>
+                    ) : (
+                      <Loader top="mt-0" />
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col gap-8">

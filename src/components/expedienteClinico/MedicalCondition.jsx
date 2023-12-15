@@ -65,6 +65,19 @@ const MedicalCondition = () => {
   const onSubmit = handleSubmit(async (values) => {
     setLoadingPadecimiento(true);
     values.idHistorialClinico = idHistorial;
+
+    //Verificar que la fecha de inicio de sintomas sea menor a la fecha actual
+    const date1 = new Date(values.Fecha_inicio_sintomas);
+    const date2 = new Date();
+    if (date1 > date2) {
+      showToast(
+        "error",
+        "La fecha de inicio de sintomas no puede ser mayor a la fecha actual"
+      );
+      setLoadingPadecimiento(false);
+      return;
+    }
+
     const res = await addHistoriaClinicaActual(values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al añadir el padecimiento");
@@ -86,10 +99,7 @@ const MedicalCondition = () => {
 
   return (
     <section className="text-gray-600 body-font lg:px-16">
-      <BreadCrumbsPag
-        show={[1, 2, 3, 5]}
-        idPaciente={patientID}
-      />
+      <BreadCrumbsPag show={[1, 2, 3, 5]} idPaciente={patientID} />
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">
@@ -111,7 +121,7 @@ const MedicalCondition = () => {
       <div className="container px-1 md:py-5 2xl:py-0 mx-auto flex flex-wrap items-center divide-red-700">
         <div className="w-full lg:w-2/6 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <Timeline>
-            {!loading ? (
+            {!loading && infoToDisplay ? (
               <>
                 {infoToDisplay.map(
                   (
@@ -250,24 +260,26 @@ const MedicalCondition = () => {
               </div>
               <div className="lg:col-span-6">
                 <div className="flex gap-5">
-                  <Link
-                    to={`${
-                      import.meta.env.VITE_FRONTEND_URL ||
-                      "http://localhost:5173/"
-                    }patient/${patientID}`}
-                  >
-                    <Button className="w-fit bg-cerise-500" color="blue">
-                      Cancelar
-                    </Button>
-                  </Link>
                   {!loadingPadecimiento ? (
-                    <Button
-                      type="submit"
-                      className="w-full md:w-fit "
-                      color="blue"
-                    >
-                      Añadir
-                    </Button>
+                    <>
+                      <Link
+                        to={`${
+                          import.meta.env.VITE_FRONTEND_URL ||
+                          "http://localhost:5173/"
+                        }patient/${patientID}`}
+                      >
+                        <Button className="w-fit bg-cerise-500" color="blue">
+                          Cancelar
+                        </Button>
+                      </Link>
+                      <Button
+                        type="submit"
+                        className="w-full md:w-fit "
+                        color="blue"
+                      >
+                        Añadir Padecimiento
+                      </Button>
+                    </>
                   ) : (
                     <Loader top="mt-0" size="w-12 h-12" />
                   )}

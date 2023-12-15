@@ -107,7 +107,7 @@ const MainPanel = () => {
                 {!user.is_admin ? (
                   <Typography variant="h3" color="gray">
                     {user.is_doctor ? (
-                      "Dr. " +
+                      `${perfil?.Doctor.Genero === 'F'?'Dra. ':'Dr. '}` +
                       perfil?.Doctor.Nombre +
                       " " +
                       perfil?.Doctor.ApellidoP +
@@ -321,6 +321,9 @@ const MainPanel = () => {
                                 <ListItem
                                   key={doctor.id}
                                   className="px-1 md:px-4"
+                                  onClick={() =>
+                                    navigate(`/doctor/${doctor.id}`)
+                                  }
                                 >
                                   <ListItemPrefix>
                                     <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
@@ -346,8 +349,8 @@ const MainPanel = () => {
                                         className="flex"
                                       >
                                         {doctor.Nombre}
-                                        <p className="hidden md:block">
-                                          {doctor.ApellidoP} {doctor.ApellidoM}
+                                        <p className="hidden md:block ml-1">
+                                          {doctor.ApellidoP}  {doctor.ApellidoM}
                                         </p>
                                       </Typography>
                                       <Typography
@@ -383,6 +386,9 @@ const MainPanel = () => {
                                 <ListItem
                                   key={paciente.id}
                                   className="px-1 md:px-4"
+                                  onClick={() =>
+                                    navigate(`/patient/${paciente.id}`)
+                                  }
                                 >
                                   <ListItemPrefix>
                                     <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
@@ -465,6 +471,9 @@ const MainPanel = () => {
                             <ListItem
                               key={paciente.id}
                               className="px-1 md:px-4"
+                              onClick={() =>
+                                navigate(`/patient/${paciente.id}`)
+                              }
                             >
                               <ListItemPrefix>
                                 <div className="sm:w-11 sm:h-11 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">

@@ -5,10 +5,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { editExamenFisicoRequest } from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
+import Loader from "../../common/Loader";
 
 const ExamenFisicoEdit = ({ data, patientID }) => {
   const { user } = useAuth();
   const { showToast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [editingData, setEditingData] = useState(data);
   const {
     register,
@@ -83,12 +85,14 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
       return;
     }
 
+    setLoading(true);
     const res = await editExamenFisicoRequest(data.id, values, user.token);
     if (res.status !== 200) {
       showToast("error", "Ocurrio un error al actualizar el examen fisico");
       return;
     }
     showToast("success", "Examen Fisico actualizado");
+    setLoading(false);
   });
 
   return (
@@ -104,18 +108,25 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
               paciente.
             </p>
             <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
-              <Link
-                to={`${
-                  import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-                }patient/${patientID}`}
-              >
-                <Button className="mt-5 w-full bg-cerise-500" color="blue">
-                  Volver
-                </Button>
-              </Link>
-              <Button type="submit" className="w-fit mt-5" color="blue">
-                Actualizar
-              </Button>
+              {!loading ? (
+                <>
+                  <Link
+                    to={`${
+                      import.meta.env.VITE_FRONTEND_URL ||
+                      "http://localhost:5173/"
+                    }patient/${patientID}`}
+                  >
+                    <Button className="mt-5 w-full bg-cerise-500" color="blue">
+                      Volver
+                    </Button>
+                  </Link>
+                  <Button type="submit" className="w-fit mt-5" color="blue">
+                    Actualizar
+                  </Button>
+                </>
+              ) : (
+                <Loader top="mt-0" />
+              )}
             </div>
           </div>
         )}

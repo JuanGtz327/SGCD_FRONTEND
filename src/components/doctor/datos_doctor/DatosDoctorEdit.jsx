@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { editDoctorRequest } from "../../../api/api";
 import { useAuth } from "../../../context/AuthContext";
 import { useToast } from "../../../hooks/useToast";
+import Loader from "../../../common/Loader";
 
 const DatosPersonales = ({ doctor, doctorID }) => {
   const { user } = useAuth();
   const [editingData, setEditingData] = useState(doctor);
+  const [loading, setLoading] = useState(false);
   const { showToast } = useToast();
 
   const {
@@ -39,13 +41,14 @@ const DatosPersonales = ({ doctor, doctorID }) => {
     };
 
     try {
+      setLoading(true);
       await editDoctorRequest(doctorID, citaPaylaod, user.token);
       showToast("success", "Doctor actualizado");
-      
     } catch (error) {
-      showToast("error",error.response.data.message);
+      showToast("error", error.response.data.message);
       return;
     }
+    setLoading(false);
   });
 
   return (
@@ -56,23 +59,28 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             Datos personales
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            En este apartado debe incluir la informacion personal de su
-            doctor.
+            En este apartado debe incluir la informacion personal de su doctor.
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
-          <Link
-            to={`${
-              import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
-            }doctor/${doctorID}`}
-          >
-            <Button className="mt-5 w-full bg-cerise-500" color="blue">
-              Volver
-            </Button>
-          </Link>
-          <Button type="submit" className="w-fit mt-5" color="blue">
-            Actualizar
-          </Button>
+          {!loading ? (
+            <>
+              <Link
+                to={`${
+                  import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/"
+                }doctor/${doctorID}`}
+              >
+                <Button className="mt-5 w-full bg-cerise-500" color="blue">
+                  Volver
+                </Button>
+              </Link>
+              <Button type="submit" className="w-fit mt-5" color="blue">
+                Actualizar
+              </Button>
+            </>
+          ) : (
+            <Loader top="mt-0" />
+          )}
         </div>
       </div>
 

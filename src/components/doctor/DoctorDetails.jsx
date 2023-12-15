@@ -25,8 +25,8 @@ const DoctorDetails = () => {
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
               <Typography variant="h3" color="gray" className="md:text-right">
-                Dr: {doctor.Nombre} {doctor.ApellidoP}{" "}
-                {doctor.ApellidoM}
+                {doctor.Genero === "F" ? "Dra. " : "Dr. "} {doctor.Nombre}{" "}
+                {doctor.ApellidoP} {doctor.ApellidoM}
               </Typography>
               <div className="flex my-2 md:mt-6 justify-center">
                 <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -55,11 +55,14 @@ const DoctorDetails = () => {
                       </div>
                       <div className="flex flex-col items-center text-center justify-center">
                         <h2 className="font-medium title-font mt-4 text-gray-900 text-lg">
-                          Dr. {doctor.Nombre} {doctor.ApellidoP}{" "}
-                          {doctor.ApellidoM}
+                          {doctor.Genero === "F" ? "Dra. " : "Dr. "}{" "}
+                          {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
                         </h2>
                         <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
-                        <p className="text-base">Doctor No# {doctor.id}</p>
+                        <p className="text-base">
+                          {doctor.Genero === "F" ? "Doctora " : "Doctor "} No#{" "}
+                          {doctor.id}
+                        </p>
                         <Button
                           className="mt-3 bg-cerise-500 inline-flex items-center"
                           onClick={() => navigate("/listDoctors")}

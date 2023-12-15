@@ -41,6 +41,11 @@ export const useDay = () => {
     return currentDate.isBefore(dayjs(Fecha));
   };
 
+  const isBefore6Months = (Fecha) => {
+    const original = dayjs(Fecha)
+    return currentDate.isBefore(original.subtract(6, "month"));
+  };
+
   const inProgress = (Fecha) => {
     return currentDate.isBetween(Fecha, Fecha.add(30, "minute"));
   };
@@ -88,6 +93,7 @@ export const useDay = () => {
     isToday,
     isBefore,
     isBeforeOneDay,
+    isBefore6Months,
     isAfter,
     isValidHour,
     inProgress,

@@ -136,7 +136,7 @@ const PacDoc = () => {
                         color="blue-gray"
                         className="mb-2"
                       >
-                        Dr. {doctor.Nombre} {doctor.ApellidoP}{" "}
+                        {doctor.Genero === "F" ? "Dra. " : "Dr. "} {doctor.Nombre} {doctor.ApellidoP}{" "}
                         {doctor.ApellidoM}
                       </Typography>
                       <Typography

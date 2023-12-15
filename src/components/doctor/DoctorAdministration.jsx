@@ -68,6 +68,7 @@ const DoctorAdministration = () => {
   const [doctor, setDoctor] = useState(null);
   const { getDoctor } = useDoctors(null, doctorID);
   const [loading, setLoading] = useState(true);
+  const [loadingConfig, setLoadingConfig] = useState(false);
   const { user } = useAuth();
   const { showToast } = useToast();
   const [configuraciones, setConfiguraciones] = useState({});
@@ -117,7 +118,8 @@ const DoctorAdministration = () => {
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
               <Typography variant="h3" color="gray" className="md:text-right">
-                Dr: {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
+                {doctor.Genero === "F" ? "Dra. " : "Dr. "} {doctor.Nombre}{" "}
+                {doctor.ApellidoP} {doctor.ApellidoM}
               </Typography>
               <div className="flex my-2 md:mt-6 justify-center">
                 <div className="w-full h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -173,76 +175,86 @@ const DoctorAdministration = () => {
                               </p>
                             </div>
                             <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
-                              <Link
-                                to={`${
-                                  import.meta.env.VITE_FRONTEND_URL ||
-                                  "http://localhost:5173/"
-                                }doctor/${doctorID}`}
-                              >
-                                <Button
-                                  className="mt-5 w-full bg-cerise-500"
-                                  color="blue"
-                                >
-                                  Volver
-                                </Button>
-                              </Link>
-                              <Button
-                                onClick={async () => {
-                                  const configuracionesPayload = {
-                                    Dias_laborables:
-                                      configuraciones.Dias_laborables.join(","),
-                                    Horario: configuraciones.Horario,
-                                    Duracion_cita:
-                                      configuraciones.Duracion_cita,
-                                  };
+                              {!loadingConfig ? (
+                                <>
+                                  <Link
+                                    to={`${
+                                      import.meta.env.VITE_FRONTEND_URL ||
+                                      "http://localhost:5173/"
+                                    }doctor/${doctorID}`}
+                                  >
+                                    <Button
+                                      className="mt-5 w-full bg-cerise-500"
+                                      color="blue"
+                                    >
+                                      Volver
+                                    </Button>
+                                  </Link>
+                                  <Button
+                                    onClick={async () => {
+                                      const configuracionesPayload = {
+                                        Dias_laborables:
+                                          configuraciones.Dias_laborables.join(
+                                            ","
+                                          ),
+                                        Horario: configuraciones.Horario,
+                                        Duracion_cita:
+                                          configuraciones.Duracion_cita,
+                                      };
 
-                                  const [horasInicio, minutosInicio] =
-                                    configuraciones.Horario.split("-")[0]
-                                      .split(":")
-                                      .map(Number);
-                                  const [horasFin, minutosFin] =
-                                    configuraciones.Horario.split("-")[1]
-                                      .split(":")
-                                      .map(Number);
+                                      const [horasInicio, minutosInicio] =
+                                        configuraciones.Horario.split("-")[0]
+                                          .split(":")
+                                          .map(Number);
+                                      const [horasFin, minutosFin] =
+                                        configuraciones.Horario.split("-")[1]
+                                          .split(":")
+                                          .map(Number);
 
-                                  if (
-                                    !(
-                                      horasInicio < horasFin ||
-                                      (horasInicio === horasFin &&
-                                        minutosInicio < minutosFin)
-                                    )
-                                  ) {
-                                    showToast(
-                                      "error",
-                                      "La hora de inicio debe ser menor a la hora de fin"
-                                    );
-                                    return;
-                                  }
+                                      if (
+                                        !(
+                                          horasInicio < horasFin ||
+                                          (horasInicio === horasFin &&
+                                            minutosInicio < minutosFin)
+                                        )
+                                      ) {
+                                        showToast(
+                                          "error",
+                                          "La hora de inicio debe ser menor a la hora de fin"
+                                        );
+                                        return;
+                                      }
 
-                                  try {
-                                    await editDoctorConfigsRequest(
-                                      doctorID,
-                                      { configuracionesPayload },
-                                      user.token
-                                    );
-                                    showToast(
-                                      "success",
-                                      "Configuraciones actualizadas"
-                                    );
-                                  } catch (error) {
-                                    console.log(error);
-                                    showToast(
-                                      "error",
-                                      error.response.data.message,
-                                      "center"
-                                    );
-                                  }
-                                }}
-                                className="w-fit mt-5"
-                                color="blue"
-                              >
-                                Actualizar
-                              </Button>
+                                      try {
+                                        setLoadingConfig(true);
+                                        await editDoctorConfigsRequest(
+                                          doctorID,
+                                          { configuracionesPayload },
+                                          user.token
+                                        );
+                                        showToast(
+                                          "success",
+                                          "Configuraciones actualizadas"
+                                        );
+                                      } catch (error) {
+                                        console.log(error);
+                                        showToast(
+                                          "error",
+                                          error.response.data.message,
+                                          "center"
+                                        );
+                                      }
+                                      setLoadingConfig(false);
+                                    }}
+                                    className="w-fit mt-5"
+                                    color="blue"
+                                  >
+                                    Actualizar
+                                  </Button>
+                                </>
+                              ) : (
+                                <Loader top="mt-0" />
+                              )}
                             </div>
                           </div>
                           <div className="flex flex-col gap-8">
