@@ -33,6 +33,7 @@ import PacDoc from "./components/admin/PacDoc.jsx";
 import DoctorConfigs from "./components/doctor/DoctorConfigs.jsx";
 import Recipe from "./components/recetas/Recipe.jsx";
 import PatientStats from "./components/paciente/PatientStats.jsx";
+import RecoverPassword from "./pages/RecoverPassword.jsx";
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/" element={<PaginaInicio />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/resetPassword" element={<RecoverPassword />} />
             <Route element={<ProtectedRoute />}>
               <Route
                 path="/main"

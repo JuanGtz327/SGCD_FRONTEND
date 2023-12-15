@@ -234,3 +234,12 @@ export const getMetricasRequest = (id, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return axios.get(`/admin/getMetricas/${id}`, { headers });
 };
+
+//Para contraseña olvidada
+export const forgotPasswordRequest = (data) => {
+  return axios.post(`/admin/forgotPassword`, data);
+};
+
+export const resetPasswordRequest = (data) => {
+  return axios.post(`/admin/resetPassword`, data);
+};

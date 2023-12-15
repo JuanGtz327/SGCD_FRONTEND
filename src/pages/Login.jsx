@@ -9,11 +9,16 @@ import {
   Typography,
   CardBody,
   CardFooter,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../hooks/useToast.js";
 import fondo from "../assets/fondo.svg";
 import Loader from "../common/Loader.jsx";
+import { forgotPasswordRequest } from "../api/api.js";
 
 const LogIn = () => {
   const [loading, setLoading] = useState(false);
@@ -22,7 +27,14 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm();
   const { signin, isAuthenticated } = useAuth();
+  const [modalPassword, setModalPassword] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -42,6 +54,16 @@ const LogIn = () => {
       showToast("error", error.message, "center");
     }
     setLoading(false);
+  });
+
+  const onMissingPasswordSubmit = handleSubmit(async (values) => {
+    try {
+      await forgotPasswordRequest(values);
+      showToast("success", "Verifique su correo electrónico");
+    } catch (error) {
+      showToast("error", error.message, "center");
+    }
+    setModalPassword(false);
   });
 
   return (
@@ -93,7 +115,14 @@ const LogIn = () => {
                 )}
               </form>
             </CardBody>
-            <CardFooter className="flex justify-center mt-auto">
+            <CardFooter className="flex flex-col justify-center mt-auto">
+              <Typography
+                variant="small"
+                onClick={() => setModalPassword(true)}
+                className="mx-auto mb-2 textClinic font-bold hover:text-azure-900 hover:underline cursor-pointer"
+              >
+                No recuerdo mi contraseña
+              </Typography>
               <div className="text-sm text-gray-500 flex justify-center">
                 <Typography
                   variant="small"
@@ -111,6 +140,61 @@ const LogIn = () => {
           </svg>
         </div>
       </div>
+      <Dialog
+        open={modalPassword}
+        size="md"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>Restablecer contraseña</DialogHeader>
+
+        <form onSubmit={onMissingPasswordSubmit}>
+          <DialogBody>
+            <Typography color="blue-gray">
+              Ingrese su correo electrónico, recibira un correo con las
+              instrucciones para restablecer su contraseña.
+            </Typography>
+            <div className="mt-6 flex flex-col gap-6">
+              <Input
+                size="lg"
+                label="CorreoR"
+                variant="standard"
+                color="blue"
+                type="text"
+                {...register2("CorreoR", { required: true })}
+                error={errors2.CorreoR ? true : false}
+              />
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              onClick={() => {
+                setModalPassword(false);
+              }}
+              className="mr-1 bg-cerise-500"
+            >
+              <span>Cancelar</span>
+            </Button>
+            <Button
+              color="blue"
+              type="sumbit"
+              onClick={handleSubmit2(async (values) => {
+                try {
+                  await forgotPasswordRequest({ Correo: values.CorreoR });
+                  showToast("success", "Verifique su correo electrónico");
+                } catch (error) {
+                  showToast("error", error.message, "center");
+                }
+                setModalPassword(false);
+              })}
+            >
+              <span>Enviar correo</span>
+            </Button>
+          </DialogFooter>
+        </form>
+      </Dialog>
     </>
   );
 };
