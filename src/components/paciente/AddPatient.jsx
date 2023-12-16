@@ -132,7 +132,39 @@ const AddPatient = () => {
       showErrors.push("El formato de la CURP no es valido");
 
     //Verificar que el nombre no contenga numeros
-    const nombreRegex = /^[a-zA-Z\s]*$/;
+    const nombreRegex = /^[a-zA-Z][a-zA-Z\s]*$/;
+
+    //aplicar .trim() a los campos de texto
+    Object.keys(pacientePayload).forEach((key) => {
+      if (typeof pacientePayload[key] === "string") {
+        pacientePayload[key] = pacientePayload[key].trim();
+      }
+    });
+
+    Object.keys(domicilioPayload).forEach((key) => {
+      if (typeof domicilioPayload[key] === "string") {
+        domicilioPayload[key] = domicilioPayload[key].trim();
+      }
+    });
+
+    Object.keys(historiaMedicaPayload).forEach((key) => {
+      if (typeof historiaMedicaPayload[key] === "string") {
+        historiaMedicaPayload[key] = historiaMedicaPayload[key].trim();
+      }
+    });
+
+    Object.keys(examenFisicoPayload).forEach((key) => {
+      if (typeof examenFisicoPayload[key] === "string") {
+        examenFisicoPayload[key] = examenFisicoPayload[key].trim();
+      }
+    });
+
+    Object.keys(historiaClinicaActualPayload).forEach((key) => {
+      if (typeof historiaClinicaActualPayload[key] === "string") {
+        historiaClinicaActualPayload[key] =
+          historiaClinicaActualPayload[key].trim();
+      }
+    });
 
     if (!nombreRegex.test(pacientePayload.Nombre))
       showErrors.push("El nombre no puede contener numeros");
