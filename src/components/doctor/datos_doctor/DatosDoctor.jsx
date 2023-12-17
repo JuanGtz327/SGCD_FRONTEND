@@ -7,7 +7,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         Datos personales
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir la informacion personal de su paciente.
+        En este apartado debe incluir la información personal de su paciente.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -30,7 +30,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Apellido Paterno"
+              label="Apellido paterno"
               maxLength={15}
               type="text"
               variant="standard"
@@ -45,7 +45,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Apellido Materno"
+              label="Apellido materno"
               maxLength={15}
               type="text"
               variant="standard"
@@ -74,7 +74,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           <div className="mt-2">
             <Input
               color="blue"
-              label="Cedula Profesional"
+              label="Cédula profesional"
               maxLength={8}
               variant="standard"
               size="lg"
@@ -94,7 +94,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
               render={({ field }) => (
                 <Select
                   {...field}
-                  label="Genero"
+                  label="Sexo"
                   error={errors.Genero ? true : false}
                   size="lg"
                   variant="standard"
@@ -186,7 +186,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
                 clipRule="evenodd"
               />
             </svg>
-            Usa al menos 8 caracteres, una mayuscula y un numero
+            Usa al menos 8 caracteres, una mayúscula y un número.
           </Typography>
         </div>
 
@@ -209,7 +209,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Telefonico"
+              label="Numero telefónico"
               variant="standard"
               type="number"
               {...register("Telefono", { required: true })}
@@ -268,7 +268,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Codigo Postal"
+              label="Código postal"
               type="number"
               variant="standard"
               {...register("CP", { required: true })}
@@ -296,7 +296,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Exterior"
+              label="Numero exterior"
               maxLength={5}
               type="text"
               variant="standard"
@@ -311,7 +311,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Interior"
+              label="Numero interior"
               maxLength={5}
               type="text"
               variant="standard"

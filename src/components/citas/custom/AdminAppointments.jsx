@@ -70,7 +70,7 @@ const AdminAppointments = () => {
     if (!isValidHour(values.Fecha, 30)) {
       showToast(
         "error",
-        "La cita no puede ser en los ultimos 30 min",
+        "La cita no puede ser en los últimos 30 min",
         "center"
       );
       return;
@@ -116,11 +116,11 @@ const AdminAppointments = () => {
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-              Citas Administrador
+              Citas
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
               En este apartado puede consultar la agenda de citas de los
-              doctores y agendar citas para los pacientes.
+              doctores, así como agendar citas en base al doctor seleccionado.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -326,7 +326,7 @@ const AdminAppointments = () => {
                   />
                   <Textarea
                     color="blue"
-                    label="Diagnostico"
+                    label="Diagnóstico"
                     {...register("Diagnostico", { required: true })}
                     error={errors.Diagnostico ? true : false}
                     variant="standard"

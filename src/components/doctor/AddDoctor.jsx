@@ -123,7 +123,7 @@ const AddDoctor = () => {
   const onLaborableDay = (day, checked) => {
     if (!checked) {
       if (configuraciones.dias_laborables.length == 1) {
-        showToast("error", "Debe seleccionar al menos un dia laborable");
+        showToast("error", "Debe seleccionar al menos un día laborable");
         return;
       }
       setConfiguraciones({
@@ -175,7 +175,7 @@ const AddDoctor = () => {
               <div className="flex flex-col gap-8">
                 <div>
                   <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                    Dias Laborales
+                    Días laborales
                   </h2>
                   <div className="mt-5 grid grid-cols-2 sm:grid-cols-7 gap-x-6">
                     <div className="flex">
@@ -220,7 +220,7 @@ const AddDoctor = () => {
                         }}
                       />
                       <Typography color="gray" className="self-center">
-                        Miercoles
+                        Miércoles
                       </Typography>
                     </div>
                     <div className="flex">
@@ -265,7 +265,7 @@ const AddDoctor = () => {
                         }}
                       />
                       <Typography color="gray" className="self-center">
-                        Sabado
+                        Sábado
                       </Typography>
                     </div>
                     <div className="flex">
@@ -287,7 +287,7 @@ const AddDoctor = () => {
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                    Horario de Trabajo
+                    Horario de trabajo
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-5">
                     <Controller
@@ -298,7 +298,7 @@ const AddDoctor = () => {
                         <Select
                           {...field}
                           color="blue"
-                          label="Horario de Entrada"
+                          label="Horario de entrada"
                           variant="standard"
                         >
                           {horarios.map((horario) => (
@@ -317,7 +317,7 @@ const AddDoctor = () => {
                         <Select
                           {...field}
                           color="blue"
-                          label="Horario de Salida"
+                          label="Horario de salida"
                           variant="standard"
                         >
                           {horarios.map((horario) => (
@@ -335,7 +335,7 @@ const AddDoctor = () => {
                       render={({ field }) => (
                         <Select
                           {...field}
-                          label="Duracion de la cita"
+                          label="Duración de la cita"
                           variant="standard"
                           error={errors.Duracion ? true : false}
                         >

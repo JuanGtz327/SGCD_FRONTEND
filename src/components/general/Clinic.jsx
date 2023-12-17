@@ -95,7 +95,7 @@ const Clinic = () => {
         { clinicaPayload, domicilioPayload },
         user.token
       );
-      showToast("success", "Clinica Actualizada");
+      showToast("success", "Clínica actualizada");
       handleOpen();
       window.location.reload();
     } catch (error) {
@@ -113,9 +113,9 @@ const Clinic = () => {
                 Clinica
               </h1>
               <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                En este apartado puede consultar la informacion de la clinica a
-                la que pertenece. Detalles como direccion, correo electronico y
-                numero de telefono.
+                En este apartado puede consultar la información de la clínica a
+                la que pertenece. Detalles como dirección, correo electrónico y
+                número de teléfono.
               </p>
               <div className="flex mt-6 justify-center">
                 <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -134,7 +134,7 @@ const Clinic = () => {
               <div className="md:bg-white relative flex flex-wrap py-6 rounded md:shadow-md">
                 <div className="lg:w-1/2 px-6">
                   <h2 className="text-base font-semibold sm:text-gray-900 text-transparent">
-                    Direccion
+                    Dirección
                   </h2>
                   <p className="mt-1 sm:text-gray-900 text-transparent">
                     {clinica.Domicilio != undefined
@@ -182,7 +182,7 @@ const Clinic = () => {
                       className="mt-3 w-full"
                       onClick={handleOpen}
                     >
-                      Actualizar Clinica
+                      Actualizar Clínica
                     </Button>
                   )}
                 </CardBody>
@@ -210,11 +210,11 @@ const Clinic = () => {
         dismiss={{ enabled: false }}
       >
         <form onSubmit={onSubmit}>
-          <DialogHeader>Acutalizar Clinica</DialogHeader>
+          <DialogHeader>Acutalizar clínica</DialogHeader>
           <DialogBody>
             <div className="px-4 md:py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
               <dt className="text-base font-medium leading-6 text-gray-900">
-                Detalles de la clinica
+                Detalles de la clínica
               </dt>
               <div className="col-span-5">
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-0">
@@ -242,7 +242,7 @@ const Clinic = () => {
                         <Input
                           color="blue"
                           value={clinica?.Descripcion}
-                          label="Descripcion de la clinica"
+                          label="Descripción de la clínica"
                           variant="standard"
                           {...register("Descripcion", { required: true })}
                           error={errors.Descripcion ? true : false}
@@ -271,7 +271,7 @@ const Clinic = () => {
                         color="blue"
                         size="lg"
                         value={clinica?.Domicilio?.Telefono}
-                        label="Numero Telefonico"
+                        label="Numero telefónico"
                         variant="standard"
                         type="number"
                         {...register("Telefono", { required: true })}
@@ -338,7 +338,7 @@ const Clinic = () => {
                         color="blue"
                         value={clinica?.Domicilio?.CP}
                         size="lg"
-                        label="Codigo Postal"
+                        label="Código postal"
                         type="number"
                         variant="standard"
                         {...register("CP", { required: true })}
@@ -370,7 +370,7 @@ const Clinic = () => {
                         color="blue"
                         value={clinica?.Domicilio?.Num_ext}
                         size="lg"
-                        label="Numero Exterior"
+                        label="Numero exterior"
                         maxLength={5}
                         type="text"
                         variant="standard"
@@ -387,7 +387,7 @@ const Clinic = () => {
                         color="blue"
                         value={clinica?.Domicilio?.Num_int}
                         size="lg"
-                        label="Numero Interior"
+                        label="Numero interior"
                         maxLength={5}
                         type="text"
                         variant="standard"

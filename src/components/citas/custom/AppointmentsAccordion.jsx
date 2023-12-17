@@ -126,7 +126,7 @@ const AppointmentsAccordion = ({
           getDia(dayjs(event.target.value))
         )
       ) {
-        showToast("error", "Este dia no esta disponible para agendar citas.");
+        showToast("error", "Este día no esta disponible para agendar citas.");
         return;
       }
       const valor =
@@ -174,7 +174,7 @@ const AppointmentsAccordion = ({
                 {view === "admin" ? (
                   <div className="flex flex-col">
                     <b>
-                      Medico:{" "}
+                      Médico:{" "}
                       {Doctor.Nombre +
                         " " +
                         Doctor.ApellidoP +
@@ -201,7 +201,7 @@ const AppointmentsAccordion = ({
                   </p>
                 ) : (
                   <p>
-                    {"Medico: " +
+                    {"Médico: " +
                       Doctor.Nombre +
                       " " +
                       Doctor.ApellidoP +
@@ -238,11 +238,11 @@ const AppointmentsAccordion = ({
                     {dayjs(Fecha).format("h:mm A")}
                   </p>
                   <p>
-                    <b className="font-bold">Diagnostico:</b> {Diagnostico}
+                    <b className="font-bold">Diagnóstico:</b> {Diagnostico}
                   </p>
                   {CancelacionCitum && (
                     <p>
-                      <b className="font-bold">Motivo Cancelacion:</b>{" "}
+                      <b className="font-bold">Motivo cancelación:</b>{" "}
                       {CancelacionCitum.Motivo}
                     </p>
                   )}
@@ -301,7 +301,7 @@ const AppointmentsAccordion = ({
                           setSelectedAppointment(id);
                         }}
                       >
-                        Confirmar Cancelacion
+                        Confirmar cancelación
                       </Button>
                       <Button
                         className="bg-blue-500 h-fit"
@@ -332,8 +332,8 @@ const AppointmentsAccordion = ({
         onCancel={() => {
           setShowConfirmationModal(false);
         }}
-        tittle="Confirmar Cancelacion"
-        message="¿Realemente desea cancelar la cita? Esta accion no se puede deshacer."
+        tittle="Confirmar cancelación"
+        message="¿Desea cancelar la cita? Esta acción no se puede deshacer."
       />
 
       <Dialog

@@ -64,7 +64,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
     setLoading(true);
     const res = await editHistoriaMedicaRequest(data.id, values, user.token);
     if (res.status !== 200) {
-      showToast("error", "Ocurrio un error al actualizar la historia medica");
+      showToast("error", "Ocurrió un error al actualizar la historia medica");
       return;
     }
     showToast("success", "Historia Medica actualizada");
@@ -94,14 +94,13 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
   return (
     <>
       <h2 className="text-lg font-semibold leading-7 text-gray-900 md:mt-5">
-        Historia Medica
+        Historia médica
       </h2>
       <form onSubmit={onEditSubmit}>
         {!user.idPaciente && (
           <div className="flex items-center justify-between">
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              En este apartado debe incluir la informacion medica por la que su
-              paciente ha pasado.
+              En este apartado puede editar la información médica de su paciente.
             </p>
             <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
               {!loading ? (
@@ -134,7 +133,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 value={editingData.Enfermedades_hereditarias}
                 variant="standard"
                 color="blue"
-                label="Enfermedades Hereditarias"
+                label="Enfermedades hereditarias"
                 {...register("Enfermedades_hereditarias", { required: true })}
                 error={errors.Enfermedades_hereditarias ? true : false}
                 onChange={handleInputChange}
@@ -148,7 +147,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 value={editingData.Enfermedades_previas}
                 variant="standard"
                 color="blue"
-                label="Enfermedades Previas"
+                label="Enfermedades previas"
                 {...register("Enfermedades_previas", { required: true })}
                 error={errors.Enfermedades_previas ? true : false}
                 onChange={handleInputChange}
@@ -162,7 +161,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                 value={editingData.Cirugias}
                 variant="standard"
                 color="blue"
-                label="Cirugias"
+                label="Cirugías"
                 {...register("Cirugias", { required: true })}
                 error={errors.Cirugias ? true : false}
                 onChange={handleInputChange}
@@ -233,7 +232,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
           </div>
           <div className="xl:col-span-3">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Habitos Negativos
+              Hábitos negativos
             </h2>
             <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
               <div className="flex">
@@ -263,7 +262,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   crossOrigin={undefined}
                 />
                 <Typography color="gray" className="self-center">
-                  Consume Alcohol
+                  Consume alcohol
                 </Typography>
               </div>
               <div className="flex">
@@ -278,7 +277,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   crossOrigin={undefined}
                 />
                 <Typography color="gray" className="self-center">
-                  Consume Drogas
+                  Consume drogas
                 </Typography>
               </div>
               <div className="flex">
@@ -300,7 +299,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
           </div>
           <div className="xl:col-span-3">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Habitos Positivos
+              Hábitos positivos
             </h2>
             <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
               <div className="flex">
@@ -315,7 +314,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   crossOrigin={undefined}
                 />
                 <Typography color="gray" className="self-center">
-                  Dieta Equilibrada
+                  Dieta equilibrada
                 </Typography>
               </div>
               <div className="flex">
@@ -330,7 +329,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   crossOrigin={undefined}
                 />
                 <Typography color="gray" className="self-center">
-                  Ejercicio Regular
+                  Ejercicio regular
                 </Typography>
               </div>
               <div className="flex">
@@ -345,7 +344,7 @@ const HistoriaMedicaEdit = ({ data, patientID }) => {
                   crossOrigin={undefined}
                 />
                 <Typography color="gray" className="self-center">
-                  Higiene Personal
+                  Higiene personal
                 </Typography>
               </div>
               <div className="flex">

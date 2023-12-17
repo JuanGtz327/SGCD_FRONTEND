@@ -8,13 +8,13 @@ const MedicosEdit = ({ data, patientID }) => {
   return (
     <>
       <h2 className="text-lg font-semibold text-gray-900 md:mt-5">
-        Historial de Medicos
+        Historial de médicos
       </h2>
 
       {!user.idPaciente && (
         <div className="flex flex-col md:flex-row items-center justify-between">
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            En este apartado puede consultar los medicos que han atendido a su
+            En este apartado puede consultar los médicos que han atendido a su
             paciente.
           </p>
           <div className="flex justify-between md:justify-start md:gap-5">
@@ -24,7 +24,7 @@ const MedicosEdit = ({ data, patientID }) => {
               }newDocPac/${patientID}`}
             >
               <Button className="mt-5 w-fit" color="blue">
-                Añadir nuevo medico
+                Añadir nuevo médico
               </Button>
             </Link>
           </div>
@@ -69,11 +69,11 @@ const MedicosEdit = ({ data, patientID }) => {
                   </h2>
                   <p className="leading-relaxed text-base">
                     Especialidad : {Especialidad} <br />
-                    Cedula : {Cedula} <br />
+                    Cédula : {Cedula} <br />
                   </p>
                   <a className="mt-3 text-indigo-500 inline-flex items-center">
                     Correo: {Correo} <br />
-                    Numero Telefonico: {Telefono}
+                    Némero telefónico: {Telefono}
                   </a>
                 </div>
               </div>

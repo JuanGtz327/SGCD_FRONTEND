@@ -59,7 +59,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             Datos personales
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            En este apartado debe incluir la informacion personal de su doctor.
+            En este apartado debe incluir la información personal de su doctor.
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
@@ -111,7 +111,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Apellido Paterno"
+              label="Apellido paterno"
               value={editingData.ApellidoP}
               maxLength={15}
               type="text"
@@ -133,7 +133,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Apellido Materno"
+              label="Apellido materno"
               value={editingData.ApellidoM}
               maxLength={15}
               type="text"
@@ -177,7 +177,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
           <div className="mt-2">
             <Input
               color="blue"
-              label="Cedula Profesional"
+              label="Cédula profesional"
               value={editingData.Cedula}
               maxLength={8}
               variant="standard"
@@ -254,7 +254,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Telefonico"
+              label="Número telefónico"
               value={editingData.Domicilio.Telefono}
               variant="standard"
               type="number"
@@ -353,7 +353,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Codigo Postal"
+              label="Código postal"
               value={editingData.Domicilio.CP}
               type="number"
               variant="standard"
@@ -401,7 +401,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Exterior"
+              label="Numero exterior"
               value={editingData.Domicilio.Num_ext}
               maxLength={5}
               type="text"
@@ -426,7 +426,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero Interior"
+              label="Numero interior"
               value={editingData.Domicilio.Num_int}
               maxLength={5}
               type="text"

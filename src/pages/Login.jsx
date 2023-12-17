@@ -128,7 +128,7 @@ const LogIn = () => {
                   variant="small"
                   className="ml-1 font-bold textClinic"
                 >
-                  Sistema de Gestión de Clinica para Doctores
+                  Sistema de Gestión de Clínica para Doctores
                 </Typography>
               </div>
             </CardFooter>
@@ -136,7 +136,7 @@ const LogIn = () => {
         </div>
         <div className="absolute w-full h-full">
           <svg className="w-full h-full">
-            <image href={fondo} className="md:w-full h-full" />
+            <image href={fondo} className="2xl:w-full 2xl:h-full" />
           </svg>
         </div>
       </div>

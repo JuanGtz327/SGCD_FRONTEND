@@ -74,7 +74,7 @@ const DoctorDetails = () => {
                     <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
                       <div>
                         <p className="leading-relaxed mb-4">
-                          <b>Direccion:</b> {doctor.Domicilio.Calle} #
+                          <b>Dirección:</b> {doctor.Domicilio.Calle} #
                           {doctor.Domicilio.Num_ext}, {doctor.Domicilio.Colonia}
                           , {doctor.Domicilio.Municipio},{" "}
                           {doctor.Domicilio.Estado}, C.P. {doctor.Domicilio.CP}
@@ -86,10 +86,10 @@ const DoctorDetails = () => {
                           <b>Especialidad</b> {doctor.Especialidad}
                         </p>
                         <p className="leading-relaxed mb-4">
-                          <b>Cedula:</b> {doctor.Cedula}
+                          <b>Cédula:</b> {doctor.Cedula}
                         </p>
                         <p>
-                          <b>Numero Telefono:</b> {doctor.Domicilio.Telefono}
+                          <b>Número teléfono:</b> {doctor.Domicilio.Telefono}
                         </p>
                       </div>
                     </div>
@@ -103,7 +103,7 @@ const DoctorDetails = () => {
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-5 mx-auto">
                 <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-10 md:mb-20">
-                  Gestion del doctor
+                  Gestión del doctor
                 </h1>
                 <div className="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
                   <div className="p-4 md:w-1/3 flex">
@@ -122,12 +122,13 @@ const DoctorDetails = () => {
                     </div>
                     <div className="flex-grow pl-6">
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                        Administracion
+                        Administración
                       </h2>
                       <p className="leading-relaxed text-base">
-                        En esta seccion puede gestionar las configuraciones de
-                        su doctor, como lo son su perfil y sus preferencias de
-                        trabajo.
+                        En esta sección puede gestionar las configuraciones de
+                        su doctor, como lo son horas de trabajo, días de
+                        trabajo, etc. Así como tambien modificar sus datos
+                        personales.
                       </p>
                       <Link
                         to={`${
@@ -171,7 +172,7 @@ const DoctorDetails = () => {
                         Pacientes
                       </h2>
                       <p className="leading-relaxed text-base">
-                        En este apartado se podra consultar el historico de
+                        En este apartado puede consultar el histórico de
                         pacientes del doctor.
                       </p>
                       <Link

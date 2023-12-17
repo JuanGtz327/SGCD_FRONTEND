@@ -107,7 +107,7 @@ const MainPanel = () => {
                 {!user.is_admin ? (
                   <Typography variant="h3" color="gray">
                     {user.is_doctor ? (
-                      `${perfil?.Doctor.Genero === 'F'?'Dra. ':'Dr. '}` +
+                      `${perfil?.Doctor.Genero === "F" ? "Dra. " : "Dr. "}` +
                       perfil?.Doctor.Nombre +
                       " " +
                       perfil?.Doctor.ApellidoP +
@@ -136,10 +136,15 @@ const MainPanel = () => {
               <Loader />
             )}
             <p className="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base text-justify">
-              Bienvenido a su panel de control, aqui podra ver sus citas
-              agendadas asi como los pacientes que tiene asociados a su cuenta.
-              Tambien puede ver detalles de su cuenta asi como de la clinica a
-              la que pertenece.
+              Bienvenido a su panel de control, aquí podrá ver sus citas
+              agendadas para el día de hoy, así como{" "}
+              {user.is_admin
+                ? "los pacientes y doctores"
+                : !user.is_admin && user.is_doctor
+                ? "los pacientes"
+                : "los doctores"}{" "}
+              que tiene asociados a su cuenta. También puede ver detalles de su
+              perfil, así como de la clínica a la que pertenece.
             </p>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-1">
@@ -152,7 +157,7 @@ const MainPanel = () => {
                         variant="h4"
                         className="flex gap-2 items-center"
                       >
-                        <FaCalendarCheck className="text-indigo-500" /> Proxima
+                        <FaCalendarCheck className="text-indigo-500" /> Próxima
                         cita de hoy
                       </Typography>
                       {nextAppointment ? (
@@ -177,7 +182,7 @@ const MainPanel = () => {
                           open
                           icon={<BsInfoCircleFill />}
                         >
-                          No cuenta con citas agendadas para el dia de hoy.
+                          No cuenta con citas agendadas para el día de hoy.
                         </Alert>
                       )}
                       <div className="flex justify-end mt-3">
@@ -257,7 +262,7 @@ const MainPanel = () => {
                           color="blue"
                           className="flex gap-2 items-center hover:underline text-right"
                         >
-                          Mi Clinica
+                          Mi Clínica
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -304,11 +309,10 @@ const MainPanel = () => {
                           <TabPanel value="dashboard">
                             <div className="text-center py-24">
                               <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-                                Usuarios Clinica
+                                Usuarios Clínica
                               </h1>
                               <p className="text-base leading-relaxed lg:w-3/4 mx-auto text-gray-500s">
-                                Seleccion el tipo de usuario que desea
-                                consultar.
+                                Seleccione entre pacientes y doctores de su clínica.
                               </p>
                               <div className="flex mt-6 justify-center">
                                 <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -350,7 +354,7 @@ const MainPanel = () => {
                                       >
                                         {doctor.Nombre}
                                         <p className="hidden md:block ml-1">
-                                          {doctor.ApellidoP}  {doctor.ApellidoM}
+                                          {doctor.ApellidoP} {doctor.ApellidoM}
                                         </p>
                                       </Typography>
                                       <Typography

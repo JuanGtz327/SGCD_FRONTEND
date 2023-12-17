@@ -65,13 +65,13 @@ const PacDoc = () => {
         { idDoctor: doctorID, idPaciente: values.idPaciente },
         user.token
       );
-      showToast("success", "Se ha añadido el medico al paciente");
+      showToast("success", "Se ha añadido el médico al paciente");
       setLoading(true);
       setPacientes(await getPatiensByDoctor(doctorID));
     } catch (error) {
       showToast(
         "error",
-        "No se ha podido añadir el medico al paciente",
+        "No se ha podido añadir el médico al paciente",
         "center"
       );
     }
@@ -101,7 +101,7 @@ const PacDoc = () => {
                     Doctor-Paciente
                   </h1>
                   <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                    A continuacion se muestra una lista de los pacientes del
+                    A continuación, se muestra una lista de los pacientes del
                     doctor.
                   </p>
                   <div className="flex mt-6 justify-center">
@@ -136,8 +136,8 @@ const PacDoc = () => {
                         color="blue-gray"
                         className="mb-2"
                       >
-                        {doctor.Genero === "F" ? "Dra. " : "Dr. "} {doctor.Nombre} {doctor.ApellidoP}{" "}
-                        {doctor.ApellidoM}
+                        {doctor.Genero === "F" ? "Dra. " : "Dr. "}{" "}
+                        {doctor.Nombre} {doctor.ApellidoP} {doctor.ApellidoM}
                       </Typography>
                       <Typography
                         color="blue-gray"

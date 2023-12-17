@@ -24,10 +24,7 @@ const PatientDetails = () => {
     <div className="py-5 lg:px-16">
       {!loading && paciente ? (
         <>
-          <BreadCrumbsPag
-            show={[1, 2]}
-            idPaciente={patientID}
-          />
+          <BreadCrumbsPag show={[1, 2]} idPaciente={patientID} />
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
               <Typography variant="h3" color="gray" className="md:text-right">
@@ -71,7 +68,7 @@ const PatientDetails = () => {
                     <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
                       <div>
                         <p className="leading-relaxed mb-4">
-                          <b>Direccion:</b> {paciente.Domicilio.Calle} #
+                          <b>Dirección:</b> {paciente.Domicilio.Calle} #
                           {paciente.Domicilio.Num_ext},{" "}
                           {paciente.Domicilio.Colonia},{" "}
                           {paciente.Domicilio.Municipio},{" "}
@@ -82,15 +79,15 @@ const PatientDetails = () => {
                           <b>CURP:</b> {paciente.CURP}
                         </p>
                         <p className="leading-relaxed mb-4">
-                          <b>Fecha Nacimiento:</b>{" "}
+                          <b>Fecha nacimiento:</b>{" "}
                           {convertToBirthDate(paciente.Fecha_nacimiento)}
                         </p>
                         <p className="leading-relaxed mb-4">
-                          <b>Genero:</b>{" "}
+                          <b>Sexo:</b>{" "}
                           {paciente.Genero == "M" ? "Masculino" : "Femenino"}
                         </p>
                         <p>
-                          <b>Numero Telefono:</b> {paciente.Domicilio.Telefono}
+                          <b>Número teléfono:</b> {paciente.Domicilio.Telefono}
                         </p>
                       </div>
                     </div>
@@ -104,7 +101,7 @@ const PatientDetails = () => {
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-5 mx-auto">
                 <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-10 md:mb-20">
-                  Expediente Clinico
+                  Expediente clínico
                 </h1>
                 <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 justify-center">
                   <div className="p-4 md:w-1/3 flex">
@@ -123,12 +120,12 @@ const PatientDetails = () => {
                     </div>
                     <div className="flex-grow pl-6">
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                        Informacion Clinica
+                        Informacion clínica
                       </h2>
                       <p className="leading-relaxed text-base">
-                        En esta seccion se podra visualizar la informacion
-                        clinica del paciente. Donde se encuentran los datos del
-                        examen fisico asi como la historia medica.
+                        En esta sección se podrá visualizar la información
+                        clínica del paciente. Donde se encuentran los datos del
+                        examen físico, así como la historia médica.
                       </p>
                       <Link
                         to={`${
@@ -161,8 +158,8 @@ const PatientDetails = () => {
                         Padecimientos
                       </h2>
                       <p className="leading-relaxed text-base">
-                        En esta seccion se podra agregar nuevos padecimientos al
-                        paciente, asi como consultar el historico de
+                        En esta sección se podrá agregar nuevos padecimientos al
+                        paciente, así como consultar el histórico de
                         enfermedades.
                       </p>
                       <Link
@@ -193,11 +190,11 @@ const PatientDetails = () => {
                     </div>
                     <div className="flex-grow pl-6">
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                        Metricas Paciente
+                        Métricas paciente
                       </h2>
                       <p className="leading-relaxed text-base">
-                        En esta seccion se podra consultar el progreso del
-                        paciente en cuanto a su peso, estatura, presion
+                        En esta sección se podrá consultar el progreso del
+                        paciente en cuanto a su peso, estatura, presión
                         arterial, etc.
                       </p>
                       <Link

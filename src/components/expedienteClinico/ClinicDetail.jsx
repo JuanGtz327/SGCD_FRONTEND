@@ -39,13 +39,13 @@ const ClinicDetail = () => {
       id: 0,
     },
     {
-      label: "Examen Fisico",
+      label: "Examen físico",
       value: "examen_fisico",
       icon: FingerPrintIcon,
       id: 1,
     },
     {
-      label: "Historial Medicos",
+      label: "Historial médicos",
       value: "hisotrial_medicos",
       icon: FaUserDoctor,
       id: 2,
@@ -83,14 +83,14 @@ const ClinicDetail = () => {
               <TabPanel value="dashboard">
                 <div className="text-center py-24">
                   <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-                    Informacion Clinica
+                    Informacion clínica
                   </h1>
                   <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                    En este apartado se incluyen la informacion de su expediente
-                    clinico. Se divide en tres secciones Historia Medica que es
-                    donde puede consultar el antecendete de enfermedaes, el
-                    examen fisico que es donde puede consultar los datos de su
-                    examen fisico y por ultimo el historial de medicos.
+                    En este apartado se incluyen la información de su expediente
+                    clínico. Se divide en tres secciones historia medica que es
+                    donde puede consultar el antecedente de enfermedaes, el
+                    examen físico que es donde puede medidas del paciente y por
+                    último el historial de médicos.
                   </p>
                   <div className="flex mt-6 justify-center">
                     <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>

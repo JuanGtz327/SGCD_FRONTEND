@@ -24,17 +24,17 @@ export function BreadCrumbsPag({
       type: "clinica",
     },
     {
-      title: "Detalles Paciente",
+      title: "Detalles paciente",
       href: "/patient/idPaciente",
       type: "patient",
     },
     {
-      title: "Informacion Clinica",
+      title: "Información clínica",
       href: "/clinicDetail/idPaciente",
       type: "patient",
     },
     {
-      title: "Medicos Asociados",
+      title: "Médicos asociados",
       href: "/newDocPac/idPaciente",
       type: "patient",
     },
@@ -50,27 +50,27 @@ export function BreadCrumbsPag({
       noChange: true
     },
     {
-      title: "Detalles Doctor",
+      title: "Detalles doctor",
       href: "/doctor/idDoctor",
       type: "doctor",
     },
     {
-      title: "Administracion",
+      title: "Administración",
       href: "/doctorHandle/idDoctor",
       type: "doctor",
     },
     {
-      title: "Pacientes Doctor",
+      title: "Pacientes doctor",
       href: "/newPacDoc/idDoctor",
       type: "doctor",
     },
     {
-      title: "Nueva Receta",
+      title: "Nueva receta",
       href: "/newRecipe/patientID/padecimientoID",
       type: "receta",
     },
     {
-      title: "Estadisticas Paciente",
+      title: "Estadísticas",
       href: "/stats/patientID",
       type: "patient",
     },

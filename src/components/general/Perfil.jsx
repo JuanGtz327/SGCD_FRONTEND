@@ -93,7 +93,7 @@ const Perfil = () => {
               Perfil
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede consultar su perfil de usuario, asi como
+              En este apartado puede consultar su perfil de usuario, así como
               editar sus datos personales.
             </p>
             <div className="flex mt-6 justify-center">
@@ -141,7 +141,7 @@ const Perfil = () => {
                               <Input
                                 color="blue"
                                 value={perfil.Doctor.ApellidoP}
-                                label="Apellido Paterno"
+                                label="Apellido paterno"
                                 variant="standard"
                                 {...register("ApellidoP", { required: true })}
                                 error={errors.ApellidoP ? true : false}
@@ -162,7 +162,7 @@ const Perfil = () => {
                               <Input
                                 color="blue"
                                 value={perfil.Doctor.ApellidoM}
-                                label="Apellido Materno"
+                                label="Apellido materno"
                                 variant="standard"
                                 {...register("ApellidoM", { required: true })}
                                 error={errors.ApellidoM ? true : false}
@@ -208,7 +208,7 @@ const Perfil = () => {
                                 <Input
                                   color="blue"
                                   value={perfil.Paciente.ApellidoP}
-                                  label="Apellido Paterno"
+                                  label="Apellido paterno"
                                   variant="standard"
                                   {...register("ApellidoP", { required: true })}
                                   error={errors.ApellidoP ? true : false}
@@ -229,7 +229,7 @@ const Perfil = () => {
                                 <Input
                                   color="blue"
                                   value={perfil.Paciente.ApellidoM}
-                                  label="Apellido Materno"
+                                  label="Apellido materno"
                                   variant="standard"
                                   {...register("ApellidoM", { required: true })}
                                   error={errors.ApellidoM ? true : false}
@@ -303,7 +303,7 @@ const Perfil = () => {
                             color="blue"
                             size="lg"
                             value={domicilio.Telefono}
-                            label="Numero Telefonico"
+                            label="Numero telefónico"
                             variant="standard"
                             type="number"
                             {...register("Telefono", { required: true })}
@@ -370,7 +370,7 @@ const Perfil = () => {
                             color="blue"
                             value={domicilio.CP}
                             size="lg"
-                            label="Codigo Postal"
+                            label="Código postal"
                             type="number"
                             variant="standard"
                             {...register("CP", { required: true })}
@@ -402,7 +402,7 @@ const Perfil = () => {
                             color="blue"
                             value={domicilio.Num_ext}
                             size="lg"
-                            label="Numero Exterior"
+                            label="Numero exterior"
                             maxLength={5}
                             type="text"
                             variant="standard"
@@ -419,7 +419,7 @@ const Perfil = () => {
                             color="blue"
                             value={domicilio.Num_int}
                             size="lg"
-                            label="Numero Interior"
+                            label="Numero interior"
                             maxLength={5}
                             type="text"
                             variant="standard"
@@ -438,7 +438,7 @@ const Perfil = () => {
               <div className="w-full max-w-xs">
                 {!btnLoading ? (
                   <Button type="submit" color="blue" className="h-fit w-full">
-                    Actualizar Datos
+                    Actualizar Perfil
                   </Button>
                 ) : (
                   <Loader top="0" />

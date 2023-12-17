@@ -18,7 +18,7 @@ const features = [
   {
     name: "Pacientes",
     description:
-      "Agrega, edita y elimina pacientes de tu clinica, ademas de poder ver su historial clinico y sus recetas medicas.",
+      "Agrega, edita y elimina pacientes de tu clínica, además de poder ver su historial clínico y sus recetas medicas.",
     icon: CloudArrowUpIcon,
   },
   {
@@ -36,7 +36,7 @@ const features = [
   {
     name: "Doctores",
     description:
-      "Agrega, edita y elimina doctores de tu clinica, añade sus especialidades y sus horarios de trabajo.",
+      "Agrega, edita y elimina doctores de tu clínica, añade sus especialidades y sus horarios de trabajo.",
     icon: FingerPrintIcon,
   },
 ];
@@ -113,15 +113,15 @@ const posts = [
     imageUrl: img1,
   },
   {
-    title: "Detalles de la clinica",
+    title: "Detalles de la clínica",
     description:
-      "Agrega, edita y elimina los detalles de tu clinica, como el nombre, la direccion, el telefono asi tus pacientes podran contactarte.",
+      "Agrega, edita y elimina los detalles de tu clínica, como el nombre, la dirección, el teléfono así tus pacientes podrán contactarte.",
     imageUrl: img2,
   },
   {
     title: "Configuraciones",
     description:
-      "Agrega configuraciones personalizadas para tus doctores, como los horarios y dias de trabajo.",
+      "Agrega configuraciones personalizadas para tus doctores, como los horarios y días de trabajo.",
     imageUrl: img3,
   },
 ];
@@ -171,7 +171,7 @@ export default function PaginaInicio() {
                   fontWeight="bold"
                   fontSize="xl"
                 >
-                  Inciar Sesion <span aria-hidden="true">&rarr;</span>
+                  Inciar Sesión <span aria-hidden="true">&rarr;</span>
                 </Typography>
               </Link>
             </div>
@@ -212,7 +212,7 @@ export default function PaginaInicio() {
                       to="/login"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white"
                     >
-                      Iniciar Sesion
+                      Iniciar Sesión
                     </Link>
                   </div>
                 </div>
@@ -243,12 +243,12 @@ export default function PaginaInicio() {
               <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
               <div className="text-center">
                 <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                  Sistema de Gestion Clinica para Doctores
+                  Sistema de gestión clínica para doctores
                 </h1>
                 <Typography variant="h5" className="mt-5" color="white">
-                  Gestione su clinica de manera facil y rapida, con un sistema
-                  que le permitira gestionar sus pacientes, citas, medicamentos,
-                  recetas y mas.
+                  Gestione su clínica de manera fácil y rápida, con un sistema
+                  que le permitirá gestionar sus pacientes, citas, medicamentos,
+                  recetas y más.
                 </Typography>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
@@ -281,12 +281,12 @@ export default function PaginaInicio() {
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base font-semibold leading-7 text-indigo-600"></h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Todo lo que necesitas para gestionar tu clinica
+              Todo lo que necesitas para gestionar tu clínica
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Todas las herramientas que necesitas para gestionar tu clinica de
-              manera facil y rapida, con un sistema que le permitira gestionar
-              sus pacientes, citas, recetas y mas.
+              Todas las herramientas que necesitas para gestionar tu clínica de
+              manera fácil y rápida, con un sistema que le permitirá gestionar
+              sus pacientes, citas, recetas y más.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -345,9 +345,9 @@ export default function PaginaInicio() {
                   Comienza a usar SGCD hoy mismo
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-300">
-                  El sistema de gestion clinica para doctores de profesion libre
-                  que necesitas para gestionar tu clinica de manera facil y
-                  rapida.
+                  El sistema de gestión clínica para doctores de profesión libre
+                  que necesitas para gestionar tu clínica de manera fácil y
+                  rápida.
                 </p>
               </div>
               <img
@@ -364,11 +364,11 @@ export default function PaginaInicio() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Por que elegir SGCD
+              Por qué elegir SGCD
             </h2>
             <p className="mt-2 text-lg leading-8 text-gray-600">
-              A continuacion te mostramos algunas de las razones por las que
-              deberias elegir SGCD para gestionar tu clinica.
+              A continuación, te mostramos algunas de las razones por las que
+              deberías elegir SGCD para gestionar tu clínica.
             </p>
           </div>
           <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">

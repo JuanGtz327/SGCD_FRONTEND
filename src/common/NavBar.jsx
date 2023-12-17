@@ -202,7 +202,7 @@ const NavBar = () => {
                     <MdContacts className="h-5 w-5" />
                   </ListItemPrefix>
                   <Typography className="mr-auto font-normal">
-                    Expediente Clinico
+                    Expediente clínico
                   </Typography>
                 </ListItem>
               </Link>
@@ -225,7 +225,7 @@ const NavBar = () => {
                 <FaClinicMedical className="h-5 w-5" />
               </ListItemPrefix>
               <Typography className="mr-auto font-normal">
-                Mi Clinica
+                Mi Clínica
               </Typography>
             </ListItem>
           </Link>
@@ -258,7 +258,7 @@ const NavBar = () => {
               <ListItemPrefix>
                 <PowerIcon className="h-5 w-5" />
               </ListItemPrefix>
-              Cerrar Sesion
+              Cerrar Sesión
             </ListItem>
           </button>
         </List>

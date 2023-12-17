@@ -34,7 +34,8 @@ const Appointments = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isBefore6Months, isValidHour, translatedDate } = useDay();
+  const { isToday, isBefore, isBefore6Months, isValidHour, translatedDate } =
+    useDay();
 
   const [selectDate, setSelectDate] = useState(currentDate);
   const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
@@ -61,18 +62,14 @@ const Appointments = () => {
 
     //Validar que la cita sea maximo en los ultimos 6 meses
     if (isBefore6Months(values.Fecha)) {
-      showToast(
-        "error",
-        "La cita no puede ser mayor a 6 meses",
-        "center"
-      );
+      showToast("error", "La cita no puede ser mayor a 6 meses", "center");
       return;
     }
 
     if (!isValidHour(values.Fecha, 30)) {
       showToast(
         "error",
-        "La cita no puede ser en los ultimos 30 min",
+        "La cita no puede ser en los últimos 30 min",
         "center"
       );
       return;
@@ -124,7 +121,7 @@ const Appointments = () => {
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
               En este apartado puede consultar las citas agendadas con sus
-              pacientes. Ademas puede agendar nuevas citas a traves del
+              pacientes. Además, puede agendar nuevas citas a través del
               calendario.
             </p>
             <div className="flex mt-6 justify-center">
@@ -248,7 +245,7 @@ const Appointments = () => {
                     open
                     icon={<BsInfoCircleFill />}
                   >
-                    No cuenta con citas agendadas para este dia.
+                    No cuenta con citas agendadas para este día.
                   </Alert>
                 ) : (
                   <AppointmentsAccordion
@@ -332,7 +329,7 @@ const Appointments = () => {
                   </div>
                   <Textarea
                     color="blue"
-                    label="Diagnostico"
+                    label="Diagnóstico"
                     {...register("Diagnostico", { required: true })}
                     error={errors.Diagnostico ? true : false}
                     variant="standard"

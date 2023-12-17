@@ -21,7 +21,7 @@ const DatosPersonales = ({
         Datos personales
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir la informacion personal de su paciente.
+        En este apartado debe incluir la información personal de su paciente.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -44,7 +44,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Apellido Paterno"
+              label="Apellido paterno"
               maxLength={15}
               type="text"
               color="blue"
@@ -60,7 +60,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Apellido Materno"
+              label="Apellido materno"
               maxLength={15}
               type="text"
               color="blue"
@@ -111,7 +111,7 @@ const DatosPersonales = ({
               render={({ field }) => (
                 <Select
                   {...field}
-                  label="Genero"
+                  label="Sexo"
                   size="lg"
                   color="blue"
                   variant="standard"
@@ -164,7 +164,7 @@ const DatosPersonales = ({
                 clipRule="evenodd"
               />
             </svg>
-            Usa al menos 8 caracteres, una mayuscula y un numero
+            Usa al menos 8 caracteres, una mayúscula y un número.
           </Typography>
         </div>
 
@@ -177,7 +177,7 @@ const DatosPersonales = ({
         Domicilio
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe axenar los datos del domicilio en el que reside su
+        En este apartado debe añadir los datos del domicilio en el que reside su
         paciente.
       </p>
 
@@ -186,7 +186,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero Telefonico"
+              label="Numero telefónico"
               maxLength={10}
               variant="standard"
               color="blue"
@@ -246,7 +246,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Codigo Postal"
+              label="Código postal"
               maxLength={5}
               type="number"
               color="blue"
@@ -275,7 +275,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero Exterior"
+              label="Numero exterior"
               maxLength={5}
               color="blue"
               type="text"
@@ -290,7 +290,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero Interior"
+              label="Numero interior"
               color="blue"
               maxLength={5}
               type="text"

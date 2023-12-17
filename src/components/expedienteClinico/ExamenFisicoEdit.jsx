@@ -37,7 +37,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
     const presionRegex = /^\d{2,3}\/\d{2,3}$/;
 
     if (!presionRegex.test(values.Presion_arterial))
-      showErrors.push("El formato de la presion arterial debe ser 00/00");
+      showErrors.push("El formato de la presión arterial debe ser 00/00");
 
     //Verificar que el peso sea mayor a 0 y menor a 1000
     if (values.Peso < 0 || values.Peso > 1000)
@@ -76,7 +76,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
     const grupoSanguineoRegex = /^(A|B|AB|O)[+-]$/;
 
     if (!grupoSanguineoRegex.test(values.Grupo_sanguineo))
-      showErrors.push("El grupo sanguineo no es valido, ej: O+");
+      showErrors.push("El grupo sanguíneo no es valido, ej. O+");
 
     if (showErrors.length > 0) {
       for (let i = 0; i < showErrors.length; i++) {
@@ -88,23 +88,23 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
     setLoading(true);
     const res = await editExamenFisicoRequest(data.id, values, user.token);
     if (res.status !== 200) {
-      showToast("error", "Ocurrio un error al actualizar el examen fisico");
+      showToast("error", "Ocurrió un error al actualizar el examen fisico");
       return;
     }
-    showToast("success", "Examen Fisico actualizado");
+    showToast("success", "Examen físico actualizado");
     setLoading(false);
   });
 
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900 md:mt-5">
-        Examen Fisico
+        Examen físico
       </h2>
       <form onSubmit={onEditSubmit}>
         {!user.idPaciente && (
           <div className="flex items-center justify-between">
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              En este apartado debe incluir las mediciones clincias de su
+              En este apartado puede editar las mediciones clínicas de su
               paciente.
             </p>
             <div className="flex flex-col md:flex-row justify-between md:justify-start md:gap-5">
@@ -187,7 +187,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
               <Input
                 value={editingData.Presion_arterial}
                 size="lg"
-                label="Presion Arterial"
+                label="Presión arterial"
                 type="string"
                 title="Formato: 120/80"
                 variant="standard"
@@ -213,7 +213,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
               <Input
                 value={editingData.Frecuencia_cardiaca}
                 size="lg"
-                label="Frecuencia Cardiaca"
+                label="Frecuencia cardiaca"
                 type="number"
                 variant="standard"
                 className="pr-24"
@@ -238,7 +238,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
               <Input
                 value={editingData.Frecuencia_respiratoria}
                 size="lg"
-                label="Frecuencia Respiratoria"
+                label="Frecuencia respiratoria"
                 type="number"
                 variant="standard"
                 className="pr-36"
@@ -289,7 +289,7 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
               <Input
                 value={editingData.Grupo_sanguineo}
                 size="lg"
-                label="Grupo Sanquineo"
+                label="Grupo sanguíneo"
                 type="text"
                 variant="standard"
                 {...register("Grupo_sanguineo", { required: true })}
@@ -306,10 +306,10 @@ const ExamenFisicoEdit = ({ data, patientID }) => {
           {!user.idPaciente && (
             <>
               <h2 className="mt-8 text-base font-semibold leading-7 text-gray-900">
-                Detalles del examen fisico
+                Detalles del examen físico
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                En este apartado puede incluir mas detalles del examen medico de
+                En este apartado puede añadir mas detalles del examen físico de
                 su paciente.
               </p>
             </>

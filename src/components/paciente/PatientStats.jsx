@@ -204,7 +204,7 @@ const PatientStats = () => {
     ),
     datasets: [
       {
-        label: "Frecuencia Cardiaca",
+        label: "Frecuencia cardiaca",
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(99, 102, 241, 0.2)",
@@ -221,7 +221,7 @@ const PatientStats = () => {
     ),
     datasets: [
       {
-        label: "Frecuencia Respiratoria",
+        label: "Frecuencia respiratoria",
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(99, 102, 241, 0.2)",
@@ -277,8 +277,8 @@ const PatientStats = () => {
                 Estadísticas
               </Typography>
               <Typography color="gray" className="text-center">
-                A continuación se muestran las estadísticas generadas a partir
-                de los datos registrados en el paciente.
+                A continuación, se muestran las estadísticas generadas a partir
+                de sus datos registrados.
               </Typography>
 
               <div className="flex my-2 md:mt-6 justify-center">
@@ -293,7 +293,7 @@ const PatientStats = () => {
                   Estadísticas
                 </Typography>
                 <Typography color="gray" className="text-center">
-                  A continuación se muestran las estadísticas generadas a partir
+                  A continuación, se muestran las estadísticas generadas a partir
                   de los datos registrados en el paciente.
                 </Typography>
 
@@ -315,7 +315,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <FaWeight className="h-5 w-5" />
-                          Peso Promedio{" "}
+                          Peso promedio:{" "}
                           {(
                             datosPeso.reduce((total, peso) => total + peso, 0) /
                             datosPeso.length
@@ -360,7 +360,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <GiBodyHeight className="h-6 w-6" />
-                          Estatura Promedio{" "}
+                          Estatura promedio:{" "}
                           {(
                             datosEstatura.reduce(
                               (total, estatura) => total + estatura,
@@ -408,7 +408,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <GiMedicalDrip className="h-8 w-8" />
-                          Presion Arterial
+                          Presion arterial promedio:
                           {` ${parseInt(
                             (
                               sistolica.reduce(
@@ -464,7 +464,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <FaHeartbeat className="h-6 w-6" />
-                          Frecuencia Cardiaca Promedio{" "}
+                          Frecuencia cardiaca promedio:{" "}
                           {parseInt(
                             (
                               datosFrecuenciaCardiaca.reduce(
@@ -533,7 +533,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <FaPumpMedical className="h-6 w-6" />
-                          Frecuencia Respiratoria Promedio{" "}
+                          Frecuencia respiratoria rromedio:{" "}
                           {parseInt(
                             (
                               datosFrecuenciaRespiratoria.reduce(
@@ -601,7 +601,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <FaTemperatureLow className="h-6 w-6" />
-                          Temperatura Promedio{" "}
+                          Temperatura promedio:{" "}
                           {(
                             datosTemperatura.reduce(
                               (total, temperatura) =>

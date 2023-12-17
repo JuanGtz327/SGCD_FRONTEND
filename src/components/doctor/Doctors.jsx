@@ -69,7 +69,7 @@ const Doctors = () => {
                   Doctores
                 </h1>
                 <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-                  En este apartado podrás ver a todos los doctores, así como
+                  En este apartado podrá ver la lista completa de los doctores que pertenecen a su clínica, así como
                   consultar los detalles asociados.
                 </p>
                 <div className="flex mt-6 justify-center">
@@ -196,7 +196,7 @@ const Doctors = () => {
                             {!is_active && (
                               <p className="ml-3 text-indigo-500 inline-flex items-center mt-1 md:mt-4 md:ml-5">
                                 Active al doctor para poder ver sus detalles
-                                clinicos asi como sus pacientes.
+                                clínicos así como sus pacientes.
                               </p>
                             )}
                           </div>

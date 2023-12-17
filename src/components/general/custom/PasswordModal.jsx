@@ -37,7 +37,7 @@ export default function PasswordModal({ show, setShow }) {
     values.id = user.id
     try {
       await editPasswordRequest(values,user.token)
-      showToast("success", "Contraseña Actualizada");
+      showToast("success", "Contraseña actualizada");
       handleOpenEdit();
     } catch (error) {
       showToast("error", error.response.data.message, "center");
@@ -58,7 +58,7 @@ export default function PasswordModal({ show, setShow }) {
       }}
       onClose={handleOpenEdit}
     >
-      <DialogHeader>Actualizar Contraseña</DialogHeader>
+      <DialogHeader>Actualizar contraseña</DialogHeader>
       <form onSubmit={onSubmit}>
         <DialogBody>
           <div className="flex flex-col gap-6 px-5">
@@ -75,7 +75,7 @@ export default function PasswordModal({ show, setShow }) {
               color="blue"
               variant="standard"
               size="lg"
-              label="Nueva Contraseña"
+              label="Nueva contraseña"
               type="password"
               {...register("Password", { required: true })}
               error={errors.Password ? true : false}
@@ -84,7 +84,7 @@ export default function PasswordModal({ show, setShow }) {
               color="blue"
               variant="standard"
               size="lg"
-              label="Repetir Contraseña"
+              label="Repetir contraseña"
               type="password"
               {...register("CPassword", { required: true })}
               error={errors.CPassword ? true : false}
@@ -102,7 +102,7 @@ export default function PasswordModal({ show, setShow }) {
                   clipRule="evenodd"
                 />
               </svg>
-              Usa al menos 8 caracteres, una mayuscula y un numero
+              Usa al menos 8 caracteres, una mayúscula y un número.
             </Typography>
           </div>
         </DialogBody>

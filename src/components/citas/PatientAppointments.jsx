@@ -59,7 +59,7 @@ const PatientAppointments = () => {
     if (!isValidHour(values.Fecha, 30)) {
       showToast(
         "error",
-        "La cita no puede ser en los ultimos 30 min",
+        "La cita no puede ser en los últimos 30 min",
         "center"
       );
       return;
@@ -110,7 +110,7 @@ const PatientAppointments = () => {
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
               En este apartado puede consultar las citas agendadas por sus
-              doctores.
+              doctores. Así como agendar nuevas citas.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -245,7 +245,7 @@ const PatientAppointments = () => {
                     open
                     icon={<BsInfoCircleFill />}
                   >
-                    No cuenta con citas agendadas para este dia.
+                    No cuenta con citas agendadas para este día.
                   </Alert>
                 ) : (
                   <AppointmentsAccordion
@@ -274,7 +274,7 @@ const PatientAppointments = () => {
               <form onSubmit={onAppointmentSubmit}>
                 <DialogBody className="flex flex-col gap-5">
                   <h1 className="font-semibold text-black text-lg">
-                    Medico: {selectedDoctor.Nombre} {selectedDoctor.ApellidoP}
+                    Médico: {selectedDoctor.Nombre} {selectedDoctor.ApellidoP}
                   </h1>
                   <Controller
                     name="Hora"

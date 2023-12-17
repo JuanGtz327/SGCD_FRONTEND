@@ -4,7 +4,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
-        Historia Clinica Actual
+        Historia clínica actual
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
         En este apartado se incluyen los motivos de la visita actual.
@@ -27,7 +27,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
           <div className="mt-2">
             <Input
               size="lg"
-              label="Fecha inicio de sintomas"
+              label="Fecha inicio de síntomas"
               type="date"
               color="blue"
               variant="standard"
@@ -40,7 +40,7 @@ const HistoriaClinicaActual = ({ register, errors }) => {
           <div className="mt-2">
             <Textarea
               variant="standard"
-              label="Sintomas"
+              label="Síntomas"
               color="blue"
               {...register("Sintomas", { required: true })}
               rows={8}

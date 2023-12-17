@@ -92,7 +92,7 @@ const DoctorAdministration = () => {
   const onLaborableDay = (day, checked) => {
     if (!checked) {
       if (configuraciones.Dias_laborables.length == 1) {
-        showToast("error", "Debe seleccionar al menos un dia laborable");
+        showToast("error", "Debe seleccionar al menos un día laborable");
         return;
       }
 
@@ -141,7 +141,7 @@ const DoctorAdministration = () => {
               <TabPanel value="dashboard">
                 <div className="text-center py-24">
                   <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
-                    Administracion de Doctor
+                    Administración del doctor
                   </h1>
                   <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
                     En este apartado puede editar los datos del doctor, como lo
@@ -170,7 +170,7 @@ const DoctorAdministration = () => {
                                 Configuraciones
                               </h2>
                               <p className="mt-1 mb-10 text-sm leading-6 text-gray-600">
-                                En este apartado puede establecer las
+                                En este apartado puede editar las
                                 configuraciones del doctor.
                               </p>
                             </div>
@@ -269,7 +269,7 @@ const DoctorAdministration = () => {
                             </Alert>
                             <div>
                               <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                                Dias Laborales
+                                Dias laborales
                               </h2>
                               <div className="mt-5 grid grid-cols-2 sm:grid-cols-7 gap-x-6">
                                 <div className="flex">
@@ -332,7 +332,7 @@ const DoctorAdministration = () => {
                                     color="gray"
                                     className="self-center"
                                   >
-                                    Miercoles
+                                    Miércoles
                                   </Typography>
                                 </div>
                                 <div className="flex">
@@ -395,7 +395,7 @@ const DoctorAdministration = () => {
                                     color="gray"
                                     className="self-center"
                                   >
-                                    Sabado
+                                    Sábado
                                   </Typography>
                                 </div>
                                 <div className="flex">
@@ -423,7 +423,7 @@ const DoctorAdministration = () => {
                             </div>
                             <div>
                               <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                                Horario de Trabajo
+                                Horario de trabajo
                               </h2>
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-5">
                                 <Controller
@@ -467,7 +467,7 @@ const DoctorAdministration = () => {
                                     <Select
                                       {...field}
                                       color="blue"
-                                      label="Horario de Salida"
+                                      label="Horario de salida"
                                       variant="standard"
                                       value={
                                         configuraciones.Horario?.split("-")[1]
@@ -502,7 +502,7 @@ const DoctorAdministration = () => {
                                     <Select
                                       {...field}
                                       color="blue"
-                                      label="Duracion de la cita"
+                                      label="Duración de la cita"
                                       variant="standard"
                                       onChange={(e) => {
                                         setConfiguraciones({

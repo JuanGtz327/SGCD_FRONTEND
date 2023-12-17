@@ -108,8 +108,8 @@ const MedicalCondition = () => {
             </h1>
             <p className="text-base leading-relaxed lg:w-3/4 mx-auto text-gray-500s">
               En este apartado puede consultar el historial de padecimientos del
-              paciente asi como añadir nuevos padecimientos. Si desea generar
-              una receta para un padecimiento, presione el boton
+              paciente, así como añadir nuevos padecimientos. Si desea generar
+              una receta para un padecimiento presione el botón
               &quot;Detalles&quot; y posteriormente &quot;Generar Receta&quot;.
             </p>
             <div className="flex mt-6 justify-center">
@@ -151,7 +151,7 @@ const MedicalCondition = () => {
                           </Typography>
                           <div className="font-normal">
                             <div className="2xl:flex justify-between gap-3 md:gap-0">
-                              <p>Fecha Sintomas {Fecha_inicio_sintomas}</p>
+                              <p>Fecha síntomas: {Fecha_inicio_sintomas}</p>
                               <div className="text-base">
                                 <p
                                   className="text-indigo-500 inline-flex items-center hover:cursor-pointer"
@@ -204,7 +204,7 @@ const MedicalCondition = () => {
         </div>
         <div className="bg-white lg:w-3/5 md:w-1/2 shadow-none md:shadow-2xl rounded-sm md:p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
           <h2 className="text-gray-900 text-2xl font-bold">
-            Nuevo Padecimiento
+            Nuevo padecimiento
           </h2>
           <form onSubmit={onSubmit}>
             <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -226,7 +226,7 @@ const MedicalCondition = () => {
                   <Input
                     color="blue"
                     size="lg"
-                    label="Fecha inicio de sintomas"
+                    label="Fecha inicio de síntomas"
                     type="date"
                     variant="standard"
                     {...register("Fecha_inicio_sintomas", { required: true })}
@@ -239,7 +239,7 @@ const MedicalCondition = () => {
                   <Textarea
                     color="blue"
                     variant="standard"
-                    label="Sintomas"
+                    label="Síntomas"
                     {...register("Sintomas", { required: true })}
                     rows={8}
                     error={errors.Sintomas ? true : false}
@@ -295,7 +295,7 @@ const MedicalCondition = () => {
             <p> {currentPadecimiento?.Motivo_consulta} </p>
             <div>
               <p className="text-lg flex items-center gap-2">
-                <AiFillClockCircle /> Fecha Sintomas{" "}
+                <AiFillClockCircle /> Fecha síntomas:{" "}
                 {currentPadecimiento?.Fecha_inicio_sintomas}
               </p>
             </div>
@@ -304,29 +304,29 @@ const MedicalCondition = () => {
         <DialogBody>
           <div className="flex flex-col gap-5">
             <div className="flex gap-2">
-              <p className="font-bold text-gray-900">Sintomas:</p>
+              <p className="font-bold text-gray-900">Síntomas:</p>
               <p> {currentPadecimiento?.Sintomas}</p>
             </div>
             <hr />
             <div className="flex gap-2">
-              <p className="font-bold text-gray-900">Plan Tratamiento:</p>
+              <p className="font-bold text-gray-900">Plan tratamiento:</p>
               <p> {currentPadecimiento?.Plan_tratamiento}</p>
             </div>
             {currentPadecimiento?.Recetum !== null && (
               <>
                 <hr />
-                <p className="font-bold text-gray-900">Receta Ascociada</p>
+                <p className="font-bold text-gray-900">Receta asociada</p>
                 <div className="grid grid-cols-2">
                   <div className="flex gap-2">
                     <p className="font-bold text-gray-900">
-                      Fecha de elaboracion:
+                      Fecha de elaboración:
                     </p>
                     <p>
                       {currentPadecimiento?.Recetum.Fecha_inicio.split(" ")[0]}
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <p className="font-bold text-gray-900">Valida hasta:</p>
+                    <p className="font-bold text-gray-900">Válida hasta:</p>
                     <p>
                       {currentPadecimiento?.Recetum.Fecha_fin.split(" ")[0]}
                     </p>
@@ -363,7 +363,7 @@ const MedicalCondition = () => {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">
-                    Indicaciones Adicionales
+                    Indicaciones adicionales
                   </p>
                   <p className="leading-relaxed text-base">
                     {currentPadecimiento?.Recetum.Indicaciones}
@@ -407,7 +407,7 @@ const MedicalCondition = () => {
                 }}
                 className="mr-1 border-0"
               >
-                <span>Reimprimir Receta</span>
+                <span>Reimprimir receta</span>
               </Button>
             )}
           <Button

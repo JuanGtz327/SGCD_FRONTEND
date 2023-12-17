@@ -167,27 +167,27 @@ const AddPatient = () => {
     });
 
     if (!nombreRegex.test(pacientePayload.Nombre))
-      showErrors.push("El nombre no puede contener numeros");
+      showErrors.push("El nombre no es valido");
 
     //Verificar que el apellido paterno no contenga numeros
     if (!nombreRegex.test(pacientePayload.ApellidoP))
-      showErrors.push("El apellido paterno no puede contener numeros");
+      showErrors.push("El apellido paterno no es valido");
 
     //Verificar que el apellido materno no contenga numeros
     if (!nombreRegex.test(pacientePayload.ApellidoM))
-      showErrors.push("El apellido materno no puede contener numeros");
+      showErrors.push("El apellido materno no es valido");
 
     //Verificar que el telefono solo contenga numeros y sea de 10 digitos
     const telefonoRegex = /^[0-9]{10}$/;
 
     if (!telefonoRegex.test(domicilioPayload.Telefono))
-      showErrors.push("El telefono debe contener 10 digitos");
+      showErrors.push("El teléfono debe contener 10 dígitos");
 
     //Verificar que el codigo postal solo contenga numeros y sea de 5 digitos
     const cpRegex = /^[0-9]{5}$/;
 
     if (!cpRegex.test(domicilioPayload.CP))
-      showErrors.push("El codigo postal debe contener 5 digitos");
+      showErrors.push("El código postal debe contener 5 dígitos");
 
     //Fecha de naacimiento no puede ser mayor a la fecha actual
     if (currentDate.isBefore(dayjs(pacientePayload.Fecha_nacimiento)))
@@ -196,7 +196,7 @@ const AddPatient = () => {
     const presionRegex = /^\d{2,3}\/\d{2,3}$/;
 
     if (!presionRegex.test(examenFisicoPayload.Presion_arterial))
-      showErrors.push("El formato de la presion arterial debe ser 00/00");
+      showErrors.push("El formato de la presión arterial debe ser 00/00");
 
     //Verificar que el peso sea mayor a 0 y menor a 1000
     if (examenFisicoPayload.Peso < 0 || examenFisicoPayload.Peso > 1000)
@@ -241,7 +241,7 @@ const AddPatient = () => {
     const grupoSanguineoRegex = /^(A|B|AB|O)[+-]$/;
 
     if (!grupoSanguineoRegex.test(examenFisicoPayload.Grupo_sanguineo))
-      showErrors.push("El grupo sanguineo no es valido, ej: O+");
+      showErrors.push("El grupo sanguíneo no es valido, ej: O+");
 
     //Verificar que la fecha de inicio de sintomas no sea mayor a la fecha actual
     if (
@@ -250,7 +250,7 @@ const AddPatient = () => {
       )
     )
       showErrors.push(
-        "La fecha de inicio de sintomas no puede ser mayor a la actual"
+        "La fecha de inicio de síntomas no puede ser mayor a la actual"
       );
 
     if (showErrors.length > 0) {
@@ -426,10 +426,10 @@ const AddPatient = () => {
             </div>
             <div className={`${step != 6 && "hidden"}`}>
               <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Firmar Historial Clinico
+                Firmar expediente clínico
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                Finalmente ingrese su contraseña para crear el historial clinico
+                Finalmente ingrese su contraseña para generar el expediente clínico
                 del paciente.
               </p>
               <div className="flex justify-center items-center h-[calc(50vh)]">
@@ -452,7 +452,7 @@ const AddPatient = () => {
                         className="mt-6 mx-auto"
                         type="submit"
                       >
-                        Firmar Historial Clinico
+                        Firmar expediente clínico
                       </Button>
                     </div>
                   )}
@@ -469,15 +469,15 @@ const AddPatient = () => {
               Icon: UserIcon,
             },
             {
-              Details: "Historia Medica",
+              Details: "Historia medica",
               Icon: ClipboardDocumentListIcon,
             },
             {
-              Details: "Examen Fisico",
+              Details: "Examen físico",
               Icon: FingerPrintIcon,
             },
             {
-              Details: "Historia Clinica Actual",
+              Details: "Historia clínica actual",
               Icon: ClipboardDocumentIcon,
             },
             {
@@ -489,7 +489,7 @@ const AddPatient = () => {
               Icon: Square3Stack3DIcon,
             },
             {
-              Details: "Firmar Historial Clinico",
+              Details: "Firmar expediente clínico",
               Icon: PaintBrushIcon,
             },
           ]}

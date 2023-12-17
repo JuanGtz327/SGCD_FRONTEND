@@ -9,11 +9,10 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
-        Historia Medica
+        Historia medica
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir la informacion medica por la que su
-        paciente ha pasado.
+      En este apartado debe incluir la información médica del paciente, como enfermedades hereditarias, enfermedades previas, cirugías, alergias, traumatismos, vacunas, hábitos negativos y hábitos positivos.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-6">
@@ -22,7 +21,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             <Textarea
               variant="standard"
               color="blue"
-              label="Enfermedades Hereditarias"
+              label="Enfermedades hereditarias"
               {...register("Enfermedades_hereditarias", { required: true })}
               error={errors.Enfermedades_hereditarias ? true : false}
             />
@@ -33,7 +32,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             <Textarea
               variant="standard"
               color="blue"
-              label="Enfermedades Previas"
+              label="Enfermedades previas"
               {...register("Enfermedades_previas", { required: true })}
               error={errors.Enfermedades_previas ? true : false}
             />
@@ -44,7 +43,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
             <Textarea
               variant="standard"
               color="blue"
-              label="Cirugias"
+              label="Cirugías"
               {...register("Cirugias", { required: true })}
               error={errors.Cirugias ? true : false}
             />
@@ -86,7 +85,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                       color={errors.Vacunas ? "red" : "gray"}
                       className="font-normal"
                     >
-                      El paciente cuenta con las vacunas escenciales.
+                      El paciente cuenta con las vacunas esenciales.
                     </Typography>
                   </div>
                 }
@@ -98,7 +97,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
         </div>
         <div className="xl:col-span-3">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Habitos Negativos
+            Hábitos negativos
           </h2>
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div className="flex">
@@ -122,7 +121,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                 }}
               />
               <Typography color="gray" className="self-center">
-                Consume Alcohol
+                Consume alcohol
               </Typography>
             </div>
             <div className="flex">
@@ -134,7 +133,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                 }}
               />
               <Typography color="gray" className="self-center">
-                Consume Drogas
+                Consume drogas
               </Typography>
             </div>
             <div className="flex">
@@ -153,7 +152,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
         </div>
         <div className="xl:col-span-3">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Habitos Positivos
+            Hábitos positivos
           </h2>
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div className="flex">
@@ -165,7 +164,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                 }}
               />
               <Typography color="gray" className="self-center">
-                Dieta Equilibrada
+                Dieta equilibrada
               </Typography>
             </div>
             <div className="flex">
@@ -177,7 +176,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                 }}
               />
               <Typography color="gray" className="self-center">
-                Ejercicio Regular
+                Ejercicio regular
               </Typography>
             </div>
             <div className="flex">
@@ -189,7 +188,7 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
                 }}
               />
               <Typography color="gray" className="self-center">
-                Higiene Personal
+                Higiene personal
               </Typography>
             </div>
             <div className="flex">

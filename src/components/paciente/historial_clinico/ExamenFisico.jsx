@@ -4,10 +4,11 @@ const ExamenFisico = ({ register, errors }) => {
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
-        Examen Fisico
+        Examen físico
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir las mediciones clincias de su paciente.
+        En este apartado debe incluir los datos del examen físico de su
+        paciente.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -59,7 +60,7 @@ const ExamenFisico = ({ register, errors }) => {
           <div className="mt-2 relative flex">
             <Input
               size="lg"
-              label="Presion Arterial"
+              label="Presión arterial"
               type="string"
               color="blue"
               variant="standard"
@@ -81,7 +82,7 @@ const ExamenFisico = ({ register, errors }) => {
           <div className="mt-2 relative flex">
             <Input
               size="lg"
-              label="Frecuencia Cardiaca"
+              label="Frecuencia cardiaca"
               type="number"
               variant="standard"
               className="pr-24"
@@ -103,7 +104,7 @@ const ExamenFisico = ({ register, errors }) => {
           <div className="mt-2 relative flex">
             <Input
               size="lg"
-              label="Frecuencia Respiratoria"
+              label="Frecuencia respiratoria"
               type="number"
               variant="standard"
               color="blue"
@@ -148,7 +149,7 @@ const ExamenFisico = ({ register, errors }) => {
           <div className="mt-2 relative flex">
             <Input
               size="lg"
-              label="Grupo Sanquineo"
+              label="Grupo sanguíneo"
               type="text"
               color="blue"
               variant="standard"
@@ -161,17 +162,17 @@ const ExamenFisico = ({ register, errors }) => {
 
       <div className="lg:col-span-full">
         <h2 className="mt-16 text-base font-semibold leading-7 text-gray-900">
-          Detalles del examen fisico
+          Detalles de examen físico
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          En este apartado puede incluir mas detalles del examen medico de su
+          En este apartado puede incluir más detalles del examen médico de su
           paciente.
         </p>
         <div className="mt-6">
           <Textarea
             variant="standard"
             color="blue"
-            label="Detalle de examen fisico"
+            label="Detalles del examen físico"
             rows={9}
             {...register("Detalles", { required: true })}
             error={errors.Detalles ? true : false}

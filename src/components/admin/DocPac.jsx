@@ -43,12 +43,12 @@ const DocPac = () => {
         { idDoctor: doctorToAdd.id, idPaciente: paciente.id },
         user.token
       );
-      showToast("success", "Se ha añadido el medico al paciente");
+      showToast("success", "Se ha añadido el médico al paciente");
       navigate(`/clinicDetail/${paciente.id}`);
     } catch (error) {
       showToast(
         "error",
-        "No se ha podido añadir el medico al paciente",
+        "No se ha podido añadir el médico al paciente",
         "center"
       );
     }
@@ -59,10 +59,7 @@ const DocPac = () => {
     <div className="lg:px-16">
       {!loading && paciente ? (
         <section className="text-gray-600 body-font">
-          <BreadCrumbsPag
-            show={[1, 2, 3, 4]}
-            idPaciente={patientID}
-          />
+          <BreadCrumbsPag show={[1, 2, 3, 4]} idPaciente={patientID} />
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
@@ -71,9 +68,9 @@ const DocPac = () => {
                     Doctor-Paciente
                   </h1>
                   <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                    A continuacion se muestra una lista de los medicos de la
-                    clinca, para añadirlo al paciente solo debe dar click en el
-                    boton de añadir.
+                    A continuación, se muestra una lista de los médicos de la
+                    clínica, para añadirlo al paciente solo debe dar click en el
+                    botón de añadir.
                   </p>
                   <div className="flex mt-6 justify-center">
                     <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -152,7 +149,7 @@ const DocPac = () => {
                             </div>
                             <div className="hidden md:flex-grow">
                               <h2 className="text-gray-900 title-font font-medium">
-                                Medico: {Nombre} {ApellidoP} {ApellidoM}
+                                Médico: {Nombre} {ApellidoP} {ApellidoM}
                               </h2>
                               <p className="text-gray-500">{Especialidad}</p>
                             </div>
@@ -215,7 +212,7 @@ const DocPac = () => {
               setDoctorToAdd({});
               setShowConfirmationModal(false);
             }}
-            message={`Esto añadira el medico ${
+            message={`Esto añadira el médico ${
               doctorToAdd.Nombre + " " + doctorToAdd.ApellidoP
             } al paciente ${
               paciente?.Nombre +
