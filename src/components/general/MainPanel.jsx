@@ -149,7 +149,7 @@ const MainPanel = () => {
           </div>
           <div className="grid 2xl:grid-cols-2 grid-cols-1 gap-1">
             <div className="flex flex-wrap gap-1 ">
-              <div className=" md:p-2 p-1 w-full md:h-[275px] ">
+              <div className=" md:p-2 p-1 w-full md:h-[275px] animate-fade-down animate-duration-[1000ms]">
                 <div className="bg-white md:shadow-2xl h-full md:p-4 flex flex-col justify-between">
                   {!loadingAppointments ? (
                     <>
@@ -225,7 +225,7 @@ const MainPanel = () => {
                 </div>
               </div>
               <hr className="md:hidden w-full border-blue-200 p-2" />
-              <div className="md:p-2 p-1 w-full md:h-[400px]">
+              <div className="md:p-2 p-1 w-full md:h-[400px] animate-fade-down animate-duration-[1500ms]">
                 <Card className="shadow-none w-full h-full flex-row rounded-none md:shadow-2xl">
                   <CardHeader
                     shadow={false}
@@ -285,7 +285,7 @@ const MainPanel = () => {
               </div>
             </div>
             <div className="flex flex-wrap gap-1">
-              <div className="md:p-2 p-1 w-full md:h-[475px]">
+              <div className="md:p-2 p-1 w-full md:h-[475px] animate-fade-down animate-duration-[2000ms]">
                 <Card className="shadow-none flex flex-col justify-between w-full h-full rounded-none md:shadow-2xl">
                   <hr className="md:hidden w-full border-blue-200 p-2" />
                   <div className="w-full">
@@ -695,7 +695,7 @@ const MainPanel = () => {
                 </Card>
               </div>
               <hr className="md:hidden w-full border-blue-200 p-2" />
-              <div className="md:p-2 p-1 w-full md:h-[200px] ">
+              <div className="md:p-2 p-1 w-full md:h-[200px] animate-fade-down animate-duration-[2500ms]">
                 <div className="divide-x flex flex-row gap-3 bg-white h-full items-center md:p-3 md:shadow-2xl">
                   <div className="sm:w-32 sm:h-32 h-20 w-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
                     <svg

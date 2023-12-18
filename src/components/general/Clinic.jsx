@@ -132,7 +132,7 @@ const Clinic = () => {
                 src={direccion}
               ></iframe>
               <div className="md:bg-white relative flex flex-wrap py-6 rounded md:shadow-md">
-                <div className="lg:w-1/2 px-6">
+                <div className="lg:w-1/2 px-6 animate-fade-down">
                   <h2 className="text-base font-semibold sm:text-gray-900 text-transparent">
                     Dirección
                   </h2>
@@ -153,7 +153,7 @@ const Clinic = () => {
               </div>
             </div>
             <div className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-              <Card className="max-w-[24rem] overflow-hidden rounded-sm">
+              <Card className="max-w-[24rem] overflow-hidden rounded-sm animate-fade-down">
                 <CardHeader
                   floated={false}
                   shadow={false}

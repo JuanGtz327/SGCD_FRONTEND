@@ -90,6 +90,30 @@ const PacDoc = () => {
     }
   }, [adminPacientes, pacientes]);
 
+  const getDelay = (key) => {
+    if (key === 0) return 'animate-delay-[150ms]';
+    if (key === 1) return 'animate-delay-[300ms]';
+    if (key === 2) return 'animate-delay-[450ms]';
+    if (key === 3) return 'animate-delay-[600ms]';
+    if (key === 4) return 'animate-delay-[750ms]';
+    if (key === 5) return 'animate-delay-[900ms]';
+    if (key === 6) return 'animate-delay-[1050ms]';
+    if (key === 7) return 'animate-delay-[1200ms]';
+    if (key === 8) return 'animate-delay-[1350ms]';
+    if (key === 9) return 'animate-delay-[1500ms]';
+    if (key === 10) return 'animate-delay-[1650ms]';
+    if (key === 11) return 'animate-delay-[1800ms]';
+    if (key === 12) return 'animate-delay-[1950ms]';
+    if (key === 13) return 'animate-delay-[2100ms]';
+    if (key === 14) return 'animate-delay-[2250ms]';
+    if (key === 15) return 'animate-delay-[2400ms]';
+    if (key === 16) return 'animate-delay-[2550ms]';
+    if (key === 17) return 'animate-delay-[2700ms]';
+    if (key === 18) return 'animate-delay-[2850ms]';
+    if (key === 19) return 'animate-delay-[3000ms]';
+    if (key === 20) return 'animate-delay-[3150ms]';
+  }
+
   return (
     <div className="lg:px-16">
       {!loading && doctor && pacientes ? (
@@ -196,8 +220,8 @@ const PacDoc = () => {
                           ApellidoP,
                           ApellidoM,
                           User: { Correo },
-                        }) => (
-                          <div className="p-2" key={id}>
+                        },key) => (
+                          <div className={`p-2 animate-fade-right animate-duration-[750ms] ${getDelay(key)}`} key={id}>
                             <div className="flex items-center border-blue-400 border p-4 rounded-lg">
                               <div className="mr-2 sm:w-16 sm:h-16 h-14 w-14 sm:mr-5 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
                                 <svg
