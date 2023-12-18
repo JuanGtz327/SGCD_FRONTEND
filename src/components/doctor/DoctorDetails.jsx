@@ -18,7 +18,7 @@ const DoctorDetails = () => {
   }, [doctorID]);
 
   return (
-    <div className="lg:px-16">
+    <div className="2xl:px-16">
       {!loading && doctor ? (
         <>
           <BreadCrumbsPag show={[6, 7]} idDoctor={doctorID} />

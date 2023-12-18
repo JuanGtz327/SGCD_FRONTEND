@@ -56,7 +56,7 @@ const DocPac = () => {
   };
 
   return (
-    <div className="lg:px-16">
+    <div className="2xl:px-16">
       {!loading && paciente ? (
         <section className="text-gray-600 body-font">
           <BreadCrumbsPag show={[1, 2, 3, 4]} idPaciente={patientID} />
@@ -78,10 +78,10 @@ const DocPac = () => {
                 </div>
               </div>
             </section>
-            <div className="bg-white shadow-none md:shadow-2xl min-h-[600px] py-4 md:py-8 px-2 md:px-8 md:mt-10">
+            <div className="bg-white shadow-none md:shadow-2xl min-h-[600px] py-4 md:py-8 px-2 md:px-8 2xl:mt-10">
               <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="col-span-1">
-                  <Card className="w-full md:w-96">
+                  <Card className="w-full 2xl:w-96">
                     <CardHeader floated={false} className="h-80 bg-indigo-100">
                       <div className="h-full w-full inline-flex items-center justify-center rounded-full text-indigo-500 flex-shrink-0">
                         <svg

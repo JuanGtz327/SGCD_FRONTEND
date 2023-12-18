@@ -85,7 +85,7 @@ const Perfil = () => {
   };
 
   return (
-    <div className="lg:px-16">
+    <div className="2xl:px-16">
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
           <div className="text-center mb-0">

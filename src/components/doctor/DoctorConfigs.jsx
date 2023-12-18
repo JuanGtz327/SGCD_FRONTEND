@@ -99,7 +99,7 @@ const DoctorConfigs = () => {
         </div>
       </section>
       {!loading && configuraciones ? (
-        <div className="container md:px-12">
+        <div className="container 2xl:px-12">
           <div className="bg-white md:shadow-2xl min-h-[600px] flex flex-col h-full md:px-10">
             <form className="mt-4 mb-2 w-[100%]">
               <div>

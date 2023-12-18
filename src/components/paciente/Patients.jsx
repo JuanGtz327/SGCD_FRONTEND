@@ -63,7 +63,7 @@ const Patients = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col lg:px-16">
+        <div className="flex flex-col 2xl:px-16">
           <BreadCrumbsPag show={[1]} idClinica={clinicID} />
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
@@ -129,7 +129,7 @@ const Patients = () => {
                         Paciente
                       ) => (
                         <div
-                          className="py-8 flex flex-wrap md:flex-nowrap justify-between"
+                          className="py-8 flex flex-col sm:flex-wrap md:flex-nowrap lg:flex-row justify-between"
                           key={key}
                         >
                           <div className="flex flex-col md:flex-row sm:flex-shrink-0 gap-5 mb-4 sm:mb-0 rounded-md">
@@ -151,7 +151,8 @@ const Patients = () => {
                               <h2 className="text-lg md:text-xl 2xl:text-2xl font-medium text-gray-900 title-font mb-2 text-center md:text-left">
                                 {`${Nombre} ${ApellidoP} ${ApellidoM}`}
                               </h2>
-                              <p className="mb-3 text-sm md:text-base leading-relaxed md:block text-justify">
+                              <p className="hidden mb-3 text-sm md:text-base leading-relaxed 2xl:block text-justify truncate md:max-w-md
+                               2xl:max-w-full">
                                 {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                               </p>
                               {is_active &&

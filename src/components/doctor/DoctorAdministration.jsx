@@ -113,7 +113,7 @@ const DoctorAdministration = () => {
   return (
     <>
       {!loading && doctor ? (
-        <div className="py-5 px-1 md:py-4 lg:px-16">
+        <div className="py-5 px-1 md:py-4 2xl:px-16">
           <BreadCrumbsPag show={[6, 7, 8]} idDoctor={doctorID} />
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
@@ -156,12 +156,12 @@ const DoctorAdministration = () => {
               {data.map(({ value, id }) => (
                 <TabPanel key={value} value={value}>
                   {id == 0 && (
-                    <div className="flex flex-col h-full lg:px-16 mt-4">
+                    <div className="flex flex-col h-full md:px-5 2xl:px-16 mt-4">
                       <DatosDoctorEdit doctor={doctor} doctorID={doctorID} />
                     </div>
                   )}
                   {id == 1 && (
-                    <div className="flex flex-col h-full lg:px-16">
+                    <div className="flex flex-col h-full md:px-5 2xl:px-16">
                       <form className="mt-4 mb-2 w-[100%]">
                         <div>
                           <div className="flex items-center justify-between">

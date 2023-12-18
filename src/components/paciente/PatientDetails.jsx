@@ -21,7 +21,7 @@ const PatientDetails = () => {
   }, [patientID]);
 
   return (
-    <div className="py-5 lg:px-16">
+    <div className="py-5 2xl:px-16">
       {!loading && paciente ? (
         <>
           <BreadCrumbsPag show={[1, 2]} idPaciente={patientID} />

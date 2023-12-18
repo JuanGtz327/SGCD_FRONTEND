@@ -60,7 +60,7 @@ const Doctors = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col lg:px-16">
+        <div className="flex flex-col 2xl:px-16">
           <BreadCrumbsPag show={[6]} />
           <section className="text-gray-600 body-font">
             <div className="container px-0 py-5 mx-auto">
@@ -149,7 +149,7 @@ const Doctors = () => {
                             <h2 className="text-center md:text-left text-lg md:text-2xl font-medium text-gray-900 title-font mb-2">
                               {`${Nombre} ${ApellidoP} ${ApellidoM}`}
                             </h2>
-                            <p className="text-sm md:text-base leading-relaxed text-justify">
+                            <p className="text-sm hidden 2xl:block md:text-base leading-relaxed text-justify">
                               {`Calle: ${Calle} #${Num_ext} ${Num_int} Colonia: ${Colonia} CP: ${CP} Estado: ${Estado} Municipio: ${Municipio}`}
                             </p>
                             {is_active && (

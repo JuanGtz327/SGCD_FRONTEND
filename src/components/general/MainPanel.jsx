@@ -100,7 +100,7 @@ const MainPanel = () => {
   return (
     <section className="text-gray-600 body-font">
       {!loading ? (
-        <div className="container md:px-5 md:py-8 mx-auto flex flex-wrap">
+        <div className="container 2xl:px-5 md:py-8 mx-auto flex flex-wrap">
           <div className="flex w-full lg:mb-16 mb-5 flex-wrap">
             {!loadingProfile ? (
               <div className="w-full md:w-1/3 text-center">
@@ -147,7 +147,7 @@ const MainPanel = () => {
               perfil, así como de la clínica a la que pertenece.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-1">
+          <div className="grid 2xl:grid-cols-2 grid-cols-1 gap-1">
             <div className="flex flex-wrap gap-1 ">
               <div className=" md:p-2 p-1 w-full md:h-[275px] ">
                 <div className="bg-white md:shadow-2xl h-full md:p-4 flex flex-col justify-between">
@@ -391,7 +391,7 @@ const MainPanel = () => {
                                   key={paciente.id}
                                   className="px-1 md:px-4"
                                   onClick={() =>
-                                    navigate(`/patient/${paciente.id}`)
+                                    navigate(`/newDocPac/${paciente.id}`)
                                   }
                                 >
                                   <ListItemPrefix>

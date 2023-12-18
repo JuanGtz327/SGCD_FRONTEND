@@ -26,7 +26,7 @@ const Calendar = ({
   const { showToast } = useToast();
 
   return (
-    <div className={`${customClassName} h-fit p-1 md:p-12 bg-white rounded-sm shadow-none`}>
+    <div className={`${customClassName} h-fit p-1 md:p-5 2xl:p-12 bg-white rounded-sm shadow-none`}>
       <div className="flex justify-between items-center">
         <h1 className="select-none font-semibold">{getCalendarHeader()}</h1>
         <div className="flex gap-10 items-center ">

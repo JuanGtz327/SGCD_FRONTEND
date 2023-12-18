@@ -123,7 +123,7 @@ const PatientAppointments = () => {
         <Loader top="mt-32" />
       ) : (
         <>
-          <div className="mt-8 flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
+          <div className="mt-8 flex md:gap-1 2xl:gap-10 sm:divide-x justify-center items-center 2xl:flex-row flex-col">
             <Calendar
               selectDate={selectDate}
               customClassName="w-full max-w-lg"

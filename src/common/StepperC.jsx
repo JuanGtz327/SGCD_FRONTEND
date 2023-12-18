@@ -23,7 +23,7 @@ const StepperC = ({ steps, onStepChange }) => {
   return (
     <div className="flex justify-center items-center h-full">
       <div
-        className={`2xl:absolute 2xl:bottom-10 mt-10 w-full max-w-7xl px-0 lg:px-24 py-0`}
+        className={`mt-10 w-full max-w-7xl px-0 lg:px-24 py-0`}
       >
         <Stepper
           activeStep={activeStep}

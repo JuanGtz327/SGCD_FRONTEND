@@ -6,7 +6,7 @@ const Pagination = ({ prev, currentPage, pageCount, next, getItemProps }) => {
     <>
       {pageCount > 1 && (
         <div className="flex justify-center items-center h-full">
-          <div className="2xl:absolute 2xl:bottom-10 w-full max-w-7xl px-0 lg:px-24 py-0">
+          <div className="w-full max-w-7xl px-0 lg:px-24 py-0">
             <div className="flex items-center justify-center gap-4 mt-10">
               <Button
                 className="flex items-center gap-2"
@@ -16,7 +16,7 @@ const Pagination = ({ prev, currentPage, pageCount, next, getItemProps }) => {
               >
                 <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Anterior
               </Button>
-              <div className="hidden 2xl:flex items-center gap-2">
+              <div className="hidden xl:flex items-center gap-2">
                 {Array.from({ length: pageCount }).map((_, index) => (
                   <IconButton
                     key={index}

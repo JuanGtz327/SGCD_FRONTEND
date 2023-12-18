@@ -98,7 +98,7 @@ const MedicalCondition = () => {
   };
 
   return (
-    <section className="text-gray-600 body-font lg:px-16">
+    <section className="text-gray-600 body-font 2xl:px-16">
       <BreadCrumbsPag show={[1, 2, 3, 5]} idPaciente={patientID} />
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-6 mx-auto">
@@ -118,8 +118,8 @@ const MedicalCondition = () => {
           </div>
         </div>
       </section>
-      <div className="container px-1 md:py-5 2xl:py-0 mx-auto flex flex-wrap items-center divide-red-700">
-        <div className="w-full lg:w-2/6 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+      <div className="container px-1 md:py-5 2xl:py-0 mx-auto flex flex-wrap lg:gap-5 items-center divide-red-700">
+        <div className="w-full lg:w-[40%] 2xl:w-2/6 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <Timeline>
             {!loading && infoToDisplay ? (
               <>
@@ -202,7 +202,7 @@ const MedicalCondition = () => {
             getItemProps={getItemProps}
           />
         </div>
-        <div className="bg-white lg:w-3/5 md:w-1/2 shadow-none md:shadow-2xl rounded-sm md:p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+        <div className="bg-white lg:w-[55%] 2xl:w-3/5 md:w-1/2 shadow-none md:shadow-2xl rounded-sm md:p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
           <h2 className="text-gray-900 text-2xl font-bold">
             Nuevo padecimiento
           </h2>

@@ -249,7 +249,7 @@ const PatientStats = () => {
   };
 
   return (
-    <div className="py-5 lg:px-16">
+    <div className="py-5 2xl:px-16">
       {!loading && !metricasLoading && paciente ? (
         <>
           {user.is_doctor ? (

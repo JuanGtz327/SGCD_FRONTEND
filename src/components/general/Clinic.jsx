@@ -104,7 +104,7 @@ const Clinic = () => {
   });
 
   return (
-    <section className="text-gray-600 body-font relative lg:px-16">
+    <section className="text-gray-600 body-font relative 2xl:px-16">
       {loading ? (
         <>
           <div className="container px-5 py-6 mx-auto">

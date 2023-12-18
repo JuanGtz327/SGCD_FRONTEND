@@ -55,7 +55,7 @@ const ClinicDetail = () => {
   return (
     <>
       {!loading && paciente ? (
-        <div className="py-5 px-1 md:py-4 lg:px-16">
+        <div className="py-5 px-1 md:py-4 2xl:px-16">
           <BreadCrumbsPag show={[1, 2, 3]} idPaciente={patientID} />
           <div className="mt-5 md:mt-0 flex w-full lg:mb-5 justify-end">
             <div className="w-full text-center">
@@ -101,7 +101,7 @@ const ClinicDetail = () => {
               {data.map(({ value, id }) => (
                 <TabPanel key={value} value={value}>
                   {id == 0 && (
-                    <div className="lg:px-16">
+                    <div className="md:px-5 2xl:px-16">
                       <HistoriaMedicaEdit
                         data={paciente.HistorialClinico.HistoriaMedica}
                         patientID={patientID}
@@ -109,7 +109,7 @@ const ClinicDetail = () => {
                     </div>
                   )}
                   {id == 1 && (
-                    <div className="lg:px-16">
+                    <div className="md:px-5 2xl:px-16">
                       <ExamenFisicoEdit
                         data={paciente.HistorialClinico.ExamenFisico}
                         patientID={patientID}
@@ -117,7 +117,7 @@ const ClinicDetail = () => {
                     </div>
                   )}
                   {id == 2 && (
-                    <div className="lg:px-16">
+                    <div className="md:px-5 2xl:px-16">
                       <MedicosEdit
                         data={paciente.DocPacs}
                         patientID={patientID}

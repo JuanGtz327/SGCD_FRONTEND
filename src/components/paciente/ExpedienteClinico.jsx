@@ -53,7 +53,7 @@ const ExpedienteClinico = () => {
   return (
     <>
       {!loading && paciente ? (
-        <div className="py-5 px-1 md:py-10 lg:px-16">
+        <div className="py-5 px-1 md:py-10 2xl:px-16">
           <Tabs value="dashboard" className="shadow-none md:shadow-2xl">
             <TabsHeader>
               {data.map(({ label, value, icon }) => (

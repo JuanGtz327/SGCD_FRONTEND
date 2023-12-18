@@ -344,7 +344,7 @@ const AddPatient = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:px-16">
+      <div className="flex flex-col 2xl:px-16">
         <Card
           shadow={false}
           className="bg-white rounded-sm w-full shadow-none md:shadow-2xl md:min-h-[730px] px-5 lg:px-16 py-5 mx-auto"
@@ -469,7 +469,7 @@ const AddPatient = () => {
               Icon: UserIcon,
             },
             {
-              Details: "Historia medica",
+              Details: "Historia médica",
               Icon: ClipboardDocumentListIcon,
             },
             {
