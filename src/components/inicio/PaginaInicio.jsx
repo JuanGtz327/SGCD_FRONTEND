@@ -7,37 +7,34 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Typography } from "@material-tailwind/react";
-import {
-  ArrowPathIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
+import { FaUser,FaCalendarAlt } from "react-icons/fa";
+import { MdNotificationsActive } from "react-icons/md";
+import { FaUserDoctor } from "react-icons/fa6";
 
 const features = [
   {
     name: "Pacientes",
     description:
       "Agrega, edita y elimina pacientes de tu clínica, además de poder ver su historial clínico y sus recetas medicas.",
-    icon: CloudArrowUpIcon,
+    icon: FaUser,
   },
   {
     name: "Citas y Recetas",
     description:
-      "Agenda citas con tus pacientes y genera recetas medicas para ellos.",
-    icon: LockClosedIcon,
+      "Agenda citas con tus pacientes usando calendarios dinamicos.",
+    icon: FaCalendarAlt ,
   },
   {
     name: "Notificaciones",
     description:
       "Recibe notificaciones de tus citas medicas 2 horas antes de que se lleven a cabo.",
-    icon: ArrowPathIcon,
+    icon: MdNotificationsActive,
   },
   {
     name: "Doctores",
     description:
       "Agrega, edita y elimina doctores de tu clínica, añade sus especialidades y sus horarios de trabajo.",
-    icon: FingerPrintIcon,
+    icon: FaUserDoctor,
   },
 ];
 
@@ -247,7 +244,7 @@ export default function PaginaInicio() {
                 </h1>
                 <Typography variant="h5" className="mt-5" color="white">
                   Gestione su clínica de manera fácil y rápida, con un sistema
-                  que le permitirá gestionar sus pacientes, citas, medicamentos,
+                  que le permitirá gestionar sus doctores, pacientes, citas,
                   recetas y más.
                 </Typography>
                 <div className="mt-10 flex items-center justify-center gap-x-6">

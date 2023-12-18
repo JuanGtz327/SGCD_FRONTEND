@@ -34,6 +34,8 @@ import DoctorConfigs from "./components/doctor/DoctorConfigs.jsx";
 import Recipe from "./components/recetas/Recipe.jsx";
 import PatientStats from "./components/paciente/PatientStats.jsx";
 import RecoverPassword from "./pages/RecoverPassword.jsx";
+import Notfound from "./pages/Notfound.jsx";
+import Billing from "./pages/Billing.jsx";
 
 const App = () => {
   return (
@@ -45,6 +47,7 @@ const App = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/resetPassword" element={<RecoverPassword />} />
+            <Route path="/billing" element={<Billing />} />
             <Route element={<ProtectedRoute />}>
               <Route
                 path="/main"
@@ -223,7 +226,7 @@ const App = () => {
                 }
               />
             </Route>
-            <Route path="*" element={<h1>No se encontro</h1>} />
+            <Route path="*" element={<Notfound /> } />
           </Routes>
         </ClinicProvider>
       </BrowserRouter>

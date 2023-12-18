@@ -89,8 +89,8 @@ const DoctorConfigs = () => {
               Configuraciones
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede modificar sus dias laborales, asi como los
-              horarios de trabajo y la duracion de sus citas.
+              En este apartado puede modificar sus días laborales, así como los
+              horarios de trabajo y la duración de sus citas.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -186,7 +186,7 @@ const DoctorConfigs = () => {
                   </Alert>
                   <div>
                     <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                      Dias laborales
+                      Días laborales
                     </h2>
                     <div className="mt-5 grid grid-cols-2 sm:grid-cols-7 gap-x-6">
                       <div className="flex">

@@ -533,7 +533,7 @@ const PatientStats = () => {
                       <div className="flex flex-col text-sm gap-3">
                         <div className="flex justify-center items-center gap-2">
                           <FaPumpMedical className="h-6 w-6" />
-                          Frecuencia respiratoria rromedio:{" "}
+                          Frecuencia respiratoria promedio:{" "}
                           {parseInt(
                             (
                               datosFrecuenciaRespiratoria.reduce(
