@@ -1,8 +1,28 @@
 import { Input, Select, Option, Typography } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { getEspecialidadesRequest } from "../../../api/api";
+import { useAuth } from "../../../context/AuthContext";
+import Loader from "../../../common/Loader";
 
 const DatosPersonales = ({ register, Controller, control, errors }) => {
+  const {user} = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [especialdiades, setEspecialidades] = useState([]);
+
+  useEffect(() => {
+    (async ()=>{
+      const res = await getEspecialidadesRequest(user.token);
+      setEspecialidades(res.data);
+      setLoading(false);
+    })()
+  }, []);
+
+  console.log(especialdiades);
+
+
   return (
     <>
+      {!loading ? (<>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
         Datos personales
       </h2>
@@ -123,24 +143,11 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
                   variant="standard"
                   color="blue"
                 >
-                  <Option value="Medicina Interna">Medicina Interna</Option>
-                  <Option value="Cirugía General">Cirugía General</Option>
-                  <Option value="Ginecología y Obstetricia">
-                    Ginecología y Obstetricia
-                  </Option>
-                  <Option value="Pediatría">Pediatría</Option>
-                  <Option value="Cardiología">Cardiología</Option>
-                  <Option value="Ortopedia y Traumatología">
-                    Ortopedia y Traumatología
-                  </Option>
-                  <Option value="Dermatología">Dermatología</Option>
-                  <Option value="Oftalmología">Oftalmología</Option>
-                  <Option value="Otorrinolaringología">
-                    Otorrinolaringología
-                  </Option>
-                  <Option value="Psiquiatría">Psiquiatría</Option>
-                  <Option value="Anestesiología">Anestesiología</Option>
-                  <Option value="Radiología">Radiología</Option>
+                  {especialdiades.map((especialidad) => (
+                    <Option key={especialidad.id} value={especialidad.Nombre}>
+                      {especialidad.Nombre}
+                    </Option>
+                  ))}
                 </Select>
               )}
             />
@@ -321,6 +328,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
           </div>
         </div>
       </div>
+    </>) :( <Loader />)}
     </>
   );
 };
