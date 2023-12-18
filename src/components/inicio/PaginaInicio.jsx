@@ -249,10 +249,10 @@ export default function PaginaInicio() {
                 </Typography>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Link
-                    to="/login"
+                    to="/clinics"
                     className="w-64 rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-azure-500"
                   >
-                    Comenzar
+                    Clínicas
                   </Link>
                 </div>
               </div>

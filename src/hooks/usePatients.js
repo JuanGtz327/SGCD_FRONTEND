@@ -62,6 +62,22 @@ export const usePatients = (clinicID, showOnlyActive = true) => {
     );
   };
 
+  const filterPatients2 = (value,data) => {
+    setFiltered(
+      data.filter((val) => {
+        if (value === "") {
+          return val;
+        } else if (
+          val.Nombre.toLowerCase().includes(value.toLowerCase()) ||
+          val.ApellidoP.toLowerCase().includes(value.toLowerCase()) ||
+          val.ApellidoM.toLowerCase().includes(value.toLowerCase())
+        ) {
+          return val;
+        }
+      })
+    );
+  };
+
   const getPatiensByDoctor = async (doctorID) => {
     setLoading(true);
     const response = await getPatiensByDoctorRequest(doctorID, user.token);
@@ -84,6 +100,7 @@ export const usePatients = (clinicID, showOnlyActive = true) => {
     loading,
     setLoading,
     filterPatients,
+    filterPatients2,
     getPaciente,
     getPatiensByDoctor,
   };

@@ -24,6 +24,7 @@ import { useAuth } from "../../context/AuthContext";
 import EmptyData from "../../common/EmptyData";
 import { useNavigationC } from "../../hooks/useNavigationC";
 import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
+import Pagination from "../../common/Pagination";
 
 const PacDoc = () => {
   const { user } = useAuth();
@@ -35,12 +36,13 @@ const PacDoc = () => {
     getPatiensByDoctor,
     loading,
     setLoading,
-    filterPatients,
+    filterPatients2,
     filtered,
   } = usePatients();
   const [isSearching, setIsSearching] = useState(false);
   const [pacientes, setPacientes] = useState(null);
-  const { infoToDisplay } = useNavigationC(isSearching ? filtered : pacientes);
+  const { infoToDisplay, currentPage, getItemProps, next, pageCount, prev } =
+    useNavigationC(isSearching ? filtered : pacientes);
   const { showToast } = useToast();
   const [pacientesChoose, setPacientesChoose] = useState([]);
   const [open, setOpen] = useState(false);
@@ -163,7 +165,7 @@ const PacDoc = () => {
                           onClick={handleOpen}
                           disabled={pacientesChoose.length === 0}
                         >
-                          Añadir paciente
+                          + paciente
                         </Button>
                       </div>
                     </CardBody>
@@ -181,7 +183,7 @@ const PacDoc = () => {
                         if (e.target.value.length === 0) setIsSearching(false);
                         if (e.target.value.length > 0 && !isSearching)
                           setIsSearching(true);
-                        filterPatients(e.target.value);
+                        filterPatients2(e.target.value,pacientes);
                       }}
                     />
                   </div>
@@ -236,6 +238,15 @@ const PacDoc = () => {
                         <div></div>
                       </>
                     )}
+                    <div className="col-span-full">
+                      <Pagination
+                        prev={prev}
+                        currentPage={currentPage}
+                        pageCount={pageCount}
+                        next={next}
+                        getItemProps={getItemProps}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

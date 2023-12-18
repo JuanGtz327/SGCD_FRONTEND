@@ -36,6 +36,7 @@ import PatientStats from "./components/paciente/PatientStats.jsx";
 import RecoverPassword from "./pages/RecoverPassword.jsx";
 import Notfound from "./pages/Notfound.jsx";
 import Billing from "./pages/Billing.jsx";
+import Clinics from "./pages/Clinics.jsx";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/resetPassword" element={<RecoverPassword />} />
             <Route path="/billing" element={<Billing />} />
+            <Route path="/clinics" element={<Clinics />} />
             <Route element={<ProtectedRoute />}>
               <Route
                 path="/main"

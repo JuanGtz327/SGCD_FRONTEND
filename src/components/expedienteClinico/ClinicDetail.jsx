@@ -33,7 +33,7 @@ const ClinicDetail = () => {
 
   const data = [
     {
-      label: "Historia Medica",
+      label: "Historia médica",
       value: "historia_medica",
       icon: ClipboardDocumentListIcon,
       id: 0,

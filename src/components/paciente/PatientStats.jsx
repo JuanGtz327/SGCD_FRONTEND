@@ -52,8 +52,8 @@ const optionsPresion = {
 const optionsCardio = {
   scales: {
     y: {
-      min: 40,
-      max: 150,
+      min: 50,
+      max: 200,
     },
   },
 };
@@ -61,8 +61,17 @@ const optionsCardio = {
 const optionsRespiratoria = {
   scales: {
     y: {
-      min: 20,
-      max: 100,
+      min: 10,
+      max: 60,
+    },
+  },
+};
+
+const optionsTemp = {
+  scales: {
+    y: {
+      min: 35,
+      max: 40,
     },
   },
 };
@@ -594,7 +603,7 @@ const PatientStats = () => {
                     <div className="rounded-lg  overflow-hidden">
                       <Line
                         data={dataTemperatura}
-                        options={optionsRespiratoria}
+                        options={optionsTemp}
                       />
                     </div>
                     <div className="gap-3 flex justify-center items-center mt-6 mb-3 text-xl title-font font-medium text-gray-700 ">

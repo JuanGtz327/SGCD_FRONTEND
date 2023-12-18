@@ -4,6 +4,7 @@ import {
   CardBody,
   CardHeader,
   IconButton,
+  Input,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
@@ -19,12 +20,17 @@ import Loader from "../../common/Loader";
 import { addDocPacRequest } from "../../api/api";
 import { GiConfirmed } from "react-icons/gi";
 import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
+import { useNavigationC } from "../../hooks/useNavigationC";
+import Pagination from "../../common/Pagination";
 
 const DocPac = () => {
   const { user } = useAuth();
-  const { doctors } = useDoctors();
+  const { doctors, filterDoctors, filtered } = useDoctors();
+  const [isSearching, setIsSearching] = useState(false);
   const { patientID } = useParams();
   const { getPaciente, loading } = usePatients(null, patientID);
+  const { infoToDisplay, currentPage, next, prev, pageCount, getItemProps } =
+    useNavigationC(isSearching ? filtered : doctors, 6);
   const { showToast } = useToast();
   const navigate = useNavigate();
   const [paciente, setPaciente] = useState(null);
@@ -128,8 +134,23 @@ const DocPac = () => {
                   </Card>
                 </div>
                 <div className="col-span-2 mt-5 md:mt-0">
-                  <div className=" grid md:grid-cols-2">
-                    {doctors.map(
+                  <div className="mx-4">
+                    <Input
+                      color="blue"
+                      type="text"
+                      variant="standard"
+                      label="Buscar doctor"
+                      className="text-base text-gray-900"
+                      onChange={(e) => {
+                        if (e.target.value.length === 0) setIsSearching(false);
+                        if (e.target.value.length > 0 && !isSearching)
+                          setIsSearching(true);
+                        filterDoctors(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 2xl:grid-cols-2 mt-5">
+                    {infoToDisplay.map(
                       ({ id, Nombre, ApellidoP, ApellidoM, Especialidad }) => (
                         <div className="p-2" key={id}>
                           <div className="flex items-center border-blue-400 border p-4 rounded-lg">
@@ -200,6 +221,15 @@ const DocPac = () => {
                         </div>
                       )
                     )}
+                    <div className="col-span-full">
+                      <Pagination
+                        prev={prev}
+                        currentPage={currentPage}
+                        pageCount={pageCount}
+                        next={next}
+                        getItemProps={getItemProps}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

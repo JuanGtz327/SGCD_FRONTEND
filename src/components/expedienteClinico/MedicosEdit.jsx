@@ -73,7 +73,7 @@ const MedicosEdit = ({ data, patientID }) => {
                   </p>
                   <a className="mt-3 text-indigo-500 inline-flex items-center">
                     Correo: {Correo} <br />
-                    Némero telefónico: {Telefono}
+                    Número telefónico: {Telefono}
                   </a>
                 </div>
               </div>

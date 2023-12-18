@@ -243,3 +243,7 @@ export const forgotPasswordRequest = (data) => {
 export const resetPasswordRequest = (data) => {
   return axios.post(`/admin/resetPassword`, data);
 };
+
+export const getClinicsRequest = () => {
+  return axios.get(`/admin/getClinicas`);
+};
