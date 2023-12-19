@@ -229,6 +229,16 @@ export const getHistoriaClinicaActualRequest = (id, token) => {
   return axios.get(`/admin/getHistoriaClinicaActual/${id}`, { headers });
 };
 
+export const getNotasRequest = (id, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.get(`/admin/getNotas/${id}`, { headers });
+};
+
+export const addNotaRequest = (data, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return axios.post(`/admin/addNewNotaD`, data, { headers });
+};
+
 //Para las metricas
 export const getMetricasRequest = (id, token) => {
   const headers = { Authorization: `Bearer ${token}` };

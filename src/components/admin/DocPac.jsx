@@ -50,7 +50,10 @@ const DocPac = () => {
         user.token
       );
       showToast("success", "Se ha añadido el médico al paciente");
-      navigate(`/clinicDetail/${paciente.id}`);
+      if (user.is_admin) 
+        navigate("/patients");
+      else
+        navigate(`/clinicDetail/${paciente.id}`);
     } catch (error) {
       showToast(
         "error",
@@ -263,7 +266,7 @@ const DocPac = () => {
               setDoctorToAdd({});
               setShowConfirmationModal(false);
             }}
-            message={`Esto añadira el médico ${
+            message={`Esto añadirá el médico ${
               doctorToAdd.Nombre + " " + doctorToAdd.ApellidoP
             } al paciente ${
               paciente?.Nombre +

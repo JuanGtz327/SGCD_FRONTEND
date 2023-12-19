@@ -4,15 +4,19 @@ import { Link, useParams } from "react-router-dom";
 import { useDay } from "../../hooks/useDay";
 import { MdOutlineSick } from "react-icons/md";
 import Loader from "../../common/Loader";
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { BreadCrumbsPag } from "../../common/BreadCrumbsPag";
 import { GoGraph } from "react-icons/go";
+import NotasPaciente from "./NotasPaciente";
+import { useAuth } from "../../context/AuthContext";
 
 const PatientDetails = () => {
+  const { user } = useAuth();
   const { convertToBirthDate } = useDay();
   const { patientID } = useParams();
   const [paciente, setPaciente] = useState(null);
   const { getPaciente, loading } = usePatients(null, patientID);
+  const [openRight, setOpenRight] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -89,6 +93,18 @@ const PatientDetails = () => {
                         <p>
                           <b>Número teléfono:</b> {paciente.Domicilio.Telefono}
                         </p>
+                        {!user.is_admin && user.is_doctor && (
+                          <Button
+                            color="blue"
+                            size="sm"
+                            className="mt-5"
+                            onClick={() => {
+                              setOpenRight(true);
+                            }}
+                          >
+                            Ver notas del paciente
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -97,7 +113,11 @@ const PatientDetails = () => {
             </section>
 
             <div className="w-[50%] h-1 bg-indigo-500 rounded mt-2 mb-2 mx-auto"></div>
-
+            <NotasPaciente
+              openRight={openRight}
+              setOpenRight={setOpenRight}
+              patientID={patientID}
+            />
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-5 mx-auto">
                 <h1 className="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-10 md:mb-20">
@@ -123,9 +143,9 @@ const PatientDetails = () => {
                         Informacion clínica
                       </h2>
                       <p className="leading-relaxed text-base text-justify">
-                        En esta sección podrá visualizar la información
-                        clínica del paciente, donde encontrará los datos del
-                        examen físico, así como la historia médica.
+                        En esta sección podrá visualizar la información clínica
+                        del paciente, donde encontrará los datos del examen
+                        físico, así como la historia médica.
                       </p>
                       <Link
                         to={`${
@@ -158,9 +178,8 @@ const PatientDetails = () => {
                         Padecimientos
                       </h2>
                       <p className="leading-relaxed text-base text-justify">
-                        Agregue nuevos padecimientos al
-                        paciente, ademas de consultar el histórico de
-                        enfermedades.
+                        Agregue nuevos padecimientos al paciente, ademas de
+                        consultar el histórico de enfermedades.
                       </p>
                       <Link
                         to={`${
@@ -193,9 +212,8 @@ const PatientDetails = () => {
                         Métricas paciente
                       </h2>
                       <p className="leading-relaxed text-base text-justify">
-                        Consulte el progreso del
-                        paciente en cuanto a peso, estatura, presión
-                        arterial, etc.
+                        Consulte el progreso del paciente en cuanto a peso,
+                        estatura, presión arterial, etc.
                       </p>
                       <Link
                         to={`${
