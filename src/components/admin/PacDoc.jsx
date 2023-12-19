@@ -254,8 +254,8 @@ const PacDoc = () => {
                         <div></div>
                         <EmptyData
                           data={infoToDisplay}
-                          title="No se encontro ningun paciente"
-                          description={`No se encontraron pacientes para el doctor ${doctor.Nombre} ${doctor.ApellidoP} ${doctor.ApellidoM}`}
+                          title="No se encontró ningún paciente"
+                          description={``}
                           btnDesc="Añadir nuevo paciente"
                           onNewData={() => navigate(`/addPatient`)}
                         />

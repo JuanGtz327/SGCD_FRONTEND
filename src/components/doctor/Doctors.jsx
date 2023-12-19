@@ -93,8 +93,7 @@ const Doctors = () => {
                   Doctores
                 </h1>
                 <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-                  En este apartado podrá ver la lista completa de los doctores que pertenecen a su clínica, así como
-                  consultar los detalles asociados.
+                  En este apartado podrá ver la lista completa de los doctores que pertenecen a su clínica, además de los detalles asociados.
                 </p>
                 <div className="flex mt-6 justify-center">
                   <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -319,7 +318,7 @@ const Doctors = () => {
               setShowDeleteModal(false);
             }}
             tittle="¿Seguro que desea desactivar este doctor?"
-            message="Al desactivar este doctor, ya no podrá iniciar sesión en el sistema, ni podrá ser asignado a nuevos pacientes."
+            message="Al desactivar este doctor, ya no podrá iniciar sesión en el sistema, ni ser asignado a nuevos pacientes."
           />
         </div>
       )}

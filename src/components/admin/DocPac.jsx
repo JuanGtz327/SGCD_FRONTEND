@@ -99,8 +99,8 @@ const DocPac = () => {
                   </h1>
                   <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
                     A continuación, se muestra una lista de los médicos de la
-                    clínica, para añadirlo al paciente solo debe dar click en el
-                    botón de añadir.
+                    clínica, para asociar a un médico al paciente, solo debe dar click en el
+                    botón +.
                   </p>
                   <div className="flex mt-6 justify-center">
                     <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>

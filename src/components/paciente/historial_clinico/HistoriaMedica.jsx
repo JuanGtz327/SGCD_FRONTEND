@@ -12,7 +12,8 @@ const HistoriaMedica = ({ register, errors, onNewHN, onNewHP }) => {
         Historia medica
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-      En este apartado debe incluir la información médica del paciente, como enfermedades hereditarias, enfermedades previas, cirugías, alergias, traumatismos, vacunas, hábitos negativos y hábitos positivos.
+      En este apartado debe incluir la información médica del paciente, como enfermedades hereditarias, enfermedades previas, cirugías, alergias,
+       traumatismos, vacunas, hábitos negativos y positivos.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-6">

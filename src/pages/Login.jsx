@@ -153,13 +153,13 @@ const LogIn = () => {
         <form onSubmit={onMissingPasswordSubmit}>
           <DialogBody>
             <Typography color="blue-gray">
-              Ingrese su correo electrónico, recibira un correo con las
+              Ingrese su correo electrónico y recibirá las
               instrucciones para restablecer su contraseña.
             </Typography>
             <div className="mt-6 flex flex-col gap-6">
               <Input
                 size="lg"
-                label="CorreoR"
+                label="Correo electrónico"
                 variant="standard"
                 color="blue"
                 type="text"

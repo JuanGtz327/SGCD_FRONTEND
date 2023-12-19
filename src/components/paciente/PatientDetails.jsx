@@ -122,9 +122,9 @@ const PatientDetails = () => {
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
                         Informacion clínica
                       </h2>
-                      <p className="leading-relaxed text-base">
-                        En esta sección se podrá visualizar la información
-                        clínica del paciente. Donde se encuentran los datos del
+                      <p className="leading-relaxed text-base text-justify">
+                        En esta sección podrá visualizar la información
+                        clínica del paciente, donde encontrará los datos del
                         examen físico, así como la historia médica.
                       </p>
                       <Link
@@ -157,9 +157,9 @@ const PatientDetails = () => {
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
                         Padecimientos
                       </h2>
-                      <p className="leading-relaxed text-base">
-                        En esta sección se podrá agregar nuevos padecimientos al
-                        paciente, así como consultar el histórico de
+                      <p className="leading-relaxed text-base text-justify">
+                        Agregue nuevos padecimientos al
+                        paciente, ademas de consultar el histórico de
                         enfermedades.
                       </p>
                       <Link
@@ -169,7 +169,7 @@ const PatientDetails = () => {
                         }medicalCondition/${paciente.id}`}
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
-                        Agregar Padecimiento
+                        Agregar padecimiento
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -192,9 +192,9 @@ const PatientDetails = () => {
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
                         Métricas paciente
                       </h2>
-                      <p className="leading-relaxed text-base">
-                        En esta sección se podrá consultar el progreso del
-                        paciente en cuanto a su peso, estatura, presión
+                      <p className="leading-relaxed text-base text-justify">
+                        Consulte el progreso del
+                        paciente en cuanto a peso, estatura, presión
                         arterial, etc.
                       </p>
                       <Link
@@ -204,7 +204,7 @@ const PatientDetails = () => {
                         }stats/${paciente.id}`}
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
-                        Consultar Metricas
+                        Consultar métricas
                         <svg
                           fill="none"
                           stroke="currentColor"

@@ -136,15 +136,15 @@ const MainPanel = () => {
               <Loader />
             )}
             <p className="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base text-justify">
-              Bienvenido a su panel de control, aquí podrá ver sus citas
-              agendadas para el día de hoy, así como{" "}
+              Bienvenido a su panel de control, aquí podrá visualizar sus citas
+              agendadas del día, así como{" "}
               {user.is_admin
                 ? "los pacientes y doctores"
                 : !user.is_admin && user.is_doctor
                 ? "los pacientes"
                 : "los doctores"}{" "}
               que tiene asociados a su cuenta. También puede ver detalles de su
-              perfil, así como de la clínica a la que pertenece.
+              perfil y la clínica a la que pertenece.
             </p>
           </div>
           <div className="grid 2xl:grid-cols-2 grid-cols-1 gap-1">
@@ -312,7 +312,7 @@ const MainPanel = () => {
                                 Usuarios Clínica
                               </h1>
                               <p className="text-base leading-relaxed lg:w-3/4 mx-auto text-gray-500s">
-                                Seleccione entre pacientes y doctores de su clínica.
+                                Seleccione entre pacientes y doctores.
                               </p>
                               <div className="flex mt-6 justify-center">
                                 <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>

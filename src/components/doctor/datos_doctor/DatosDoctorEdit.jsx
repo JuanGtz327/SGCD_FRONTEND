@@ -401,7 +401,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero exterior"
+              label="Número exterior"
               value={editingData.Domicilio.Num_ext}
               maxLength={5}
               type="text"
@@ -426,7 +426,7 @@ const DatosPersonales = ({ doctor, doctorID }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero interior"
+              label="Número interior"
               value={editingData.Domicilio.Num_int}
               maxLength={5}
               type="text"

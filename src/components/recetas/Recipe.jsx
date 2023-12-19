@@ -79,7 +79,7 @@ const Recipe = () => {
           <Input
             color="blue"
             variant="standard"
-            label="Frecuencia"
+            label="Frecuencía"
             type="text"
             {...register(`Frecuencia${medicines.length + 2}`, {
               required: true,
@@ -91,7 +91,7 @@ const Recipe = () => {
           <Input
             color="blue"
             variant="standard"
-            label="Via de administracion"
+            label="Vía de administración"
             type="text"
             {...register(`Via_administracion${medicines.length + 2}`, {
               required: true,
@@ -241,7 +241,7 @@ const Recipe = () => {
                 </div>
                 <div className="lg:col-span-4">
                   <label className="leading-7 text-sm text-gray-600">
-                    Diagnostico
+                    Diagnóstico
                   </label>
                   <Input
                     color="blue"
@@ -255,7 +255,7 @@ const Recipe = () => {
                 </div>
                 <div className="lg:col-span-4">
                   <label className="leading-7 text-sm text-gray-600">
-                    Fecha de expiracion de la receta
+                    Fecha de expiración de la receta
                   </label>
                   <Input
                     color="blue"
@@ -308,7 +308,7 @@ const Recipe = () => {
                     <Input
                       color="blue"
                       variant="standard"
-                      label="Via de administracion"
+                      label="Vía de administración"
                       type="text"
                       {...register("Via_administracion1", { required: true })}
                       error={errors.Via_administracion1 ? true : false}
@@ -331,7 +331,7 @@ const Recipe = () => {
                   <Textarea
                     color="blue"
                     variant="standard"
-                    label="Indicaciones Adicionales"
+                    label="Indicaciones adicionales"
                     {...register("Indicaciones", { required: false })}
                     className="w-full"
                   />

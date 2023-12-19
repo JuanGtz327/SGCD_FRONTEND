@@ -88,9 +88,7 @@ const CitasHistorial = ({ preAppointments, onAppointments, filtro }) => {
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">Citas</h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado puede opcionalmente agendar una cita con el paciente.
-        Simplemente seleccione el día de su preferencia y la hora en la que
-        desea agendar la cita.
+      Seleccione el día y la hora de su preferencia para agendar la cita. (Opcional)
       </p>
       {loading ? (
         <Loader top="mt-32" />

@@ -7,8 +7,7 @@ const ExamenFisico = ({ register, errors }) => {
         Examen físico
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir los datos del examen físico de su
-        paciente.
+        En este apartado debe incluir los datos requeridos.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -172,7 +171,7 @@ const ExamenFisico = ({ register, errors }) => {
           <Textarea
             variant="standard"
             color="blue"
-            label="Detalles del examen físico"
+            label="Comentarios"
             rows={9}
             {...register("Detalles", { required: true })}
             error={errors.Detalles ? true : false}

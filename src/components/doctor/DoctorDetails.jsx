@@ -126,8 +126,7 @@ const DoctorDetails = () => {
                       </h2>
                       <p className="leading-relaxed text-base">
                         En esta sección puede gestionar las configuraciones de
-                        su doctor, como lo son horas de trabajo, días de
-                        trabajo, etc. Así como tambien modificar sus datos
+                        su doctor; como son, horas de trabajo, días laborables, etc. Así como modificar sus datos
                         personales.
                       </p>
                       <Link

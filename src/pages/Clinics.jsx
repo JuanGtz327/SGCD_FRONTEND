@@ -72,10 +72,8 @@ const Clinics = () => {
                 Clínicas
               </h1>
               <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                Busque entre las clínicas registradas en el sistema, podrá ver
-                los detalles de cada una de ellas. Como los doctores que
-                trabajan en ella, así como las especialidades que se atienden en
-                la misma.
+                Busque entre las clínicas registradas dentro del sistema para poder visualizar los detalles de cada una de ellas,
+                 así como los doctores que trabajan y las especialidades que se atienden en las mismas.
               </p>
               <div className="flex mt-6 justify-center">
                 <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -228,9 +226,8 @@ const Clinics = () => {
                         </div>
                         <div className="flex-grow ml-5">
                           <h2 className="text-gray-900 title-font font-medium">
-                            {`${
-                              Genero === "M" ? "Dr." : "Dra."
-                            }  ${Nombre} ${ApellidoP} ${ApellidoM}`}
+                            {`${Genero === "M" ? "Dr." : "Dra."
+                              }  ${Nombre} ${ApellidoP} ${ApellidoM}`}
                           </h2>
                           <p className="text-gray-500">{Especialidad}</p>
                         </div>

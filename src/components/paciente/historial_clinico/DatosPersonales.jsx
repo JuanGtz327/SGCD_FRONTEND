@@ -186,7 +186,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero telefónico"
+              label="Número telefónico"
               maxLength={10}
               variant="standard"
               color="blue"
@@ -275,7 +275,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero exterior"
+              label="Número exterior"
               maxLength={5}
               color="blue"
               type="text"
@@ -290,7 +290,7 @@ const DatosPersonales = ({
           <div className="mt-2">
             <Input
               size="lg"
-              label="Numero interior"
+              label="Número interior"
               color="blue"
               maxLength={5}
               type="text"

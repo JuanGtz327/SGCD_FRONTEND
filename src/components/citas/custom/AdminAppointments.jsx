@@ -119,8 +119,8 @@ const AdminAppointments = () => {
               Citas
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede consultar la agenda de citas de los
-              doctores, así como agendar citas en base al doctor seleccionado.
+              En este apartado, puede consultar la agenda de los
+              doctores, así como añadir nuevas citas en base al doctor seleccionado.
             </p>
             <div className="flex mt-6 justify-center">
               <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
@@ -255,7 +255,7 @@ const AdminAppointments = () => {
                     open
                     icon={<BsInfoCircleFill />}
                   >
-                    No cuenta con citas agendadas para este dia.
+                    No cuenta con citas agendadas para este día.
                   </Alert>
                 ) : (
                   <AppointmentsAccordion

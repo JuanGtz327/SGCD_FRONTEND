@@ -96,7 +96,7 @@ const Patients = () => {
                   Mis Pacientes
                 </h1>
                 <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-                  En este apartado puede ver a los pacientes pertenecientes a su
+                  En esta sección puede ver a los pacientes adscritos a su
                   clínica.
                 </p>
                 <div className="flex mt-6 justify-center">

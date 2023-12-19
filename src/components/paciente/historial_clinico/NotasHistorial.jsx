@@ -37,7 +37,7 @@ const NotasHistorial = ({onNotas}) => {
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">Notas</h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado se incluyen las notas del paciente.
+        Aquí puede añadir notas al expediente clínico. (Opcional)
       </p>
       <div className="mt-5 w-full">
         <Button

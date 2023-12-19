@@ -269,7 +269,7 @@ const DoctorAdministration = () => {
                             </Alert>
                             <div>
                               <h2 className="text-sm font-semibold leading-7 text-gray-900">
-                                Dias laborales
+                                Días laborables
                               </h2>
                               <div className="mt-5 grid grid-cols-2 sm:grid-cols-7 gap-x-6">
                                 <div className="flex">

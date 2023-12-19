@@ -71,13 +71,30 @@ const ExpedienteClinico = () => {
                   <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
                     Información clínica
                   </h1>
-                  <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-                    En este apartado se incluyen la información de su expediente
-                    clínico. Se divide en tres secciones Historia Medica que es
-                    donde puede consultar el antecedente de enfermedaes, el
-                    examen físico que es donde puede consultar los datos de su
-                    examen físico y por último el historial de médicos.
+                  <p className="text-lg leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
+                    En este apartado se incluye la información de su expediente
+                    clínico. Se divide en tres secciones: <br />
                   </p>
+                  <div className="grid grid-cols-3 px-5 mt-10">
+                    <div className="col-span-1">
+                      <p className="text-xl">Historia médica</p>
+                      <p>
+                        Consulte el antecedente de enfermedades
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="text-xl">Examen Físico</p>
+                      <p>
+                        Verifique las medidas del paciente
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="text-xl">Historial doctores</p>
+                      <p>
+                        Visualice los médicos asociados al paciente
+                      </p>
+                    </div>
+                  </div>
                   <div className="flex mt-6 justify-center">
                     <div className="w-64 h-1 rounded-full bg-indigo-500 inline-flex"></div>
                   </div>

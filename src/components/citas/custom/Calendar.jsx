@@ -78,7 +78,7 @@ const Calendar = ({
                 )}
                 onClick={() => {
                   if (!diasLaborales.includes(getDia(date))) {
-                    showToast("error","Este dia no esta disponible para agendar citas.");
+                    showToast("error","Este día no esta disponible para agendar citas.");
                   }else{
                     onDayChange(date);
                   }

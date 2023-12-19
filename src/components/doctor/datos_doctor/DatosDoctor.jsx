@@ -27,7 +27,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
         Datos personales
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
-        En este apartado debe incluir la información personal de su paciente.
+        En este apartado debe incluir la información personal de su doctor.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -207,7 +207,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
       </h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">
         En este apartado debe axenar los datos del domicilio en el que reside su
-        paciente.
+        doctor.
       </p>
 
       <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-12">
@@ -216,7 +216,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero telefónico"
+              label="Número telefónico"
               variant="standard"
               type="number"
               {...register("Telefono", { required: true })}
@@ -303,7 +303,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero exterior"
+              label="Número exterior"
               maxLength={5}
               type="text"
               variant="standard"
@@ -318,7 +318,7 @@ const DatosPersonales = ({ register, Controller, control, errors }) => {
             <Input
               color="blue"
               size="lg"
-              label="Numero interior"
+              label="Número interior"
               maxLength={5}
               type="text"
               variant="standard"

@@ -93,7 +93,7 @@ const Perfil = () => {
               Perfil
             </h1>
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
-              En este apartado puede consultar su perfil de usuario, así como
+              En este apartado puede consultar su perfil de usuario, y
               editar sus datos personales.
             </p>
             <div className="flex mt-6 justify-center">
@@ -111,11 +111,11 @@ const Perfil = () => {
                   <dt className="text-base font-medium leading-6 text-gray-900">
                     Nombre Completo
                   </dt>
-                  <div className="col-span-5">
+                  <div className="col-span-full lg:col-span-5">
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-0">
                       {user.is_doctor ? (
                         <div className="sm:grid gap-x-6 gap-y-4 sm:grid-cols-12">
-                          <div className="lg:col-span-4">
+                          <div className="col-span-full lg:col-span-4">
                             <div className="mt-6">
                               <Input
                                 color="blue"
@@ -136,7 +136,7 @@ const Perfil = () => {
                               />
                             </div>
                           </div>
-                          <div className="lg:col-span-4">
+                          <div className="col-span-full lg:col-span-4">
                             <div className="mt-6">
                               <Input
                                 color="blue"
@@ -157,7 +157,7 @@ const Perfil = () => {
                               />
                             </div>
                           </div>
-                          <div className="lg:col-span-4">
+                          <div className="col-span-full lg:col-span-4">
                             <div className="mt-6">
                               <Input
                                 color="blue"
@@ -182,7 +182,7 @@ const Perfil = () => {
                       ) : (
                         <>
                           <div className="sm:grid gap-x-6 gap-y-4 sm:grid-cols-12">
-                            <div className="lg:col-span-4">
+                            <div className="col-span-full lg:col-span-4">
                               <div className="mt-6">
                                 <Input
                                   color="blue"
@@ -256,7 +256,7 @@ const Perfil = () => {
                 <dt className="text-base font-medium leading-6 text-gray-900">
                   Credenciales
                 </dt>
-                <div className="col-span-5">
+                <div className="col-span-full  lg:col-span-5">
                   <div className="sm:grid gap-x-6 gap-y-4 sm:grid-cols-6">
                     <dd className="mt-6 text-sm leading-6 text-gray-700 sm:mt-0 col-span-4">
                       <Input
@@ -291,19 +291,19 @@ const Perfil = () => {
                 </div>
               </div>
               {!user.is_admin && (
-                <div className=" px-4 py-6 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-3">
+                <div className=" px-4 py-6 grid grid-cols-1 sm:grid-cols-6 sm:gap-4 sm:px-3">
                   <dt className="text-base font-medium leading-6 text-gray-900">
                     Domicilio
                   </dt>
-                  <div className="col-span-5">
-                    <div className="sm:grid gap-x-6 gap-y-4 sm:grid-cols-12">
-                      <div className="lg:col-span-3">
+                  <div className="col-span-full lg:col-span-5">
+                    <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-12">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
                             size="lg"
                             value={domicilio.Telefono}
-                            label="Numero telefónico"
+                            label="Número telefónico"
                             variant="standard"
                             type="number"
                             {...register("Telefono", { required: true })}
@@ -313,7 +313,7 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
@@ -330,7 +330,7 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
@@ -347,7 +347,7 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
@@ -364,7 +364,7 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
@@ -380,7 +380,7 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
@@ -396,13 +396,13 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
                             value={domicilio.Num_ext}
                             size="lg"
-                            label="Numero exterior"
+                            label="Número exterior"
                             maxLength={5}
                             type="text"
                             variant="standard"
@@ -413,13 +413,13 @@ const Perfil = () => {
                         </div>
                       </div>
 
-                      <div className="lg:col-span-3">
+                      <div className="col-span-full lg:col-span-3">
                         <div className="mt-6">
                           <Input
                             color="blue"
                             value={domicilio.Num_int}
                             size="lg"
-                            label="Numero interior"
+                            label="Número interior"
                             maxLength={5}
                             type="text"
                             variant="standard"
