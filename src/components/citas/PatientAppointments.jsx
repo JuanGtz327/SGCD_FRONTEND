@@ -35,7 +35,7 @@ const PatientAppointments = () => {
   const [newAppointmentBtnVisible, setNewAppointmentBtnVisible] =
     useState(false);
   const { currentDate, getDia, getMes, dayjs } = useCalendar();
-  const { isToday, isBefore, isValidHour, translatedDate } = useDay();
+  const { isToday, isBefore, isValidHour, translatedDate,isBefore6Months } = useDay();
   const [selectedDoctor, setSelectedDoctor] = useState({});
   const [selectDate, setSelectDate] = useState(currentDate);
   const { horariosCita } = useHorarios(docConfigs, appointments, selectDate);
@@ -55,6 +55,12 @@ const PatientAppointments = () => {
     values.Fecha = selectDate.format().split("T")[0] + "T" + values.Hora;
     delete values.Hora;
     delete values.agendaDoctor;
+
+    //Validar que la cita sea maximo en los ultimos 6 meses
+    if (isBefore6Months(values.Fecha)) {
+      showToast("error", "La cita no puede ser mayor a 6 meses", "center");
+      return;
+    }
 
     if (!isValidHour(values.Fecha, 30)) {
       showToast(

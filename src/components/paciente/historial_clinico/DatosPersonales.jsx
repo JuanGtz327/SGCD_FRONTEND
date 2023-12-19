@@ -1,4 +1,10 @@
-import { Input, Select, Option, Typography } from "@material-tailwind/react";
+import {
+  Input,
+  Select,
+  Option,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 const DatosPersonales = ({
   register,
@@ -11,8 +17,10 @@ const DatosPersonales = ({
 }) => {
   const handleInputChange = (event) => {
     if (event.target.name === "Nombre") setNombre(event.target.value);
-    else if (event.target.name === "ApellidoP") setApellidoP(event.target.value);
-    else if (event.target.name === "ApellidoM") setApellidoM(event.target.value);
+    else if (event.target.name === "ApellidoP")
+      setApellidoP(event.target.value);
+    else if (event.target.name === "ApellidoM")
+      setApellidoM(event.target.value);
   };
 
   return (
@@ -140,16 +148,33 @@ const DatosPersonales = ({
         </div>
 
         <div className="lg:col-span-6">
-          <div className="mt-2">
+          <div className="flex gap-5 mt-2 w-full">
             <Input
               size="lg"
               label="Contraseña"
               variant="standard"
+              className="w-[70%]"
               color="blue"
               type="password"
               {...register("Password", { required: true })}
               error={errors.Password ? true : false}
             />
+            <Button
+              color="blue"
+              variant="outlined"
+              className="w-[30%] h-fit"
+              onClick={(e) => {
+                e.preventDefault();
+                const input = document.querySelector('input[name="Password"]');
+                if (input.type === "password") {
+                  input.type = "text";
+                } else {
+                  input.type = "password";
+                }
+              }}
+            >
+              Ver contraseña
+            </Button>
           </div>
           <Typography variant="small" className="flex mt-3" color="blue">
             <svg

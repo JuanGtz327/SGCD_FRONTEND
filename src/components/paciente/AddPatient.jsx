@@ -126,13 +126,13 @@ const AddPatient = () => {
         "La contraseña del paciente no cumple con los requisitos"
       );
 
-    const curpRegex = /^[A-Z]{4}[0-9]{6}[HM][A-Z0-9]{7}$/;
+    const curpRegex = /^[a-zA-ZÑ]{4}[0-9]{6}[HM][A-ZÑ0-9]{7}$/;
 
     if (!curpRegex.test(pacientePayload.CURP))
       showErrors.push("El formato de la CURP no es valido");
 
     //Verificar que el nombre no contenga numeros
-    const nombreRegex = /^[a-zA-Z][a-zA-Z\s]*$/;
+    const nombreRegex = /^[a-zA-ZáÁéÉíÍóÓúÚüÜñÑ][a-zA-ZáÁéÉíÍóÓúÚüÜñÑ\s]*$/;
 
     //aplicar .trim() a los campos de texto
     Object.keys(pacientePayload).forEach((key) => {
@@ -171,11 +171,11 @@ const AddPatient = () => {
 
     //Verificar que el apellido paterno no contenga numeros
     if (!nombreRegex.test(pacientePayload.ApellidoP))
-      showErrors.push("El apellido paterno no es valido");
+      showErrors.push("El apellido paterno no es válido");
 
     //Verificar que el apellido materno no contenga numeros
     if (!nombreRegex.test(pacientePayload.ApellidoM))
-      showErrors.push("El apellido materno no es valido");
+      showErrors.push("El apellido materno no es válido");
 
     //Verificar que el telefono solo contenga numeros y sea de 10 digitos
     const telefonoRegex = /^[0-9]{10}$/;
@@ -191,7 +191,7 @@ const AddPatient = () => {
 
     //Fecha de naacimiento no puede ser mayor a la fecha actual
     if (currentDate.isBefore(dayjs(pacientePayload.Fecha_nacimiento)))
-      showErrors.push("La fecha de nacimiento no es valida");
+      showErrors.push("La fecha de nacimiento no es válida");
 
     const presionRegex = /^\d{2,3}\/\d{2,3}$/;
 
@@ -436,7 +436,7 @@ const AddPatient = () => {
                 <div className="w-full">
                   <Input
                     size="lg"
-                    label="Ingrese su contraseña de doctor"
+                    label={`${user.is_admin ? "Ingrese su contraseña de administrador" : "Ingrese su contraseña de doctor"}`}
                     type="password"
                     color="blue"
                     variant="standard"

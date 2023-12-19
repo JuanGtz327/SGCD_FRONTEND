@@ -95,9 +95,9 @@ const Clinic = () => {
         { clinicaPayload, domicilioPayload },
         user.token
       );
-      showToast("success", "Clínica actualizada");
       handleOpen();
       window.location.reload();
+      showToast("success", "Clínica actualizada");
     } catch (error) {
       showToast("error", error.response.data.message);
     }

@@ -89,7 +89,7 @@ const DocPac = () => {
     <div className="2xl:px-16">
       {!loading && paciente ? (
         <section className="text-gray-600 body-font">
-          <BreadCrumbsPag show={[1, 2, 3, 4]} idPaciente={patientID} />
+          <BreadCrumbsPag show={user.is_admin ? [1,4] : [1, 2, 3, 4]} idPaciente={patientID} />
           <div className="container mx-auto">
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-6 mx-auto">
@@ -145,10 +145,7 @@ const DocPac = () => {
                         {paciente.User.Correo}
                       </Typography>
                       <Link
-                        to={`${
-                          import.meta.env.VITE_FRONTEND_URL ||
-                          "http://localhost:5173/"
-                        }patient/${patientID}`}
+                        to={user.is_admin ? `${ import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/" }patients` : `${ import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173/" }patient/${patientID}`}
                       >
                         <Button className="mt-5 w-fit bg-cerise-500">
                           Volver
